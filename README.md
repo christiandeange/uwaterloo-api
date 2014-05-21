@@ -1,4 +1,4 @@
 uwaterloo-api
 =============
 
-Wrapper around the UWaterloo Open Data API
+Android wrapper for the UWaterloo Open Data API
