@@ -1,1 +1,1 @@
-include ':uwaterlooapi'
+include ':uwaterlooapi', ':uwapi-library'
