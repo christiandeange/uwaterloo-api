@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity
 
                 UWaterlooApi.init("YOUR_API_KEY_HERE");
 
-                final MenuResponse menu = UWaterlooApi.FOOD_SERVICES.getMenu();
+                final MenuResponse menu = UWaterlooApi.FOOD_SERVICES.getWeeklyMenu();
 
                 Log.v("TAG", menu.getOutlets().toString());
 
