@@ -18,29 +18,22 @@ public class Metadata {
      *  }
      */
 
-    public static final String REQUESTS = "requests";
-    public static final String TIMESTAMP = "timestamp";
-    public static final String STATUS = "status";
-    public static final String MESSAGE = "message";
-    public static final String METHOD_ID = "method_id";
-    public static final String VERSION = "version";
-
-    @SerializedName(REQUESTS)
+    @SerializedName("requests")
     private int mRequests;
 
-    @SerializedName(TIMESTAMP)
+    @SerializedName("timestamp")
     private long mTimestamp;
 
-    @SerializedName(STATUS)
+    @SerializedName("status")
     private int mStatus;
 
-    @SerializedName(MESSAGE)
+    @SerializedName("message")
     private String mMessage;
 
-    @SerializedName(METHOD_ID)
+    @SerializedName("method_id")
     private int mMethodId;
 
-    @SerializedName(VERSION)
+    @SerializedName("version")
     private String mVersion;
 
     public int getRequests() {
