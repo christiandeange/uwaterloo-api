@@ -7,11 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
 
 
 public class MainActivity extends FragmentActivity
@@ -40,6 +44,19 @@ public class MainActivity extends FragmentActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                UWaterlooApi.init("YOUR_API_KEY_HERE");
+
+                final MenuResponse menu = UWaterlooApi.FOOD_SERVICES.getMenu();
+
+                Log.v("TAG", menu.getOutlets().toString());
+
+            }
+        }).start();
     }
 
     @Override
