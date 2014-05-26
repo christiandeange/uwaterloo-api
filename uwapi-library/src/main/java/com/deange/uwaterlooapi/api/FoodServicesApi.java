@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
+import com.deange.uwaterlooapi.model.foodservices.DietResponse;
 import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
 import com.deange.uwaterlooapi.model.foodservices.NoteResponse;
 
@@ -18,5 +19,11 @@ public interface FoodServicesApi {
      */
     @GET("/foodservices/notes.{format}")
     public NoteResponse getNotes();
+
+    /**
+     * This method returns a list of all diets
+     */
+    @GET("/foodservices/diets.{format}")
+    public DietResponse getDiets();
 
 }
