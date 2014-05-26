@@ -28,4 +28,12 @@ public final class Utils {
         return sb.toString();
     }
 
+    public static int convertBool(final boolean b) {
+        return b ? 1 : 0;
+    }
+
+    public static boolean convertBool(final int i) {
+        return i != 0;
+    }
+
 }
