@@ -47,4 +47,12 @@ public class DateRange extends BaseModel {
     public Date getEnd() {
         return Formatter.parseDate(mEnd, YMD);
     }
+
+    public String getRawStartDate() {
+        return mStart;
+    }
+
+    public String getRawEndDate() {
+        return mEnd;
+    }
 }
