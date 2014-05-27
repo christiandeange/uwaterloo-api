@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.api;
 
 import com.deange.uwaterlooapi.model.foodservices.DietResponse;
+import com.deange.uwaterlooapi.model.foodservices.LocationsResponse;
 import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
 import com.deange.uwaterlooapi.model.foodservices.NoteResponse;
 import com.deange.uwaterlooapi.model.foodservices.OutletResponse;
@@ -34,4 +35,9 @@ public interface FoodServicesApi {
     @GET("/foodservices/outlets.{format}")
     public OutletResponse getOutlets();
 
+    /**
+     * This method returns a list of all outlets and their operating hour data
+     */
+    @GET("/foodservices/locations.{format}")
+    public LocationsResponse getLocations();
 }

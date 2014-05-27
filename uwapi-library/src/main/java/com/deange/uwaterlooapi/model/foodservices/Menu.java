@@ -25,6 +25,10 @@ public class Menu extends BaseModel {
         return Formatter.parseDate(mDate, DateRange.YMD);
     }
 
+    public String getRawDate() {
+        return mDate;
+    }
+
     public String getDayOfWeek() {
         return mDayOfWeek;
     }

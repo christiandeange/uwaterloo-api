@@ -36,4 +36,8 @@ public class Note extends BaseModel {
     public Date getDate() {
         return Formatter.parseDate(mDate, DateRange.YMD);
     }
+
+    public String getRawDate() {
+        return mDate;
+    }
 }

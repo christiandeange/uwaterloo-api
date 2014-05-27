@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.foodservices.DietResponse;
+import com.deange.uwaterlooapi.model.foodservices.LocationsResponse;
 import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
 import com.deange.uwaterlooapi.model.foodservices.NoteResponse;
 import com.deange.uwaterlooapi.model.foodservices.OutletResponse;
@@ -58,6 +59,7 @@ public class MainActivity extends FragmentActivity
                 final NoteResponse notes = UWaterlooApi.FOOD_SERVICES.getNotes();
                 final DietResponse diets = UWaterlooApi.FOOD_SERVICES.getDiets();
                 final OutletResponse outlets = UWaterlooApi.FOOD_SERVICES.getOutlets();
+                final LocationsResponse locations = UWaterlooApi.FOOD_SERVICES.getLocations();
 
                 Log.v("TAG", "Requests completed.");
 
