@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
+import com.deange.uwaterlooapi.model.foodservices.AnnouncementsResponse;
 import com.deange.uwaterlooapi.model.foodservices.DietResponse;
 import com.deange.uwaterlooapi.model.foodservices.LocationsResponse;
 import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
@@ -47,4 +48,10 @@ public interface FoodServicesApi {
      */
     @GET("/foodservices/watcard.{format}")
     public WatcardResponse getWatcardVendors();
+
+    /**
+     * This method returns additional announcements regarding food served in the current week
+     */
+    @GET("/foodservices/announcements.{format}")
+    public AnnouncementsResponse getAnnouncements();
 }

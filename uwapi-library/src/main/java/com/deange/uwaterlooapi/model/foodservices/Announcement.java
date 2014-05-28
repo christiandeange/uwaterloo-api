@@ -6,19 +6,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class Menu extends BaseModel {
+public class Announcement extends BaseModel {
 
     @SerializedName("date")
     private String mDate;
 
-    @SerializedName("day")
-    private String mDayOfWeek;
-
-    @SerializedName("meals")
-    private Meals mMeals;
-
-    @SerializedName("notes")
-    private String mNotes;
+    @SerializedName("ad_text")
+    private String mText;
 
     public Date getDate() {
         return Formatter.parseDate(mDate, Formatter.YMD);
@@ -28,15 +22,7 @@ public class Menu extends BaseModel {
         return mDate;
     }
 
-    public String getDayOfWeek() {
-        return mDayOfWeek;
-    }
-
-    public Meals getMeals() {
-        return mMeals;
-    }
-
-    public String getNotes() {
-        return mNotes;
+    public String getText() {
+        return mText;
     }
 }

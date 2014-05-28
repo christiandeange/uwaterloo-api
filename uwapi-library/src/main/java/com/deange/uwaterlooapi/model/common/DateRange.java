@@ -8,17 +8,6 @@ import java.util.Date;
 
 public class DateRange extends BaseModel {
 
-    /**
-     *  "date":{
-     *      "week":12,
-     *      "year":2013,
-     *      "start":"2013-03-18",
-     *      "end":"2013-03-22"
-     *  },
-     */
-
-    public static final String YMD = "yyyy-MM-dd";
-
     @SerializedName("week")
     private int mWeek;
 
@@ -41,11 +30,11 @@ public class DateRange extends BaseModel {
     }
 
     public Date getStart() {
-        return Formatter.parseDate(mStart, YMD);
+        return Formatter.parseDate(mStart, Formatter.YMD);
     }
 
     public Date getEnd() {
-        return Formatter.parseDate(mEnd, YMD);
+        return Formatter.parseDate(mEnd, Formatter.YMD);
     }
 
     public String getRawStartDate() {

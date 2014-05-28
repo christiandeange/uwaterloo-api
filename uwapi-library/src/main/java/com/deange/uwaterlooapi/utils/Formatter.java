@@ -10,6 +10,8 @@ public final class Formatter {
 
     private static final String TAG = "Formatter";
 
+    public static final String YMD = "yyyy-MM-dd";
+
     private Formatter() { }
 
     public static Date parseDate(final String date, final String format) {

@@ -1,6 +1,5 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
-import com.deange.uwaterlooapi.model.common.DateRange;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,7 +11,7 @@ public class SpecialOperatingHours extends OperatingHours {
     private String mDate;
 
     public Date getDate() {
-        return Formatter.parseDate(mDate, DateRange.YMD);
+        return Formatter.parseDate(mDate, Formatter.YMD);
     }
 
     public String getRawDate() {

@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.model.common.DateRange;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
@@ -118,7 +117,7 @@ public class Location extends BaseModel {
             mDatesClosed = new ArrayList<>();
 
             for (final String date : mDatesClosedRaw) {
-                final Date parsedDate = Formatter.parseDate(date, DateRange.YMD);
+                final Date parsedDate = Formatter.parseDate(date, Formatter.YMD);
                 if (parsedDate != null) {
                     mDatesClosed.add(parsedDate);
                 }
