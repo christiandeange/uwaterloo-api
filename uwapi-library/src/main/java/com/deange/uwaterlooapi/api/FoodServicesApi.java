@@ -5,6 +5,7 @@ import com.deange.uwaterlooapi.model.foodservices.LocationsResponse;
 import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
 import com.deange.uwaterlooapi.model.foodservices.NoteResponse;
 import com.deange.uwaterlooapi.model.foodservices.OutletResponse;
+import com.deange.uwaterlooapi.model.foodservices.WatcardResponse;
 
 import retrofit.http.GET;
 
@@ -40,4 +41,10 @@ public interface FoodServicesApi {
      */
     @GET("/foodservices/locations.{format}")
     public LocationsResponse getLocations();
+
+    /**
+     * This method returns a list of all WatCard locations according to Food Services
+     */
+    @GET("/foodservices/watcard.{format}")
+    public WatcardResponse getWatcardVendors();
 }
