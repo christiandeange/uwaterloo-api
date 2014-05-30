@@ -21,6 +21,7 @@ import com.deange.uwaterlooapi.model.foodservices.LocationsResponse;
 import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
 import com.deange.uwaterlooapi.model.foodservices.NoteResponse;
 import com.deange.uwaterlooapi.model.foodservices.OutletResponse;
+import com.deange.uwaterlooapi.model.foodservices.ProductResponse;
 import com.deange.uwaterlooapi.model.foodservices.WatcardResponse;
 
 
@@ -64,6 +65,7 @@ public class MainActivity extends FragmentActivity
                 final LocationsResponse locations = UWaterlooApi.FOOD_SERVICES.getLocations();
                 final WatcardResponse watcard = UWaterlooApi.FOOD_SERVICES.getWatcardVendors();
                 final AnnouncementsResponse announcements = UWaterlooApi.FOOD_SERVICES.getAnnouncements();
+                final ProductResponse product = UWaterlooApi.FOOD_SERVICES.getProduct(1386);
 
                 Log.v("TAG", "Requests completed.");
 

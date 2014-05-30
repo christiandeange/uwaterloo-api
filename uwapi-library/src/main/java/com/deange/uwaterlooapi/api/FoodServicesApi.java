@@ -6,9 +6,11 @@ import com.deange.uwaterlooapi.model.foodservices.LocationsResponse;
 import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
 import com.deange.uwaterlooapi.model.foodservices.NoteResponse;
 import com.deange.uwaterlooapi.model.foodservices.OutletResponse;
+import com.deange.uwaterlooapi.model.foodservices.ProductResponse;
 import com.deange.uwaterlooapi.model.foodservices.WatcardResponse;
 
 import retrofit.http.GET;
+import retrofit.http.Path;
 
 public interface FoodServicesApi {
 
@@ -54,4 +56,10 @@ public interface FoodServicesApi {
      */
     @GET("/foodservices/announcements.{format}")
     public AnnouncementsResponse getAnnouncements();
+
+    /**
+     * This method returns a product's nutritional information
+     */
+    @GET("/foodservices/products/{product_id}.{format}")
+    public ProductResponse getProduct(@Path("product_id") int productId);
 }
