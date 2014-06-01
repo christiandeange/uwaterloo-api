@@ -15,14 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
-import com.deange.uwaterlooapi.model.foodservices.AnnouncementsResponse;
-import com.deange.uwaterlooapi.model.foodservices.DietResponse;
-import com.deange.uwaterlooapi.model.foodservices.LocationsResponse;
-import com.deange.uwaterlooapi.model.foodservices.MenuResponse;
-import com.deange.uwaterlooapi.model.foodservices.NoteResponse;
-import com.deange.uwaterlooapi.model.foodservices.OutletResponse;
-import com.deange.uwaterlooapi.model.foodservices.ProductResponse;
-import com.deange.uwaterlooapi.model.foodservices.WatcardResponse;
+import com.deange.uwaterlooapi.model.foodservices.Response;
 
 
 public class MainActivity extends FragmentActivity
@@ -58,14 +51,14 @@ public class MainActivity extends FragmentActivity
 
                 UWaterlooApi.init("YOUR_API_KEY_HERE");
 
-                final MenuResponse menu = UWaterlooApi.FOOD_SERVICES.getWeeklyMenu();
-                final NoteResponse notes = UWaterlooApi.FOOD_SERVICES.getNotes();
-                final DietResponse diets = UWaterlooApi.FOOD_SERVICES.getDiets();
-                final OutletResponse outlets = UWaterlooApi.FOOD_SERVICES.getOutlets();
-                final LocationsResponse locations = UWaterlooApi.FOOD_SERVICES.getLocations();
-                final WatcardResponse watcard = UWaterlooApi.FOOD_SERVICES.getWatcardVendors();
-                final AnnouncementsResponse announcements = UWaterlooApi.FOOD_SERVICES.getAnnouncements();
-                final ProductResponse product = UWaterlooApi.FOOD_SERVICES.getProduct(1386);
+                final Response.Menus menu = UWaterlooApi.FOOD_SERVICES.getWeeklyMenu();
+                final Response.Notes notes = UWaterlooApi.FOOD_SERVICES.getNotes();
+                final Response.Diets diets = UWaterlooApi.FOOD_SERVICES.getDiets();
+                final Response.Outlets outlets = UWaterlooApi.FOOD_SERVICES.getOutlets();
+                final Response.Locations locations = UWaterlooApi.FOOD_SERVICES.getLocations();
+                final Response.Watcards watcard = UWaterlooApi.FOOD_SERVICES.getWatcardVendors();
+                final Response.Announcements announcements = UWaterlooApi.FOOD_SERVICES.getAnnouncements();
+                final Response.Products product = UWaterlooApi.FOOD_SERVICES.getProduct(1386);
 
                 Log.v("TAG", "Requests completed.");
 
