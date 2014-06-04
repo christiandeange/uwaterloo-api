@@ -4,6 +4,7 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Utils;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Outlet extends BaseModel {
@@ -38,7 +39,7 @@ public class Outlet extends BaseModel {
      * This field is only set for getMenu() request
      */
     public List<Menu> getMenu() {
-        return mMenu;
+        return Collections.unmodifiableList(mMenu);
     }
 
     /**

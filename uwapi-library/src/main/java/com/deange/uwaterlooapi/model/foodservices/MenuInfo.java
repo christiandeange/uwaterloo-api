@@ -3,6 +3,7 @@ package com.deange.uwaterlooapi.model.foodservices;
 import com.deange.uwaterlooapi.model.common.DateRange;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Collections;
 import java.util.List;
 
 final class MenuInfo {
@@ -18,7 +19,7 @@ final class MenuInfo {
     }
 
     public List<Outlet> getOutlets() {
-        return mOutlets;
+        return Collections.unmodifiableList(mOutlets);
     }
 
 }
