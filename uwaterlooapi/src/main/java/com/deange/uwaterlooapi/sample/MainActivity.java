@@ -54,17 +54,17 @@ public class MainActivity extends FragmentActivity
                 final int year = 2014;
                 final int week = 10;
 
-                final Response.Menus menu = UWaterlooApi.FOOD_SERVICES.getWeeklyMenu();
-                final Response.Menus menu2 = UWaterlooApi.FOOD_SERVICES.getWeeklyMenu(year, week);
-                final Response.Notes notes = UWaterlooApi.FOOD_SERVICES.getNotes();
-                final Response.Notes notes2 = UWaterlooApi.FOOD_SERVICES.getNotes(year, week);
-                final Response.Diets diets = UWaterlooApi.FOOD_SERVICES.getDiets();
-                final Response.Outlets outlets = UWaterlooApi.FOOD_SERVICES.getOutlets();
-                final Response.Locations locations = UWaterlooApi.FOOD_SERVICES.getLocations();
-                final Response.Watcards watcard = UWaterlooApi.FOOD_SERVICES.getWatcardVendors();
-                final Response.Announcements announcements = UWaterlooApi.FOOD_SERVICES.getAnnouncements();
-                final Response.Announcements announcements2 = UWaterlooApi.FOOD_SERVICES.getAnnouncements(year, week);
-                final Response.Products product = UWaterlooApi.FOOD_SERVICES.getProduct(1386);
+                final Response.Menus menu = UWaterlooApi.FoodServices.getWeeklyMenu();
+                final Response.Menus menu2 = UWaterlooApi.FoodServices.getWeeklyMenu(year, week);
+                final Response.Notes notes = UWaterlooApi.FoodServices.getNotes();
+                final Response.Notes notes2 = UWaterlooApi.FoodServices.getNotes(year, week);
+                final Response.Diets diets = UWaterlooApi.FoodServices.getDiets();
+                final Response.Outlets outlets = UWaterlooApi.FoodServices.getOutlets();
+                final Response.Locations locations = UWaterlooApi.FoodServices.getLocations();
+                final Response.Watcards watcard = UWaterlooApi.FoodServices.getWatcardVendors();
+                final Response.Announcements announcements = UWaterlooApi.FoodServices.getAnnouncements();
+                final Response.Announcements announcements2 = UWaterlooApi.FoodServices.getAnnouncements(year, week);
+                final Response.Products product = UWaterlooApi.FoodServices.getProduct(1386);
 
                 Log.v("TAG", "Requests completed.");
 

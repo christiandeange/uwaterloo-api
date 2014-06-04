@@ -41,6 +41,6 @@ public final class UWaterlooApi {
      * APIs DEFINED BELOW
      */
 
-    public static final FoodServicesApi FOOD_SERVICES = ApiBuilder.build(FoodServicesApi.class);
+    public static final FoodServicesApi FoodServices = ApiBuilder.build(FoodServicesApi.class);
 
 }
