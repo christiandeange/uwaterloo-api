@@ -61,4 +61,10 @@ public interface FoodServicesApi {
      */
     @GET("/foodservices/{year}/{week}/menu.{format}")
     public Response.Menus getWeeklyMenu(@Path("year") int year, @Path("week") int week);
+
+    /**
+     * This method returns additional notes regarding food served in the given week
+     */
+    @GET("/foodservices/{year}/{week}/notes.{format}")
+    public Response.Notes getNotes(@Path("year") int year, @Path("week") int week);
 }
