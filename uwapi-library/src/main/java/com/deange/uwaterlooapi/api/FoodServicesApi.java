@@ -55,4 +55,10 @@ public interface FoodServicesApi {
      */
     @GET("/foodservices/products/{product_id}.{format}")
     public Response.Products getProduct(@Path("product_id") int productId);
+
+    /**
+     * This method returns the given week and year's food menu.
+     */
+    @GET("/foodservices/{year}/{week}/menu.{format}")
+    public Response.Menus getWeeklyMenu(@Path("year") int year, @Path("week") int week);
 }
