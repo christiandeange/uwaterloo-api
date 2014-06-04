@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.http;
+package com.deange.uwaterlooapi.model.common;
 
 public enum DataFormat {
 

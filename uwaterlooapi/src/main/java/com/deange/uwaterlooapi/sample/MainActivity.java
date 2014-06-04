@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.model.common.DataFormat;
 import com.deange.uwaterlooapi.model.foodservices.Response;
 
 
@@ -49,7 +50,7 @@ public class MainActivity extends FragmentActivity
             @Override
             public void run() {
 
-                UWaterlooApi.init("YOUR_API_KEY_HERE");
+                UWaterlooApi.init("YOUR_API_KEY_HERE", DataFormat.JSON);
 
                 final int year = 2014;
                 final int week = 10;

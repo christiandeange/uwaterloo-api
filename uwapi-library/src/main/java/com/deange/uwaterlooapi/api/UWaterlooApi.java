@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.http.DataFormat;
+import com.deange.uwaterlooapi.model.common.DataFormat;
 
 public final class UWaterlooApi {
 
@@ -13,6 +13,11 @@ public final class UWaterlooApi {
 
     public static void init(final String apiKey) {
         sApiKey = apiKey;
+    }
+
+    public static void init(final String apiKey, final DataFormat format) {
+        init(apiKey);
+        setDataFormat(format);
     }
 
     /* package */ static String getApiKey() {
