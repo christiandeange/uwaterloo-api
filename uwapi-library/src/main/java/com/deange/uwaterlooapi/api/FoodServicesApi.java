@@ -67,4 +67,10 @@ public interface FoodServicesApi {
      */
     @GET("/foodservices/{year}/{week}/notes.{format}")
     public Response.Notes getNotes(@Path("year") int year, @Path("week") int week);
+
+    /**
+     * This method returns additional announcements regarding food served in the given week
+     */
+    @GET("/foodservices/{year}/{week}/announcements.{format}")
+    public Response.Announcements getAnnouncements(@Path("year") int year, @Path("week") int week);
 }

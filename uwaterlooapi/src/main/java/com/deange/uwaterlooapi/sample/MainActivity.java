@@ -63,6 +63,7 @@ public class MainActivity extends FragmentActivity
                 final Response.Locations locations = UWaterlooApi.FOOD_SERVICES.getLocations();
                 final Response.Watcards watcard = UWaterlooApi.FOOD_SERVICES.getWatcardVendors();
                 final Response.Announcements announcements = UWaterlooApi.FOOD_SERVICES.getAnnouncements();
+                final Response.Announcements announcements2 = UWaterlooApi.FOOD_SERVICES.getAnnouncements(year, week);
                 final Response.Products product = UWaterlooApi.FOOD_SERVICES.getProduct(1386);
 
                 Log.v("TAG", "Requests completed.");
