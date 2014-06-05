@@ -3,7 +3,7 @@ package com.deange.uwaterlooapi.sample;
 import android.util.Log;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
-import com.deange.uwaterlooapi.model.foodservices.Response;
+import com.deange.uwaterlooapi.model.common.Response;
 
 /**
  * THIS CLASS IS TEMPORARY
@@ -46,9 +46,9 @@ public final class ApiRunner {
         final int courseCode = 349;
         final int courseId = 7407;
 
-        
+        final Response.Courses course = UWaterlooApi.CoursesApi.getCourseInfo(section);
 
-
+        Log.v("TAG", "Courses requests completed.");
     }
 
 }

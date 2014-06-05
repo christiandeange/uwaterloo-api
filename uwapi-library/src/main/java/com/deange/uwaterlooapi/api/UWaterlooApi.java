@@ -48,4 +48,6 @@ public final class UWaterlooApi {
 
     public static final FoodServicesApi FoodServices = ApiBuilder.build(FoodServicesApi.class);
 
+    public static final CoursesApi CoursesApi = ApiBuilder.build(CoursesApi.class);
+
 }

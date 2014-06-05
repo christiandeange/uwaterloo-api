@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.foodservices.Response;
+import com.deange.uwaterlooapi.model.common.Response;
 
 import retrofit.http.GET;
 import retrofit.http.Path;

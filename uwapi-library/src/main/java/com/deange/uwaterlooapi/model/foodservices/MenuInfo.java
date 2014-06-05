@@ -1,12 +1,13 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.DateRange;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Collections;
 import java.util.List;
 
-final class MenuInfo {
+public class MenuInfo extends BaseModel {
 
     @SerializedName("date")
     private DateRange mDateRange;
