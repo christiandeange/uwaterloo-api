@@ -46,29 +46,12 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        UWaterlooApi.init("YOUR_API_KEY_HERE", DataFormat.JSON);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                UWaterlooApi.init("YOUR_API_KEY_HERE", DataFormat.JSON);
-
-                final int year = 2014;
-                final int week = 10;
-
-                final Response.Menus menu = UWaterlooApi.FoodServices.getWeeklyMenu();
-                final Response.Menus menu2 = UWaterlooApi.FoodServices.getWeeklyMenu(year, week);
-                final Response.Notes notes = UWaterlooApi.FoodServices.getNotes();
-                final Response.Notes notes2 = UWaterlooApi.FoodServices.getNotes(year, week);
-                final Response.Diets diets = UWaterlooApi.FoodServices.getDiets();
-                final Response.Outlets outlets = UWaterlooApi.FoodServices.getOutlets();
-                final Response.Locations locations = UWaterlooApi.FoodServices.getLocations();
-                final Response.Watcards watcard = UWaterlooApi.FoodServices.getWatcardVendors();
-                final Response.Announcements announcements = UWaterlooApi.FoodServices.getAnnouncements();
-                final Response.Announcements announcements2 = UWaterlooApi.FoodServices.getAnnouncements(year, week);
-                final Response.Products product = UWaterlooApi.FoodServices.getProduct(1386);
-
-                Log.v("TAG", "Requests completed.");
-
+                ApiRunner.runAll();
             }
         }).start();
     }
