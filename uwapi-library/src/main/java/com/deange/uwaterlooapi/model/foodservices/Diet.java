@@ -11,10 +11,16 @@ public class Diet extends BaseModel {
     @SerializedName("diet_type")
     private String mType;
 
+    /**
+     * Diet ID number
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * Diet type
+     */
     public String getType() {
         return mType;
     }

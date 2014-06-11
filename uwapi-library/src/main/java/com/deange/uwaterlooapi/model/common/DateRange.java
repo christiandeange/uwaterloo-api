@@ -20,27 +20,44 @@ public class DateRange extends BaseModel {
     @SerializedName("end")
     private String mEnd;
 
-
+    /**
+     * Requested week
+     */
     public int getWeek() {
         return mWeek;
     }
 
+    /**
+     * Requested year
+     */
     public int getYear() {
         return mYear;
     }
 
+    /**
+     * Starting day of the menu (Y-m-d)
+     */
     public Date getStart() {
         return Formatter.parseDate(mStart, Formatter.YMD);
     }
 
+    /**
+     * Ending day of the menu (Y-m-d)
+     */
     public Date getEnd() {
         return Formatter.parseDate(mEnd, Formatter.YMD);
     }
 
+    /**
+     * Starting day of the menu (Y-m-d) as a string
+     */
     public String getRawStartDate() {
         return mStart;
     }
 
+    /**
+     * Ending day of the menu (Y-m-d) as a string
+     */
     public String getRawEndDate() {
         return mEnd;
     }

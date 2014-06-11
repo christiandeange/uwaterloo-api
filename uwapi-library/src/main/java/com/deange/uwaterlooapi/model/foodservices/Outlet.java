@@ -27,15 +27,23 @@ public class Outlet extends BaseModel {
     @SerializedName("has_dinner")
     private int mDinner;
 
+    /**
+     * Foodservices ID for the outlet
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * Name of the outlet
+     */
     public String getName() {
         return mName;
     }
 
     /**
+     * The outlet menu list
+     * <p />
      * This field is only set for getMenu() request
      */
     public List<Menu> getMenu() {
@@ -43,6 +51,8 @@ public class Outlet extends BaseModel {
     }
 
     /**
+     * If serves breakfast
+     * <p />
      * This field is only set for getOutlets() request
      */
     public boolean servesBreakfast() {
@@ -50,6 +60,8 @@ public class Outlet extends BaseModel {
     }
 
     /**
+     * If serves lunch
+     * <p />
      * This field is only set for getOutlets() request
      */
     public boolean servesLunch() {
@@ -57,6 +69,8 @@ public class Outlet extends BaseModel {
     }
 
     /**
+     * If serves dinner
+     * <p />
      * This field is only set for getOutlets() request
      */
     public boolean servesDinner() {

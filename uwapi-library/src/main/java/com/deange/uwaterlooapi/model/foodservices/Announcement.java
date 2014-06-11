@@ -14,14 +14,23 @@ public class Announcement extends BaseModel {
     @SerializedName("ad_text")
     private String mText;
 
+    /**
+     * Advertisement date object
+     */
     public Date getDate() {
         return Formatter.parseDate(mDate, Formatter.YMD);
     }
 
+    /**
+     * Advertisement date object as a string
+     */
     public String getRawDate() {
         return mDate;
     }
 
+    /**
+     * Advertisement text
+     */
     public String getText() {
         return mText;
     }

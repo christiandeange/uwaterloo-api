@@ -50,39 +50,65 @@ public class Location extends BaseModel {
 
     private List<Date> mDatesClosed;
 
+    /**
+     * Outlet ID number (not always same as outets.json method). Can be null
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * Outlet name
+     */
     public String getName() {
         return mName;
     }
 
+    /**
+     * Name of the building the outlet is located
+     */
     public String getBuilding() {
         return mBuilding;
     }
 
+    /**
+     * URL of the ouetlet logo (size varies)
+     */
     public String getLogoUrl() {
         return mLogoUrl;
     }
 
+    /**
+     * Location [latitude, longitude] coordinates
+     */
     private float[] getLocation() {
         return new float[] { mLatitude, mLongitude };
     }
 
+    /**
+     * Location blurb
+     */
     public String getDescription() {
         return mDescription;
     }
 
+    /**
+     * Outlet specific anouncements
+     */
     public String getAnnouncements() {
         return mAnnouncements;
     }
 
+    /**
+     * Predicts if the location is currently open by taking the current time into account
+     */
     public boolean isOpenNow() {
         return mIsOpenNow;
     }
 
     /**
+     * Weekly operating hours data
+     * </p >
      * @param dayOfWeek is one of the following:
      *
      * {@link OperatingHours#SUNDAY SUNDAY},
@@ -98,18 +124,30 @@ public class Location extends BaseModel {
         return mHours.get(dayOfWeek);
     }
 
+    /**
+     * Weekly operating hours data
+     */
     public Map<String, OperatingHours> getHours() {
         return Collections.unmodifiableMap(mHours);
     }
 
+    /**
+     * Special cases for operating hours
+     */
     public List<SpecialOperatingHours> getSpecialOperatingHours() {
         return Collections.unmodifiableList(mSpecialOperatingHours);
     }
 
+    /**
+     * Y-m-d format list of dates the outlet is closed as strings
+     */
     public List<String> getRawDatesClosed() {
         return Collections.unmodifiableList(mDatesClosedRaw);
     }
 
+    /**
+     * Y-m-d format list of dates the outlet is closed
+     */
     public List<Date> getDatesClosed() {
 
         // Lazy load the parsed Date objects

@@ -95,122 +95,212 @@ public class Product extends BaseModel {
     @SerializedName("diet_type")
     private String mDietType;
 
+    /**
+     * Food item's numeric id
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * Name of the food item
+     */
     public String getName() {
         return mName;
     }
 
+    /**
+     * Food ingredients
+     */
     public String getIngredients() {
         return mIngredients;
     }
 
+    /**
+     * Item's service size (in grams or whole)
+     */
     public String getServingSize() {
         return mServingSize;
     }
 
+    /**
+     * Serving size in milliliters
+     */
     public int getServingSizeMilliliters() {
         return mServingSizeMl;
     }
 
+    /**
+     * Serving size in grams
+     */
     public int getServingSizeGrams() {
         return mServingSizeG;
     }
 
+    /**
+     * Food calorie count
+     */
     public int getCalories() {
         return mCalories;
     }
 
+    /**
+     * Total fat in grams
+     */
     public int getTotalFatGrams() {
         return mTotalFatG;
     }
 
+    /**
+     * Total fat in percentage
+     */
     public int getTotalFatPercent() {
         return mTotalFatPercent;
     }
 
+    /**
+     * Total saturated fat in grams
+     */
     public int getFatSaturatedGrams() {
         return mFatSaturatedG;
     }
 
+    /**
+     * Total saturated fat in percentage
+     */
     public int getFatSaturatedPercent() {
         return mFatSaturatedPercent;
     }
 
+    /**
+     * Total trans fat in grams
+     */
     public int getFatTransGrams() {
         return mFatTransG;
     }
 
+    /**
+     * Total trans fat in percentage
+     */
     public int getFatTransPercent() {
         return mFatTransPercent;
     }
 
+    /**
+     * Total cholesterol in milligrams
+     */
     public int getCholesterol() {
         return mCholesterol;
     }
 
+    /**
+     * Sodium in milligrams
+     */
     public int getSodiumMilligrams() {
         return mSodiumMg;
     }
 
+    /**
+     * Sodium in percentage
+     */
     public int getSodiumPercent() {
         return mSodiumPercent;
     }
 
+    /**
+     * Total carbohydrates in grams
+     */
     public int getCarbohydratesGrams() {
         return mCarbohydratesG;
     }
 
+    /**
+     * Carbohydrates as percentage
+     */
     public int getCarbohydratesPercent() {
         return mCarbohydratesPercent;
     }
 
+    /**
+     * Carbohydrate fibres in grams
+     */
     public int getFibreGrams() {
         return mFibreG;
     }
 
+    /**
+     * Carbohydrate fibers as percentage
+     */
     public int getFibrePercent() {
         return mFibrePercent;
     }
 
+    /**
+     * Carbohydrate sugar in grams
+     */
     public int getSugarGrams() {
         return mSugar;
     }
 
+    /**
+     * Total protein in grams
+     */
     public int getProteinGrams() {
         return mProtein;
     }
 
+    /**
+     * Total vitamin A percentage
+     */
     public int getVitaminAPercent() {
         return mVitaminAPercent;
     }
 
+    /**
+     * Total vitamin C percentage
+     */
     public int getVitaminCPercent() {
         return mVitaminCPercent;
     }
 
-    public int getCalciumGrams() {
+    /**
+     * Total calcium percentage
+     */
+    public int getCalciumPercentage() {
         return mCalcium;
     }
 
-    public int getIronGrams() {
+    /**
+     * Total iron percentage
+     */
+    public int getIronPercentage() {
         return mIron;
     }
 
+    /**
+     * Micro nutrients in item
+     */
     public String getMicroNutrients() {
         return mMicroNutrients;
     }
 
+    /**
+     * Any eating tips for the item
+     */
     public String getTips() {
         return mTips;
     }
 
+    /**
+     * Foodservices-given diet id
+     */
     public int getDietId() {
         return mDietId;
     }
 
+    /**
+     * Foodservices-given diet string
+     */
     public String getDietType() {
         return mDietType;
     }

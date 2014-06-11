@@ -26,30 +26,51 @@ public class Course extends BaseModel {
     @SerializedName("academic_level")
     private String mAcademicLevel;
 
+    /**
+     * Registrar assigned course ID
+     */
     public String getCourseId() {
         return mCourseId;
     }
 
+    /**
+     * Requested subject acronym
+     */
     public String getSubject() {
         return mSubject;
     }
 
+    /**
+     * Registrar assigned class number
+     */
     public String getCatalogNumber() {
         return mCatalogNumber;
     }
 
+    /**
+     * Class name and title
+     */
     public String getTitle() {
         return mTitle;
     }
 
+    /**
+     * Brief course description
+     */
     public String getDescription() {
         return mDescription;
     }
 
+    /**
+     * Credit count for the mentioned course
+     */
     public float getUnits() {
         return mUnits;
     }
 
+    /**
+     * Undergraduate or graduate course classification
+     */
     public String getAcademicLevel() {
         return mAcademicLevel;
     }

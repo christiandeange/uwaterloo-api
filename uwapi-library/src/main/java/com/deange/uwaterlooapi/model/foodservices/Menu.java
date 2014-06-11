@@ -20,22 +20,37 @@ public class Menu extends BaseModel {
     @SerializedName("notes")
     private String mNotes;
 
+    /**
+     * Date of the menu (Y-m-d)
+     */
     public Date getDate() {
         return Formatter.parseDate(mDate, Formatter.YMD);
     }
 
+    /**
+     * Date of the menu (Y-m-d) as a string
+     */
     public String getRawDate() {
         return mDate;
     }
 
+    /**
+     * Day of the week
+     */
     public String getDayOfWeek() {
         return mDayOfWeek;
     }
 
+    /**
+     * All the meals for the day
+     */
     public Meals getMeals() {
         return mMeals;
     }
 
+    /**
+     * Additional announcements for the day
+     */
     public String getNotes() {
         return mNotes;
     }

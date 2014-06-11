@@ -14,10 +14,16 @@ public class Meals extends BaseModel {
     @SerializedName("dinner")
     private List<Meal> mDinner;
 
+    /**
+     * Lunch menu items
+     */
     public List<Meal> getLunch() {
         return Collections.unmodifiableList(mLunch);
     }
 
+    /**
+     * Dinner menu items
+     */
     public List<Meal> getDinner() {
         return Collections.unmodifiableList(mDinner);
     }

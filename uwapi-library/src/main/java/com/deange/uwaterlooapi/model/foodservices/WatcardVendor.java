@@ -11,10 +11,16 @@ public class WatcardVendor extends BaseModel {
     @SerializedName("vendor_name")
     private String mName;
 
+    /**
+     * Outlet ID number
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * Vendor name
+     */
     public String getName() {
         return mName;
     }

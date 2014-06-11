@@ -52,24 +52,31 @@ public interface FoodServicesApi {
 
     /**
      * This method returns a product's nutritional information
+     * @param productId Valid product ID from menu
      */
     @GET("/foodservices/products/{product_id}.{format}")
     public Response.Products getProduct(@Path("product_id") int productId);
 
     /**
      * This method returns the given week and year's food menu.
+     * @param year The year of menu to be requested
+     * @param week The week number of the menu to be requested
      */
     @GET("/foodservices/{year}/{week}/menu.{format}")
     public Response.Menus getWeeklyMenu(@Path("year") int year, @Path("week") int week);
 
     /**
      * This method returns additional notes regarding food served in the given week
+     * @param year The year of notes to be requested
+     * @param week The week number of the notes to be requested
      */
     @GET("/foodservices/{year}/{week}/notes.{format}")
     public Response.Notes getNotes(@Path("year") int year, @Path("week") int week);
 
     /**
      * This method returns additional announcements regarding food served in the given week
+     * @param year The year of announcements to be requested
+     * @param week The week number of the announcements to be requested
      */
     @GET("/foodservices/{year}/{week}/announcements.{format}")
     public Response.Announcements getAnnouncements(@Path("year") int year, @Path("week") int week);

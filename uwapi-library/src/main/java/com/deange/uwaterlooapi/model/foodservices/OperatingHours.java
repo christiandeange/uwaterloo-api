@@ -24,14 +24,23 @@ public class OperatingHours extends BaseModel {
     @SerializedName("is_closed")
     private boolean mClosedAllDay;
 
+    /**
+     * Locations opening time {@link #TIME_FORMAT (H:i format)}
+     */
     public String getOpeningHour() {
         return mOpeningHour;
     }
 
+    /**
+     * Locations closing time {@link #TIME_FORMAT (H:i format)}
+     */
     public String getClosingHour() {
         return mClosingHour;
     }
 
+    /**
+     * If the location is closed on that day
+     */
     public boolean isClosedAllDay() {
         return mClosedAllDay;
     }

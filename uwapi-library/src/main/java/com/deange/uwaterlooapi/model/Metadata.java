@@ -4,20 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Metadata {
 
-    /**
-     *  "meta":{
-     *      "requests":136,
-     *      "timestamp":1381961484,
-     *      "status":200,
-     *      "message":"Request successful",
-     *      "method_id":1291,
-     *      "version":2.07,
-     *      "method":{
-     *          <p/>
-     *      }
-     *  }
-     */
-
     @SerializedName("requests")
     private int mRequests;
 
@@ -36,26 +22,44 @@ public class Metadata {
     @SerializedName("version")
     private String mVersion;
 
+    /**
+     * The number of times this method has been called from this API key
+     */
     public int getRequests() {
         return mRequests;
     }
 
+    /**
+     * Current server time
+     */
     public long getTimestamp() {
         return mTimestamp;
     }
 
+    /**
+     * HTTP/1.1 response code, as per RFC 2616
+     */
     public int getStatus() {
         return mStatus;
     }
 
+    /**
+     * The response string from the server
+     */
     public String getMessage() {
         return mMessage;
     }
 
+    /**
+     * The ID of the method called
+     */
     public int getMethodId() {
         return mMethodId;
     }
 
+    /**
+     * The current version of this API
+     */
     public String getVersion() {
         return mVersion;
     }

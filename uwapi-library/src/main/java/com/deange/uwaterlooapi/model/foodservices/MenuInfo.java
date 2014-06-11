@@ -15,10 +15,16 @@ public class MenuInfo extends BaseModel {
     @SerializedName("outlets")
     private List<Outlet> mOutlets;
 
+    /**
+     * Menu date object
+     */
     public DateRange getDateRange() {
         return mDateRange;
     }
 
+    /**
+     * Available outlets
+     */
     public List<Outlet> getOutlets() {
         return Collections.unmodifiableList(mOutlets);
     }
