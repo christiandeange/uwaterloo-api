@@ -29,8 +29,9 @@ public class Course extends BaseModel {
     /**
      * Registrar assigned course ID
      */
-    public String getCourseId() {
-        return mCourseId;
+    public int getCourseId() {
+        // Ensure it is not interpreted as octal
+        return Integer.parseInt(mCourseId, 10);
     }
 
     /**

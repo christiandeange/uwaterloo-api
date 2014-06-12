@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.model.common;
 
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.model.courses.Course;
+import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.model.foodservices.Announcement;
 import com.deange.uwaterlooapi.model.foodservices.Diet;
 import com.deange.uwaterlooapi.model.foodservices.Location;
@@ -40,5 +41,7 @@ public class Response {
     // COURSES
 
     public static class Courses extends SimpleResponse<List<Course>> { }
+
+    public static class CoursesInfo extends SimpleResponse<CourseInfo> { }
 
 }

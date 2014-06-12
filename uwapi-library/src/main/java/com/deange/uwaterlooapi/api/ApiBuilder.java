@@ -13,11 +13,14 @@ public class ApiBuilder {
 
     /* package */ static ApiInterceptor sInterceptor = new ApiInterceptor();
 
+    /* package */ static ApiModelConverter sConverter = ApiModelConverter.newInstance();
+
     public static <T> T build(final Class<T> clazz) {
 
         return new RestAdapter.Builder()
                 .setEndpoint(BASE_URL)
                 .setRequestInterceptor(sInterceptor)
+                .setConverter(sConverter)
                 .build()
                 .create(clazz);
     }

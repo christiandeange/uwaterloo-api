@@ -14,4 +14,11 @@ public interface CoursesApi {
     @GET("/courses/{subject}.{format}")
     public Response.Courses getCourseInfo(@Path("subject") String subject);
 
+    /**
+     * This method returns all available information for a given course
+     * @param courseId Valid uWaterloo course ID
+     */
+    @GET("/courses/{course_id}.{format}")
+    public Response.CoursesInfo getCourseInfo(@Path("course_id") int courseId);
+
 }

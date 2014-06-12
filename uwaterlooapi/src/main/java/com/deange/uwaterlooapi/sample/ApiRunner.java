@@ -44,9 +44,10 @@ public final class ApiRunner {
 
         final String section = "CS";
         final int courseCode = 349;
-        final int courseId = 7407;
+        final int courseId = 13106;
 
-        final Response.Courses course = UWaterlooApi.CoursesApi.getCourseInfo(section);
+        final Response.Courses courses = UWaterlooApi.CoursesApi.getCourseInfo(section);
+        final Response.CoursesInfo course = UWaterlooApi.CoursesApi.getCourseInfo(courseId);
 
         Log.v("TAG", "Courses requests completed.");
     }
