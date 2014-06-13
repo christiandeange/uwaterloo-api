@@ -32,6 +32,7 @@ public interface CoursesApi {
     /**
      * This method returns the class schedule for a given course and term
      * @param classNumber Valid uWaterloo course number
+     * @param term Four digit term representation
      */
     @GET("/courses/{class_number}/schedule.{format}")
     public Response.CoursesSchedule getCourseSchedule(@Path("class_number") int classNumber,
@@ -46,4 +47,23 @@ public interface CoursesApi {
     public Response.CoursesInfo getCourseInfo(@Path("subject") String subject,
                                               @Path("catalog_number") int courseCode);
 
+    /**
+     * This method returns the class schedule for a given course and term
+     * @param subject Valid uWaterloo subject name
+     * @param courseCode Valid uWaterloo course number
+     */
+    @GET("/courses/{subject}/{catalog_number}/schedule.{format}")
+    public Response.CoursesSchedule getCourseSchedule(@Path("subject") String subject,
+                                                      @Path("catalog_number") int courseCode);
+
+    /**
+     * This method returns the class schedule for a given course and term
+     * @param subject Valid uWaterloo subject name
+     * @param courseCode Valid uWaterloo course number
+     * @param term Four digit term representation
+     */
+    @GET("/courses/{subject}/{catalog_number}/schedule.{format}")
+    public Response.CoursesSchedule getCourseSchedule(@Path("subject") String subject,
+                                                      @Path("catalog_number") int courseCode,
+                                                      @Query("term") int term);
 }

@@ -46,19 +46,6 @@ public class Response {
 
     public static class CoursesInfo extends SimpleResponse<CourseInfo> { }
 
-    public static class CoursesSchedule extends BaseResponse {
-
-        @SuppressWarnings({"UnusedDeclaration", "MismatchedQueryAndUpdateOfCollection"})
-        @SerializedName("data")
-        private List<CourseSchedule> mSchedule;
-
-        /**
-         * Stupid API always returns an array with only 1 element...
-         */
-        public CourseSchedule getData() {
-            return (mSchedule == null || mSchedule.isEmpty()) ? null : mSchedule.get(0);
-        }
-
-    }
+    public static class CoursesSchedule extends SimpleResponse<List<CourseSchedule>> { }
 
 }
