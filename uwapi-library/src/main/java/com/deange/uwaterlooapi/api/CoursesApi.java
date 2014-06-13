@@ -37,4 +37,13 @@ public interface CoursesApi {
     public Response.CoursesSchedule getCourseSchedule(@Path("class_number") int classNumber,
                                                       @Query("term") int term);
 
+    /**
+     * This method returns all available information for a given course
+     * @param subject Valid uWaterloo subject name
+     * @param courseCode Valid uWaterloo course number
+     */
+    @GET("/courses/{subject}/{catalog_number}.{format}")
+    public Response.CoursesInfo getCourseInfo(@Path("subject") String subject,
+                                              @Path("catalog_number") int courseCode);
+
 }
