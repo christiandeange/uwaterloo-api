@@ -5,6 +5,8 @@ import android.util.Log;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.common.Response;
 
+import java.util.Date;
+
 /**
  * THIS CLASS IS TEMPORARY
  * IT IS FOR INITIAL DEVELOPMENT PURPOSES ONLY
@@ -46,8 +48,12 @@ public final class ApiRunner {
         final int courseCode = 349;
         final int courseId = 13106;
 
+        final int courseNumber = 3545;
+        final int termId = 1145;
+
         final Response.Courses courses = UWaterlooApi.CoursesApi.getCourseInfo(section);
         final Response.CoursesInfo course = UWaterlooApi.CoursesApi.getCourseInfo(courseId);
+        final Response.CoursesSchedule schedule = UWaterlooApi.CoursesApi.getCourseSchedule(courseNumber, termId);
 
         Log.v("TAG", "Courses requests completed.");
     }

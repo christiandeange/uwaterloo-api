@@ -11,6 +11,7 @@ public final class Formatter {
     private static final String TAG = "Formatter";
 
     public static final String YMD = "yyyy-MM-dd";
+    public static final String ISO8601 = "yyyy-MM-dd'T'hh:mm:ssZ";
 
     private Formatter() { }
 

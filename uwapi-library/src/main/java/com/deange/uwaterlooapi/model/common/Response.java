@@ -1,8 +1,9 @@
 package com.deange.uwaterlooapi.model.common;
 
-import com.deange.uwaterlooapi.model.common.SimpleResponse;
+import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.model.courses.CourseInfo;
+import com.deange.uwaterlooapi.model.courses.CourseSchedule;
 import com.deange.uwaterlooapi.model.foodservices.Announcement;
 import com.deange.uwaterlooapi.model.foodservices.Diet;
 import com.deange.uwaterlooapi.model.foodservices.Location;
@@ -11,6 +12,7 @@ import com.deange.uwaterlooapi.model.foodservices.Note;
 import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.model.foodservices.Product;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -43,5 +45,20 @@ public class Response {
     public static class Courses extends SimpleResponse<List<Course>> { }
 
     public static class CoursesInfo extends SimpleResponse<CourseInfo> { }
+
+    public static class CoursesSchedule extends BaseResponse {
+
+        @SuppressWarnings({"UnusedDeclaration", "MismatchedQueryAndUpdateOfCollection"})
+        @SerializedName("data")
+        private List<CourseSchedule> mSchedule;
+
+        /**
+         * Stupid API always returns an array with only 1 element...
+         */
+        public CourseSchedule getData() {
+            return (mSchedule == null || mSchedule.isEmpty()) ? null : mSchedule.get(0);
+        }
+
+    }
 
 }

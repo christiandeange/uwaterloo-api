@@ -4,6 +4,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface CoursesApi {
 
@@ -20,5 +21,20 @@ public interface CoursesApi {
      */
     @GET("/courses/{course_id}.{format}")
     public Response.CoursesInfo getCourseInfo(@Path("course_id") int courseId);
+
+    /**
+     * This method returns the class schedule for a given course and term
+     * @param classNumber Valid uWaterloo course number
+     */
+    @GET("/courses/{class_number}/schedule.{format}")
+    public Response.CoursesSchedule getCourseSchedule(@Path("class_number") int classNumber);
+
+    /**
+     * This method returns the class schedule for a given course and term
+     * @param classNumber Valid uWaterloo course number
+     */
+    @GET("/courses/{class_number}/schedule.{format}")
+    public Response.CoursesSchedule getCourseSchedule(@Path("class_number") int classNumber,
+                                                      @Query("term") int term);
 
 }
