@@ -1,6 +1,8 @@
 package com.deange.uwaterlooapi.api;
 
 import com.deange.uwaterlooapi.model.courses.CourseLocations;
+import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
+import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo.PrerequisiteGroup;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,6 +27,7 @@ public class ApiModelConverter extends GsonConverter {
         return new GsonBuilder()
                 .setVersion(ApiBuilder.VERSION)
                 .registerTypeAdapter(CourseLocations.class, new CourseLocations.Converter())
+                .registerTypeAdapter(PrerequisiteGroup.class, new PrerequisiteInfo.Converter())
                 .create();
 
     }

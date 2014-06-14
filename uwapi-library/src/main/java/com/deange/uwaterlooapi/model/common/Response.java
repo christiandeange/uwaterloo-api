@@ -1,9 +1,9 @@
 package com.deange.uwaterlooapi.model.common;
 
-import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
+import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
 import com.deange.uwaterlooapi.model.foodservices.Announcement;
 import com.deange.uwaterlooapi.model.foodservices.Diet;
 import com.deange.uwaterlooapi.model.foodservices.Location;
@@ -12,7 +12,6 @@ import com.deange.uwaterlooapi.model.foodservices.Note;
 import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.model.foodservices.Product;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -48,4 +47,5 @@ public class Response {
 
     public static class CoursesSchedule extends SimpleResponse<List<CourseSchedule>> { }
 
+    public static class Prerequisites extends SimpleResponse<PrerequisiteInfo> { }
 }
