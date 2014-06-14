@@ -55,6 +55,7 @@ public final class ApiRunner {
         final Response.CoursesInfo course2 = UWaterlooApi.CoursesApi.getCourseInfo(section, courseCode);
         final Response.CoursesSchedule schedule2 = UWaterlooApi.CoursesApi.getCourseSchedule(section, courseCode, termId);
         final Response.Prerequisites prerequisites = UWaterlooApi.CoursesApi.getPrerequisites("PHYS", "375");
+        final Response.ExamSchedule examSchedule = UWaterlooApi.CoursesApi.getExamSchedule(section, courseCode);
 
         Log.v("TAG", "Courses requests completed.");
     }

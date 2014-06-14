@@ -76,4 +76,13 @@ public interface CoursesApi {
     public Response.Prerequisites getPrerequisites(@Path("subject") String subject,
                                                    @Path("catalog_number") String courseCode);
 
+    /**
+     * This method returns a given course's exam schedule
+     * @param subject Valid uWaterloo subject name
+     * @param courseCode Valid uWaterloo course number
+     */
+    @GET("/courses/{subject}/{catalog_number}/examschedule.{format}")
+    public Response.ExamSchedule getExamSchedule(@Path("subject") String subject,
+                                                 @Path("catalog_number") String courseCode);
+
 }
