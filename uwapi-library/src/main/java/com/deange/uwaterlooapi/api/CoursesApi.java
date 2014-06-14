@@ -45,7 +45,7 @@ public interface CoursesApi {
      */
     @GET("/courses/{subject}/{catalog_number}.{format}")
     public Response.CoursesInfo getCourseInfo(@Path("subject") String subject,
-                                              @Path("catalog_number") int courseCode);
+                                              @Path("catalog_number") String courseCode);
 
     /**
      * This method returns the class schedule for a given course and term
@@ -54,7 +54,7 @@ public interface CoursesApi {
      */
     @GET("/courses/{subject}/{catalog_number}/schedule.{format}")
     public Response.CoursesSchedule getCourseSchedule(@Path("subject") String subject,
-                                                      @Path("catalog_number") int courseCode);
+                                                      @Path("catalog_number") String courseCode);
 
     /**
      * This method returns the class schedule for a given course and term
@@ -64,7 +64,7 @@ public interface CoursesApi {
      */
     @GET("/courses/{subject}/{catalog_number}/schedule.{format}")
     public Response.CoursesSchedule getCourseSchedule(@Path("subject") String subject,
-                                                      @Path("catalog_number") int courseCode,
+                                                      @Path("catalog_number") String courseCode,
                                                       @Query("term") int term);
 
     /**
@@ -74,6 +74,6 @@ public interface CoursesApi {
      */
     @GET("/courses/{subject}/{catalog_number}/prerequisites.{format}")
     public Response.Prerequisites getPrerequisites(@Path("subject") String subject,
-                                                   @Path("catalog_number") int courseCode);
+                                                   @Path("catalog_number") String courseCode);
 
 }

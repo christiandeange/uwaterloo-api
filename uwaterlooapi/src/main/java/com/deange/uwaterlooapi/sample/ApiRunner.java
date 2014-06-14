@@ -43,7 +43,7 @@ public final class ApiRunner {
     public static void runCourses() {
 
         final String section = "CS";
-        final int courseCode = 349;
+        final String courseCode = "349";
         final int courseId = 13106;
 
         final int courseNumber = 3545;
@@ -54,7 +54,7 @@ public final class ApiRunner {
         final Response.CoursesSchedule schedule = UWaterlooApi.CoursesApi.getCourseSchedule(courseNumber, termId);
         final Response.CoursesInfo course2 = UWaterlooApi.CoursesApi.getCourseInfo(section, courseCode);
         final Response.CoursesSchedule schedule2 = UWaterlooApi.CoursesApi.getCourseSchedule(section, courseCode, termId);
-        final Response.Prerequisites prerequisites = UWaterlooApi.CoursesApi.getPrerequisites("PHYS", 375);
+        final Response.Prerequisites prerequisites = UWaterlooApi.CoursesApi.getPrerequisites("PHYS", "375");
 
         Log.v("TAG", "Courses requests completed.");
     }
