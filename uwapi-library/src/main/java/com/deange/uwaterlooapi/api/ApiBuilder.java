@@ -11,15 +11,13 @@ public class ApiBuilder {
     public static final String API_KEY = "key";
     public static final String FORMAT = "format";
 
-    /* package */ static ApiInterceptor sInterceptor = new ApiInterceptor();
-
     /* package */ static ApiModelConverter sConverter = ApiModelConverter.newInstance();
 
-    public static <T> T build(final Class<T> clazz) {
+    public static <T> T build(final UWaterlooApi api, final Class<T> clazz) {
 
         return new RestAdapter.Builder()
                 .setEndpoint(BASE_URL)
-                .setRequestInterceptor(sInterceptor)
+                .setRequestInterceptor(new ApiInterceptor(api))
                 .setConverter(sConverter)
                 .build()
                 .create(clazz);
@@ -27,14 +25,20 @@ public class ApiBuilder {
 
     private static class ApiInterceptor implements RequestInterceptor {
 
+        private UWaterlooApi mApi;
+
+        private ApiInterceptor(UWaterlooApi api) {
+            mApi = api;
+        }
+
         @Override
         public void intercept(final RequestFacade requestFacade) {
 
             // Ensure the API has been properly initialized
-            UWaterlooApi.checkAccess();
+            mApi.checkAccess();
 
-            requestFacade.addQueryParam(API_KEY, UWaterlooApi.getApiKey());
-            requestFacade.addEncodedPathParam(FORMAT, UWaterlooApi.getDataFormat().getType());
+            requestFacade.addQueryParam(API_KEY, mApi.getApiKey());
+            requestFacade.addEncodedPathParam(FORMAT, mApi.getDataFormat().getType());
 
         }
 

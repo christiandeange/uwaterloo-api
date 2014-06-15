@@ -44,12 +44,12 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        UWaterlooApi.init("YOUR_API_KEY_HERE", DataFormat.JSON);
+        final UWaterlooApi api = new UWaterlooApi("YOUR_API_KEY_HERE");
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ApiRunner.runAll();
+                ApiRunner.runAll(api);
             }
         }).start();
     }

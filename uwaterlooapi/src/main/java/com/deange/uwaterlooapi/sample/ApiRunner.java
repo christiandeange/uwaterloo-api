@@ -15,47 +15,46 @@ public final class ApiRunner {
         // Uninstantiable
     }
 
-    public static void runAll() {
-//        runFoodServices();
-        runCourses();
+    public static void runAll(final UWaterlooApi api) {
+//        runFoodServices(api);
+        runCourses(api);
     }
 
-    public static void runFoodServices() {
+    public static void runFoodServices(final UWaterlooApi api) {
 
         final int year = 2014;
         final int week = 10;
 
-        final Response.Menus menu = UWaterlooApi.FoodServices.getWeeklyMenu();
-        final Response.Menus menu2 = UWaterlooApi.FoodServices.getWeeklyMenu(year, week);
-        final Response.Notes notes = UWaterlooApi.FoodServices.getNotes();
-        final Response.Notes notes2 = UWaterlooApi.FoodServices.getNotes(year, week);
-        final Response.Diets diets = UWaterlooApi.FoodServices.getDiets();
-        final Response.Outlets outlets = UWaterlooApi.FoodServices.getOutlets();
-        final Response.Locations locations = UWaterlooApi.FoodServices.getLocations();
-        final Response.Watcards watcard = UWaterlooApi.FoodServices.getWatcardVendors();
-        final Response.Announcements announcements = UWaterlooApi.FoodServices.getAnnouncements();
-        final Response.Announcements announcements2 = UWaterlooApi.FoodServices.getAnnouncements(year, week);
-        final Response.Products product = UWaterlooApi.FoodServices.getProduct(1386);
+        final Response.Menus menu = api.FoodServices.getWeeklyMenu();
+        final Response.Menus menu2 = api.FoodServices.getWeeklyMenu(year, week);
+        final Response.Notes notes = api.FoodServices.getNotes();
+        final Response.Notes notes2 = api.FoodServices.getNotes(year, week);
+        final Response.Diets diets = api.FoodServices.getDiets();
+        final Response.Outlets outlets = api.FoodServices.getOutlets();
+        final Response.Locations locations = api.FoodServices.getLocations();
+        final Response.Watcards watcard = api.FoodServices.getWatcardVendors();
+        final Response.Announcements announcements = api.FoodServices.getAnnouncements();
+        final Response.Announcements announcements2 = api.FoodServices.getAnnouncements(year, week);
+        final Response.Products product = api.FoodServices.getProduct(1386);
 
         Log.v("TAG", "FoodServices requests completed.");
     }
 
-    public static void runCourses() {
+    public static void runCourses(final UWaterlooApi api) {
 
         final String section = "CS";
         final String courseCode = "349";
         final int courseId = 13106;
-
         final int courseNumber = 3545;
         final int termId = 1145;
 
-        final Response.Courses courses = UWaterlooApi.CoursesApi.getCourseInfo(section);
-        final Response.CoursesInfo course = UWaterlooApi.CoursesApi.getCourseInfo(courseId);
-        final Response.CoursesSchedule schedule = UWaterlooApi.CoursesApi.getCourseSchedule(courseNumber, termId);
-        final Response.CoursesInfo course2 = UWaterlooApi.CoursesApi.getCourseInfo(section, courseCode);
-        final Response.CoursesSchedule schedule2 = UWaterlooApi.CoursesApi.getCourseSchedule(section, courseCode, termId);
-        final Response.Prerequisites prerequisites = UWaterlooApi.CoursesApi.getPrerequisites("PHYS", "375");
-        final Response.ExamSchedule examSchedule = UWaterlooApi.CoursesApi.getExamSchedule(section, courseCode);
+        final Response.Courses courses = api.CoursesApi.getCourseInfo(section);
+        final Response.CoursesInfo course = api.CoursesApi.getCourseInfo(courseId);
+        final Response.CoursesSchedule schedule = api.CoursesApi.getCourseSchedule(courseNumber, termId);
+        final Response.CoursesInfo course2 = api.CoursesApi.getCourseInfo(section, courseCode);
+        final Response.CoursesSchedule schedule2 = api.CoursesApi.getCourseSchedule(section, courseCode, termId);
+        final Response.Prerequisites prerequisites = api.CoursesApi.getPrerequisites("PHYS", "375");
+        final Response.ExamSchedule examSchedule = api.CoursesApi.getExamSchedule(section, courseCode);
 
         Log.v("TAG", "Courses requests completed.");
     }
