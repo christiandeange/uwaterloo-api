@@ -26,5 +26,18 @@ public final class Formatter {
         }
     }
 
+    public static Date parseDate(final String date) {
+
+        if (YMD.length() == date.length()) {
+            // YMD date format
+            return parseDate(date, YMD);
+
+        } else {
+            // Assume ISO-8601 otherwise
+            return parseDate(date, ISO8601);
+        }
+
+    }
+
 
 }

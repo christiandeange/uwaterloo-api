@@ -38,14 +38,14 @@ public class DateRange extends BaseModel {
      * Starting day of the menu (Y-m-d)
      */
     public Date getStart() {
-        return Formatter.parseDate(mStart, Formatter.YMD);
+        return Formatter.parseDate(mStart);
     }
 
     /**
      * Ending day of the menu (Y-m-d)
      */
     public Date getEnd() {
-        return Formatter.parseDate(mEnd, Formatter.YMD);
+        return Formatter.parseDate(mEnd);
     }
 
     /**
