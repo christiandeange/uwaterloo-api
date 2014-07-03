@@ -62,7 +62,11 @@ public final class ApiRunner {
 
     private static void runEvents(final UWaterlooApi api) {
 
+        final int id = 1354;
+        final String site = "centre-for-teaching-excellence";
+
         final Response.Events events = api.Events.getEvents();
+        final Response.Events siteEvents = api.Events.getEvents(site);
 
         Log.v("TAG", "Events requests completed.");
     }
