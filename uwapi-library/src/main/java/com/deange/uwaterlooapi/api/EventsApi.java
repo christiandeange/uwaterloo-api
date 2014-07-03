@@ -21,4 +21,12 @@ public interface EventsApi {
     @GET("/events/{site}.{format}")
     public Response.Events getEvents(@Path("site") String site);
 
+    /**
+     * This method returns a specific event's information given a site slug and the unique id
+     * @param site Valid site slug from /resources/sites
+     * @param id Valid event id
+     */
+    @GET("/events/{site}/{id}.{format}")
+    public Response.EventDetails getEvents(@Path("site") String site, @Path("id") int id);
+
 }

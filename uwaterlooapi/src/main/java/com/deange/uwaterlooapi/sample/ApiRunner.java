@@ -67,6 +67,7 @@ public final class ApiRunner {
 
         final Response.Events events = api.Events.getEvents();
         final Response.Events siteEvents = api.Events.getEvents(site);
+        final Response.EventDetails details = api.Events.getEvents(site, id);
 
         Log.v("TAG", "Events requests completed.");
     }
