@@ -17,7 +17,8 @@ public final class ApiRunner {
 
     public static void runAll(final UWaterlooApi api) {
 //        runFoodServices(api);
-        runCourses(api);
+//        runCourses(api);
+        runEvents(api);
     }
 
     public static void runFoodServices(final UWaterlooApi api) {
@@ -57,6 +58,13 @@ public final class ApiRunner {
         final Response.ExamSchedule examSchedule = api.CoursesApi.getExamSchedule(section, courseCode);
 
         Log.v("TAG", "Courses requests completed.");
+    }
+
+    private static void runEvents(final UWaterlooApi api) {
+
+        final Response.Events events = api.Events.getEvents();
+
+        Log.v("TAG", "Events requests completed.");
     }
 
 }

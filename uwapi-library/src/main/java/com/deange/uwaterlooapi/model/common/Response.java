@@ -5,6 +5,7 @@ import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
 import com.deange.uwaterlooapi.model.courses.ExamInfo;
 import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
+import com.deange.uwaterlooapi.model.events.Event;
 import com.deange.uwaterlooapi.model.foodservices.Announcement;
 import com.deange.uwaterlooapi.model.foodservices.Diet;
 import com.deange.uwaterlooapi.model.foodservices.Location;
@@ -51,5 +52,9 @@ public class Response {
     public static class Prerequisites extends SimpleResponse<PrerequisiteInfo> { }
 
     public static class ExamSchedule extends SimpleResponse<ExamInfo> { }
+
+    // EVENTS
+
+    public static class Events extends SimpleResponse<List<Event>> { }
 
 }
