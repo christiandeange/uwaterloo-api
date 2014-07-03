@@ -18,7 +18,8 @@ public final class ApiRunner {
     public static void runAll(final UWaterlooApi api) {
 //        runFoodServices(api);
 //        runCourses(api);
-        runEvents(api);
+//        runEvents(api);
+        runNews(api);
     }
 
     public static void runFoodServices(final UWaterlooApi api) {
@@ -70,6 +71,16 @@ public final class ApiRunner {
         final Response.EventDetails details = api.Events.getEvents(site, id);
 
         Log.v("TAG", "Events requests completed.");
+    }
+
+    private static void runNews(final UWaterlooApi api) {
+
+        final int id = 196;
+        final String site = "games-institute";
+
+        final Response.News news = api.News.getNews();
+
+        Log.v("TAG", "News requests completed.");
     }
 
 }

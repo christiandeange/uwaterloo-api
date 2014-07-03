@@ -15,6 +15,7 @@ import com.deange.uwaterlooapi.model.foodservices.Note;
 import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.model.foodservices.Product;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
+import com.deange.uwaterlooapi.model.news.NewsDetails;
 
 import java.util.List;
 
@@ -60,4 +61,5 @@ public class Response {
 
     public static class EventDetails extends SimpleResponse<EventInfo> { }
 
+    public static class News extends SimpleResponse<List<NewsDetails>> { }
 }
