@@ -16,9 +16,18 @@ public interface TermsApi {
 
     /**
      * This method returns a given term's exam schedule
-     * @param term Numeric representation of the term
+     * @param termId Numeric representation of the term
      */
     @GET("/terms/{term}/examschedule.{format}")
-    public Response.TermExamSchedule getExamSchedule(@Path("term") int term);
+    public Response.TermExamSchedule getExamSchedule(@Path("term") int termId);
+
+    /**
+     * This method returns all class schedule for the given subject for a given term
+     * @param termId Four digit term representation
+     * @param subject Valid uWaterloo subject name, eg: MATH, CS, ENGL
+     */
+    @GET("/terms/{term}/{subject}/schedule.{format}")
+    public Response.CoursesSchedule getSchedule(@Path("term") int termId,
+                                                @Path("subject") String subject);
 
 }
