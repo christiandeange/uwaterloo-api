@@ -32,7 +32,7 @@ public final class UWaterlooApi {
 
     public final FoodServicesApi FoodServices = ApiBuilder.build(this, FoodServicesApi.class);
 
-    public final CoursesApi CoursesApi = ApiBuilder.build(this, CoursesApi.class);
+    public final CoursesApi Courses = ApiBuilder.build(this, CoursesApi.class);
 
     public final EventsApi Events = ApiBuilder.build(this, EventsApi.class);
 

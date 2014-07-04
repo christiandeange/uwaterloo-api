@@ -50,13 +50,13 @@ public final class ApiRunner {
         final int courseNumber = 3545;
         final int termId = 1145;
 
-        final Response.Courses courses = api.CoursesApi.getCourseInfo(section);
-        final Response.CoursesInfo course = api.CoursesApi.getCourseInfo(courseId);
-        final Response.CoursesSchedule schedule = api.CoursesApi.getCourseSchedule(courseNumber, termId);
-        final Response.CoursesInfo course2 = api.CoursesApi.getCourseInfo(section, courseCode);
-        final Response.CoursesSchedule schedule2 = api.CoursesApi.getCourseSchedule(section, courseCode, termId);
-        final Response.Prerequisites prerequisites = api.CoursesApi.getPrerequisites("PHYS", "375");
-        final Response.ExamSchedule examSchedule = api.CoursesApi.getExamSchedule(section, courseCode);
+        final Response.Courses courses = api.Courses.getCourseInfo(section);
+        final Response.CoursesInfo course = api.Courses.getCourseInfo(courseId);
+        final Response.CoursesSchedule schedule = api.Courses.getCourseSchedule(courseNumber, termId);
+        final Response.CoursesInfo course2 = api.Courses.getCourseInfo(section, courseCode);
+        final Response.CoursesSchedule schedule2 = api.Courses.getCourseSchedule(section, courseCode, termId);
+        final Response.Prerequisites prerequisites = api.Courses.getPrerequisites("PHYS", "375");
+        final Response.ExamSchedule examSchedule = api.Courses.getExamSchedule(section, courseCode);
 
         Log.v("TAG", "Courses requests completed.");
     }
