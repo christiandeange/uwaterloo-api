@@ -79,6 +79,7 @@ public final class ApiRunner {
         final String site = "games-institute";
 
         final Response.News news = api.News.getNews();
+        final Response.News siteNews = api.News.getNews(site);
 
         Log.v("TAG", "News requests completed.");
     }
