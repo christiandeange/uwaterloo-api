@@ -104,6 +104,7 @@ public final class ApiRunner {
         final Response.TermExamSchedule exams = api.Terms.getExamSchedule(termId);
         final Response.CoursesSchedule course = api.Terms.getSchedule(termId, subject);
         final Response.CoursesSchedule course2 = api.Terms.getSchedule(termId, subject, courseCode);
+        final Response.InfoSessions sessions = api.Terms.getInfoSessions(termId);
 
         Log.v("TAG", "Terms requests completed.");
     }

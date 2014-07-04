@@ -41,4 +41,11 @@ public interface TermsApi {
                                                 @Path("subject") String subject,
                                                 @Path("catalog_number") String catalog);
 
+    /**
+     * This method returns the schedule for employer information sessions of a given term
+     * @param termId Four digit term representation
+     */
+    @GET("/terms/{term}/infosessions.{format}")
+    public Response.InfoSessions getInfoSessions(@Path("term") int termId);
+
 }

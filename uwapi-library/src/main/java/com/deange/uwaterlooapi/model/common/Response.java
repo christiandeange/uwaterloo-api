@@ -17,6 +17,7 @@ import com.deange.uwaterlooapi.model.foodservices.Product;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
 import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
+import com.deange.uwaterlooapi.model.terms.InfoSession;
 import com.deange.uwaterlooapi.model.terms.TermInfo;
 import com.deange.uwaterlooapi.model.weather.WeatherReading;
 
@@ -77,5 +78,7 @@ public class Response {
     public static class Terms extends SimpleResponse<TermInfo> { }
 
     public static class TermExamSchedule extends SimpleResponse<List<ExamInfo>> { }
+
+    public static class InfoSessions extends SimpleResponse<List<InfoSession>> { }
 
 }
