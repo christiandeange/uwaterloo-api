@@ -40,4 +40,6 @@ public final class UWaterlooApi {
 
     public final WeatherApi Weather = ApiBuilder.build(this, WeatherApi.class);
 
+    public final TermsApi Terms = ApiBuilder.build(this, TermsApi.class);
+
 }

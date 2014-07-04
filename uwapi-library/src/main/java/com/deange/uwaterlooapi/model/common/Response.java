@@ -17,6 +17,7 @@ import com.deange.uwaterlooapi.model.foodservices.Product;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
 import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
+import com.deange.uwaterlooapi.model.terms.TermInfo;
 import com.deange.uwaterlooapi.model.weather.WeatherReading;
 
 import java.util.List;
@@ -70,4 +71,9 @@ public class Response {
     // WEATHER
 
     public static class Weather extends SimpleResponse<WeatherReading> { }
+
+    // TERMS
+
+    public static class Terms extends SimpleResponse<TermInfo> { }
+
 }
