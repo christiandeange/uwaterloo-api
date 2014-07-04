@@ -98,10 +98,12 @@ public final class ApiRunner {
 
         final int termId = 1145;
         final String subject = "CS";
+        final String courseCode = "349";
 
         final Response.Terms terms = api.Terms.getTermList();
         final Response.TermExamSchedule exams = api.Terms.getExamSchedule(termId);
         final Response.CoursesSchedule course = api.Terms.getSchedule(termId, subject);
+        final Response.CoursesSchedule course2 = api.Terms.getSchedule(termId, subject, courseCode);
 
         Log.v("TAG", "Terms requests completed.");
     }

@@ -30,4 +30,15 @@ public interface TermsApi {
     public Response.CoursesSchedule getSchedule(@Path("term") int termId,
                                                 @Path("subject") String subject);
 
+    /**
+     * This method returns the class schedule for the given course of a given term
+     * @param termId Four digit term representation
+     * @param subject Valid uWaterloo subject name, eg: MATH, CS, ENGL
+     * @param catalog Course name, eg: 101, 108D, 412
+     */
+    @GET("/terms/{term}/{subject}/{catalog_number}/schedule.{format}")
+    public Response.CoursesSchedule getSchedule(@Path("term") int termId,
+                                                @Path("subject") String subject,
+                                                @Path("catalog_number") String catalog);
+
 }
