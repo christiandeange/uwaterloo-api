@@ -19,7 +19,8 @@ public final class ApiRunner {
 //        runFoodServices(api);
 //        runCourses(api);
 //        runEvents(api);
-        runNews(api);
+//        runNews(api);
+        runWeather(api);
     }
 
     public static void runFoodServices(final UWaterlooApi api) {
@@ -83,6 +84,13 @@ public final class ApiRunner {
         final Response.NewsEntity entity = api.News.getNews(site, id);
 
         Log.v("TAG", "News requests completed.");
+    }
+
+    private static void runWeather(final UWaterlooApi api) {
+
+        final Response.Weather weather = api.Weather.getWeather();
+
+        Log.v("TAG", "Weather requests completed.");
     }
 
 }
