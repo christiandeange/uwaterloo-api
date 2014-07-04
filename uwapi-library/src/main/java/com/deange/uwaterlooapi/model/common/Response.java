@@ -76,4 +76,6 @@ public class Response {
 
     public static class Terms extends SimpleResponse<TermInfo> { }
 
+    public static class TermExamSchedule extends SimpleResponse<List<ExamInfo>> { }
+
 }

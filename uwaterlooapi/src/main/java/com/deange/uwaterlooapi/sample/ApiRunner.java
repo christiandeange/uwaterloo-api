@@ -96,7 +96,10 @@ public final class ApiRunner {
 
     private static void runTerms(final UWaterlooApi api) {
 
+        final int termId = 1145;
+
         final Response.Terms terms = api.Terms.getTermList();
+        final Response.TermExamSchedule exams = api.Terms.getExamSchedule(termId);
 
         Log.v("TAG", "Terms requests completed.");
     }
