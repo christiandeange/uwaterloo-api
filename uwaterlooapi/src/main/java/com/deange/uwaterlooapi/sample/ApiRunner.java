@@ -80,6 +80,7 @@ public final class ApiRunner {
 
         final Response.News news = api.News.getNews();
         final Response.News siteNews = api.News.getNews(site);
+        final Response.NewsEntity entity = api.News.getNews(site, id);
 
         Log.v("TAG", "News requests completed.");
     }

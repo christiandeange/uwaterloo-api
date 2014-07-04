@@ -21,4 +21,12 @@ public interface NewsApi {
     @GET("/news/{site}.{format}")
     public Response.News getNews(@Path("site") String site);
 
+    /**
+     * This method returns a specific news item's information given a site's slug and id
+     * @param site Valid site slug from /resources/sites
+     * @param id Valid news id
+     */
+    @GET("/news/{site}/{id}.{format}")
+    public Response.NewsEntity getNews(@Path("site") String site, @Path("id") int id);
+
 }
