@@ -17,6 +17,7 @@ import com.deange.uwaterlooapi.model.foodservices.Product;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
 import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
+import com.deange.uwaterlooapi.model.resources.Printer;
 import com.deange.uwaterlooapi.model.resources.Tutor;
 import com.deange.uwaterlooapi.model.terms.InfoSession;
 import com.deange.uwaterlooapi.model.terms.TermInfo;
@@ -85,5 +86,7 @@ public class Response {
     // RESOURCES
 
     public static class Tutors extends SimpleResponse<List<Tutor>> { }
+
+    public static class Printers extends SimpleResponse<List<Printer>> { }
 
 }

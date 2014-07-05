@@ -12,4 +12,10 @@ public interface ResourcesApi {
     @GET("/resources/tutors.{format}")
     public Response.Tutors getTutors();
 
+    /**
+     * This method returns a list of printers on campus
+     */
+    @GET("/resources/printers.{format}")
+    public Response.Printers getPrinters();
+
 }
