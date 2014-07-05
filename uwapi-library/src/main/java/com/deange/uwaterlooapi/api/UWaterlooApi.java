@@ -44,4 +44,6 @@ public final class UWaterlooApi {
 
     public final ResourcesApi Resources = ApiBuilder.build(this, ResourcesApi.class);
 
+    public final BuildingsApi Buildings = ApiBuilder.build(this, BuildingsApi.class);
+
 }

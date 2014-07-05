@@ -22,7 +22,8 @@ public final class ApiRunner {
 //        runNews(api);
 //        runWeather(api);
 //        runTerms(api);
-        runResources(api);
+//        runResources(api);
+        runBuildings(api);
     }
 
     public static void runFoodServices(final UWaterlooApi api) {
@@ -119,4 +120,12 @@ public final class ApiRunner {
 
         Log.v("TAG", "Resources requests completed.");
     }
+
+    private static void runBuildings(final UWaterlooApi api) {
+
+        final Response.Buildings buildings = api.Buildings.getBuildings();
+
+        Log.v("TAG", "Buildings requests completed.");
+    }
+
 }
