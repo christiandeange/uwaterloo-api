@@ -18,4 +18,10 @@ public interface ResourcesApi {
     @GET("/resources/printers.{format}")
     public Response.Printers getPrinters();
 
+    /**
+     * This method returns a list of campus employer infosessions
+     */
+    @GET("/resources/infosessions.{format}")
+    public Response.InfoSessions getInfoSessions();
+
 }
