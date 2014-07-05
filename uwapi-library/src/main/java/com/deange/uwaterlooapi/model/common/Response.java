@@ -97,4 +97,6 @@ public class Response {
 
     public static class Buildings extends SimpleResponse<List<Building>> { }
 
+    public static class BuildingEntity extends SimpleResponse<Building> { }
+
 }

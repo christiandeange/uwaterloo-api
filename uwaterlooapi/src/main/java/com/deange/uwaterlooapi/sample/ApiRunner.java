@@ -123,7 +123,10 @@ public final class ApiRunner {
 
     private static void runBuildings(final UWaterlooApi api) {
 
+        final String buildingCode = "DC";
+
         final Response.Buildings buildings = api.Buildings.getBuildings();
+        final Response.BuildingEntity building = api.Buildings.getBuilding(buildingCode);
 
         Log.v("TAG", "Buildings requests completed.");
     }
