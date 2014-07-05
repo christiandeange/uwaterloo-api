@@ -115,6 +115,7 @@ public final class ApiRunner {
         final Response.Tutors tutors = api.Resources.getTutors();
         final Response.Printers printers = api.Resources.getPrinters();
         final Response.InfoSessions sessions = api.Resources.getInfoSessions();
+        final Response.GooseWatch geese = api.Resources.getGeeseNests();
 
         Log.v("TAG", "Resources requests completed.");
     }
