@@ -23,7 +23,7 @@ public final class ApiRunner {
 //        runWeather(api);
 //        runTerms(api);
 //        runResources(api);
-        runBuildings(api);
+//        runBuildings(api);
     }
 
     public static void runFoodServices(final UWaterlooApi api) {

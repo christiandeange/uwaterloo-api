@@ -6,4 +6,4 @@
           android:divider="@android:color/transparent"
           android:dividerHeight="0dp"
           android:background="#cccc"
-          tools:context="com.deange.uwaterlooapi.sample.NavigationDrawerFragment"/>
+          tools:context="com.deange.uwaterlooapi.sample.ui.NavigationDrawerFragment"/>

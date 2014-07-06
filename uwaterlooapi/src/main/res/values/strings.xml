@@ -2,12 +2,34 @@
 <resources>
 
     <string name="app_name">UWaterlooApi</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="api_foodservices">Food Services</string>
+    <string name="api_courses">Courses</string>
+    <string name="api_events">Events</string>
+    <string name="api_news">News</string>
+    <string name="api_weather">Weather</string>
+    <string name="api_terms">Terms</string>
+    <string name="api_resources">Resources</string>
+    <string name="api_buildings">Buildings</string>
+
+    <string-array name="api_array">
+        <item>@string/api_foodservices</item>
+        <item>@string/api_courses</item>
+        <item>@string/api_events</item>
+        <item>@string/api_news</item>
+        <item>@string/api_weather</item>
+        <item>@string/api_terms</item>
+        <item>@string/api_resources</item>
+        <item>@string/api_buildings</item>
+    </string-array>
+
+    <string name="title_activity_view_pager_host">ViewPagerHost</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
