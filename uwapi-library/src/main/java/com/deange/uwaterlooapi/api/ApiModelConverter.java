@@ -23,13 +23,11 @@ public class ApiModelConverter extends GsonConverter {
     }
 
     public static Gson getGson() {
-
         return new GsonBuilder()
                 .setVersion(ApiBuilder.VERSION)
                 .registerTypeAdapter(CourseLocations.class, new CourseLocations.Converter())
                 .registerTypeAdapter(PrerequisiteGroup.class, new PrerequisiteInfo.Converter())
                 .create();
-
     }
 
 }

@@ -1,5 +1,10 @@
 apply plugin: 'android'
 
+repositories {
+    maven { url "http://dl.bintray.com/populov/maven" }
+    mavenCentral()
+}
+
 android {
     compileSdkVersion 19
     buildToolsVersion "20.0.0"
@@ -26,4 +31,5 @@ android {
 dependencies {
     compile project(":uwapi-library")
     compile 'com.android.support:support-v4:19.+'
+    compile 'com.viewpagerindicator:library:2.4.1@aar'
 }

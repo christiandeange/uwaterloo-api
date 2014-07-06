@@ -7,6 +7,7 @@ public class ApiBuilder {
 
     public static final int VERSION = 2;
     public static final String BASE_URL = "https://api.uwaterloo.ca/v" + VERSION;
+    private static final String DATA_FORMAT = "json";
 
     public static final String API_KEY = "key";
     public static final String FORMAT = "format";
@@ -38,8 +39,7 @@ public class ApiBuilder {
             mApi.checkAccess();
 
             requestFacade.addQueryParam(API_KEY, mApi.getApiKey());
-            requestFacade.addEncodedPathParam(FORMAT, mApi.getDataFormat().getType());
-
+            requestFacade.addEncodedPathParam(FORMAT, DATA_FORMAT);
         }
 
     }

@@ -1,11 +1,8 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.common.DataFormat;
-
 public final class UWaterlooApi {
 
     private String mApiKey;
-    private DataFormat sDataFormat = DataFormat.JSON;
 
     public UWaterlooApi(final String apiKey) {
         mApiKey = apiKey;
@@ -13,10 +10,6 @@ public final class UWaterlooApi {
 
     /* package */ String getApiKey() {
         return mApiKey;
-    }
-
-    /* package */ DataFormat getDataFormat() {
-        return sDataFormat;
     }
 
     public void checkAccess() {

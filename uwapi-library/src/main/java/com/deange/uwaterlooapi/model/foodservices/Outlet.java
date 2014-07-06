@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Utils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Collections;
@@ -56,7 +55,7 @@ public class Outlet extends BaseModel {
      * This field is only set for getOutlets() request
      */
     public boolean servesBreakfast() {
-        return Utils.convertBool(mBreakfast);
+        return convertBool(mBreakfast);
     }
 
     /**
@@ -65,7 +64,7 @@ public class Outlet extends BaseModel {
      * This field is only set for getOutlets() request
      */
     public boolean servesLunch() {
-        return Utils.convertBool(mLunch);
+        return convertBool(mLunch);
     }
 
     /**
@@ -74,6 +73,10 @@ public class Outlet extends BaseModel {
      * This field is only set for getOutlets() request
      */
     public boolean servesDinner() {
-        return Utils.convertBool(mDinner);
+        return convertBool(mDinner);
+    }
+
+    private static boolean convertBool(final int i) {
+        return i != 0;
     }
 }
