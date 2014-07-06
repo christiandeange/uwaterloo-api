@@ -22,4 +22,13 @@ public interface BuildingsApi {
     @GET("/buildings/{building_code}.{format}")
     public Response.BuildingEntity getBuilding(@Path("building_code") String buildingCode);
 
+    /**
+     * This method gives out the all the courses offered in a given classroom.
+     * @param buildingCode Building code, eg: CPH, SLC, DC
+     * @param room Room number
+     */
+    @GET("/buildings/{building_code}/{room}/courses.{format}")
+    public Response.RoomCourses getClassroomCourses(@Path("building_code") String buildingCode,
+                                                    @Path("room") String room);
+
 }

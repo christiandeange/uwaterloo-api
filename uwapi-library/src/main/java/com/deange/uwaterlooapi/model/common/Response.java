@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.model.common;
 
 import com.deange.uwaterlooapi.model.buildings.Building;
+import com.deange.uwaterlooapi.model.buildings.ClassroomCourses;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
@@ -98,5 +99,7 @@ public class Response {
     public static class Buildings extends SimpleResponse<List<Building>> { }
 
     public static class BuildingEntity extends SimpleResponse<Building> { }
+
+    public static class RoomCourses extends SimpleResponse<List<ClassroomCourses>> { }
 
 }
