@@ -1,8 +1,12 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <!-- Customize your theme here. -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light" />
+
+    <style name="AppCommon" parent="AppBaseTheme" >
+        <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
+    </style>
+
+    <style name="AppTheme" parent="AppCommon">
     </style>
 
 </resources>

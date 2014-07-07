@@ -205,28 +205,14 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (mDrawerLayout != null && isDrawerOpen()) {
-            inflater.inflate(R.menu.global, menu);
-            showGlobalContextActionBar();
+            mCallback.showGlobalContextActionBar();
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void showGlobalContextActionBar() {
-        ((MainActivity) getActivity()).showGlobalContextActionBar();
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     private ActionBar getActionBar() {
@@ -235,5 +221,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     public static interface OnDrawerItemSelectedListener {
         void onNavigationDrawerItemSelected(int position);
+        void showGlobalContextActionBar();
     }
 }

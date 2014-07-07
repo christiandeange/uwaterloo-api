@@ -14,6 +14,7 @@
     <string name="api_terms">Terms</string>
     <string name="api_resources">Resources</string>
     <string name="api_buildings">Buildings</string>
+    <string name="api_refresh_button">Refresh</string>
 
     <string-array name="api_array">
         <item>@string/api_foodservices</item>
@@ -26,10 +27,6 @@
         <item>@string/api_buildings</item>
     </string-array>
 
-    <string name="title_activity_view_pager_host">ViewPagerHost</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

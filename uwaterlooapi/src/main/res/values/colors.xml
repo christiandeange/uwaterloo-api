@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="uw_yellow">#FFD74F</color>
+    <color name="uw_yellow_highlighted">#E0AC00</color>
+    <color name="uw_yellow_activated">#F5BC00</color>
+
+    <color name="status_bar_bg">@android:color/black</color>
+    <color name="action_bar_bg">@color/uw_yellow</color>
+
+</resources>

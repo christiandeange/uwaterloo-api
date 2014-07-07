@@ -2,7 +2,9 @@ package com.deange.uwaterlooapi.sample.ui;
 
 import android.app.ActionBar;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -10,18 +12,30 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.deange.uwaterlooapi.api.BuildingsApi;
+import com.deange.uwaterlooapi.api.CoursesApi;
+import com.deange.uwaterlooapi.api.EventsApi;
+import com.deange.uwaterlooapi.api.FoodServicesApi;
+import com.deange.uwaterlooapi.api.NewsApi;
+import com.deange.uwaterlooapi.api.ResourcesApi;
+import com.deange.uwaterlooapi.api.TermsApi;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.api.WeatherApi;
 import com.deange.uwaterlooapi.sample.ApiRunner;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.modules.SampleHostFragment;
 import com.deange.uwaterlooapi.sample.ui.view.TextDrawable;
 
 
 public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.OnDrawerItemSelectedListener {
 
+    private static final String FRAGMENT_TAG = SampleHostFragment.class.getSimpleName();
+
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private String mTitle;
     private TextDrawable mIcon;
+    private UWaterlooApi mApi = new UWaterlooApi("YOUR_API_KEY_HERE");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +52,10 @@ public class MainActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        final UWaterlooApi api = new UWaterlooApi("YOUR_API_KEY_HERE");
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ApiRunner.runAll(api);
+                ApiRunner.runAll(mApi);
             }
         }).start();
     }
@@ -51,10 +63,25 @@ public class MainActivity extends FragmentActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, ViewPagerHost.newInstance(position))
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, SampleHostFragment.newInstance(position), FRAGMENT_TAG)
                 .commit();
+    }
+
+    public static Class getApiForIndex(final int index) {
+        // These indices MUST be matched against @array/api_array
+        switch (index) {
+            case 0: return FoodServicesApi.class;
+            case 1: return CoursesApi.class;
+            case 2: return EventsApi.class;
+            case 3: return NewsApi.class;
+            case 4: return WeatherApi.class;
+            case 5: return TermsApi.class;
+            case 6: return ResourcesApi.class;
+            case 7: return BuildingsApi.class;
+            default: throw new IllegalArgumentException("invalid index " + index);
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -62,17 +89,15 @@ public class MainActivity extends FragmentActivity
         restoreActionBar();
     }
 
+    @Override
     public void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setIcon(R.drawable.uwapi);
         setActionBarTitle(getString(R.string.app_name), Typeface.BOLD);
     }
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         setActionBarTitle(mTitle);
@@ -84,6 +109,15 @@ public class MainActivity extends FragmentActivity
 
     public void setActionBarTitle(final String text, final int style) {
         final ActionBar actionBar = getActionBar();
+
+        if (Build.VERSION.SDK_INT >= 20) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(text);
+            return;
+        } else {
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
 
         if (TextUtils.isEmpty(text)) {
             actionBar.setIcon(R.drawable.uwapi);
@@ -101,11 +135,22 @@ public class MainActivity extends FragmentActivity
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+        final Fragment childFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        final FragmentManager manager = childFragment == null
+                ? null : childFragment.getChildFragmentManager();
+        if (manager == null || manager.getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        } else {
+            manager.popBackStack();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             return true;
         }
@@ -114,11 +159,10 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
+    public UWaterlooApi getApi() {
+        return mApi;
+    }
 }
