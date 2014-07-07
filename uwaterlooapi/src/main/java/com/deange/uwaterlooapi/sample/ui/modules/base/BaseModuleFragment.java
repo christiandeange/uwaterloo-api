@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.sample.ui.modules;
+package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.modules.SampleHostFragment;
 
 public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment implements View.OnClickListener {
 

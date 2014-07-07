@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -14,8 +13,7 @@ import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
-import com.deange.uwaterlooapi.sample.ui.modules.BaseListModuleFragment;
-import com.deange.uwaterlooapi.sample.ui.modules.EmptyModuleFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.List;
 

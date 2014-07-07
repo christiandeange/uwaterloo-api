@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.sample.ui.modules;
+package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;

@@ -13,7 +13,7 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.modules.BaseModuleFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
 /**
  * A simple {@link Fragment} subclass.

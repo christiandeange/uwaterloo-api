@@ -111,7 +111,7 @@ public class SampleHostFragment extends Fragment implements AdapterView.OnItemSe
         // Nothing to do here
     }
 
-    /* package */ UWaterlooApi getApi() {
+    public UWaterlooApi getApi() {
         return mApi;
     }
 }
