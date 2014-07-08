@@ -1,4 +1,4 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 repositories {
     mavenCentral()
@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.deange.uwaterlooapi"
-        minSdkVersion 14
+        minSdkVersion 1
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"

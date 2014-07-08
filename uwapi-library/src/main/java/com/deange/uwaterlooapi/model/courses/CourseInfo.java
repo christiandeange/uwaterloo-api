@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.model.courses;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -151,7 +150,7 @@ public class CourseInfo extends Course {
      * <p />
      * NOTE: EXPERIMENTAL. NO GUARANTEES MADE ABOUT VALIDITY
      */
-    public Pair<Integer, Integer> getYearRange() {
+    public int[] getYearRange() {
 
         if (TextUtils.isEmpty(mYear) || mYear.length() != 4) {
             // fail fast
@@ -162,7 +161,7 @@ public class CourseInfo extends Course {
         final String second = "20" + mYear.substring(2, 4);
 
         try {
-            return Pair.create(Integer.parseInt(first), Integer.parseInt(second));
+            return new int[] {Integer.parseInt(first), Integer.parseInt(second)};
 
         } catch (final NumberFormatException e) {
             Log.w("CourseInfo", "Unexpected academic year: \'" + mYear + "\'", e);

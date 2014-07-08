@@ -5,6 +5,7 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public final class Formatter {
 
@@ -17,7 +18,7 @@ public final class Formatter {
 
     public static Date parseDate(final String date, final String format) {
         try {
-            final SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+            final SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
             return dateFormat.parse(date);
 
         } catch (final ParseException e) {
