@@ -23,14 +23,14 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.api.WeatherApi;
 import com.deange.uwaterlooapi.sample.ApiRunner;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.modules.SampleHostFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.view.TextDrawable;
 
 
 public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.OnDrawerItemSelectedListener {
 
-    private static final String FRAGMENT_TAG = SampleHostFragment.class.getSimpleName();
+    private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private String mTitle;
@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity
         // update the main content by replacing fragments
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, SampleHostFragment.newInstance(position), FRAGMENT_TAG)
+                .replace(R.id.container, ApiMethodsFragment.newInstance(position), FRAGMENT_TAG)
                 .commit();
     }
 
@@ -136,19 +136,6 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
-    public void onBackPressed() {
-
-        final Fragment childFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-        final FragmentManager manager = childFragment == null
-                ? null : childFragment.getChildFragmentManager();
-        if (manager == null || manager.getBackStackEntryCount() == 0) {
-            super.onBackPressed();
-        } else {
-            manager.popBackStack();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             restoreActionBar();
@@ -162,7 +149,4 @@ public class MainActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public UWaterlooApi getApi() {
-        return mApi;
-    }
 }

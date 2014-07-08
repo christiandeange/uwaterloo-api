@@ -25,4 +25,9 @@ public class EmptyModuleFragment extends BaseModuleFragment<SimpleResponse<Void>
     public void onBindData(final Metadata metadata, final Void data) {
 
     }
+
+    @Override
+    public Bundle getFragmentInfo() {
+        return new Bundle();
+    }
 }

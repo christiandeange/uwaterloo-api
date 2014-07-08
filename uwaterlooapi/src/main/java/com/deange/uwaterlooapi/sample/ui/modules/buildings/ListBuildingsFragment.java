@@ -1,7 +1,13 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -13,6 +19,7 @@ import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.List;
@@ -40,10 +47,16 @@ public class ListBuildingsFragment extends BaseListModuleFragment<Response.Build
     }
 
     @Override
+    public Bundle getFragmentInfo() {
+        return new Bundle();
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new BuildingsAdapter(getActivity());
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void onItemClick(final AdapterView<?> adapterView, final View view,
                             final int position, final long id) {
@@ -52,12 +65,9 @@ public class ListBuildingsFragment extends BaseListModuleFragment<Response.Build
         Toast.makeText(getActivity(), building.getBuildingName(),
                 Toast.LENGTH_SHORT).show();
 
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container_method_view,
-                        BuildingFragment.newInstance(building.getBuildingCode()))
-                .addToBackStack("TAG")
-                .commit();
+        final Intent intent = ModuleHostActivity.getStartIntent(getActivity(),
+                BuildingFragment.newInstance(building.getBuildingCode()));
+        startActivity(intent);
     }
 
     private final class BuildingsAdapter extends ModuleAdapter {

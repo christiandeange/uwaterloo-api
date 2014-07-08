@@ -1,7 +1,6 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 repositories {
-    maven { url "http://dl.bintray.com/populov/maven" }
     mavenCentral()
 }
 
@@ -20,6 +19,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
     buildTypes {
         release {
             runProguard false
@@ -31,5 +31,4 @@ android {
 dependencies {
     compile project(":uwapi-library")
     compile 'com.android.support:support-v4:19.+'
-    compile 'com.viewpagerindicator:library:2.4.1@aar'
 }

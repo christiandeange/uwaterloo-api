@@ -17,8 +17,6 @@ import java.util.List;
 public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, V>
         extends BaseModuleFragment<T, List<V>> implements SwipeRefreshLayout.OnRefreshListener {
 
-    private static final long MINIMUM_UPDATE_DURATION = 2000;
-
     private ListView mListView;
     private SwipeRefreshLayout mSwipeLayout;
 
@@ -60,21 +58,9 @@ public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, 
     }
 
     @Override
-    protected void onLoadFinished() {
-        super.onLoadFinished();
-
-        // We want to keep the refresh UI up for *at least* MINIMUM_UPDATE_DURATION
-        // Otherwise it looks very choppy and overall not a pleasant look
-        final long now = System.currentTimeMillis();
-        final long delay = MINIMUM_UPDATE_DURATION - (now - mLastUpdate);
-        mLastUpdate = 0;
-
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeLayout.setRefreshing(false);
-            }
-        }, delay);
+    protected void changeLoadingVisibility(final boolean show) {
+        mSwipeLayout.setRefreshing(show);
+        mSwipeLayout.setEnabled(!show);
     }
 
     @Override
@@ -84,7 +70,7 @@ public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, 
 
     @Override
     protected void onRefreshRequested() {
-        mSwipeLayout.setRefreshing(true);
+//        mSwipeLayout.setRefreshing(true);
         mLastUpdate = System.currentTimeMillis();
 
         super.onRefreshRequested();

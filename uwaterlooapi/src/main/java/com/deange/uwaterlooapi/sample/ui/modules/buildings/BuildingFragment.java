@@ -1,9 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 
-
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -15,21 +13,15 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BuildingFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
 public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building> {
 
-    private static final String ARG_BUILDING_CODE = "building_code";
+    public static final String ARG_BUILDING_CODE = "building_code";
 
     private TextView mBuildingNameView;
     private TextView mBuildingCodeView;
 
     public static BuildingFragment newInstance(final String buildingCode) {
-        BuildingFragment fragment = new BuildingFragment();
+        final BuildingFragment fragment = new BuildingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_BUILDING_CODE, buildingCode);
         fragment.setArguments(args);
@@ -60,5 +52,11 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
     public void onBindData(final Metadata metadata, final Building data) {
         mBuildingNameView.setText(data.getBuildingName());
         mBuildingCodeView.setText(data.getBuildingCode());
+
+    }
+
+    @Override
+    public Bundle getFragmentInfo() {
+        return getArguments();
     }
 }
