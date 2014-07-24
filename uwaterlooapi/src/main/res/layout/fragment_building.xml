@@ -29,4 +29,13 @@
             android:layout_below="@id/title_layout"
             android:layout_margin="16dp"/>
 
+    <FrameLayout
+            android:id="@+id/building_map"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/building_code"
+            android:visibility="invisible" />
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 
 import java.util.List;
@@ -70,7 +72,6 @@ public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, 
 
     @Override
     protected void onRefreshRequested() {
-//        mSwipeLayout.setRefreshing(true);
         mLastUpdate = System.currentTimeMillis();
 
         super.onRefreshRequested();

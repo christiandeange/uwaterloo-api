@@ -18,6 +18,7 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
@@ -47,8 +48,8 @@ public class ListBuildingsFragment extends BaseListModuleFragment<Response.Build
     }
 
     @Override
-    public Bundle getFragmentInfo() {
-        return new Bundle();
+    public FragmentInfo getFragmentInfo(final Context context) {
+        return null;
     }
 
     @Override
@@ -56,18 +57,11 @@ public class ListBuildingsFragment extends BaseListModuleFragment<Response.Build
         return new BuildingsAdapter(getActivity());
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void onItemClick(final AdapterView<?> adapterView, final View view,
                             final int position, final long id) {
-
-        final Building building = mResponse.get(position);
-        Toast.makeText(getActivity(), building.getBuildingName(),
-                Toast.LENGTH_SHORT).show();
-
-        final Intent intent = ModuleHostActivity.getStartIntent(getActivity(),
-                BuildingFragment.newInstance(building.getBuildingCode()));
-        startActivity(intent);
+        showFragment(new BuildingFragment(), true,
+                BuildingFragment.newBundle(mResponse.get(position).getBuildingCode()));
     }
 
     private final class BuildingsAdapter extends ModuleAdapter {

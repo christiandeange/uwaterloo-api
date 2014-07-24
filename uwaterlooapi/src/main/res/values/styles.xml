@@ -15,6 +15,7 @@
     </style>
 
     <style name="BaseActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:displayOptions">showTitle</item>
         <item name="android:background">@color/uw_yellow</item>
     </style>
 

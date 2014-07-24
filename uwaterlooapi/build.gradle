@@ -31,4 +31,6 @@ android {
 dependencies {
     compile project(":uwapi-library")
     compile 'com.android.support:support-v4:19.+'
+    compile 'com.google.android.gms:play-services:5.0.77'
+
 }

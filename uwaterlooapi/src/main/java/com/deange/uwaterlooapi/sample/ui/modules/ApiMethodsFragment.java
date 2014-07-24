@@ -85,7 +85,7 @@ public class ApiMethodsFragment extends ListFragment
                 Toast.LENGTH_SHORT).show();
 
         startActivity(
-                ModuleHostActivity.getStartIntent(getActivity(), new ListBuildingsFragment()));
+                ModuleHostActivity.getStartIntent(getActivity(), ListBuildingsFragment.class));
 
     }
 }

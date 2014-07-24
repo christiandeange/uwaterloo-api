@@ -3,6 +3,8 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,9 +21,11 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 
-public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment implements View.OnClickListener, View.OnTouchListener {
+public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
+        implements View.OnClickListener, View.OnTouchListener {
 
     public static final long MINIMUM_UPDATE_DURATION = 2000;
     public static final long ANIMATION_DURATION = 300;
@@ -32,6 +36,19 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
 
     public BaseModuleFragment() {
         // Required constructor
+    }
+
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
+        if (!(activity instanceof ModuleHostActivity)) {
+            throw new RuntimeException("Parent activity not an instance of ModuleHostActivity");
+        }
+    }
+
+    public void showFragment(final BaseModuleFragment fragment, final boolean addToBackStack,
+                             final Bundle arguments) {
+        ((ModuleHostActivity) getActivity()).showFragment(fragment, addToBackStack, arguments);
     }
 
     @Override
@@ -103,7 +120,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             // Show the loading layout
             startRadius = zero;
             finalRadius = full;
-            mLoadingLayout.setVisibility(View.VISIBLE);
+            loadingLayout.setVisibility(View.VISIBLE);
         } else {
             // Hide the loading layout
             startRadius = full;
@@ -113,6 +130,11 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         final AnimatorListenerAdapter listener = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(final Animator animation) {
+                loadingLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(final Animator animation) {
                 loadingLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
             }
         };
@@ -155,10 +177,10 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     }
 
     protected void onNullResponseReceived() {
-        Toast.makeText(getActivity(), "Could not receive data", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Received no data", Toast.LENGTH_SHORT).show();
     }
 
-    public abstract Bundle getFragmentInfo();
+    public abstract FragmentInfo getFragmentInfo(final Context context);
 
     public abstract T onLoadData(final UWaterlooApi api);
 
@@ -182,6 +204,8 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             } else {
                 onBindData(data.getMetadata(), data.getData());
             }
+
+            ((ModuleHostActivity) getActivity()).refreshActionBar();
         }
 
     }

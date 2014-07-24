@@ -8,7 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -91,48 +94,16 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public void showGlobalContextActionBar() {
-        ActionBar actionBar = getActionBar();
+        final SpannableStringBuilder ssb = new SpannableStringBuilder(getString(R.string.app_name));
+        final ActionBar actionBar = getActionBar();
+        ssb.setSpan(new StyleSpan(Typeface.BOLD), 0, ssb.length(), 0);
         actionBar.setIcon(R.drawable.uwapi);
-        setActionBarTitle(getString(R.string.app_name), Typeface.BOLD);
+        actionBar.setTitle(ssb.toString());
     }
 
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        setActionBarTitle(mTitle);
-    }
-
-    public void setActionBarTitle(final String text) {
-        setActionBarTitle(text, 0);
-    }
-
-    public void setActionBarTitle(final String text, final int style) {
-        final ActionBar actionBar = getActionBar();
-
-        if (Build.VERSION.SDK_INT >= 20) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(text);
-            return;
-        } else {
-            actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        if (TextUtils.isEmpty(text)) {
-            actionBar.setIcon(R.drawable.uwapi);
-
-        } else {
-            if (mIcon == null) {
-                mIcon = new TextDrawable(this);
-            }
-
-            mIcon.setTypeface(Typeface.createFromAsset(getAssets(), "Gotham-Book.otf"), style);
-
-            // Spaces for emulated 'padding'
-            mIcon.setText("  " + text + " ");
-            actionBar.setIcon(mIcon);
-        }
+        actionBar.setTitle(mTitle);
     }
 
     @Override
