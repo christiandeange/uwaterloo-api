@@ -1,10 +1,10 @@
 package com.deange.uwaterlooapi.model.courses;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -192,21 +192,21 @@ public class CourseSchedule extends BaseModel {
      * Course specific enrollment reservation data
      */
     public List<Reserve> getReserves() {
-        return Collections.unmodifiableList(mReserves);
+        return CollectionUtils.applyPolicy(mReserves);
     }
 
     /**
      * Schedule data
      */
     public List<Class> getClasses() {
-        return Collections.unmodifiableList(mClasses);
+        return CollectionUtils.applyPolicy(mClasses);
     }
 
     /**
      * A list of classes the course is held with
      */
     public List<String> getHeldWith() {
-        return Collections.unmodifiableList(mHeldWith);
+        return CollectionUtils.applyPolicy(mHeldWith);
     }
 
     /**

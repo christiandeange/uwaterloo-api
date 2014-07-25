@@ -3,9 +3,9 @@ package com.deange.uwaterlooapi.model.courses;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.List;
 
 public class CourseInfo extends Course {
@@ -53,7 +53,7 @@ public class CourseInfo extends Course {
      * Instruction types for the course (LEC, TUT, LAB etc)
      */
     public List<String> getInstructions() {
-        return Collections.unmodifiableList(mInstructions);
+        return CollectionUtils.applyPolicy(mInstructions);
     }
 
     /**
@@ -88,7 +88,7 @@ public class CourseInfo extends Course {
      * List of terms that the course is offered
      */
     public List<String> getTermsOffered() {
-        return Collections.unmodifiableList(mTermsOffered);
+        return CollectionUtils.applyPolicy(mTermsOffered);
     }
 
     /**
@@ -135,7 +135,7 @@ public class CourseInfo extends Course {
      * Any additional information associated with the course
      */
     public List<String> getExtraInfo() {
-        return Collections.unmodifiableList(mExtraInfo);
+        return CollectionUtils.applyPolicy(mExtraInfo);
     }
 
     /**

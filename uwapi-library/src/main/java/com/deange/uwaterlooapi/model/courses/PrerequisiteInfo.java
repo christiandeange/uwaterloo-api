@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.model.courses;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -10,7 +11,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PrerequisiteInfo extends BaseModel {
@@ -133,14 +133,14 @@ public class PrerequisiteInfo extends BaseModel {
          * Prerequisite courses for this group
          */
         public List<String> getOptions() {
-            return Collections.unmodifiableList(mOptions);
+            return CollectionUtils.applyPolicy(mOptions);
         }
 
         /**
          * Other subgroups that can satisfy as a prerequisite for this group
          */
         public List<PrerequisiteGroup> getSubOptions() {
-            return Collections.unmodifiableList(mSubOptions);
+            return CollectionUtils.applyPolicy(mSubOptions);
         }
 
         /**

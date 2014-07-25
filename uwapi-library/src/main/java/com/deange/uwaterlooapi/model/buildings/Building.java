@@ -1,9 +1,9 @@
 package com.deange.uwaterlooapi.model.buildings;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Building extends BaseModel {
@@ -54,7 +54,7 @@ public class Building extends BaseModel {
      * Alternate building names
      */
     public List<String> getAlternateNames() {
-        return Collections.unmodifiableList(mAlternateNames);
+        return CollectionUtils.applyPolicy(mAlternateNames);
     }
 
     /**
@@ -68,6 +68,6 @@ public class Building extends BaseModel {
      * List of building sections
      */
     public List<BuildingSection> getBuildingSections() {
-        return Collections.unmodifiableList(mBuildingSections);
+        return CollectionUtils.applyPolicy(mBuildingSections);
     }
 }

@@ -2,9 +2,9 @@ package com.deange.uwaterlooapi.model.foodservices;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.DateRange;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.List;
 
 public class MenuInfo extends BaseModel {
@@ -26,7 +26,7 @@ public class MenuInfo extends BaseModel {
      * Available outlets
      */
     public List<Outlet> getOutlets() {
-        return Collections.unmodifiableList(mOutlets);
+        return CollectionUtils.applyPolicy(mOutlets);
     }
 
 }

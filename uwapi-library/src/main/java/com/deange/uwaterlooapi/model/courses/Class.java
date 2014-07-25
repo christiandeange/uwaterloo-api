@@ -1,9 +1,9 @@
 package com.deange.uwaterlooapi.model.courses;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Class extends BaseModel {
@@ -42,7 +42,7 @@ public class Class extends BaseModel {
      * Names of instructors teaching the course
      */
     public List<String> getInstructors() {
-        return Collections.unmodifiableList(mInstructors);
+        return CollectionUtils.applyPolicy(mInstructors);
     }
 
     private static final class Location {

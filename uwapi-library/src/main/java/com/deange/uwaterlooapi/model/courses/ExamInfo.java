@@ -1,9 +1,9 @@
 package com.deange.uwaterlooapi.model.courses;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ExamInfo extends BaseModel {
@@ -19,6 +19,6 @@ public class ExamInfo extends BaseModel {
     }
 
     public List<ExamSection> getSections() {
-        return Collections.unmodifiableList(mSections);
+        return CollectionUtils.applyPolicy(mSections);
     }
 }

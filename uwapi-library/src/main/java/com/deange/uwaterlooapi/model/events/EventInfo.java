@@ -3,10 +3,10 @@ package com.deange.uwaterlooapi.model.events;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.Image;
 import com.deange.uwaterlooapi.model.common.MultidayDateRange;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -101,7 +101,7 @@ public class EventInfo extends BaseModel {
      * The event's times
      */
     public List<MultidayDateRange> getTimes() {
-        return Collections.unmodifiableList(mTimes);
+        return CollectionUtils.applyPolicy(mTimes);
     }
 
     /**
@@ -115,21 +115,21 @@ public class EventInfo extends BaseModel {
      * Audience targeted by event
      */
     public List<String> getAudience() {
-        return Collections.unmodifiableList(mAudience);
+        return CollectionUtils.applyPolicy(mAudience);
     }
 
     /**
      * Tags related to event
      */
     public List<String> getTags() {
-        return Collections.unmodifiableList(mTags);
+        return CollectionUtils.applyPolicy(mTags);
     }
 
     /**
      * Type of event
      */
     public List<String> getTypes() {
-        return Collections.unmodifiableList(mTypes);
+        return CollectionUtils.applyPolicy(mTypes);
     }
 
     /**

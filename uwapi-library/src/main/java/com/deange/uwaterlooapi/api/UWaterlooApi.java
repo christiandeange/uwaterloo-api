@@ -1,5 +1,8 @@
 package com.deange.uwaterlooapi.api;
 
+import com.deange.uwaterlooapi.utils.CollectionUtils;
+import com.deange.uwaterlooapi.utils.CollectionsPolicy;
+
 public final class UWaterlooApi {
 
     private String mApiKey;
@@ -16,6 +19,10 @@ public final class UWaterlooApi {
         if (mApiKey == null) {
             throw new IllegalStateException("API key is null!");
         }
+    }
+
+    public static void setPolicy(final CollectionsPolicy policy) {
+        CollectionUtils.setPolicy(policy);
     }
 
 

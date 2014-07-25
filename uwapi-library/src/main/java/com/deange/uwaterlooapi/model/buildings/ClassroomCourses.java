@@ -1,10 +1,10 @@
 package com.deange.uwaterlooapi.model.buildings;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -139,7 +139,7 @@ public class ClassroomCourses extends BaseModel {
      * List of instructors the individual meet
      */
     public List<String> getInstructors() {
-        return Collections.unmodifiableList(mInstructors);
+        return CollectionUtils.applyPolicy(mInstructors);
     }
 
     /**

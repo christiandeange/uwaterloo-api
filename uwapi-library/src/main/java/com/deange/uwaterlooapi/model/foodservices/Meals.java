@@ -1,9 +1,9 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Meals extends BaseModel {
@@ -18,13 +18,13 @@ public class Meals extends BaseModel {
      * Lunch menu items
      */
     public List<Meal> getLunch() {
-        return Collections.unmodifiableList(mLunch);
+        return CollectionUtils.applyPolicy(mLunch);
     }
 
     /**
      * Dinner menu items
      */
     public List<Meal> getDinner() {
-        return Collections.unmodifiableList(mDinner);
+        return CollectionUtils.applyPolicy(mDinner);
     }
 }

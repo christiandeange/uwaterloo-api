@@ -1,11 +1,11 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -128,21 +128,21 @@ public class Location extends BaseModel {
      * Weekly operating hours data
      */
     public Map<String, OperatingHours> getHours() {
-        return Collections.unmodifiableMap(mHours);
+        return CollectionUtils.applyPolicy(mHours);
     }
 
     /**
      * Special cases for operating hours
      */
     public List<SpecialOperatingHours> getSpecialOperatingHours() {
-        return Collections.unmodifiableList(mSpecialOperatingHours);
+        return CollectionUtils.applyPolicy(mSpecialOperatingHours);
     }
 
     /**
      * Y-m-d format list of dates the outlet is closed as strings
      */
     public List<String> getRawDatesClosed() {
-        return Collections.unmodifiableList(mDatesClosedRaw);
+        return CollectionUtils.applyPolicy(mDatesClosedRaw);
     }
 
     /**
@@ -162,6 +162,6 @@ public class Location extends BaseModel {
             }
         }
 
-        return Collections.unmodifiableList(mDatesClosed);
+        return CollectionUtils.applyPolicy(mDatesClosed);
     }
 }

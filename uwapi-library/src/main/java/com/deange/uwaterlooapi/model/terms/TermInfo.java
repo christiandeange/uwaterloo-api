@@ -1,9 +1,9 @@
 package com.deange.uwaterlooapi.model.terms;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +48,6 @@ public class TermInfo extends BaseModel {
      * First item is previous year, second is current, last is next year
      */
     public Map<Integer, List<TermId>> getListings() {
-        return Collections.unmodifiableMap(mListings);
+        return CollectionUtils.applyPolicy(mListings);
     }
 }
