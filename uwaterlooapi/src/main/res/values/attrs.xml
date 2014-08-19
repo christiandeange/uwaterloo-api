@@ -5,4 +5,6 @@
         <attr name="fontName" format="string" />
     </declare-styleable>
 
+    <attr name="propertyLayoutStyle" type="reference" />
+
 </resources>

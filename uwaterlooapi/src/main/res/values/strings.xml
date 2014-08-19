@@ -27,6 +27,9 @@
         <item>@string/api_buildings</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="building_building_id">Building ID</string>
+    <string name="building_building_code">Building Code</string>
+    <string name="building_alternate_names">Alternate Names</string>
+    <string name="building_alternate_sections">Building Sections</string>
 
 </resources>

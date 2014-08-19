@@ -27,4 +27,9 @@ public class BuildingSection extends BaseModel {
     public float[] getLocation() {
         return new float[] {mLatitude, mLongitude};
     }
+
+    @Override
+    public String toString() {
+        return mSectionName;
+    }
 }

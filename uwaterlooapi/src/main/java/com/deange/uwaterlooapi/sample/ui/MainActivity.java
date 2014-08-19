@@ -37,7 +37,6 @@ public class MainActivity extends FragmentActivity
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private String mTitle;
-    private TextDrawable mIcon;
     private UWaterlooApi mApi = new UWaterlooApi("YOUR_API_KEY_HERE");
 
     @Override

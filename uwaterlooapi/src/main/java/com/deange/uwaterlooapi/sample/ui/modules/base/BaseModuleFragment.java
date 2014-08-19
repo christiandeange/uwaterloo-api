@@ -10,10 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
+//import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     private long mLastUpdate = 0;
     private ViewGroup mLoadingLayout;
     private final Handler mHandler = new Handler();
+    private LoadModuleDataTask mTask;
 
     public BaseModuleFragment() {
         // Required constructor
@@ -43,6 +45,15 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         super.onAttach(activity);
         if (!(activity instanceof ModuleHostActivity)) {
             throw new RuntimeException("Parent activity not an instance of ModuleHostActivity");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mTask != null) {
+            mTask.cancel(true);
+            mTask = null;
         }
     }
 
@@ -96,7 +107,8 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
 
         mLastUpdate = System.currentTimeMillis();
         final UWaterlooApi api = ((ModuleHostActivity) getActivity()).getApi();
-        new LoadModuleDataTask().execute(api);
+        mTask = new LoadModuleDataTask();
+        mTask.execute(api);
     }
 
     protected void changeLoadingVisibility(final boolean show) {
@@ -140,11 +152,11 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         };
 
         if (Build.VERSION.SDK_INT >= 20) {
-            final ValueAnimator anim = ViewAnimationUtils.createCircularReveal(
-                    loadingLayout, centerX, centerY, startRadius, finalRadius);
-            anim.setDuration(ANIMATION_DURATION);
-            anim.addListener(listener);
-            anim.start();
+//            final ValueAnimator anim = ViewAnimationUtils.createCircularReveal(
+//                    loadingLayout, centerX, centerY, startRadius, finalRadius);
+//            anim.setDuration(ANIMATION_DURATION);
+//            anim.addListener(listener);
+//            anim.start();
 
         } else {
             loadingLayout.animate()
@@ -168,6 +180,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         final long now = System.currentTimeMillis();
         final long delay = MINIMUM_UPDATE_DURATION - (now - mLastUpdate);
 
+        mTask = null;
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -191,7 +204,12 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         @Override
         protected T doInBackground(final UWaterlooApi... apis) {
             // Performed on a background thread, so network calls are performed here
-            return onLoadData(apis[0]);
+            try {
+                return onLoadData(apis[0]);
+            } catch (final Exception e) {
+                Log.e("UWaterlooApi", e.getMessage(), e);
+                return null;
+            }
         }
 
         @Override

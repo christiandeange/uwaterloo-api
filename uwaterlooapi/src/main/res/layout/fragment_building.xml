@@ -1,41 +1,58 @@
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".ui.modules.buildings.BuildingFragment">
 
-    <FrameLayout
-            android:id="@+id/title_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="32dp"
-            android:paddingBottom="32dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:background="@color/uw_yellow">
-
-        <TextView
-                android:id="@+id/building_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"/>
-    </FrameLayout>
-
     <TextView
-            android:id="@+id/building_code"
+            android:id="@+id/building_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title_layout"
-            android:layout_margin="16dp"/>
+            android:background="@color/uw_yellow"
+            android:gravity="right|end"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:paddingBottom="32dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-light"/>
 
-    <FrameLayout
-            android:id="@+id/building_map"
+    <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
+            style="@style/PropertyLayout"
+            android:id="@+id/building_id"
+            android:tag="@string/building_building_id" />
+
+    <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
+            style="@style/PropertyLayout"
+            android:id="@+id/building_code"
+            android:tag="@string/building_building_code" />
+
+    <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
+            style="@style/PropertyLayout"
+            android:id="@+id/building_alternate_names"
+            android:tag="@string/building_alternate_names" />
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/building_code"
-            android:visibility="invisible" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-</RelativeLayout>
+        <FrameLayout
+                android:id="@+id/building_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="300dp"
+                android:layout_margin="16dp"
+                android:layout_weight="1"/>
+
+        <ListView
+                android:id="@+id/building_alternate_sections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+
+    </LinearLayout>
+
+</LinearLayout>

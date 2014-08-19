@@ -5,12 +5,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 'android-L'
+    compileSdkVersion 19
     buildToolsVersion "20.0.0"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 'L'
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
@@ -30,7 +30,6 @@ android {
 
 dependencies {
     compile project(":uwapi-library")
-    compile 'com.android.support:support-v4:19.+'
+    compile 'com.android.support:support-v4:20.0.0'
     compile 'com.google.android.gms:play-services:5.0.77'
-
 }

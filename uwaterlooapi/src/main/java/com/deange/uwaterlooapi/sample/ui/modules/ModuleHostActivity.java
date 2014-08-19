@@ -51,9 +51,16 @@ public class ModuleHostActivity extends FragmentActivity
         setContentView(R.layout.activity_module_host);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 
-        final String fragmentName = getIntent().getStringExtra(ARG_FRAGMENT_CLASS);
-        showFragment((BaseModuleFragment) Fragment.instantiate(this, fragmentName), false,
-                getIntent().getExtras());
+        mChildFragment = findContentFragment();
+        if (mChildFragment == null) {
+            final String fragmentName = getIntent().getStringExtra(ARG_FRAGMENT_CLASS);
+            showFragment((BaseModuleFragment) Fragment.instantiate(this, fragmentName), false,
+                    getIntent().getExtras());
+        }
+    }
+
+    private BaseModuleFragment findContentFragment() {
+        return (BaseModuleFragment) getSupportFragmentManager().findFragmentById(R.id.content);
     }
 
     public void showFragment(final BaseModuleFragment fragment, final boolean addToBackStack,
@@ -109,8 +116,7 @@ public class ModuleHostActivity extends FragmentActivity
 
     @Override
     public void onBackStackChanged() {
-        mChildFragment =
-                (BaseModuleFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+        mChildFragment = findContentFragment();
         mInfo = mChildFragment.getFragmentInfo(this);
         refreshActionBar();
     }
