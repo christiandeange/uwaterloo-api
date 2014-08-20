@@ -3,6 +3,7 @@ package com.deange.uwaterlooapi.sample;
 import android.app.Application;
 import android.util.Log;
 
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleResolver;
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
 public class MainApplication extends Application {
@@ -18,5 +19,8 @@ public class MainApplication extends Application {
         // For response objects that contain a collection,
         // ensure they return unmodifiable copies of the data so the underlying model is immutable
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
+
+        ModuleResolver.initMappingsStatic();
+//        ModuleResolver.initMappings(this.getApplicationContext());
     }
 }

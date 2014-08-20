@@ -1,17 +1,10 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
-import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -20,11 +13,12 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
-import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
+import com.deange.uwaterlooapi.sample.ui.modules.ApiFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.List;
 
+@ApiFragment(value = "/buildings/list", isBare = true)
 public class ListBuildingsFragment extends BaseListModuleFragment<Response.Buildings, Building>
         implements AdapterView.OnItemClickListener {
 

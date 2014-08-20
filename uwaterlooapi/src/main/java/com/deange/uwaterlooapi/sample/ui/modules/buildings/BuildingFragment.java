@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +20,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.StringAdapter;
+import com.deange.uwaterlooapi.sample.ui.modules.ApiFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.PropertyLayout;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
@@ -35,7 +35,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building> implements AdapterView.OnItemClickListener {
+@ApiFragment("/buildings/*")
+public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building>
+        implements AdapterView.OnItemClickListener {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
     public static final String ARG_BUILDING_CODE = "building_code";
@@ -187,8 +189,10 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
 
         @Override
         protected void onPostExecute(final Void aVoid) {
-            if (mMapFragment.getMap() != null) {
-                showLocation(mName, mLocation);
+            if (getActivity() != null) {
+                if (mMapFragment.getMap() != null) {
+                    showLocation(mName, mLocation);
+                }
             }
         }
     }

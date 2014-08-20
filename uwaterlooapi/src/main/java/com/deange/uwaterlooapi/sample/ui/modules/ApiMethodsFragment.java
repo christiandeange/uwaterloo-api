@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.deange.uwaterlooapi.sample.ui.MainActivity;
-import com.deange.uwaterlooapi.sample.ui.modules.buildings.ListBuildingsFragment;
 
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -32,11 +31,17 @@ public class ApiMethodsFragment extends ListFragment
 
         // Retrieve all the paths for the given API interface class
         Set<String> apiPaths = new TreeSet<>();
-        final Method[] methods = MainActivity.getApiForIndex(position).getDeclaredMethods();
+        final Method[] methods = ModuleResolver.getApiClassForIndex(position).getDeclaredMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(GET.class)) {
                 String path = method.getAnnotation(GET.class).value();
                 path = path.replace(".{format}", "");
+
+                // Filter out non-base endpoints
+//                final ModuleResolver.ModuleInfo info = ModuleResolver.getFragmentName(path);
+//                if (info == null || !info.isBase) {
+//                    continue;
+//                }
                 apiPaths.add(path);
             }
         }
@@ -74,18 +79,21 @@ public class ApiMethodsFragment extends ListFragment
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public void onItemClick(final AdapterView<?> adapterView, final View view,
                                final int position, final long id) {
-        Toast.makeText(getActivity(), String.valueOf(getListAdapter().getItem(position)),
-                Toast.LENGTH_SHORT).show();
 
-        startActivity(
-                ModuleHostActivity.getStartIntent(getActivity(), ListBuildingsFragment.class));
+        final String endpoint = String.valueOf(getListAdapter().getItem(position));
+        final ModuleResolver.ModuleInfo fragmentInfo = ModuleResolver.getFragmentName(endpoint);
+        if (fragmentInfo == null) {
+            Toast.makeText(getActivity(), "No fragment for " + endpoint, Toast.LENGTH_SHORT).show();
 
+        } else if (!fragmentInfo.isBase) {
+            Toast.makeText(getActivity(),
+                    fragmentInfo.fragment.getSimpleName() + " is not a base fragment",
+                    Toast.LENGTH_SHORT).show();
+
+        } else {
+            startActivity(ModuleHostActivity.getStartIntent(getActivity(), fragmentInfo.fragment));
+        }
     }
 }
