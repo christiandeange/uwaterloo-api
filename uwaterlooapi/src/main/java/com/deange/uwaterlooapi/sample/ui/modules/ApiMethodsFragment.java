@@ -83,7 +83,7 @@ public class ApiMethodsFragment extends ListFragment
                                final int position, final long id) {
 
         final String endpoint = String.valueOf(getListAdapter().getItem(position));
-        final ModuleResolver.ModuleInfo fragmentInfo = ModuleResolver.getFragmentName(endpoint);
+        final ModuleInfo fragmentInfo = ModuleResolver.getFragmentName(endpoint);
         if (fragmentInfo == null) {
             Toast.makeText(getActivity(), "No fragment for " + endpoint, Toast.LENGTH_SHORT).show();
 

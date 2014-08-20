@@ -13,21 +13,48 @@ import java.util.List;
 
 public class StringAdapter extends ArrayAdapter {
 
+    private int mViewId = R.layout.item_string_adapter;
+    private int mDropdownId = R.layout.item_string_adapter;
+
     public StringAdapter(final Context context, final List objects) {
         super(context, 0, objects);
     }
 
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
+        return doGetView(position, convertView, parent, mViewId);
+    }
 
+    @Override
+    public View getDropDownView(final int position, final View convertView, final ViewGroup parent) {
+        return doGetView(position, convertView, parent, mDropdownId);
+    }
+
+    public void setViewLayoutId(final int viewId) {
+        mViewId = viewId;
+    }
+
+    public void setDropdownLayoutId(final int dropdownId) {
+        mDropdownId = dropdownId;
+    }
+
+    private View doGetView(final int position, final View convertView, final ViewGroup parent,
+                           final int layoutResId) {
         final View view;
         if (convertView == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.item_string_adapter, null);
+            view = LayoutInflater.from(getContext()).inflate(layoutResId, null);
         } else {
             view = convertView;
         }
 
-        ((TextView) view).setText(String.valueOf(getItem(position)));
+        final TextView textView;
+        if (view instanceof TextView) {
+            textView = (TextView) view;
+        } else {
+            textView = (TextView) view.findViewById(android.R.id.text1);
+        }
+
+        textView.setText(String.valueOf(getItem(position)));
 
         return view;
     }

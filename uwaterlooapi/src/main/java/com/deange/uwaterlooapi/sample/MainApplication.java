@@ -20,7 +20,6 @@ public class MainApplication extends Application {
         // ensure they return unmodifiable copies of the data so the underlying model is immutable
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
 
-        ModuleResolver.initMappingsStatic();
-//        ModuleResolver.initMappings(this.getApplicationContext());
+        ModuleResolver.initFragmentMappings();
     }
 }

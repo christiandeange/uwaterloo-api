@@ -1,10 +1,10 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.modules.buildings.BuildingFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.modules.buildings.BuildingFragment">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
             android:id="@+id/building_name"
@@ -15,45 +15,63 @@
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
             android:paddingBottom="32dp"
-            android:layout_marginBottom="16dp"
             android:textSize="24sp"
             android:fontFamily="sans-serif-light"/>
 
-    <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
-            style="@style/PropertyLayout"
-            android:id="@+id/building_id"
-            android:tag="@string/building_building_id" />
-
-    <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
-            style="@style/PropertyLayout"
-            android:id="@+id/building_code"
-            android:tag="@string/building_building_code" />
-
-    <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
-            style="@style/PropertyLayout"
-            android:id="@+id/building_alternate_names"
-            android:tag="@string/building_alternate_names" />
-
-    <LinearLayout
+    <ScrollView
+            android:id="@+id/building_scrollview_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:fillViewport="true">
 
-        <FrameLayout
-                android:id="@+id/building_map"
+        <LinearLayout
+                android:id="@+id/property_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="400dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"/>
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
-        <ListView
-                android:id="@+id/building_alternate_sections"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"/>
+            <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
+                    style="@style/PropertyLayout"
+                    android:id="@+id/building_id"
+                    android:tag="@string/building_building_id"/>
 
-    </LinearLayout>
+            <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
+                    style="@style/PropertyLayout"
+                    android:id="@+id/building_code"
+                    android:tag="@string/building_building_code"/>
 
+            <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
+                    style="@style/PropertyLayout"
+                    android:id="@+id/building_alternate_names"
+                    android:tag="@string/building_alternate_names"/>
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+
+                <FrameLayout
+                        android:id="@+id/building_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_margin="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:minHeight="300dp"/>
+
+                <Spinner
+                        android:id="@+id/building_marker_view"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_alignLeft="@id/building_map"
+                        android:layout_alignRight="@id/building_map"
+                        android:layout_alignTop="@id/building_map"
+                        android:background="@drawable/marker_text_selector"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
