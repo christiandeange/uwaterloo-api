@@ -49,18 +49,13 @@
 
             <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    android:layout_height="300dp">
 
                 <FrameLayout
                         android:id="@+id/building_map"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_margin="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:minHeight="300dp"/>
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"/>
 
                 <Spinner
                         android:id="@+id/building_marker_view"

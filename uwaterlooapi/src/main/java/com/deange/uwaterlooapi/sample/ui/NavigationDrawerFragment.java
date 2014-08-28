@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.deange.uwaterlooapi.sample.R;
 
@@ -84,7 +83,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
         mDrawerListView.setAdapter(new ArrayAdapter<>(
-                getActionBar().getThemedContext(),
+                getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 getResources().getStringArray(R.array.api_array)
@@ -103,7 +102,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-        ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
@@ -121,7 +120,6 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
-                getActionBar().setIcon(R.drawable.ic_launcher);
                 getActivity().invalidateOptionsMenu();
             }
 

@@ -12,6 +12,9 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 //import android.view.ViewAnimationUtils;
@@ -26,18 +29,20 @@ import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 
 public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
-        implements View.OnClickListener, View.OnTouchListener {
+        implements View.OnTouchListener {
 
     public static final long MINIMUM_UPDATE_DURATION = 2000;
     public static final long ANIMATION_DURATION = 300;
 
     private long mLastUpdate = 0;
     private ViewGroup mLoadingLayout;
+
     private final Handler mHandler = new Handler();
     private LoadModuleDataTask mTask;
 
     public BaseModuleFragment() {
         // Required constructor
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -85,9 +90,6 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final View root = getView();
-        root.findViewById(R.id.refresh_button).setOnClickListener(this);
-
         // Show data when first displayed
         if (mLastUpdate == 0) {
             onRefreshRequested();
@@ -95,20 +97,39 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     }
 
     @Override
-    public void onClick(final View view) {
-        if (view.getId() == R.id.refresh_button) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_base_module, menu);
+
+        final MenuItem refreshItem = menu.findItem(R.id.menu_refresh);
+        refreshItem.setVisible(!isRefreshing());
+        refreshItem.setEnabled(!isRefreshing());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (item.getItemId() == R.id.menu_refresh) {
             // Refresh manually requested
             onRefreshRequested();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void onRefreshRequested() {
-        changeLoadingVisibility(true);
+        changeLoadingVisibilityInternal(true);
 
         mLastUpdate = System.currentTimeMillis();
         final UWaterlooApi api = ((ModuleHostActivity) getActivity()).getApi();
         mTask = new LoadModuleDataTask();
         mTask.execute(api);
+    }
+
+    private void changeLoadingVisibilityInternal(final boolean show) {
+
+        // Allow the refresh menu item to be updated
+        getActivity().supportInvalidateOptionsMenu();
+
+        changeLoadingVisibility(show);
     }
 
     protected void changeLoadingVisibility(final boolean show) {
@@ -174,6 +195,10 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         return true;
     }
 
+    public boolean isRefreshing() {
+        return mTask != null;
+    }
+
     protected void onLoadFinished() {
         // We want to keep the refresh UI up for *at least* MINIMUM_UPDATE_DURATION
         // Otherwise it looks very choppy and overall not a pleasant look
@@ -184,7 +209,10 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                changeLoadingVisibility(false);
+                if (getActivity() != null) {
+                    // Ensure we haven't been detached
+                    changeLoadingVisibilityInternal(false);
+                }
             }
         }, delay);
     }

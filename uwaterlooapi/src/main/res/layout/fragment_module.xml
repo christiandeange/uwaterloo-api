@@ -8,15 +8,7 @@
     <FrameLayout
             android:id="@+id/container_content_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/refresh_button" />
-
-    <Button
-            android:id="@+id/refresh_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/api_refresh_button" />
+            android:layout_height="match_parent" />
 
     <RelativeLayout
             android:id="@+id/loading_layout"

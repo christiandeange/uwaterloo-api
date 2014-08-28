@@ -14,7 +14,9 @@
     <string name="api_terms">Terms</string>
     <string name="api_resources">Resources</string>
     <string name="api_buildings">Buildings</string>
-    <string name="api_refresh_button">Refresh</string>
+
+    <string name="button_refresh">Refresh</string>
+    <string name="menu_refresh">Refresh</string>
 
     <string-array name="api_array">
         <item>@string/api_foodservices</item>

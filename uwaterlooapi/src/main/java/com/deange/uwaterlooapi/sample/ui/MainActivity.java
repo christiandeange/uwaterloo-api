@@ -32,8 +32,8 @@ public class MainActivity extends FragmentActivity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        getActionBar().setTitle(null);
         mTitle = null;
+        restoreActionBar();
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -67,7 +67,6 @@ public class MainActivity extends FragmentActivity
         final SpannableStringBuilder ssb = new SpannableStringBuilder(getString(R.string.app_name));
         final ActionBar actionBar = getActionBar();
         ssb.setSpan(new StyleSpan(Typeface.BOLD), 0, ssb.length(), 0);
-        actionBar.setIcon(R.drawable.uwapi);
         actionBar.setTitle(ssb.toString());
     }
 
