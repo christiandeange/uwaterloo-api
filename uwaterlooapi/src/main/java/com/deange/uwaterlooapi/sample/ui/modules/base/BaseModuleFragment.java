@@ -221,7 +221,9 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         Toast.makeText(getActivity(), "Received no data", Toast.LENGTH_SHORT).show();
     }
 
-    public abstract FragmentInfo getFragmentInfo(final Context context);
+    public FragmentInfo getFragmentInfo(final Context context) {
+        return null;
+    }
 
     public abstract T onLoadData(final UWaterlooApi api);
 

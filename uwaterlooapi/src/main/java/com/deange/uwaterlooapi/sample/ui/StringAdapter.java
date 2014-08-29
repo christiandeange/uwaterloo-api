@@ -13,8 +13,8 @@ import java.util.List;
 
 public class StringAdapter extends ArrayAdapter {
 
-    private int mViewId = R.layout.item_string_adapter;
-    private int mDropdownId = R.layout.item_string_adapter;
+    private int mViewId = R.layout.list_item_string_adapter;
+    private int mDropdownId = R.layout.list_item_string_adapter;
 
     public StringAdapter(final Context context, final List objects) {
         super(context, 0, objects);

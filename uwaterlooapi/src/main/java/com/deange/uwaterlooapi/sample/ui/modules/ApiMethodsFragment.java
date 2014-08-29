@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.MainActivity;
 
 import java.lang.reflect.Method;
@@ -38,7 +38,7 @@ public class ApiMethodsFragment extends ListFragment
                 path = path.replace(".{format}", "");
 
                 // Filter out non-base endpoints
-//                final ModuleResolver.ModuleInfo info = ModuleResolver.getFragmentName(path);
+//                final ModuleResolver.ModuleInfo info = ModuleResolver.getFragmentInfo(path);
 //                if (info == null || !info.isBase) {
 //                    continue;
 //                }
@@ -67,8 +67,8 @@ public class ApiMethodsFragment extends ListFragment
         final String[] methods = getArguments().getStringArray(ARG_METHODS);
 
         getListView().setOnItemClickListener(this);
-        setListAdapter(new ArrayAdapter<>(
-                getActivity(), android.R.layout.simple_list_item_1, methods));
+        setListAdapter(new ApiMethodsAdapter(
+                getActivity(), R.layout.list_item_api_method, methods));
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ApiMethodsFragment extends ListFragment
                                final int position, final long id) {
 
         final String endpoint = String.valueOf(getListAdapter().getItem(position));
-        final ModuleInfo fragmentInfo = ModuleResolver.getFragmentName(endpoint);
+        final ModuleInfo fragmentInfo = ModuleResolver.getFragmentInfo(endpoint);
         if (fragmentInfo == null) {
             Toast.makeText(getActivity(), "No fragment for " + endpoint, Toast.LENGTH_SHORT).show();
 
