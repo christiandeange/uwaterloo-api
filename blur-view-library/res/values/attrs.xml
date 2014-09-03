@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="blurRadius" format="float" />
+
+    <declare-styleable name="BlurFrameLayout">
+        <attr name="blurRadius" />
+    </declare-styleable>
+
+    <declare-styleable name="BlurLinearLayout">
+        <attr name="blurRadius" />
+    </declare-styleable>
+
+    <declare-styleable name="BlurRelativeLayout">
+        <attr name="blurRadius" />
+    </declare-styleable>
+
+</resources>

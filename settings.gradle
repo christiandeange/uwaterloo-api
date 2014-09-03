@@ -1,1 +1,1 @@
-include ':uwaterlooapi', ':uwapi-library'
+include ':uwaterlooapi', ':uwapi-library', ':blur-view-library'
