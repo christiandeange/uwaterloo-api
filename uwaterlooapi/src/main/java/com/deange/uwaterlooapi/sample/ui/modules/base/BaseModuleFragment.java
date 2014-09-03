@@ -247,7 +247,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             // Performed on the main thread, so view manipulation is performed here
             onLoadFinished();
 
-            if (data == null) {
+            if (data == null || data.getData() == null) {
                 onNullResponseReceived();
             } else {
                 onBindData(data.getMetadata(), data.getData());

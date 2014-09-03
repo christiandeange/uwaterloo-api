@@ -34,4 +34,6 @@
     <string name="building_alternate_names">Alternate Names</string>
     <string name="building_alternate_sections">Building Sections</string>
 
+    <string name="weather_last_updated">Last updated %s.</string>
+
 </resources>

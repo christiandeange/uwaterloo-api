@@ -20,7 +20,7 @@ public class SimplePropertyLayout extends PropertyLayout {
     public SimplePropertyLayout(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        View.inflate(context, R.layout.simple_property_layout, this);
+        View.inflate(context, R.layout.view_simple_property, this);
 
         ((TextView) getChildAt(0)).setText(String.valueOf(getTag()));   // Property name
         getChildAt(1).setId(getId());                                   // Property value

@@ -30,9 +30,13 @@ public class TextFontView extends TextView {
 	private void init(final Context context, final AttributeSet attrs, final int defStyle, final String defaultFont) {
 
 		final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TextFontView, defStyle, 0);
-        final String fontName;
+        String fontName;
         if (a != null) {
 			fontName = a.getString(R.styleable.TextFontView_fontName);
+            if (!fontName.contains(".")) {
+                fontName += ".ttf";
+            }
+
 			a.recycle();
 		} else {
 			fontName = defaultFont;
