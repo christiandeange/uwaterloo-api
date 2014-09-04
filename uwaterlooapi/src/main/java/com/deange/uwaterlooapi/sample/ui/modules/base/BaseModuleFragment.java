@@ -27,17 +27,23 @@ import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
+import com.deange.uwaterlooapi.sample.utils.GsonController;
 
 public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
         implements View.OnTouchListener {
 
-    public static final long MINIMUM_UPDATE_DURATION = 2000;
+    public static final long MINIMUM_UPDATE_DURATION = 1000;
     public static final long ANIMATION_DURATION = 300;
+
+    private static final String KEY_DATA = "data";
+    private static final String KEY_DATA_CLASS = "data_class";
+    private static final String KEY_LAST_UPDATED = "last_updated";
 
     private long mLastUpdate = 0;
     private ViewGroup mLoadingLayout;
 
     private final Handler mHandler = new Handler();
+    private T mLastResponse;
     private LoadModuleDataTask mTask;
 
     public BaseModuleFragment() {
@@ -90,8 +96,21 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Show data when first displayed
-        if (mLastUpdate == 0) {
+        if (savedInstanceState != null) {
+            mLastUpdate = savedInstanceState.getLong(KEY_LAST_UPDATED);
+            final Class<T> clazz = (Class<T>) savedInstanceState.getSerializable(KEY_DATA_CLASS);
+            if (clazz != null) {
+                final String serializedResponse = savedInstanceState.getString(KEY_DATA);
+                mLastResponse = GsonController.getInstance().fromJson(serializedResponse, clazz);
+            }
+        }
+
+        // Show data when first displayed, otherwise deliver the response if we still have one
+        // (usually from coming back from another activity or rotating)
+        if (mLastResponse != null) {
+            deliverResponse(mLastResponse);
+
+        } else if (mLastUpdate == 0) {
             onRefreshRequested();
         }
     }
@@ -113,6 +132,16 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(KEY_LAST_UPDATED, mLastUpdate);
+        if (mLastResponse != null) {
+            outState.putString(KEY_DATA, GsonController.getInstance().toJson(mLastResponse));
+            outState.putSerializable(KEY_DATA_CLASS, mLastResponse.getClass());
+        }
     }
 
     protected void onRefreshRequested() {
@@ -221,6 +250,16 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         Toast.makeText(getActivity(), "Received no data", Toast.LENGTH_SHORT).show();
     }
 
+    private void deliverResponse(final T data) {
+        if (data == null || data.getData() == null) {
+            onNullResponseReceived();
+        } else {
+            onBindData(data.getMetadata(), data.getData());
+        }
+
+        ((ModuleHostActivity) getActivity()).refreshActionBar();
+    }
+
     public FragmentInfo getFragmentInfo(final Context context) {
         return null;
     }
@@ -237,7 +276,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             try {
                 return onLoadData(apis[0]);
             } catch (final Exception e) {
-                Log.e("UWaterlooApi", e.getMessage(), e);
+                Log.e("LoadModuleDataTask", e.getMessage(), e);
                 return null;
             }
         }
@@ -245,15 +284,10 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         @Override
         protected void onPostExecute(final T data) {
             // Performed on the main thread, so view manipulation is performed here
+            mLastResponse = data;
             onLoadFinished();
 
-            if (data == null || data.getData() == null) {
-                onNullResponseReceived();
-            } else {
-                onBindData(data.getMetadata(), data.getData());
-            }
-
-            ((ModuleHostActivity) getActivity()).refreshActionBar();
+            deliverResponse(data);
         }
 
     }

@@ -59,6 +59,15 @@ public class ModuleHostActivity extends FragmentActivity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mInfo == null && mChildFragment != null) {
+            mInfo = mChildFragment.getFragmentInfo(this);
+        }
+        refreshActionBar();
+    }
+
     private BaseModuleFragment findContentFragment() {
         return (BaseModuleFragment) getSupportFragmentManager().findFragmentById(R.id.content);
     }
