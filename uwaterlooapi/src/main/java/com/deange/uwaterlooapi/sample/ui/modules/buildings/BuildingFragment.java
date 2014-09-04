@@ -6,48 +6,37 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
-import com.deange.uwaterlooapi.model.buildings.BuildingSection;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.FragmentInfo;
-import com.deange.uwaterlooapi.sample.ui.StringAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.PropertyLayout;
-import com.deange.uwaterlooapi.sample.ui.view.WorkaroundMapFragment;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.GoogleMapOptionsCreator;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @ApiFragment("/buildings/*")
-public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building>
-        implements AdapterView.OnItemSelectedListener, WorkaroundMapFragment.OnTouchListener {
+public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building> implements GoogleMap.OnMapClickListener {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
     public static final String ARG_BUILDING_CODE = "building_code";
 
-    private WorkaroundMapFragment mMapFragment;
+    private SupportMapFragment mMapFragment;
     private ViewGroup mRoot;
-    private ScrollView mScrollView;
     private Building mBuilding;
 
     public static Bundle newBundle(final String buildingCode) {
@@ -57,28 +46,19 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_building, null);
 
         PropertyLayout.resize((ViewGroup) mRoot.findViewById(R.id.property_parent));
 
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        mMapFragment = (WorkaroundMapFragment) getChildFragmentManager().findFragmentByTag(TAG);
+        mMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentByTag(TAG);
         if (mMapFragment != null) {
             transaction.remove(mMapFragment);
         }
 
-        mMapFragment = new WorkaroundMapFragment();
-        mMapFragment.setListener(this);
-
-        transaction
-                .add(R.id.building_map, mMapFragment, TAG)
-                .commit();
+        mMapFragment = SupportMapFragment.newInstance();
+        transaction.add(R.id.building_map, mMapFragment, TAG).commit();
 
         MapsInitializer.initialize(getActivity());
 
@@ -94,76 +74,43 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
     public void onBindData(final Metadata metadata, final Building data) {
         mBuilding = data;
 
-        ((TextView) mRoot.findViewById(R.id.building_name)).setText(mBuilding.getBuildingName());
-        ((TextView) mRoot.findViewById(R.id.building_code)).setText(mBuilding.getBuildingCode());
-        ((TextView) mRoot.findViewById(R.id.building_id)).setText(mBuilding.getBuildingId());
+        ((TextView) mRoot.findViewById(R.id.building_name)).setText(data.getBuildingName());
+        ((TextView) mRoot.findViewById(R.id.building_code)).setText(data.getBuildingCode());
+        ((TextView) mRoot.findViewById(R.id.building_id)).setText(data.getBuildingId());
         ((TextView) mRoot.findViewById(R.id.building_alternate_names)).setText(
-                Joiner.on('\n').join(mBuilding.getAlternateNames()));
+                Joiner.on('\n').join(data.getAlternateNames()));
 
-        mScrollView = (ScrollView) mRoot.findViewById(R.id.building_scrollview_parent);
-        final Spinner placesView = (Spinner) mRoot.findViewById(R.id.building_marker_view);
-
-        if (mBuilding.getBuildingSections().isEmpty()) {
-            placesView.setVisibility(View.GONE);
-
-        } else {
-            // Add the building itself to the list
-            final List<Object> sections = new ArrayList<Object>(mBuilding.getBuildingSections());
-            sections.add(0, mBuilding.getBuildingName());
-            final StringAdapter adapter = new StringAdapter(getActivity(), sections);
-            adapter.setViewLayoutId(R.layout.building_marker_view);
-            placesView.setAdapter(adapter);
-            placesView.setOnItemSelectedListener(this);
-        }
-
-        showLocation(mBuilding.getBuildingName(), mBuilding.getLocation());
+        showLocation();
     }
 
-    private void showLocation(final String buildingName, final float[] location) {
+    private void showLocation() {
+        final float[] location = mBuilding.getLocation();
         final LatLng buildingLocation = new LatLng(location[0], location[1]);
         final GoogleMap map = mMapFragment.getMap();
 
         if (map == null) {
-            new UpdateMapTask(buildingName, location).execute();
+            new UpdateMapTask().execute();
 
         } else {
             map.clear();
-            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            map.setIndoorEnabled(false);
             map.setMyLocationEnabled(false);
+            map.setOnMapClickListener(this);
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            map.getUiSettings().setAllGesturesEnabled(false);
+            map.getUiSettings().setZoomControlsEnabled(false);
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
-            map.addMarker(new MarkerOptions()
-                    .title(buildingName)
-                    .position(buildingLocation));
         }
     }
 
     @Override
-    public void onItemSelected(final AdapterView<?> adapterView, final View view,
-                            final int position, final long id) {
-        if (mBuilding == null) {
-            return;
-
-        } else if (position == 0) {
-            showLocation(mBuilding.getBuildingName(), mBuilding.getLocation());
-
-        } else {
-            final BuildingSection section = mBuilding.getBuildingSections().get(position - 1);
-            showLocation(section.getSectionName(), section.getLocation());
-        }
-    }
-
-    @Override
-    public void onNothingSelected(final AdapterView<?> parent) {
+    public void onMapClick(final LatLng latLng) {
+        startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding));
     }
 
     @Override
     public FragmentInfo getFragmentInfo(final Context context) {
         return new Info(context);
-    }
-
-    @Override
-    public void onTouchGoogleMap() {
-        mScrollView.requestDisallowInterceptTouchEvent(true);
     }
 
     public final class Info extends FragmentInfo {
@@ -179,14 +126,6 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
     }
 
     private final class UpdateMapTask extends AsyncTask<Void, Void, Void> {
-
-        private final String mName;
-        private final float[] mLocation;
-
-        public UpdateMapTask(final String name, final float[] location) {
-            mName = name;
-            mLocation = location;
-        }
 
         @Override
         protected Void doInBackground(final Void... voids) {
@@ -209,9 +148,10 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
         protected void onPostExecute(final Void aVoid) {
             if (getActivity() != null) {
                 if (mMapFragment.getMap() != null) {
-                    showLocation(mName, mLocation);
+                    showLocation();
                 }
             }
         }
+
     }
 }

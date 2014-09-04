@@ -45,6 +45,10 @@
                 android:name=".ui.modules.ModuleHostActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+                android:name=".ui.modules.buildings.MapActivity"
+                android:theme="@style/AppTheme.DialogWhenLarge"/>
+
     </application>
 
 </manifest>

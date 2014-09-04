@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light"/>
+    <style name="AppBaseTheme" parent="android:Theme.DeviceDefault.Light"/>
 
     <style name="AppCommon" parent="AppBaseTheme">
         <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
@@ -10,8 +10,11 @@
     <style name="AppTheme" parent="AppCommon">
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
+    <style name="AppTheme.NoActionBar">
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.DialogWhenLarge" parent="android:Theme.DeviceDefault.Light.DialogWhenLarge">
     </style>
 
     <style name="BaseActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
