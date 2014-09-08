@@ -48,6 +48,8 @@ public class ModuleResolver {
     public static ModuleInfo getFragmentInfo(final String endpoint) {
 
         String path = endpoint;
+
+        // Removes the format string, and replaces "{var}" patterns with *
         path = path.replace(".{format}", "");
         path = path.replaceAll("\\{[^\\}]*\\}", "*");
 

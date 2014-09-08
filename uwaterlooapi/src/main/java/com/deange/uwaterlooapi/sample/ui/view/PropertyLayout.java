@@ -89,4 +89,20 @@ public class PropertyLayout extends LinearLayout {
         }
 
     }
+
+    public void setKeyText(final int resId) {
+        mPropertyNameView.setText(resId);
+    }
+
+    public void setKeyText(final CharSequence text) {
+        mPropertyNameView.setText(text);
+    }
+
+    public void setValueText(final int resId) {
+        mPropertyValueView.setText(resId);
+    }
+
+    public void setValueText(final CharSequence text) {
+        mPropertyValueView.setText(text);
+    }
 }

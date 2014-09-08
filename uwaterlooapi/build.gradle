@@ -33,4 +33,5 @@ dependencies {
     compile project(":blur-view-library")
     compile 'com.android.support:support-v4:20.0.0'
     compile 'com.google.android.gms:play-services:4.4.52'
+    compile 'se.emilsjolander:stickylistheaders:2.5.0'
 }

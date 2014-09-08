@@ -10,13 +10,16 @@ import android.widget.ListView;
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.StickyModuleAdapter;
 
 import java.util.List;
 
-public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, V>
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+
+public abstract class BaseStickyListModuleFragment<T extends SimpleResponse<List<V>>, V>
         extends BaseModuleFragment<T, List<V>> implements SwipeRefreshLayout.OnRefreshListener {
 
-    private ListView mListView;
+    private StickyListHeadersListView mListView;
     private SwipeRefreshLayout mSwipeLayout;
 
     @Override
@@ -24,7 +27,7 @@ public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, 
 
         final View root = inflater.inflate(getLayoutId(), null);
 
-        mListView = (ListView) root.findViewById(android.R.id.list);
+        mListView = (StickyListHeadersListView) root.findViewById(android.R.id.list);
         if (mListView == null) {
             throw new IllegalStateException("ListView must have id android.R.id.list");
         }
@@ -47,10 +50,10 @@ public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, 
     }
 
     protected int getLayoutId() {
-        return R.layout.fragment_base_list;
+        return R.layout.fragment_base_sticky_list;
     }
 
-    public ListView getListView() {
+    public StickyListHeadersListView getListView() {
         return mListView;
     }
 
@@ -76,5 +79,5 @@ public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, 
         super.onRefreshRequested();
     }
 
-    public abstract ModuleAdapter getAdapter();
+    public abstract StickyModuleAdapter getAdapter();
 }

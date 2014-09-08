@@ -22,8 +22,15 @@ public class SimplePropertyLayout extends PropertyLayout {
 
         View.inflate(context, R.layout.view_simple_property, this);
 
-        ((TextView) getChildAt(0)).setText(String.valueOf(getTag()));   // Property name
-        getChildAt(1).setId(getId());                                   // Property value
+        // Property name
+        if (mPropertyNameView != null) {
+            mPropertyNameView.setText(String.valueOf(getTag()));
+        }
+
+        // Property value
+        if (mPropertyValueView != null) {
+            mPropertyValueView.setId(getId());
+        }
 
         setId(View.NO_ID);
         setTag(null);

@@ -16,20 +16,15 @@ import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.FragmentInfo;
-import com.deange.uwaterlooapi.sample.ui.modules.ApiFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.PropertyLayout;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.GoogleMapOptionsCreator;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-@ApiFragment("/buildings/*")
 public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building> implements GoogleMap.OnMapClickListener {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
