@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -32,18 +33,21 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
     private static final String TAG = MapActivity.class.getSimpleName();
     private static final String KEY_BUILDING = "building";
     private static final String KEY_OPTIONS = "options";
+    private static final String KEY_INDOORS = "indoors";
 
     private SupportMapFragment mMapFragment;
 
     public static Intent getMapActivityIntent(final Context from, final Building building) {
-        return getMapActivityIntent(from, building, null);
+        return getMapActivityIntent(from, building, null, false);
     }
 
     public static Intent getMapActivityIntent(final Context from, final Building building,
-                                              final GoogleMapOptions options) {
+                                              final GoogleMapOptions options,
+                                              final boolean showIndoorMaps) {
         final Intent intent = new Intent(from, MapActivity.class);
         intent.putExtra(KEY_BUILDING, GsonController.getInstance().toJson(building));
         intent.putExtra(KEY_OPTIONS, options);
+        intent.putExtra(KEY_INDOORS, showIndoorMaps);
         return intent;
     }
 
@@ -118,8 +122,9 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
 
         } else {
             map.clear();
-            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             map.setMyLocationEnabled(false);
+            map.setIndoorEnabled(shouldShowIndoors());
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
             map.addMarker(new MarkerOptions()
                     .title(buildingName)
@@ -136,7 +141,11 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
         return getIntent().getParcelableExtra(KEY_OPTIONS);
     }
 
-    private final class UpdateMapTask extends AsyncTask<Void, Void, Void> {
+    private boolean shouldShowIndoors() {
+        return getIntent().getBooleanExtra(KEY_INDOORS, false);
+    }
+
+    private final class UpdateMapTask extends AsyncTask<Void, Void, Integer> {
 
         private final String mName;
         private final float[] mLocation;
@@ -147,11 +156,12 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
         }
 
         @Override
-        protected Void doInBackground(final Void... voids) {
+        protected Integer doInBackground(final Void... voids) {
+
+            int count = 0;
 
             try {
                 // Retry for 5s at most, every 500ms
-                int count = 0;
                 while (mMapFragment.getMap() == null && count < 10) {
                     count++;
                     Thread.sleep(500);
@@ -160,14 +170,13 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
                 e.printStackTrace();
             }
 
-            return null;
+            return count;
         }
 
         @Override
-        protected void onPostExecute(final Void aVoid) {
-            if (mMapFragment.getMap() != null) {
-                showLocation(mName, mLocation);
-            }
+        protected void onPostExecute(final Integer waitPeriods) {
+            Log.v(TAG, "Map (may have) loaded after " + waitPeriods + " wait period(s)");
+            showLocation(mName, mLocation);
         }
 
     }

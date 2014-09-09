@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
         final GoogleMap map = mMapFragment.getMap();
 
         if (map == null) {
+            // Ugly hack
             new UpdateMapTask().execute();
 
         } else {
@@ -94,7 +96,7 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
             map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             map.getUiSettings().setAllGesturesEnabled(false);
             map.getUiSettings().setZoomControlsEnabled(false);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 18));
         }
     }
 
@@ -120,14 +122,15 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
         }
     }
 
-    private final class UpdateMapTask extends AsyncTask<Void, Void, Void> {
+    private final class UpdateMapTask extends AsyncTask<Void, Void, Integer> {
 
         @Override
-        protected Void doInBackground(final Void... voids) {
+        protected Integer doInBackground(final Void... voids) {
+
+            int count = 0;
 
             try {
                 // Retry for 5s at most, every 500ms
-                int count = 0;
                 while (mMapFragment.getMap() == null && count < 10) {
                     count++;
                     Thread.sleep(500);
@@ -136,15 +139,14 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
                 e.printStackTrace();
             }
 
-            return null;
+            return count;
         }
 
         @Override
-        protected void onPostExecute(final Void aVoid) {
+        protected void onPostExecute(final Integer waitPeriods) {
+            Log.v(TAG, "Map (may have) loaded after " + waitPeriods + " wait period(s)");
             if (getActivity() != null) {
-                if (mMapFragment.getMap() != null) {
-                    showLocation();
-                }
+                showLocation();
             }
         }
 
