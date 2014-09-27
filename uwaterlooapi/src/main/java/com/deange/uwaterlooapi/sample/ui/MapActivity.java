@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.sample.ui.modules.buildings;
+package com.deange.uwaterlooapi.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import android.widget.Spinner;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.buildings.BuildingSection;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.StringAdapter;
 import com.deange.uwaterlooapi.sample.utils.GsonController;
+import com.deange.uwaterlooapi.sample.utils.Parceller;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -45,7 +45,7 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
                                               final GoogleMapOptions options,
                                               final boolean showIndoorMaps) {
         final Intent intent = new Intent(from, MapActivity.class);
-        intent.putExtra(KEY_BUILDING, GsonController.getInstance().toJson(building));
+        intent.putExtra(KEY_BUILDING, Parceller.parcel(building));
         intent.putExtra(KEY_OPTIONS, options);
         intent.putExtra(KEY_INDOORS, showIndoorMaps);
         return intent;
@@ -133,8 +133,7 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
     }
 
     private Building getBuilding() {
-        return GsonController.getInstance().fromJson(
-                getIntent().getStringExtra(KEY_BUILDING), Building.class);
+        return Parceller.unparcel(getIntent().getStringExtra(KEY_BUILDING));
     }
 
     private GoogleMapOptions getOptions() {

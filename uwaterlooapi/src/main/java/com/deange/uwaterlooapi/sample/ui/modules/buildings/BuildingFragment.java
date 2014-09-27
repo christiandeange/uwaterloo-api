@@ -17,6 +17,7 @@ import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.FragmentInfo;
+import com.deange.uwaterlooapi.sample.ui.MapActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.PropertyLayout;
 import com.deange.uwaterlooapi.sample.utils.Joiner;

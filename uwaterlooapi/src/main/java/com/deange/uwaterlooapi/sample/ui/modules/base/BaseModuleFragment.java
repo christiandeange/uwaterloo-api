@@ -28,6 +28,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.GsonController;
+import com.deange.uwaterlooapi.sample.utils.Parceller;
 
 public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
         implements View.OnTouchListener {
@@ -36,7 +37,6 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     public static final long ANIMATION_DURATION = 300;
 
     private static final String KEY_DATA = "data";
-    private static final String KEY_DATA_CLASS = "data_class";
     private static final String KEY_LAST_UPDATED = "last_updated";
 
     private long mLastUpdate = 0;
@@ -98,14 +98,10 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
 
         if (savedInstanceState != null) {
             mLastUpdate = savedInstanceState.getLong(KEY_LAST_UPDATED);
-            final Class<T> clazz = (Class<T>) savedInstanceState.getSerializable(KEY_DATA_CLASS);
-            if (clazz != null) {
-                final String serializedResponse = savedInstanceState.getString(KEY_DATA);
-                mLastResponse = GsonController.getInstance().fromJson(serializedResponse, clazz);
-            }
+            mLastResponse = Parceller.unparcel(savedInstanceState.getString(KEY_DATA));
         }
 
-        // Show data when first displayed, otherwise deliver the response if we still have one
+        // Deliver the response if we still have one, otherwise load the data
         // (usually from coming back from another activity or rotating)
         if (mLastResponse != null) {
             deliverResponse(mLastResponse);
@@ -138,10 +134,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(KEY_LAST_UPDATED, mLastUpdate);
-        if (mLastResponse != null) {
-            outState.putString(KEY_DATA, GsonController.getInstance().toJson(mLastResponse));
-            outState.putSerializable(KEY_DATA_CLASS, mLastResponse.getClass());
-        }
+        outState.putString(KEY_DATA, Parceller.parcel(mLastResponse));
     }
 
     protected void onRefreshRequested() {
@@ -169,24 +162,8 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             return;
         }
 
-        // Get the center for the clipping circle
-        final int centerX = (loadingLayout.getLeft() + loadingLayout.getRight()) / 2;
-        final int centerY = (loadingLayout.getTop() + loadingLayout.getBottom()) / 2;
-        final int zero = 0;
-        final int full = Math.max(loadingLayout.getWidth(), loadingLayout.getHeight());
-
-        final int startRadius;
-        final int finalRadius;
-
         if (show) {
-            // Show the loading layout
-            startRadius = zero;
-            finalRadius = full;
             loadingLayout.setVisibility(View.VISIBLE);
-        } else {
-            // Hide the loading layout
-            startRadius = full;
-            finalRadius = zero;
         }
 
         final AnimatorListenerAdapter listener = new AnimatorListenerAdapter() {
@@ -201,7 +178,12 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             }
         };
 
-        if (Build.VERSION.SDK_INT >= 20) {
+        if (Build.VERSION.SDK_INT >= 21) {
+//            final int full = Math.max(loadingLayout.getWidth(), loadingLayout.getHeight());
+//            final int startRadius = (show) ? 0 : full;
+//            final int finalRadius = (show) ? full : 0;
+//            final int centerX = (loadingLayout.getLeft() + loadingLayout.getRight()) / 2;
+//            final int centerY = (loadingLayout.getTop() + loadingLayout.getBottom()) / 2;
 //            final ValueAnimator anim = ViewAnimationUtils.createCircularReveal(
 //                    loadingLayout, centerX, centerY, startRadius, finalRadius);
 //            anim.setDuration(ANIMATION_DURATION);
