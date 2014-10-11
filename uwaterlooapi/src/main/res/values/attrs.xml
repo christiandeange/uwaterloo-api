@@ -5,6 +5,17 @@
         <attr name="fontName" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="SliceView">
+        <attr name="sliceHeight" format="dimension" />
+        <attr name="sliceOffset" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="AutoScaleTextView">
+        <attr name="scaleFactor" format="fraction" />
+        <attr name="minTextSize" format="dimension" />
+        <attr name="maxTextSize" format="dimension" />
+    </declare-styleable>
+
     <attr name="propertyLayoutStyle" type="reference" />
 
 </resources>

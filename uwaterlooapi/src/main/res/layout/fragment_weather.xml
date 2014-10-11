@@ -7,33 +7,37 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp">
+            android:padding="8dp"
+            android:background="#EEEEEE">
 
-        <com.deange.uwaterlooapi.sample.ui.view.CardView
+        <com.deange.uwaterlooapi.sample.ui.view.SliceView
+                android:id="@+id/weather_slider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_height="1000dp"
+                android:background="@drawable/card_view_background"
+                android:padding="8dp"
+                app:sliceHeight="64dp">
 
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+            <com.deange.uwaterlooapi.sample.ui.view.AutoScaleTextView
                     android:id="@+id/weather_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="32dp"
                     android:includeFontPadding="false"
-                    android:textSize="64sp"
+                    app:scaleFactor="50%"
+                    app:maxTextSize="100sp"
                     app:fontName="Roboto-Thin"/>
 
-        </com.deange.uwaterlooapi.sample.ui.view.CardView>
+        </com.deange.uwaterlooapi.sample.ui.view.SliceView>
 
         <com.deange.uwaterlooapi.sample.ui.view.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/weather_slider">
 
             <com.deange.uwaterlooapi.sample.ui.view.TextFontView
                     android:id="@+id/weather_last_updated"
@@ -48,6 +52,6 @@
 
         </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>

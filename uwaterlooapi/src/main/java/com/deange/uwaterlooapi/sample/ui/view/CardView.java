@@ -1,10 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.view;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.RelativeLayout;
