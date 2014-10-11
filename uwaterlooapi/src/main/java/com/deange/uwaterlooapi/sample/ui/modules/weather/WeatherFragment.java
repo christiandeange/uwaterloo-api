@@ -4,13 +4,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -20,21 +22,43 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.SliceView;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
+import com.nirhart.parallaxscroll.views.ParallaxScrollView;
+import com.squareup.picasso.Picasso;
 
-public class WeatherFragment extends BaseModuleFragment<Response.Weather, WeatherReading> implements View.OnLayoutChangeListener {
+public class WeatherFragment extends BaseModuleFragment<Response.Weather, WeatherReading> {
 
     SliceView mSliceView;
     TextView mTemperatureView;
     TextView mLastUpdated;
+    ImageView mBackground;
+    ParallaxScrollView mScrollView;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_weather, null);
 
+        mScrollView = (ParallaxScrollView) root.findViewById(R.id.weather_scrollview);
         mSliceView = (SliceView) root.findViewById(R.id.weather_slider);
         mTemperatureView = (TextView) root.findViewById(R.id.weather_temperature);
         mLastUpdated = (TextView) root.findViewById(R.id.weather_last_updated);
-        mTemperatureView.addOnLayoutChangeListener(this);
+        mBackground = (ImageView) root.findViewById(R.id.weather_background);
+
+        final DisplayMetrics metrics = getResources().getDisplayMetrics();
+        mBackground.setLayoutParams(
+                new FrameLayout.LayoutParams(metrics.widthPixels, metrics.heightPixels));
+
+        Picasso.with(getActivity())
+                .load("https://farm4.staticflickr.com/3807/10395423826_71a309c66b_c.jpg")
+                .centerCrop()
+                .resize(metrics.widthPixels, metrics.heightPixels)
+                .into(mBackground);
+
+        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                resizeTemperatureView();
+            }
+        });
 
         return root;
     }
@@ -53,47 +77,30 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
 
     }
 
-    @Override
-    public void onLayoutChange(final View v, final int left, final int top, final int right,
-                               final int bottom, final int oldLeft, final int oldTop,
-                               final int oldRight, final int oldBottom) {
+    private void resizeTemperatureView() {
+        // Places the temperature view programatically
+        final ViewGroup sliceParent = ((ViewGroup) mSliceView.getParent());
+        final RelativeLayout.LayoutParams temperatureParams =
+                (RelativeLayout.LayoutParams) mTemperatureView.getLayoutParams();
+        final int height = mTemperatureView.getMeasuredHeight();
 
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // For when the temperature view size changes
-                final int[] sliceParentLocation = new int[2];
-                final ViewGroup sliceParent = ((ViewGroup) mSliceView.getParent());
-                sliceParent.getLocationInWindow(sliceParentLocation);
+        final DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-                final RelativeLayout.LayoutParams temperatureParams =
-                        (RelativeLayout.LayoutParams) mTemperatureView.getLayoutParams();
-                final RelativeLayout.LayoutParams parentParams =
-                        (RelativeLayout.LayoutParams) mSliceView.getLayoutParams();
-                final int height = mTemperatureView.getMeasuredHeight();
-
-                final DisplayMetrics metrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-                final float offset =
-                          metrics.heightPixels
+        final float offset =
+                metrics.heightPixels
                         - temperatureParams.bottomMargin
                         - height
                         - temperatureParams.topMargin
                         - mSliceView.getPaddingTop()
-                        - sliceParentLocation[1]
                         - getNavBarHeight();
 
-                sliceParent.setPadding(
-                        mSliceView.getPaddingLeft(),
-                        (int) offset,
-                        mSliceView.getPaddingRight(),
-                        mSliceView.getPaddingBottom()
-                );
-            }
-        }, 500);
-
-
+        sliceParent.setPadding(
+                mSliceView.getPaddingLeft(),
+                (int) offset,
+                mSliceView.getPaddingRight(),
+                mSliceView.getPaddingBottom()
+        );
     }
 
     private int getNavBarHeight() {

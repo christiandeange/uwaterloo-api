@@ -1,57 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<com.nirhart.parallaxscroll.views.ParallaxScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/weather_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:background="#EEEEEE"
+        app:alpha_factor="1"
+        app:parallax_factor="1.2">
 
-    <RelativeLayout
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:background="#EEEEEE">
+            android:orientation="vertical">
 
-        <com.deange.uwaterlooapi.sample.ui.view.SliceView
-                android:id="@+id/weather_slider"
+        <ImageView
+                android:id="@+id/weather_background"
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"
-                android:background="@drawable/card_view_background"
-                android:padding="8dp"
-                app:sliceHeight="64dp">
+                android:layout_height="match_parent"/>
 
-            <com.deange.uwaterlooapi.sample.ui.view.AutoScaleTextView
-                    android:id="@+id/weather_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:includeFontPadding="false"
-                    app:scaleFactor="50%"
-                    app:maxTextSize="100sp"
-                    app:fontName="Roboto-Thin"/>
-
-        </com.deange.uwaterlooapi.sample.ui.view.SliceView>
-
-        <com.deange.uwaterlooapi.sample.ui.view.CardView
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@id/weather_slider">
+                android:padding="8dp">
 
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
-                    android:id="@+id/weather_last_updated"
-                    android:layout_width="wrap_content"
+            <com.deange.uwaterlooapi.sample.ui.view.SliceView
+                    android:id="@+id/weather_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    android:background="@drawable/card_view_background"
+                    android:padding="8dp"
+                    app:sliceHeight="64dp">
+
+                <com.deange.uwaterlooapi.sample.ui.view.AutoScaleTextView
+                        android:id="@+id/weather_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="32dp"
+                        android:includeFontPadding="false"
+                        app:scaleFactor="50%"
+                        app:maxTextSize="200sp"
+                        app:fontName="Roboto-Thin"/>
+
+            </com.deange.uwaterlooapi.sample.ui.view.SliceView>
+
+            <com.deange.uwaterlooapi.sample.ui.view.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="#888"
-                    android:textSize="12sp"
-                    app:fontName="Roboto-LightItalic"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/weather_slider">
 
-        </com.deange.uwaterlooapi.sample.ui.view.CardView>
+                <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                        android:id="@+id/weather_last_updated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="#888"
+                        android:textSize="12sp"
+                        app:fontName="Roboto-LightItalic"/>
 
-    </RelativeLayout>
+            </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
-</ScrollView>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</com.nirhart.parallaxscroll.views.ParallaxScrollView>
