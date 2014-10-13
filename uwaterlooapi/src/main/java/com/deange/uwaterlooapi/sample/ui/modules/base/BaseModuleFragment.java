@@ -210,6 +210,10 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         return mTask != null;
     }
 
+    protected void onContentShown() {
+        // Can be overriden by subclasses
+    }
+
     protected void onLoadFinished() {
         // We want to keep the refresh UI up for *at least* MINIMUM_UPDATE_DURATION
         // Otherwise it looks very choppy and overall not a pleasant look
@@ -223,6 +227,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
                 if (getActivity() != null) {
                     // Ensure we haven't been detached
                     changeLoadingVisibilityInternal(false);
+                    onContentShown();
                 }
             }
         }, delay);

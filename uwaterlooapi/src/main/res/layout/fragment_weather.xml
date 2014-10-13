@@ -13,8 +13,7 @@
 
     <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
         <ImageView
                 android:id="@+id/weather_background"
@@ -43,6 +42,43 @@
                         app:scaleFactor="50%"
                         app:maxTextSize="200sp"
                         app:fontName="Roboto-Thin"/>
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/weather_temperature">
+
+                    <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                            android:id="@+id/weather_min_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:gravity="center_vertical"
+                            android:textSize="14sp"
+                            app:fontName="Roboto-Light"/>
+
+                    <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                            android:id="@+id/weather_max_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center_vertical"
+                            android:textSize="14sp"
+                            app:fontName="Roboto-Light"/>
+
+                    <com.deange.uwaterlooapi.sample.ui.view.RangeView
+                            android:id="@+id/weather_temperature_range"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/weather_min_temp"
+                            android:layout_toEndOf="@id/weather_min_temp"
+                            android:layout_toLeftOf="@id/weather_max_temp"
+                            android:layout_toStartOf="@id/weather_max_temp"/>
+
+                </RelativeLayout>
 
             </com.deange.uwaterlooapi.sample.ui.view.SliceView>
 
