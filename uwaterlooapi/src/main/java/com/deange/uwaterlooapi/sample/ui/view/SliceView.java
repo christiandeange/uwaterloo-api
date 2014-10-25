@@ -96,10 +96,7 @@ public class SliceView extends RelativeLayout {
         super.onLayout(changed, l, t, r, b);
         mHasBeenLayout = true;
 
-        if (mDrawable != null) {
-            setBackground(mDrawable);
-            mDrawable = null;
-        }
+        setBackground(mDrawable != null ? mDrawable : getBackground());
 
         mPath.reset();
         mPath.moveTo(0                 , mSliceOffset);

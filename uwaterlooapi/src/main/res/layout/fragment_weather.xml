@@ -28,7 +28,7 @@
             <com.deange.uwaterlooapi.sample.ui.view.SliceView
                     android:id="@+id/weather_slider"
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/card_view_background"
                     android:padding="8dp"
                     app:sliceHeight="64dp">
@@ -46,7 +46,8 @@
                 <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/weather_temperature">
+                        android:layout_below="@id/weather_temperature"
+                        android:layout_marginBottom="32dp">
 
                     <com.deange.uwaterlooapi.sample.ui.view.TextFontView
                             android:id="@+id/weather_min_temp"
@@ -55,6 +56,19 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:gravity="center_vertical"
+                            android:textSize="14sp"
+                            app:fontName="Roboto-Light"/>
+
+                    <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                            android:id="@+id/weather_min_temp_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@id/weather_min_temp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:text="LOW"
                             android:textSize="14sp"
                             app:fontName="Roboto-Light"/>
 
@@ -68,11 +82,23 @@
                             android:textSize="14sp"
                             app:fontName="Roboto-Light"/>
 
+                    <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                            android:id="@+id/weather_max_temp_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_below="@id/weather_max_temp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:text="HIGH"
+                            android:textSize="14sp"
+                            app:fontName="Roboto-Light"/>
+
                     <com.deange.uwaterlooapi.sample.ui.view.RangeView
                             android:id="@+id/weather_temperature_range"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_toRightOf="@id/weather_min_temp"
                             android:layout_toEndOf="@id/weather_min_temp"
                             android:layout_toLeftOf="@id/weather_max_temp"

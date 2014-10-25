@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.weather;
 
 import android.animation.ValueAnimator;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -174,11 +175,9 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
     }
 
     private int getNavBarHeight() {
-        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            return getResources().getDimensionPixelSize(resourceId);
-        }
-        return 0;
+        final Resources res = getResources();
+        final int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
+        return (resourceId > 0) ? getResources().getDimensionPixelSize(resourceId) : 0;
     }
 
     @Override

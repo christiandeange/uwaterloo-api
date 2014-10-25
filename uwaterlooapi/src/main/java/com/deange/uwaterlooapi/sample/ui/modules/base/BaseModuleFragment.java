@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 //import android.view.ViewAnimationUtils;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -178,17 +179,17 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             }
         };
 
-        if (Build.VERSION.SDK_INT >= 21) {
-//            final int full = Math.max(loadingLayout.getWidth(), loadingLayout.getHeight());
-//            final int startRadius = (show) ? 0 : full;
-//            final int finalRadius = (show) ? full : 0;
-//            final int centerX = (loadingLayout.getLeft() + loadingLayout.getRight()) / 2;
-//            final int centerY = (loadingLayout.getTop() + loadingLayout.getBottom()) / 2;
-//            final ValueAnimator anim = ViewAnimationUtils.createCircularReveal(
-//                    loadingLayout, centerX, centerY, startRadius, finalRadius);
-//            anim.setDuration(ANIMATION_DURATION);
-//            anim.addListener(listener);
-//            anim.start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            final int full = Math.max(loadingLayout.getWidth(), loadingLayout.getHeight());
+            final int startRadius = (show) ? 0 : full;
+            final int finalRadius = (show) ? full : 0;
+            final int centerX = (loadingLayout.getLeft() + loadingLayout.getRight()) / 2;
+            final int centerY = (loadingLayout.getTop() + loadingLayout.getBottom()) / 2;
+            final Animator anim = ViewAnimationUtils.createCircularReveal(
+                    loadingLayout, centerX, centerY, startRadius, finalRadius);
+            anim.setDuration(ANIMATION_DURATION);
+            anim.addListener(listener);
+            anim.start();
 
         } else {
             loadingLayout.animate()
