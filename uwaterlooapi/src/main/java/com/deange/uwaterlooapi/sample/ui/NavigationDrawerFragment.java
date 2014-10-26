@@ -1,16 +1,18 @@
 package com.deange.uwaterlooapi.sample.ui;
 
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -96,20 +98,20 @@ public class NavigationDrawerFragment extends Fragment {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout) {
-        mFragmentContainerView = getActivity().findViewById(fragmentId);
+    public void setUp(final int id, final DrawerLayout drawerLayout, final Toolbar toolbar) {
+        mFragmentContainerView = getActivity().findViewById(id);
         mDrawerLayout = drawerLayout;
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),
                 mDrawerLayout,
-                R.drawable.ic_navigation_drawer,
+                toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
         ) {
@@ -211,10 +213,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
-
-    private ActionBar getActionBar() {
-        return getActivity().getActionBar();
     }
 
     public static interface OnDrawerItemSelectedListener {

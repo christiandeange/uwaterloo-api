@@ -1,13 +1,15 @@
 package com.deange.uwaterlooapi.sample.ui.modules;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -16,7 +18,7 @@ import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
 
-public class ModuleHostActivity extends FragmentActivity
+public class ModuleHostActivity extends ActionBarActivity
         implements FragmentManager.OnBackStackChangedListener {
 
     private static final String TAG = "module_fragment";
@@ -50,6 +52,7 @@ public class ModuleHostActivity extends FragmentActivity
 
         setContentView(R.layout.activity_module_host);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         mChildFragment = findContentFragment();
         if (mChildFragment == null) {
@@ -91,7 +94,7 @@ public class ModuleHostActivity extends FragmentActivity
     }
 
     private void setupActionBar(final FragmentInfo info) {
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         if (info == null) {

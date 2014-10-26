@@ -128,6 +128,9 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
     }
 
     private void animateTemperatureRange() {
+
+        if (mLastReading == null) return;
+
         final ValueAnimator animator = ValueAnimator.ofFloat(
                 mLastReading.getTemperature24hMin(), mLastReading.getTemperature());
 
