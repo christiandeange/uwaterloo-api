@@ -12,8 +12,8 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.StickyModuleAdapter;
-import com.deange.uwaterlooapi.sample.ui.modules.base.BaseStickyListModuleFragment;
+import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class ListBuildingsFragment extends BaseStickyListModuleFragment<Response.Buildings, Building>
+public class ListBuildingsFragment extends BaseListModuleFragment<Response.Buildings, Building>
         implements AdapterView.OnItemClickListener {
 
     private List<Building> mResponse;
@@ -62,7 +62,7 @@ public class ListBuildingsFragment extends BaseStickyListModuleFragment<Response
     }
 
     @Override
-    public StickyModuleAdapter getAdapter() {
+    public ModuleAdapter getAdapter() {
         return new BuildingsAdapter(getActivity());
     }
 
@@ -73,15 +73,10 @@ public class ListBuildingsFragment extends BaseStickyListModuleFragment<Response
                 BuildingFragment.newBundle(mResponse.get(position).getBuildingCode()));
     }
 
-    private final class BuildingsAdapter extends StickyModuleAdapter implements SectionIndexer {
+    private final class BuildingsAdapter extends ModuleAdapter implements SectionIndexer {
 
         public BuildingsAdapter(final Context context) {
             super(context);
-        }
-
-        @Override
-        public long getHeaderId(final int position) {
-            return getFirstCharOf(position);
         }
 
         @Override
@@ -91,13 +86,18 @@ public class ListBuildingsFragment extends BaseStickyListModuleFragment<Response
 
         @Override
         public void bindView(final Context context, final int position, final View view) {
-            ((TextView) view).setText(getItem(position).getBuildingName());
-        }
 
-        @Override
-        public void bindHeaderView(final Context context, final int position, final View view) {
-            ((TextView) view.findViewById(android.R.id.text1))
-                    .setText(String.valueOf(getFirstCharOf(position)));
+            final TextView header = (TextView) view.findViewById(R.id.header_view);
+            final TextView buildingName = (TextView) view.findViewById(android.R.id.text1);
+
+            final char firstLetter = getFirstCharOf(position);
+            if (position == 0 || getFirstCharOf(position - 1) != firstLetter) {
+                header.setText("" + firstLetter);
+            } else {
+                header.setText("");
+            }
+
+            buildingName.setText(getItem(position).getBuildingName());
         }
 
         @Override
