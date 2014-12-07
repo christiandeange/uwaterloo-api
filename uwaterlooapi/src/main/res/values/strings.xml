@@ -36,4 +36,6 @@
 
     <string name="weather_last_updated">Last updated %s.</string>
 
+    <string name="foodservices_announcements_none">No Announcements :(</string>
+
 </resources>
