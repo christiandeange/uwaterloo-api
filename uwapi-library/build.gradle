@@ -9,7 +9,6 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.deange.uwaterlooapi"
         minSdkVersion 1
         targetSdkVersion 19
         versionCode 1
