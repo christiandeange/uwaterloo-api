@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -16,7 +15,6 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.MapActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.PropertyLayout;
@@ -107,20 +105,8 @@ public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity
     }
 
     @Override
-    public FragmentInfo getFragmentInfo(final Context context) {
-        return new Info(context);
-    }
-
-    public final class Info extends FragmentInfo {
-
-        public Info(final Context context) {
-            super(context);
-        }
-
-        @Override
-        public String getActionBarTitle() {
-            return getContext().getString(R.string.api_buildings);
-        }
+    public String getToolbarTitle() {
+        return getString(R.string.api_buildings);
     }
 
     private final class UpdateMapTask extends AsyncTask<Void, Void, Integer> {

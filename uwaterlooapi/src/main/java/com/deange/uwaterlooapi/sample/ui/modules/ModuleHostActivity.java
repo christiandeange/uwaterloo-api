@@ -14,7 +14,6 @@ import android.view.MenuItem;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
 
@@ -26,7 +25,6 @@ public class ModuleHostActivity extends ActionBarActivity
 
     private final UWaterlooApi mApi = new UWaterlooApi("YOUR_API_KEY_HERE");
     private BaseModuleFragment mChildFragment;
-    private FragmentInfo mInfo;
 
     public static <T extends BaseModuleFragment> Intent getStartIntent(final Context context,
                                                                        final Class<T> fragment) {
@@ -51,8 +49,8 @@ public class ModuleHostActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_module_host);
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
 
         mChildFragment = findContentFragment();
         if (mChildFragment == null) {
@@ -65,9 +63,6 @@ public class ModuleHostActivity extends ActionBarActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (mInfo == null && mChildFragment != null) {
-            mInfo = mChildFragment.getFragmentInfo(this);
-        }
         refreshActionBar();
     }
 
@@ -79,8 +74,6 @@ public class ModuleHostActivity extends ActionBarActivity
                              final Bundle arguments) {
         mChildFragment = fragment;
         mChildFragment.setArguments(arguments);
-        mInfo = mChildFragment.getFragmentInfo(this);
-        refreshActionBar();
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (addToBackStack) {
@@ -90,18 +83,14 @@ public class ModuleHostActivity extends ActionBarActivity
     }
 
     public void refreshActionBar() {
-        setupActionBar(mInfo);
-    }
-
-    private void setupActionBar(final FragmentInfo info) {
         final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        if (info == null) {
+        if (actionBar == null || mChildFragment == null || !mChildFragment.isAdded()) {
             return;
         }
 
-        actionBar.setTitle(info.getActionBarTitle());
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(mChildFragment.getToolbarTitle());
     }
 
     @Override
@@ -111,6 +100,11 @@ public class ModuleHostActivity extends ActionBarActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onAttachFragment(final Fragment fragment) {
+        onBackStackChanged();
     }
 
     @Override
@@ -129,7 +123,6 @@ public class ModuleHostActivity extends ActionBarActivity
     @Override
     public void onBackStackChanged() {
         mChildFragment = findContentFragment();
-        mInfo = mChildFragment.getFragmentInfo(this);
         refreshActionBar();
     }
 }

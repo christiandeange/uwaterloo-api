@@ -35,6 +35,11 @@ public class ListBuildingsFragment extends BaseListModuleFragment<Response.Build
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.api_buildings);
+    }
+
+    @Override
     public Response.Buildings onLoadData(final UWaterlooApi api) {
         return api.Buildings.getBuildings();
     }

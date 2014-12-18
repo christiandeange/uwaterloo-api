@@ -2,9 +2,7 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-//import android.view.ViewAnimationUtils;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -26,10 +23,10 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.model.FragmentInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
-import com.deange.uwaterlooapi.sample.utils.GsonController;
 import com.deange.uwaterlooapi.sample.utils.Parceller;
+
+//import android.view.ViewAnimationUtils;
 
 public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
         implements View.OnTouchListener {
@@ -245,11 +242,13 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             onBindData(data.getMetadata(), data.getData());
         }
 
-        ((ModuleHostActivity) getActivity()).refreshActionBar();
+        if (getActivity() != null) {
+            ((ModuleHostActivity) getActivity()).refreshActionBar();
+        }
     }
 
-    public FragmentInfo getFragmentInfo(final Context context) {
-        return null;
+    public String getToolbarTitle() {
+        return getString(R.string.app_name);
     }
 
     public abstract T onLoadData(final UWaterlooApi api);
