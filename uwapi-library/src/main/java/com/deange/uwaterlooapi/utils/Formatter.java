@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.utils;
 
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,9 @@ public final class Formatter {
 
     public static final String YMD = "yyyy-MM-dd";
     public static final String ISO8601 = "yyyy-MM-dd'T'hh:mm:ssZ";
+
+    private static final SimpleDateFormat sYMDFormat = new SimpleDateFormat(YMD);
+    private static final SimpleDateFormat sISO8601Format = new SimpleDateFormat(ISO8601);
 
     private Formatter() { }
 
@@ -38,6 +42,19 @@ public final class Formatter {
             return parseDate(date, ISO8601);
         }
 
+    }
+
+    public static String formatDate(final Date date, final String format) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
+        return dateFormat.format(date);
+    }
+
+    public static String formatDateYMD(final Date date) {
+        return sYMDFormat.format(date);
+    }
+
+    public static String formatDateISO8601(final Date date) {
+        return sISO8601Format.format(date);
     }
 
 

@@ -1,14 +1,19 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import android.text.TextUtils;
+import android.util.Pair;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Location extends BaseModel {
 
@@ -48,7 +53,9 @@ public class Location extends BaseModel {
     @SerializedName("dates_closed")
     private List<String> mDatesClosedRaw;
 
-    private List<Date> mDatesClosed;
+    private List<Range> mDatesClosed;
+
+    private List<SpecialRange> mDatesSpecial;
 
     /**
      * Outlet ID number (not always same as outets.json method). Can be null
@@ -134,8 +141,71 @@ public class Location extends BaseModel {
     /**
      * Special cases for operating hours
      */
-    public List<SpecialOperatingHours> getSpecialOperatingHours() {
-        return CollectionUtils.applyPolicy(mSpecialOperatingHours);
+    public List<SpecialRange> getSpecialOperatingHours() {
+
+        // Lazy load the parsed Date objects
+        if (mDatesSpecial == null) {
+            mDatesSpecial = new ArrayList<>();
+
+            boolean closedRange = true;
+            boolean first = true;
+
+            String open = null;
+            String close = null;
+
+            final Calendar start = Calendar.getInstance();
+            final Calendar curr = Calendar.getInstance();
+            final Calendar temp = Calendar.getInstance();
+            final Calendar end = Calendar.getInstance();
+
+            for (final SpecialOperatingHours special : mSpecialOperatingHours) {
+                final Date date = special.getDate();
+
+                if (first) {
+                    first = false;
+                    start.setTimeInMillis(date.getTime());
+                    end.setTimeInMillis(date.getTime());
+
+                    open = special.getOpeningHour();
+                    close = special.getClosingHour();
+                    closedRange = false;
+
+                    continue;
+                } else {
+                    curr.setTime(date);
+                    temp.set(end.get(Calendar.YEAR),
+                            end.get(Calendar.MONTH),
+                            end.get(Calendar.DATE) + 1,
+                            0, 0, 0);
+                    curr.set(Calendar.MILLISECOND, 0);
+                    temp.set(Calendar.MILLISECOND, 0);
+                }
+
+                if (temp.getTimeInMillis() == curr.getTimeInMillis()
+                        && TextUtils.equals(open, special.getOpeningHour())
+                        && TextUtils.equals(close, special.getClosingHour())) {
+                    // This is one day after the current end time
+                    end.setTimeInMillis(curr.getTimeInMillis());
+                    closedRange = false;
+
+                } else {
+                    // Start of a new range!
+                    mDatesSpecial.add(new SpecialRange(start.getTime(), end.getTime(), open, close));
+                    start.setTimeInMillis(curr.getTimeInMillis());
+                    end.setTimeInMillis(curr.getTimeInMillis());
+
+                    open = special.getOpeningHour();
+                    close = special.getClosingHour();
+                    closedRange = true;
+                }
+            }
+
+            if (!closedRange) {
+                mDatesSpecial.add(new SpecialRange(start.getTime(), end.getTime(), open, close));
+            }
+        }
+
+        return CollectionUtils.applyPolicy(mDatesSpecial);
     }
 
     /**
@@ -148,20 +218,117 @@ public class Location extends BaseModel {
     /**
      * Y-m-d format list of dates the outlet is closed
      */
-    public List<Date> getDatesClosed() {
+    public List<Range> getDatesClosed() {
 
         // Lazy load the parsed Date objects
         if (mDatesClosed == null) {
             mDatesClosed = new ArrayList<>();
 
-            for (final String date : mDatesClosedRaw) {
-                final Date parsedDate = Formatter.parseDate(date, Formatter.YMD);
-                if (parsedDate != null) {
-                    mDatesClosed.add(parsedDate);
+            boolean closedRange = true;
+            boolean first = true;
+
+            final Calendar start = Calendar.getInstance();
+            final Calendar curr = Calendar.getInstance();
+            final Calendar temp = Calendar.getInstance();
+            final Calendar end = Calendar.getInstance();
+
+            for (final String dateStr : mDatesClosedRaw) {
+                final Date date = Formatter.parseDate(dateStr, Formatter.YMD);
+
+                if (first) {
+                    first = false;
+                    start.setTimeInMillis(date.getTime());
+                    end.setTimeInMillis(date.getTime());
+                    closedRange = false;
+                    continue;
+                } else {
+                    curr.setTime(date);
+                    temp.set(end.get(Calendar.YEAR),
+                            end.get(Calendar.MONTH),
+                            end.get(Calendar.DATE) + 1,
+                            0, 0, 0);
+                    curr.set(Calendar.MILLISECOND, 0);
+                    temp.set(Calendar.MILLISECOND, 0);
                 }
+
+                if (temp.getTimeInMillis() == curr.getTimeInMillis()) {
+                    // This is one day after the current end time
+                    end.setTimeInMillis(curr.getTimeInMillis());
+                    closedRange = false;
+
+                } else {
+                    // Start of a new range!
+                    mDatesClosed.add(new Range(start.getTime(), end.getTime()));
+                    start.setTimeInMillis(curr.getTimeInMillis());
+                    end.setTimeInMillis(curr.getTimeInMillis());
+                    closedRange = true;
+                }
+            }
+
+            if (!closedRange) {
+                mDatesClosed.add(new Range(start.getTime(), end.getTime()));
             }
         }
 
         return CollectionUtils.applyPolicy(mDatesClosed);
     }
+
+    public static String convert24To12(final String time) {
+        if (TextUtils.isEmpty(time)) {
+            return null;
+        }
+
+        final String[] parts = time.split(":");
+        int hour = Integer.parseInt(parts[0]);
+        String ampm = "AM";
+
+        if (hour == 0) {
+            hour = 12;
+        } else if (hour > 12) {
+            hour -= 12;
+            ampm = "PM";
+        }
+
+        return hour + ":" + parts[1] + " " + ampm;
+    }
+
+    public static class Range extends Pair<Date, Date> {
+
+        private static final String DATE_FORMAT = "MMMM d";
+
+        private Range(final Date first, final Date second) {
+            super(first, second);
+        }
+
+        @Override
+        public String toString() {
+            if (first.equals(second)) {
+                return Formatter.formatDate(first, DATE_FORMAT);
+            } else {
+                return Formatter.formatDate(first, DATE_FORMAT)
+                        + " – " + Formatter.formatDate(second, DATE_FORMAT);
+            }
+        }
+    }
+
+    public static class SpecialRange extends Range {
+
+        private final String mOpen;
+        private final String mClose;
+
+        private SpecialRange(final Date first, final Date second,
+                             final String open, final String close) {
+            super(first, second);
+            mOpen = open;
+            mClose = close;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " ("
+                    + convert24To12(mOpen) + " – "
+                    + convert24To12(mClose) + ")";
+        }
+    }
+
 }
