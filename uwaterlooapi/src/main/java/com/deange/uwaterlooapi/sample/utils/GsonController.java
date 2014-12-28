@@ -1,6 +1,8 @@
 package com.deange.uwaterlooapi.sample.utils;
 
+import com.deange.uwaterlooapi.model.common.DummyResponse;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class GsonController {
 	public static final String TAG = GsonController.class.getSimpleName();
@@ -10,7 +12,9 @@ public class GsonController {
 
 	public static synchronized void createInstance() {
 		if (sCache == null) {
-			sCache = new Gson();
+			sCache = new GsonBuilder()
+                    .registerTypeAdapter(DummyResponse.class, new DummyResponse.Serializer())
+                    .create();
 		}
 	}
 

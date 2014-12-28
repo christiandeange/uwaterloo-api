@@ -16,6 +16,15 @@
         <attr name="maxTextSize" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="ExpandablePanel">
+        <attr name="handle" format="reference" />
+        <attr name="content" format="reference" />
+        <attr name="layout_collapsedHeight" format="dimension" />
+    </declare-styleable>
+
     <attr name="propertyLayoutStyle" type="reference" />
+
+    <item type="id" name="view_location_hours_day" />
+    <item type="id" name="view_location_hours_hours" />
 
 </resources>

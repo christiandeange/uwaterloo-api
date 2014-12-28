@@ -12,6 +12,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.buildings.BuildingFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.buildings.ListBuildingsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.foodservices.AnnouncementsFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.foodservices.LocationsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.weather.WeatherFragment;
 
 import java.util.HashMap;
@@ -66,6 +67,12 @@ public class ModuleResolver {
 
         sEndpoints.put("/foodservices/announcements",
                 ModuleInfo.newBuilder(AnnouncementsFragment.class)
+                        .base(true)
+                        .icon(R.drawable.ic_launcher)
+                        .build());
+
+        sEndpoints.put("/foodservices/locations",
+                ModuleInfo.newBuilder(LocationsFragment.class)
                         .base(true)
                         .icon(R.drawable.ic_launcher)
                         .build());

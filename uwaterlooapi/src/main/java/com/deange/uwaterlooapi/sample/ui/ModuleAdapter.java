@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 
 public abstract class ModuleAdapter extends BaseAdapter {
 
-    private Context mContext;
+    protected Context mContext;
 
     public ModuleAdapter(final Context context) {
         super();

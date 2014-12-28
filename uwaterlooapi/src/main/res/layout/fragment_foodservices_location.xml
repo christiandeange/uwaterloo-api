@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/card_view_background">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <View
+                        android:id="@+id/list_location_logo_padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"/>
+
+                <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                        android:id="@+id/list_location_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_below="@id/list_location_logo_padding"
+                        android:gravity="center"
+                        android:textColor="#123456"
+                        android:textSize="@dimen/font_title"
+                        app:fontName="Roboto-Light"/>
+
+                <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                        android:id="@+id/list_location_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_below="@id/list_location_title"
+                        app:fontName="Roboto-Light"/>
+
+                <RelativeLayout
+                        android:id="@+id/list_location_handle_viewgroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/list_location_description"
+                        android:paddingBottom="8dp">
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#777777"
+                            android:layout_centerVertical="true"/>
+
+                    <TextView
+                            android:id="@+id/list_location_open_now"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:padding="4dp"
+                            android:background="@android:color/white"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:textSize="12sp"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                        android:id="@+id/list_location_hours_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/list_location_handle_viewgroup"
+                        android:orientation="vertical">
+
+                    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView
+                            android:id="@+id/list_location_hours"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#777777"
+                            android:layout_margin="8dp"/>
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                                style="@style/OperatingHoursLabel"
+                                android:id="@+id/list_location_closed_days_label"
+                                android:text="@string/foodservices_location_hours_closed"
+                                android:textStyle="bold"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/black"/>
+
+                        <TextView
+                                style="@style/OperatingHoursValue"
+                                android:id="@+id/list_location_closed_days"
+                                android:layout_toRightOf="@id/list_location_closed_days_label"
+                                android:textColor="@android:color/black"/>
+
+                    </RelativeLayout>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#777777"
+                            android:layout_margin="8dp"/>
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                                style="@style/OperatingHoursLabel"
+                                android:id="@+id/list_location_special_hours_label"
+                                android:text="@string/foodservices_location_special_hours"
+                                android:textStyle="bold"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/black"/>
+
+                        <TextView
+                                style="@style/OperatingHoursValue"
+                                android:id="@+id/list_location_special_hours"
+                                android:layout_toRightOf="@id/list_location_special_hours_label"
+                                android:textColor="@android:color/black"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+
+    <ImageView
+            android:id="@+id/list_location_logo"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:elevation="8dp"
+            android:background="@android:color/white"/>
+
+
+</RelativeLayout>

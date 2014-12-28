@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/view_location_hours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <RelativeLayout style="@style/OperatingHoursLayout">
+        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_monday"/>
+        <TextView style="@style/OperatingHoursValue" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/OperatingHoursLayout">
+        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_tuesday"/>
+        <TextView style="@style/OperatingHoursValue" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/OperatingHoursLayout">
+        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_wednesday"/>
+        <TextView style="@style/OperatingHoursValue" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/OperatingHoursLayout">
+        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_thursday"/>
+        <TextView style="@style/OperatingHoursValue" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/OperatingHoursLayout">
+        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_friday"/>
+        <TextView style="@style/OperatingHoursValue" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/OperatingHoursLayout">
+        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_saturday"/>
+        <TextView style="@style/OperatingHoursValue" />
+    </RelativeLayout>
+
+    <RelativeLayout style="@style/OperatingHoursLayout">
+        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_sunday"/>
+        <TextView style="@style/OperatingHoursValue" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -26,8 +26,6 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.Parceller;
 
-//import android.view.ViewAnimationUtils;
-
 public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
         implements View.OnTouchListener {
 

@@ -45,4 +45,33 @@
         <item name="android:background">@color/action_bar_bg</item>
     </style>
 
+    <style name="OperatingHoursLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="OperatingHoursLabel">
+        <item name="android:id">@id/view_location_hours_day</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:textColor">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name="OperatingHoursValue">
+        <item name="android:id">@id/view_location_hours_hours</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:gravity">right|end</item>
+    </style>
+
 </resources>
