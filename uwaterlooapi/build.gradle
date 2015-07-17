@@ -5,12 +5,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.0"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -25,7 +25,7 @@ android {
 dependencies {
     compile project(":uwapi-library")
     compile project(":blur-view-library")
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:6.1.11'
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile 'com.squareup.picasso:picasso:2.3.4'
