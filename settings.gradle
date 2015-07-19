@@ -1,1 +1,1 @@
-include ':uwaterlooapi', ':uwapi-library', ':blur-view-library'
+include ':uwapi-library', ':uwaterlooapi', ':uwaterlooapi-annotations', ':uwaterlooapi-processor'

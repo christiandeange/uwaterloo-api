@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,6 +26,7 @@ import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.Parceller;
+import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
         implements View.OnTouchListener {
@@ -150,6 +152,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         changeLoadingVisibility(show);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void changeLoadingVisibility(final boolean show) {
 
         final View loadingLayout = mLoadingLayout;
@@ -174,7 +177,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
             }
         };
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (PlatformUtils.hasLollipop()) {
             final int full = Math.max(loadingLayout.getWidth(), loadingLayout.getHeight());
             final int startRadius = (show) ? 0 : full;
             final int finalRadius = (show) ? full : 0;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+@ModuleFragment(path = "/buildings/*")
 public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building> implements GoogleMap.OnMapClickListener {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();

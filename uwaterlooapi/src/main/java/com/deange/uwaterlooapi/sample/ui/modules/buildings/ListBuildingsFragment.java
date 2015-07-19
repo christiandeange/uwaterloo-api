@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
@@ -22,6 +23,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+@ModuleFragment(
+        path = "/buildings/list",
+        base = true,
+        icon = R.drawable.ic_launcher
+)
 public class ListBuildingsFragment extends BaseListModuleFragment<Response.Buildings, Building>
         implements AdapterView.OnItemClickListener {
 

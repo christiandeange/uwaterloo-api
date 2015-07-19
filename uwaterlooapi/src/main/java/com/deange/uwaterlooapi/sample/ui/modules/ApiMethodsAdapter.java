@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.annotations.ModuleInfo;
+import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.R;
 
 public class ApiMethodsAdapter extends ArrayAdapter<String> {
@@ -35,7 +37,7 @@ public class ApiMethodsAdapter extends ArrayAdapter<String> {
         final ImageView image = (ImageView) view.findViewById(R.id.item_api_method_icon);
 
         final String endpoint = getItem(position);
-        final ModuleInfo info = ModuleResolver.getFragmentInfo(endpoint);
+        final ModuleInfo info = ModuleMap.getFragmentInfo(endpoint);
         text.setText(endpoint);
 
         if (info != null) {

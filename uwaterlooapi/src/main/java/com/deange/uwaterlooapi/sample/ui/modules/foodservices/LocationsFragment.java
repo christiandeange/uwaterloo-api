@@ -4,20 +4,32 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 
+import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.Location;
+import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.StringAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
-import com.deange.uwaterlooapi.sample.ui.modules.buildings.BuildingFragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class LocationsFragment extends BaseListModuleFragment<Response.Locations, Location> implements AdapterView.OnItemClickListener {
+@ModuleFragment(
+        path = "/foodservices/locations",
+        base = true,
+        icon = R.drawable.ic_launcher
+)
+public class LocationsFragment
+        extends BaseListModuleFragment<Response.Locations, Location>
+        implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     private static final Comparator<Location> sComparator = new Comparator<Location>() {
         @Override
@@ -27,6 +39,10 @@ public class LocationsFragment extends BaseListModuleFragment<Response.Locations
     };
 
     private LocationAdapter mAdapter;
+    private List<Location> mAllLocations = Collections.unmodifiableList(new ArrayList<Location>());
+    private final List<Location> mDataLocations = new ArrayList<>();
+
+    private Boolean mFilterOpenOnly = null;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
@@ -35,6 +51,12 @@ public class LocationsFragment extends BaseListModuleFragment<Response.Locations
         getListView().setOnItemClickListener(this);
         getListView().setDivider(null);
         getListView().setDividerHeight(0);
+
+        final StringAdapter filterAdapter = new StringAdapter(getActivity(),
+                Arrays.asList(getResources().getStringArray(R.array.foodservices_locations_array)));
+        final Spinner spinner = (Spinner) root.findViewById(R.id.locations_filter_spinner);
+        spinner.setAdapter(filterAdapter);
+        spinner.setOnItemSelectedListener(this);
 
         return root;
     }
@@ -45,16 +67,33 @@ public class LocationsFragment extends BaseListModuleFragment<Response.Locations
     }
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_foodservices_locations;
+    }
+
+    @Override
     public Response.Locations onLoadData(final UWaterlooApi api) {
         return api.FoodServices.getLocations();
     }
 
     @Override
     public void onBindData(final Metadata metadata, final List<Location> data) {
+        mAllLocations = Collections.unmodifiableList(data);
+        bindAndFilterData();
+    }
 
-        Collections.sort(data, sComparator);
+    private void bindAndFilterData() {
 
-        mAdapter = new LocationAdapter(getActivity(), data);
+        mDataLocations.clear();
+        for (final Location location : mAllLocations) {
+            if (mFilterOpenOnly == null || mFilterOpenOnly == location.isOpenNow()) {
+                mDataLocations.add(location);
+            }
+        }
+
+        Collections.sort(mDataLocations, sComparator);
+
+        mAdapter = new LocationAdapter(getActivity(), mDataLocations);
         getListView().setAdapter(mAdapter);
     }
 
@@ -62,5 +101,28 @@ public class LocationsFragment extends BaseListModuleFragment<Response.Locations
     public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
         showFragment(new LocationFragment(), true,
                 LocationFragment.newBundle(mAdapter.getItem(position)));
+    }
+
+    @Override
+    public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id) {
+        switch (position) {
+            case 0:
+                mFilterOpenOnly = null;
+                break;
+            case 1:
+                mFilterOpenOnly = true;
+                break;
+            case 2:
+                mFilterOpenOnly = false;
+                break;
+            default:
+                throw new ArrayIndexOutOfBoundsException();
+        }
+
+        bindAndFilterData();
+    }
+
+    @Override
+    public void onNothingSelected(final AdapterView<?> parent) {
     }
 }

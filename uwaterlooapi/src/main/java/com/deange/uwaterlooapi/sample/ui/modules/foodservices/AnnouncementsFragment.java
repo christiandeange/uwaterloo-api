@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
@@ -18,6 +19,11 @@ import com.deange.uwaterlooapi.sample.utils.DateUtils;
 
 import java.util.List;
 
+@ModuleFragment(
+        path = "/foodservices/announcements",
+        base = true,
+        icon = R.drawable.ic_launcher
+)
 public class AnnouncementsFragment extends BaseListModuleFragment<Response.Announcements, Announcement> {
 
     private List<Announcement> mResponse;

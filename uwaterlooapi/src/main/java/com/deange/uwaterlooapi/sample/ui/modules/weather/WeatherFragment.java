@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.weather;
 
 import android.animation.ValueAnimator;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
@@ -33,6 +35,11 @@ import com.squareup.picasso.Picasso;
 import java.util.HashSet;
 import java.util.Set;
 
+@ModuleFragment(
+        path = "/weather/current",
+        base = true,
+        icon = R.drawable.ic_launcher
+)
 public class WeatherFragment extends BaseModuleFragment<Response.Weather, WeatherReading>
         implements ViewTreeObserver.OnScrollChangedListener {
 
@@ -91,6 +98,12 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
         });
 
         return root;
+    }
+
+    @Override
+    public void onConfigurationChanged(final Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        onScrollChanged();
     }
 
     @Override

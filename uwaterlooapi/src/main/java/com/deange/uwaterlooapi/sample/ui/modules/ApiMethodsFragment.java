@@ -8,6 +8,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.deange.uwaterlooapi.annotations.ModuleInfo;
+import com.deange.uwaterlooapi.annotations.ModuleMap;
+import com.deange.uwaterlooapi.api.BuildingsApi;
+import com.deange.uwaterlooapi.api.CoursesApi;
+import com.deange.uwaterlooapi.api.EventsApi;
+import com.deange.uwaterlooapi.api.FoodServicesApi;
+import com.deange.uwaterlooapi.api.NewsApi;
+import com.deange.uwaterlooapi.api.ResourcesApi;
+import com.deange.uwaterlooapi.api.TermsApi;
+import com.deange.uwaterlooapi.api.WeatherApi;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.MainActivity;
 
@@ -22,6 +32,16 @@ public class ApiMethodsFragment extends ListFragment
 
     private static final String ARG_METHODS = "methods";
     private static final String ARG_POSITION = "position";
+    private static final Class[] API_CLASSES = new Class[] {
+            FoodServicesApi.class,
+            CoursesApi.class,
+            EventsApi.class,
+            NewsApi.class,
+            WeatherApi.class,
+            TermsApi.class,
+            ResourcesApi.class,
+            BuildingsApi.class,
+    };
 
     public static ApiMethodsFragment newInstance(final int position) {
 
@@ -31,7 +51,7 @@ public class ApiMethodsFragment extends ListFragment
 
         // Retrieve all the paths for the given API interface class
         Set<String> apiPaths = new TreeSet<>();
-        final Method[] methods = ModuleResolver.getApiClassForIndex(position).getDeclaredMethods();
+        final Method[] methods = API_CLASSES[position].getDeclaredMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(GET.class)) {
                 String path = method.getAnnotation(GET.class).value();
@@ -83,7 +103,7 @@ public class ApiMethodsFragment extends ListFragment
                                final int position, final long id) {
 
         final String endpoint = String.valueOf(getListAdapter().getItem(position));
-        final ModuleInfo fragmentInfo = ModuleResolver.getFragmentInfo(endpoint);
+        final ModuleInfo fragmentInfo = ModuleMap.getFragmentInfo(endpoint);
         if (fragmentInfo == null) {
             Toast.makeText(getActivity(), "No fragment for " + endpoint, Toast.LENGTH_SHORT).show();
 
