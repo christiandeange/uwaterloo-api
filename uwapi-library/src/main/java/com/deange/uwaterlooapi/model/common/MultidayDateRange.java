@@ -4,33 +4,36 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class MultidayDateRange extends BaseModel {
 
     @SerializedName("start")
-    private String mStart;
+    String mStart;
 
     @SerializedName("end")
-    private String mEnd;
+    String mEnd;
 
     @SerializedName("start_day")
-    private String mStartDay;
+    String mStartDay;
 
     @SerializedName("end_day")
-    private String mEndDay;
+    String mEndDay;
 
     @SerializedName("start_time")
-    private String mStartTime;
+    String mStartTime;
 
     @SerializedName("end_time")
-    private String mEndTime;
+    String mEndTime;
 
     @SerializedName("start_date")
-    private String mStartDate;
+    String mStartDate;
 
     @SerializedName("end_date")
-    private String mEndDate;
+    String mEndDate;
 
     /**
      * ISO 8601 formatted start date

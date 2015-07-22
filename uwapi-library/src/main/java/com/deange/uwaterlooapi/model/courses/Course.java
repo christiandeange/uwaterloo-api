@@ -3,28 +3,31 @@ package com.deange.uwaterlooapi.model.courses;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Course extends BaseModel {
 
     @SerializedName("course_id")
-    private String mCourseId;
+    String mCourseId;
 
     @SerializedName("subject")
-    private String mSubject;
+    String mSubject;
 
     @SerializedName("catalog_number")
-    private String mCatalogNumber;
+    String mCatalogNumber;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("units")
-    private float mUnits;
+    float mUnits;
 
     @SerializedName("description")
-    private String mDescription;
+    String mDescription;
 
     @SerializedName("academic_level")
-    private String mAcademicLevel;
+    String mAcademicLevel;
 
     /**
      * Registrar assigned course ID

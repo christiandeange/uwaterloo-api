@@ -4,22 +4,25 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 import java.util.Map;
 
+@Parcel
 public class TermInfo extends BaseModel {
 
     @SerializedName("current_term")
-    private int mCurrentTerm;
+    int mCurrentTerm;
 
     @SerializedName("previous_term")
-    private int mPreviousTerm;
+    int mPreviousTerm;
 
     @SerializedName("next_term")
-    private int mNextTerm;
+    int mNextTerm;
 
     @SerializedName("listings")
-    private Map<Integer, List<TermId>> mListings;
+    Map<Integer, List<TermId>> mListings;
 
     /**
      * Current Term's numerical value

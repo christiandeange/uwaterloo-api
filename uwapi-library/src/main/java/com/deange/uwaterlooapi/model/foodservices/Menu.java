@@ -4,21 +4,24 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class Menu extends BaseModel {
 
     @SerializedName("date")
-    private String mDate;
+    String mDate;
 
     @SerializedName("day")
-    private String mDayOfWeek;
+    String mDayOfWeek;
 
     @SerializedName("meals")
-    private Meals mMeals;
+    Meals mMeals;
 
     @SerializedName("notes")
-    private String mNotes;
+    String mNotes;
 
     /**
      * Date of the menu (Y-m-d)

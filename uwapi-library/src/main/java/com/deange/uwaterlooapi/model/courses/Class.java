@@ -4,18 +4,21 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class Class extends BaseModel {
 
     @SerializedName("date")
-    private ClassDate mDate;
+    ClassDate mDate;
 
     @SerializedName("location")
-    private Location mLocation;
+    Location mLocation;
 
     @SerializedName("instructors")
-    private List<String> mInstructors;
+    List<String> mInstructors;
 
     /**
      * Date for course schedule
@@ -45,13 +48,17 @@ public class Class extends BaseModel {
         return CollectionUtils.applyPolicy(mInstructors);
     }
 
-    private static final class Location {
+    @Parcel
+    public static final class Location {
+        public Location() {
+
+        }
 
         @SerializedName("building")
-        private String mBuilding;
+        String mBuilding;
 
         @SerializedName("room")
-        private String mRoom;
+        String mRoom;
 
     }
 }

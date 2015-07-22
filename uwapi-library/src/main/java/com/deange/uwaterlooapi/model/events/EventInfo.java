@@ -7,67 +7,70 @@ import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 import java.util.List;
 
+@Parcel
 public class EventInfo extends BaseModel {
 
     @SerializedName("id")
-    private int mId;
+    int mId;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("description")
-    private String mDescription;
+    String mDescription;
 
     @SerializedName("description_raw")
-    private String mDescriptionRaw;
+    String mDescriptionRaw;
 
     @SerializedName("times")
-    private List<MultidayDateRange> mTimes;
+    List<MultidayDateRange> mTimes;
 
     @SerializedName("cost")
-    private String mCost;
+    String mCost;
 
     @SerializedName("audience")
-    private List<String> mAudience;
+    List<String> mAudience;
 
     @SerializedName("tags")
-    private List<String> mTags;
+    List<String> mTags;
 
     @SerializedName("type")
-    private List<String> mTypes;
+    List<String> mTypes;
 
     @SerializedName("website")
-    private Website mSite;
+    Website mSite;
 
     @SerializedName("host")
-    private Website mHost;
+    Website mHost;
 
     @SerializedName("image")
-    private Image mImage;
+    Image mImage;
 
     @SerializedName("location")
-    private EventLocation mLocation;
+    EventLocation mLocation;
 
     @SerializedName("site_name")
-    private String mSiteName;
+    String mSiteName;
 
     @SerializedName("site_id")
-    private String mSiteId;
+    String mSiteId;
 
     @SerializedName("revision_id")
-    private int mRevisionId;
+    int mRevisionId;
 
     @SerializedName("link")
-    private String mLink;
+    String mLink;
 
     @SerializedName("link_calendar")
-    private String mLinkCalendar;
+    String mLinkCalendar;
 
     @SerializedName("updated")
-    private String mUpdated;
+    String mUpdated;
 
     /**
      * Unique event id

@@ -3,97 +3,100 @@ package com.deange.uwaterlooapi.model.foodservices;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Product extends BaseModel {
 
     @SerializedName("product_id")
-    private int mId;
+    int mId;
 
     @SerializedName("product_name")
-    private String mName;
+    String mName;
 
     @SerializedName("ingredients")
-    private String mIngredients;
+    String mIngredients;
 
     @SerializedName("serving_size")
-    private String mServingSize;
+    String mServingSize;
 
     @SerializedName("serving_size_ml")
-    private int mServingSizeMl;
+    int mServingSizeMl;
 
     @SerializedName("serving_size_g")
-    private int mServingSizeG;
+    int mServingSizeG;
 
     @SerializedName("calories")
-    private int mCalories;
+    int mCalories;
 
     @SerializedName("total_fat_g")
-    private int mTotalFatG;
+    int mTotalFatG;
 
     @SerializedName("total_fat_percent")
-    private int mTotalFatPercent;
+    int mTotalFatPercent;
 
     @SerializedName("fat_saturated_g")
-    private int mFatSaturatedG;
+    int mFatSaturatedG;
 
     @SerializedName("fat_saturated_percent")
-    private int mFatSaturatedPercent;
+    int mFatSaturatedPercent;
 
     @SerializedName("fat_trans_g")
-    private int mFatTransG;
+    int mFatTransG;
 
     @SerializedName("fat_trans_percent")
-    private int mFatTransPercent;
+    int mFatTransPercent;
 
     @SerializedName("cholesterol_mg")
-    private int mCholesterol;
+    int mCholesterol;
 
     @SerializedName("sodium_mg")
-    private int mSodiumMg;
+    int mSodiumMg;
 
     @SerializedName("sodium_percent")
-    private int mSodiumPercent;
+    int mSodiumPercent;
 
     @SerializedName("carbo_g")
-    private int mCarbohydratesG;
+    int mCarbohydratesG;
 
     @SerializedName("carbo_percent")
-    private int mCarbohydratesPercent;
+    int mCarbohydratesPercent;
 
     @SerializedName("carbo_fibre_g")
-    private int mFibreG;
+    int mFibreG;
 
     @SerializedName("carbo_fibre_percent")
-    private int mFibrePercent;
+    int mFibrePercent;
 
     @SerializedName("carbo_sugars_g")
-    private int mSugar;
+    int mSugar;
 
     @SerializedName("protein_g")
-    private int mProtein;
+    int mProtein;
 
     @SerializedName("vitamin_a_percent")
-    private int mVitaminAPercent;
+    int mVitaminAPercent;
 
     @SerializedName("vitamin_c_percent")
-    private int mVitaminCPercent;
+    int mVitaminCPercent;
 
     @SerializedName("calcium_percent")
-    private int mCalcium;
+    int mCalcium;
 
     @SerializedName("iron_percent")
-    private int mIron;
+    int mIron;
 
     @SerializedName("micro_nutrients")
-    private String mMicroNutrients;
+    String mMicroNutrients;
 
     @SerializedName("tips")
-    private String mTips;
+    String mTips;
 
     @SerializedName("diet_id")
-    private int mDietId;
+    int mDietId;
 
     @SerializedName("diet_type")
-    private String mDietType;
+    String mDietType;
 
     /**
      * Food item's numeric id

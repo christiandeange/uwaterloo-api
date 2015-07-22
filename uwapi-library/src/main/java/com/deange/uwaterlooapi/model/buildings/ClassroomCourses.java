@@ -5,58 +5,61 @@ import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 import java.util.List;
 
+@Parcel
 public class ClassroomCourses extends BaseModel {
 
     @SerializedName("class_number")
-    private int mClassNumber;
+    int mClassNumber;
 
     @SerializedName("subject")
-    private String mSubject;
+    String mSubject;
 
     @SerializedName("catalog_number")
-    private String mCatalogNumber;
+    String mCatalogNumber;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("section")
-    private String mSection;
+    String mSection;
 
     @SerializedName("weekdays")
-    private String mWeekdays;
+    String mWeekdays;
 
     @SerializedName("start_time")
-    private String mStartTime;
+    String mStartTime;
 
     @SerializedName("end_time")
-    private String mEndTime;
+    String mEndTime;
 
     @SerializedName("start_date")
-    private String mStartDate;
+    String mStartDate;
 
     @SerializedName("end_date")
-    private String mEndDate;
+    String mEndDate;
 
     @SerializedName("enrollment_total")
-    private int mTotalEnrollment;
+    int mTotalEnrollment;
 
     @SerializedName("instructors")
-    private List<String> mInstructors;
+    List<String> mInstructors;
 
     @SerializedName("building")
-    private String mBuilding;
+    String mBuilding;
 
     @SerializedName("room")
-    private String mRoom;
+    String mRoom;
 
     @SerializedName("term")
-    private int mTerm;
+    int mTerm;
 
     @SerializedName("last_updated")
-    private String mUpdated;
+    String mUpdated;
 
     /**
      * Class Number

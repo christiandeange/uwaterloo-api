@@ -3,28 +3,31 @@ package com.deange.uwaterlooapi.model.resources;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Printer extends BaseModel {
 
     @SerializedName("printer")
-    private String mPrinterName;
+    String mPrinterName;
 
     @SerializedName("ad")
-    private String mActiveDirectory;
+    String mActiveDirectory;
 
     @SerializedName("server")
-    private String mServer;
+    String mServer;
 
     @SerializedName("comment")
-    private String mComments;
+    String mComments;
 
     @SerializedName("driver")
-    private String mDriver;
+    String mDriver;
 
     @SerializedName("room")
-    private String mRoom;
+    String mRoom;
 
     @SerializedName("faculty")
-    private String mFaculty;
+    String mFaculty;
 
     /**
      * Name of the printer

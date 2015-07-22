@@ -27,7 +27,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 @ModuleFragment(path = "/buildings/*")
-public class BuildingFragment extends BaseModuleFragment<Response.BuildingEntity, Building> implements GoogleMap.OnMapClickListener {
+public class BuildingFragment
+        extends BaseModuleFragment<Response.BuildingEntity, Building>
+        implements
+        GoogleMap.OnMapClickListener {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
     public static final String ARG_BUILDING_CODE = "building_code";

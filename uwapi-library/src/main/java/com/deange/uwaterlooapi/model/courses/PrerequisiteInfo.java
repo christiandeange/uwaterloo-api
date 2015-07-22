@@ -9,26 +9,29 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class PrerequisiteInfo extends BaseModel {
 
     @SerializedName("subject")
-    private String mSubject;
+    String mSubject;
 
     @SerializedName("catalog_number")
-    private String mCatalogNumber;
+    String mCatalogNumber;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("prerequisites")
-    private String mPrerequisites;
+    String mPrerequisites;
 
     @SerializedName("prerequisites_parsed")
-    private PrerequisiteGroup mPrerequisiteGroup;
+    PrerequisiteGroup mPrerequisiteGroup;
 
     /**
      * Requested subject acronym
@@ -112,15 +115,15 @@ public class PrerequisiteInfo extends BaseModel {
 
     }
 
-
+    @Parcel
     public static final class PrerequisiteGroup {
 
         // Sometimes a number is not provided, so we assume it is 1
-        private int mTotal = 1;
+        int mTotal = 1;
 
-        private List<String> mOptions = new ArrayList<>();
+        List<String> mOptions = new ArrayList<>();
 
-        private List<PrerequisiteGroup> mSubOptions = new ArrayList<>();
+        List<PrerequisiteGroup> mSubOptions = new ArrayList<>();
 
         /**
          * The number of courses required to satisfy this group

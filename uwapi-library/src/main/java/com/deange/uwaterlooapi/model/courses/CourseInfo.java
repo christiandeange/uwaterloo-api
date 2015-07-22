@@ -6,48 +6,51 @@ import android.util.Log;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class CourseInfo extends Course {
 
     @SerializedName("instructions")
-    private List<String> mInstructions;
+    List<String> mInstructions;
 
     @SerializedName("prerequisites")
-    private String mPrerequisites;
+    String mPrerequisites;
 
     @SerializedName("antirequisites")
-    private String mAntirequisites;
+    String mAntirequisites;
 
     @SerializedName("corequisites")
-    private String mCorequisites;
+    String mCorequisites;
 
     @SerializedName("crosslistings")
-    private String mCrosslistings;
+    String mCrosslistings;
 
     @SerializedName("terms_offered")
-    private List<String> mTermsOffered;
+    List<String> mTermsOffered;
 
     @SerializedName("notes")
-    private String mNotes;
+    String mNotes;
 
     @SerializedName("offerings")
-    private CourseLocations mCourseLocations;
+    CourseLocations mCourseLocations;
 
     @SerializedName("needs_department_consent")
-    private boolean mNeedsDepartmentConsent;
+    boolean mNeedsDepartmentConsent;
 
     @SerializedName("needs_instructor_consent")
-    private boolean mNeedsInstructorConsent;
+    boolean mNeedsInstructorConsent;
 
     @SerializedName("extra")
-    private List<String> mExtraInfo;
+    List<String> mExtraInfo;
 
     @SerializedName("calendar_year")
-    private String mYear;
+    String mYear;
 
     @SerializedName("url")
-    private String mUrl;
+    String mUrl;
 
     /**
      * Instruction types for the course (LEC, TUT, LAB etc)

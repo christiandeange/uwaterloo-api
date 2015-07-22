@@ -1,61 +1,63 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
 import android.text.TextUtils;
-import android.util.Pair;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+@Parcel
 public class Location extends BaseModel {
 
     @SerializedName("outlet_id")
-    private int mId;
+    int mId;
 
     @SerializedName("outlet_name")
-    private String mName;
+    String mName;
 
     @SerializedName("building")
-    private String mBuilding;
+    String mBuilding;
 
     @SerializedName("logo")
-    private String mLogoUrl;
+    String mLogoUrl;
 
     @SerializedName("latitude")
-    private float mLatitude;
+    float mLatitude;
 
     @SerializedName("longitude")
-    private float mLongitude;
+    float mLongitude;
 
     @SerializedName("description")
-    private String mDescription;
+    String mDescription;
 
     @SerializedName("notice")
-    private String mAnnouncements;
+    String mAnnouncements;
 
     @SerializedName("is_open_now")
-    private boolean mIsOpenNow;
+    boolean mIsOpenNow;
 
     @SerializedName("opening_hours")
-    private Map<String, OperatingHours> mHours;
+    Map<String, OperatingHours> mHours;
 
     @SerializedName("special_hours")
-    private List<SpecialOperatingHours> mSpecialOperatingHours;
+    List<SpecialOperatingHours> mSpecialOperatingHours;
 
     @SerializedName("dates_closed")
-    private List<String> mDatesClosedRaw;
+    List<String> mDatesClosedRaw;
 
-    private List<Range> mDatesClosed;
+    List<Range> mDatesClosed;
 
-    private List<SpecialRange> mDatesSpecial;
+    List<SpecialRange> mDatesSpecial;
 
     /**
      * Outlet ID number (not always same as outets.json method). Can be null
@@ -88,7 +90,7 @@ public class Location extends BaseModel {
     /**
      * Location [latitude, longitude] coordinates
      */
-    private float[] getLocation() {
+    public float[] getLocation() {
         return new float[] { mLatitude, mLongitude };
     }
 
@@ -292,12 +294,17 @@ public class Location extends BaseModel {
         return hour + ":" + parts[1] + " " + ampm;
     }
 
-    public static class Range extends Pair<Date, Date> {
+    @Parcel
+    public static class Range {
 
         private static final String DATE_FORMAT = "MMMM d";
+        final Date first;
+        final Date second;
 
-        private Range(final Date first, final Date second) {
-            super(first, second);
+        @ParcelConstructor
+        Range(final Date first, final Date second) {
+            this.first = first;
+            this.second = second;
         }
 
         @Override
@@ -311,23 +318,25 @@ public class Location extends BaseModel {
         }
     }
 
+    @Parcel
     public static class SpecialRange extends Range {
 
-        private final String mOpen;
-        private final String mClose;
+        final String open;
+        final String close;
 
-        private SpecialRange(final Date first, final Date second,
-                             final String open, final String close) {
+        @ParcelConstructor
+        SpecialRange(final Date first, final Date second,
+                     final String open, final String close) {
             super(first, second);
-            mOpen = open;
-            mClose = close;
+            this.open = open;
+            this.close = close;
         }
 
         @Override
         public String toString() {
             return super.toString() + " ("
-                    + convert24To12(mOpen) + " – "
-                    + convert24To12(mClose) + ")";
+                    + convert24To12(open) + " – "
+                    + convert24To12(close) + ")";
         }
     }
 

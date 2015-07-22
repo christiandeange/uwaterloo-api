@@ -3,13 +3,16 @@ package com.deange.uwaterlooapi.model.foodservices;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class WatcardVendor extends BaseModel {
 
     @SerializedName("vendor_id")
-    private int mId;
+    int mId;
 
     @SerializedName("vendor_name")
-    private String mName;
+    String mName;
 
     /**
      * Outlet ID number

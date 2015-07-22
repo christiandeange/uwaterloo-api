@@ -3,37 +3,40 @@ package com.deange.uwaterlooapi.model.terms;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class InfoSession extends BaseModel {
 
     @SerializedName("id")
-    private int mId;
+    int mId;
 
     @SerializedName("employer")
-    private String mEmployer;
+    String mEmployer;
 
     @SerializedName("date")
-    private String mDate;
+    String mDate;
 
     @SerializedName("start_time")
-    private String mStartTime;
+    String mStartTime;
 
     @SerializedName("end_time")
-    private String mEndTime;
+    String mEndTime;
 
     @SerializedName("location")
-    private String mLocation;
+    String mLocation;
 
     @SerializedName("website")
-    private String mWebsite;
+    String mWebsite;
 
     @SerializedName("audience")
-    private String mAudience;
+    String mAudience;
 
     @SerializedName("programs")
-    private String mPrograms;
+    String mPrograms;
 
     @SerializedName("description")
-    private String mDescription;
+    String mDescription;
 
     /**
      * Information session id

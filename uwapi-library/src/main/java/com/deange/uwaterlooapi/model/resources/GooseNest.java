@@ -4,24 +4,27 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class GooseNest extends BaseModel {
 
     @SerializedName("id")
-    private String mId;
+    String mId;
 
     @SerializedName("location")
-    private String mLocationDescription;
+    String mLocationDescription;
 
     @SerializedName("latitude")
-    private float mLatitude;
+    float mLatitude;
 
     @SerializedName("longitude")
-    private float mLongitude;
+    float mLongitude;
 
     @SerializedName("updated")
-    private String mUpdated;
+    String mUpdated;
 
     /**
      * Goose Nest ID

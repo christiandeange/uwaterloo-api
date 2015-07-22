@@ -4,27 +4,30 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class NewsDetails extends BaseModel {
 
     @SerializedName("id")
-    private int mId;
+    int mId;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("site")
-    private String mSite;
+    String mSite;
 
     @SerializedName("link")
-    private String mLink;
+    String mLink;
 
     @SerializedName("published")
-    private String mPublished;
+    String mPublished;
 
     @SerializedName("updated")
-    private String mUpdated;
+    String mUpdated;
 
     /**
      * Unique news id

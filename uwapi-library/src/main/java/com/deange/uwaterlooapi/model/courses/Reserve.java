@@ -3,16 +3,19 @@ package com.deange.uwaterlooapi.model.courses;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Reserve extends BaseModel {
 
     @SerializedName("reserve_group")
-    private String mReserveGroup;
+    String mReserveGroup;
 
     @SerializedName("enrollment_capacity")
-    private int mEnrollmentCapacity;
+    int mEnrollmentCapacity;
 
     @SerializedName("enrollment_total")
-    private int mEnrollmentTotal;
+    int mEnrollmentTotal;
 
     /**
      * Name of the reserved group

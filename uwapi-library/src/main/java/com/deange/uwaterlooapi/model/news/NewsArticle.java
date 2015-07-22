@@ -5,46 +5,49 @@ import com.deange.uwaterlooapi.model.common.Image;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 import java.util.List;
 
+@Parcel
 public class NewsArticle extends BaseModel {
 
     @SerializedName("id")
-    private int mId;
+    int mId;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("description")
-    private String mDescription;
+    String mDescription;
 
     @SerializedName("description_raw")
-    private String mHtmlDescription;
+    String mHtmlDescription;
 
     @SerializedName("audience")
-    private List<String> mAudience;
+    List<String> mAudience;
 
     @SerializedName("image")
-    private Image mImage;
+    Image mImage;
 
     @SerializedName("site_id")
-    private String mSiteId;
+    String mSiteId;
 
     @SerializedName("site_name")
-    private String mSiteName;
+    String mSiteName;
 
     @SerializedName("revision_id")
-    private int mRevision;
+    int mRevision;
 
     @SerializedName("published")
-    private String mPublished;
+    String mPublished;
 
     @SerializedName("updated")
-    private String mUpdated;
+    String mUpdated;
 
     @SerializedName("link")
-    private String mLink;
+    String mLink;
 
     /**
      * Unique news id

@@ -5,12 +5,15 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 
+import org.parceler.Parcel;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@Parcel
 public class CourseLocations extends BaseModel {
 
     public static final String ONLINE = "online";
@@ -36,7 +39,7 @@ public class CourseLocations extends BaseModel {
         OFFERED_PLACES = Collections.unmodifiableList(places);
     }
 
-    private int mBitset;
+    int mBitset;
 
     /* package */ CourseLocations() {
         mBitset = 0;

@@ -4,15 +4,18 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class ExamInfo extends BaseModel {
 
     @SerializedName("course")
-    private String mCourse;
+    String mCourse;
 
     @SerializedName("sections")
-    private List<ExamSection> mSections;
+    List<ExamSection> mSections;
 
     public String getCourse() {
         return mCourse;

@@ -4,27 +4,30 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class Outlet extends BaseModel {
 
     @SerializedName("outlet_id")
-    private int mId;
+    int mId;
 
     @SerializedName("outlet_name")
-    private String mName;
+    String mName;
 
     @SerializedName("menu")
-    private List<Menu> mMenu;
+    List<Menu> mMenu;
 
     @SerializedName("has_breakfast")
-    private int mBreakfast;
+    int mBreakfast;
 
     @SerializedName("has_lunch")
-    private int mLunch;
+    int mLunch;
 
     @SerializedName("has_dinner")
-    private int mDinner;
+    int mDinner;
 
     /**
      * Foodservices ID for the outlet

@@ -2,25 +2,28 @@ package com.deange.uwaterlooapi.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Metadata {
 
     @SerializedName("requests")
-    private int mRequests;
+    int mRequests;
 
     @SerializedName("timestamp")
-    private long mTimestamp;
+    long mTimestamp;
 
     @SerializedName("status")
-    private int mStatus;
+    int mStatus;
 
     @SerializedName("message")
-    private String mMessage;
+    String mMessage;
 
     @SerializedName("method_id")
-    private int mMethodId;
+    int mMethodId;
 
     @SerializedName("version")
-    private String mVersion;
+    String mVersion;
 
     /**
      * The number of times this method has been called from this API key

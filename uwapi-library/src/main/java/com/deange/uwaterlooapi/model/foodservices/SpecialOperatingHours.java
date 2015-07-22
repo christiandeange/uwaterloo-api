@@ -3,12 +3,15 @@ package com.deange.uwaterlooapi.model.foodservices;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class SpecialOperatingHours extends OperatingHours {
 
     @SerializedName("date")
-    private String mDate;
+    String mDate;
 
     /**
      * Y-m-d format date for the special case

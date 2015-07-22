@@ -3,31 +3,34 @@ package com.deange.uwaterlooapi.model.courses;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class ClassDate extends BaseModel {
 
     @SerializedName("start_time")
-    private String mStartTime;
+    String mStartTime;
 
     @SerializedName("end_time")
-    private String mEndTime;
+    String mEndTime;
 
     @SerializedName("weekdays")
-    private String mWeekdays;
+    String mWeekdays;
 
     @SerializedName("start_date")
-    private String mStartDate;
+    String mStartDate;
 
     @SerializedName("end_date")
-    private String mEndDate;
+    String mEndDate;
 
     @SerializedName("is_tba")
-    private boolean mIsTBA;
+    boolean mIsTBA;
 
     @SerializedName("is_cancelled")
-    private boolean mIsCancelled;
+    boolean mIsCancelled;
 
     @SerializedName("is_closed")
-    private boolean mIsClosed;
+    boolean mIsClosed;
 
     /**
      * 24 hour class starting time

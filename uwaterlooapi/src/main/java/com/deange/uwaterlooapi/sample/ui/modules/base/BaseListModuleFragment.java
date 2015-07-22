@@ -7,14 +7,17 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.model.Metadata;
+import com.deange.uwaterlooapi.model.common.SimpleListResponse;
 import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 
 import java.util.List;
 
-public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, V>
-        extends BaseModuleFragment<T, List<V>> implements SwipeRefreshLayout.OnRefreshListener {
+public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V extends BaseModel>
+        extends BaseModuleFragment<T, V> implements SwipeRefreshLayout.OnRefreshListener {
 
     private ListView mListView;
     private SwipeRefreshLayout mSwipeLayout;
@@ -72,8 +75,8 @@ public abstract class BaseListModuleFragment<T extends SimpleResponse<List<V>>, 
     }
 
     @Override
-    protected void onRefreshRequested() {
-        super.onRefreshRequested();
+    public final void onBindData(final Metadata metadata, final V data) {
+        throw new RuntimeException("Not to be used when dealing with a list of data!");
     }
 
     public abstract ModuleAdapter getAdapter();

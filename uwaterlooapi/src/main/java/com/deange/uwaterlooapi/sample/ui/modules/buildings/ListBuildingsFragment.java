@@ -28,8 +28,10 @@ import java.util.TreeSet;
         base = true,
         icon = R.drawable.ic_launcher
 )
-public class ListBuildingsFragment extends BaseListModuleFragment<Response.Buildings, Building>
-        implements AdapterView.OnItemClickListener {
+public class ListBuildingsFragment
+        extends BaseListModuleFragment<Response.Buildings, Building>
+        implements
+        AdapterView.OnItemClickListener {
 
     private List<Building> mResponse;
     private Character[] mIndices;

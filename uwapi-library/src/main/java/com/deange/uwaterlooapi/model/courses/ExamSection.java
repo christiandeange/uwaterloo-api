@@ -4,30 +4,33 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class ExamSection extends BaseModel {
 
     @SerializedName("section")
-    private String mSection;
+    String mSection;
 
     @SerializedName("day")
-    private String mDay;
+    String mDay;
 
     @SerializedName("date")
-    private String mDate;
+    String mDate;
 
     @SerializedName("start_time")
-    private String mStartTime;
+    String mStartTime;
 
     @SerializedName("end_time")
-    private String mEndTime;
+    String mEndTime;
 
     @SerializedName("location")
-    private String mLocation;
+    String mLocation;
 
     @SerializedName("notes")
-    private String mNotes;
+    String mNotes;
 
     /**
      * Exam section number

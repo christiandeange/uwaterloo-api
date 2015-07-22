@@ -4,15 +4,18 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class Announcement extends BaseModel {
 
     @SerializedName("date")
-    private String mDate;
+    String mDate;
 
     @SerializedName("ad_text")
-    private String mText;
+    String mText;
 
     /**
      * Advertisement date object

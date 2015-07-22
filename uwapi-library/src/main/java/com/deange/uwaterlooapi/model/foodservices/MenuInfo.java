@@ -5,15 +5,18 @@ import com.deange.uwaterlooapi.model.common.DateRange;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class MenuInfo extends BaseModel {
 
     @SerializedName("date")
-    private DateRange mDateRange;
+    DateRange mDateRange;
 
     @SerializedName("outlets")
-    private List<Outlet> mOutlets;
+    List<Outlet> mOutlets;
 
     /**
      * Menu date object

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,14 +22,19 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.SimpleResponse;
+import com.deange.uwaterlooapi.model.common.SimpleListResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
-import com.deange.uwaterlooapi.sample.utils.Parceller;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
-public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends Fragment
+import org.parceler.Parcels;
+
+import java.util.List;
+
+public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseModel> extends Fragment
         implements View.OnTouchListener {
 
     public static final long MINIMUM_UPDATE_DURATION = 1000;
@@ -40,7 +46,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     private long mLastUpdate = 0;
     private ViewGroup mLoadingLayout;
 
-    private final Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
     private T mLastResponse;
     private LoadModuleDataTask mTask;
 
@@ -96,7 +102,7 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
 
         if (savedInstanceState != null) {
             mLastUpdate = savedInstanceState.getLong(KEY_LAST_UPDATED);
-            mLastResponse = Parceller.unparcel(savedInstanceState.getString(KEY_DATA));
+            mLastResponse = BaseResponse.deserialize(savedInstanceState.getString(KEY_DATA));
         }
 
         // Deliver the response if we still have one, otherwise load the data
@@ -132,16 +138,31 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(KEY_LAST_UPDATED, mLastUpdate);
-        outState.putString(KEY_DATA, Parceller.parcel(mLastResponse));
+        outState.putString(KEY_DATA, BaseResponse.serialize(mLastResponse));
     }
 
-    protected void onRefreshRequested() {
-        changeLoadingVisibilityInternal(true);
+    protected final void onRefreshRequested() {
 
-        mLastUpdate = System.currentTimeMillis();
-        final UWaterlooApi api = ((ModuleHostActivity) getActivity()).getApi();
-        mTask = new LoadModuleDataTask();
-        mTask.execute(api);
+        // Data can potentially be stored from above (maybe cached, or passed in as a Parcelable?)
+        // In that case, there's no need to try and load any data from the network
+        // Deliver it right away to the main thread!
+        final V data = onLoadData();
+        if (data != null) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    deliverResponse(data);
+                }
+            });
+
+        } else {
+            changeLoadingVisibilityInternal(true);
+            mLastUpdate = System.currentTimeMillis();
+
+            final UWaterlooApi api = ((ModuleHostActivity) getActivity()).getApi();
+            mTask = new LoadModuleDataTask();
+            mTask.execute(api);
+        }
     }
 
     private void changeLoadingVisibilityInternal(final boolean show) {
@@ -236,11 +257,26 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         Toast.makeText(getActivity(), "Received no data", Toast.LENGTH_SHORT).show();
     }
 
-    private void deliverResponse(final T data) {
-        if (data == null || data.getData() == null) {
+    private void deliverResponse(final T response) {
+
+        if (response == null || response.getData() == null) {
+            onNullResponseReceived();
+        } else if (response instanceof SimpleListResponse)  {
+            onBindData(response.getMetadata(), (List<V>) response.getData());
+        } else {
+            onBindData(response.getMetadata(), (V) response.getData());
+        }
+
+        if (getActivity() != null) {
+            ((ModuleHostActivity) getActivity()).refreshActionBar();
+        }
+    }
+
+    private void deliverResponse(final V data) {
+        if (data == null) {
             onNullResponseReceived();
         } else {
-            onBindData(data.getMetadata(), data.getData());
+            onBindData(null, data);
         }
 
         if (getActivity() != null) {
@@ -252,9 +288,21 @@ public abstract class BaseModuleFragment<T extends SimpleResponse<V>, V> extends
         return getString(R.string.app_name);
     }
 
-    public abstract T onLoadData(final UWaterlooApi api);
+    public T onLoadData(final UWaterlooApi api) {
+        return null;
+    }
 
-    public abstract void onBindData(final Metadata metadata, final V data);
+    public V onLoadData() {
+        return null;
+    }
+
+    public void onBindData(final Metadata metadata, final V data) {
+        // Overriden by subclasses
+    }
+
+    public void onBindData(final Metadata metadata, final List<V> data) {
+        // Overriden by subclasses
+    }
 
     private final class LoadModuleDataTask extends AsyncTask<UWaterlooApi, Void, T> {
 

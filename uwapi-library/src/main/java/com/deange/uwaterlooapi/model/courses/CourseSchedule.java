@@ -5,76 +5,79 @@ import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 import java.util.List;
 
+@Parcel
 public class CourseSchedule extends BaseModel {
 
     @SerializedName("subject")
-    private String mSubject;
+    String mSubject;
 
     @SerializedName("catalog_number")
-    private String mCatalogNumber;
+    String mCatalogNumber;
 
     @SerializedName("units")
-    private float mUnits;
+    float mUnits;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("note")
-    private String mNotes;
+    String mNotes;
 
     @SerializedName("class_number")
-    private int mClasNumber;
+    int mClasNumber;
 
     @SerializedName("section")
-    private String mSection;
+    String mSection;
 
     @SerializedName("campus")
-    private String mCampus;
+    String mCampus;
 
     @SerializedName("associated_class")
-    private int mAssociatedClassId;
+    int mAssociatedClassId;
 
     @SerializedName("related_component_1")
-    private String mRelatedComponent1;
+    String mRelatedComponent1;
 
     @SerializedName("related_component_2")
-    private String mRelatedComponent2;
+    String mRelatedComponent2;
 
     @SerializedName("enrollment_capacity")
-    private int mEnrollmentCapacity;
+    int mEnrollmentCapacity;
 
     @SerializedName("enrollment_total")
-    private int mEnrollmentTotal;
+    int mEnrollmentTotal;
 
     @SerializedName("waiting_capacity")
-    private int mWaitingCapacity;
+    int mWaitingCapacity;
 
     @SerializedName("waiting_total")
-    private int mWaitingTotal;
+    int mWaitingTotal;
 
     @SerializedName("topic")
-    private String mTopic;
+    String mTopic;
 
     @SerializedName("reserves")
-    private List<Reserve> mReserves;
+    List<Reserve> mReserves;
 
     @SerializedName("classes")
-    private List<Class> mClasses;
+    List<Class> mClasses;
 
     @SerializedName("held_with")
-    private List<String> mHeldWith;
+    List<String> mHeldWith;
 
     @SerializedName("term")
-    private int mTerm;
+    int mTerm;
 
     @SerializedName("academic_level")
-    private String mAcademicLevel;
+    String mAcademicLevel;
 
     @SerializedName("last_updated")
-    private String mLastUpdated;
+    String mLastUpdated;
 
     /**
      * Requested subject acronym

@@ -6,34 +6,37 @@ import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 import java.util.List;
 
+@Parcel
 public class Event extends BaseModel {
 
     @SerializedName("id")
-    private int mId;
+    int mId;
 
     @SerializedName("site")
-    private String mSite;
+    String mSite;
 
     @SerializedName("site_name")
-    private String mSiteName;
+    String mSiteName;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("times")
-    private List<DateRange> mTimes;
+    List<DateRange> mTimes;
 
     @SerializedName("type")
-    private List<String> mTypes;
+    List<String> mTypes;
 
     @SerializedName("link")
-    private String mUrl;
+    String mUrl;
 
     @SerializedName("updated")
-    private String mUpdated;
+    String mUpdated;
 
     /**
      * Unique event id

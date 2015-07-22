@@ -3,6 +3,9 @@ package com.deange.uwaterlooapi.model.foodservices;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class OperatingHours extends BaseModel {
 
     public static final String SUNDAY = "sunday";
@@ -16,13 +19,13 @@ public class OperatingHours extends BaseModel {
     public static final String TIME_FORMAT = "hh:mm";
 
     @SerializedName("opening_hour")
-    private String mOpeningHour;
+    String mOpeningHour;
 
     @SerializedName("closing_hour")
-    private String mClosingHour;
+    String mClosingHour;
 
     @SerializedName("is_closed")
-    private boolean mClosedAllDay;
+    boolean mClosedAllDay;
 
     /**
      * Locations opening time {@link #TIME_FORMAT (H:i format)}

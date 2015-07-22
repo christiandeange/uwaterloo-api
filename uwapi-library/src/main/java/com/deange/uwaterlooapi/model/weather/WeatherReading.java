@@ -4,71 +4,74 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class WeatherReading extends BaseModel {
 
     @SerializedName("latitude")
-    private float mLatitude;
+    float mLatitude;
 
     @SerializedName("longitude")
-    private float mLongitude;
+    float mLongitude;
 
     @SerializedName("elevation_m")
-    private float mElevation;
+    float mElevation;
 
     @SerializedName("observation_time")
-    private String mObservationTime;
+    String mObservationTime;
 
     @SerializedName("temperature_current_c")
-    private float mTemperature;
+    float mTemperature;
 
     @SerializedName("humidex_c")
-    private float mHumidex;
+    float mHumidex;
 
     @SerializedName("windchill_c")
-    private float mWindchill;
+    float mWindchill;
 
     @SerializedName("temperature_24hr_max_c")
-    private float mTemperature24hMax;
+    float mTemperature24hMax;
 
     @SerializedName("temperature_24hr_min_c")
-    private float mTemperature24hMin;
+    float mTemperature24hMin;
 
     @SerializedName("precipitation_15min_mm")
-    private float mPrecipitation15Min;
+    float mPrecipitation15Min;
 
     @SerializedName("precipitation_1hr_mm")
-    private float mPrecipitation1Hr;
+    float mPrecipitation1Hr;
 
     @SerializedName("precipitation_24hr_mm")
-    private float mPrecipitation24Hr;
+    float mPrecipitation24Hr;
 
     @SerializedName("relative_humidity_percent")
-    private float mRelativeHumidity;
+    float mRelativeHumidity;
 
     @SerializedName("dew_point_c")
-    private float mDewPoint;
+    float mDewPoint;
 
     @SerializedName("wind_speed_kph")
-    private float mWindSpeed;
+    float mWindSpeed;
 
     @SerializedName("wind_direction_degrees")
-    private float mWindDirection;
+    float mWindDirection;
 
     @SerializedName("pressure_kpa")
-    private float mPressureKpa;
+    float mPressureKpa;
 
     @SerializedName("pressure_trend")
-    private String mPressureTrend;
+    String mPressureTrend;
 
     @SerializedName("incoming_shortwave_radiation_wm2")
-    private float mShortWaveRadiation;
+    float mShortWaveRadiation;
 
     /**
      * Station's latitude + longitude
      */
-    private float[] getLocation() {
+    public float[] getLocation() {
         return new float[] { mLatitude, mLongitude };
     }
 

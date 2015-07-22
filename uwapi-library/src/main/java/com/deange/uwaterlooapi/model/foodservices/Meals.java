@@ -4,15 +4,18 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class Meals extends BaseModel {
 
     @SerializedName("lunch")
-    private List<Meal> mLunch;
+    List<Meal> mLunch;
 
     @SerializedName("dinner")
-    private List<Meal> mDinner;
+    List<Meal> mDinner;
 
     /**
      * Lunch menu items

@@ -4,21 +4,24 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class DateRange extends BaseModel {
 
     @SerializedName("week")
-    private int mWeek;
+    int mWeek;
 
     @SerializedName("year")
-    private int mYear;
+    int mYear;
 
     @SerializedName("start")
-    private String mStart;
+    String mStart;
 
     @SerializedName("end")
-    private String mEnd;
+    String mEnd;
 
     /**
      * Requested week

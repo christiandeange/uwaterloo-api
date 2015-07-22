@@ -12,26 +12,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.DummyResponse;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
-import com.deange.uwaterlooapi.sample.utils.Parceller;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
-public class LocationFragment extends BaseModuleFragment<DummyResponse<Location>, Location> {
+public class LocationFragment extends BaseModuleFragment<BaseResponse, Location> {
 
     private static final String KEY_LOCATION = "location";
 
     public static Bundle newBundle(final Location location) {
         final Bundle bundle = new Bundle();
-        bundle.putString(KEY_LOCATION, Parceller.parcel(location));
+        bundle.putParcelable(KEY_LOCATION, Parcels.wrap(location));
         return bundle;
     }
 
@@ -41,9 +41,8 @@ public class LocationFragment extends BaseModuleFragment<DummyResponse<Location>
     }
 
     @Override
-    public DummyResponse<Location> onLoadData(final UWaterlooApi api) {
-        return DummyResponse.inject(
-                Parceller.<Location>unparcel(getArguments().getString(KEY_LOCATION)));
+    public Location onLoadData() {
+        return Parcels.unwrap(getArguments().getParcelable(KEY_LOCATION));
     }
 
     @Override

@@ -15,8 +15,6 @@ import android.widget.Spinner;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.buildings.BuildingSection;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.utils.GsonController;
-import com.deange.uwaterlooapi.sample.utils.Parceller;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -24,6 +22,8 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
                                               final GoogleMapOptions options,
                                               final boolean showIndoorMaps) {
         final Intent intent = new Intent(from, MapActivity.class);
-        intent.putExtra(KEY_BUILDING, Parceller.parcel(building));
+        intent.putExtra(KEY_BUILDING, Parcels.wrap(building));
         intent.putExtra(KEY_OPTIONS, options);
         intent.putExtra(KEY_INDOORS, showIndoorMaps);
         return intent;
@@ -133,7 +133,7 @@ public class MapActivity extends FragmentActivity implements AdapterView.OnItemS
     }
 
     private Building getBuilding() {
-        return Parceller.unparcel(getIntent().getStringExtra(KEY_BUILDING));
+        return Parcels.unwrap(getIntent().getParcelableExtra(KEY_BUILDING));
     }
 
     private GoogleMapOptions getOptions() {

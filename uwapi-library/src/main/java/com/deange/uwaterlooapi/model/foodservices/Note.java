@@ -4,21 +4,24 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.Date;
 
+@Parcel
 public class Note extends BaseModel {
 
     @SerializedName("date")
-    private String mDate;
+    String mDate;
 
     @SerializedName("outlet_id")
-    private int mOutletId;
+    int mOutletId;
 
     @SerializedName("outlet_name")
-    private String mOutletName;
+    String mOutletName;
 
     @SerializedName("note")
-    private String mNote;
+    String mNote;
 
     /**
      * Outlet ID as per /foodservices/outlets

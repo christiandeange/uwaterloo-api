@@ -3,37 +3,40 @@ package com.deange.uwaterlooapi.model.events;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class EventLocation extends BaseModel {
 
     @SerializedName("id")
-    private int mId;
+    int mId;
 
     @SerializedName("name")
-    private String mName;
+    String mName;
 
     @SerializedName("street")
-    private String mStreet;
+    String mStreet;
 
     @SerializedName("additional")
-    private String mAdditional;
+    String mAdditional;
 
     @SerializedName("city")
-    private String mCity;
+    String mCity;
 
     @SerializedName("province")
-    private String mProvince;
+    String mProvince;
 
     @SerializedName("postal_code")
-    private String mPostalCode;
+    String mPostalCode;
 
     @SerializedName("country")
-    private String mCountry;
+    String mCountry;
 
     @SerializedName("latitude")
-    private float mLatitude;
+    float mLatitude;
 
     @SerializedName("longitude")
-    private float mLongitude;
+    float mLongitude;
 
     /**
      * Unique id of location
@@ -94,7 +97,7 @@ public class EventLocation extends BaseModel {
     /**
      * Event location latitude + longitude
      */
-    private float[] getLocation() {
+    public float[] getLocation() {
         return new float[] { mLatitude, mLongitude };
     }
 

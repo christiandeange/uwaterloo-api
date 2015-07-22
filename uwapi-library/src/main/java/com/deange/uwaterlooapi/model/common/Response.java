@@ -26,8 +26,6 @@ import com.deange.uwaterlooapi.model.terms.InfoSession;
 import com.deange.uwaterlooapi.model.terms.TermInfo;
 import com.deange.uwaterlooapi.model.weather.WeatherReading;
 
-import java.util.List;
-
 public class Response {
 
     private Response() {
@@ -38,27 +36,27 @@ public class Response {
 
     public static class Menus extends SimpleResponse<MenuInfo> { }
 
-    public static class Announcements extends SimpleResponse<List<Announcement>> { }
+    public static class Announcements extends SimpleListResponse<Announcement> { }
 
-    public static class Locations extends SimpleResponse<List<Location>> { }
+    public static class Locations extends SimpleListResponse<Location> { }
 
-    public static class Diets extends SimpleResponse<List<Diet>> { }
+    public static class Diets extends SimpleListResponse<Diet> { }
 
-    public static class Notes extends SimpleResponse<List<Note>> { }
+    public static class Notes extends SimpleListResponse<Note> { }
 
-    public static class Outlets extends SimpleResponse<List<Outlet>> { }
+    public static class Outlets extends SimpleListResponse<Outlet> { }
 
-    public static class Watcards extends SimpleResponse<List<WatcardVendor>> { }
+    public static class Watcards extends SimpleListResponse<WatcardVendor> { }
 
     public static class Products extends SimpleResponse<Product> { }
 
     // COURSES
 
-    public static class Courses extends SimpleResponse<List<Course>> { }
+    public static class Courses extends SimpleListResponse<Course> { }
 
     public static class CoursesInfo extends SimpleResponse<CourseInfo> { }
 
-    public static class CoursesSchedule extends SimpleResponse<List<CourseSchedule>> { }
+    public static class CoursesSchedule extends SimpleListResponse<CourseSchedule> { }
 
     public static class Prerequisites extends SimpleResponse<PrerequisiteInfo> { }
 
@@ -66,11 +64,11 @@ public class Response {
 
     // EVENTS
 
-    public static class Events extends SimpleResponse<List<Event>> { }
+    public static class Events extends SimpleListResponse<Event> { }
 
     public static class EventDetails extends SimpleResponse<EventInfo> { }
 
-    public static class News extends SimpleResponse<List<NewsDetails>> { }
+    public static class News extends SimpleListResponse<NewsDetails> { }
 
     public static class NewsEntity extends SimpleResponse<NewsArticle> { }
 
@@ -82,24 +80,24 @@ public class Response {
 
     public static class Terms extends SimpleResponse<TermInfo> { }
 
-    public static class TermExamSchedule extends SimpleResponse<List<ExamInfo>> { }
+    public static class TermExamSchedule extends SimpleListResponse<ExamInfo> { }
 
-    public static class InfoSessions extends SimpleResponse<List<InfoSession>> { }
+    public static class InfoSessions extends SimpleListResponse<InfoSession> { }
 
     // RESOURCES
 
-    public static class Tutors extends SimpleResponse<List<Tutor>> { }
+    public static class Tutors extends SimpleListResponse<Tutor> { }
 
-    public static class Printers extends SimpleResponse<List<Printer>> { }
+    public static class Printers extends SimpleListResponse<Printer> { }
 
-    public static class GooseWatch extends SimpleResponse<List<GooseNest>> { }
+    public static class GooseWatch extends SimpleListResponse<GooseNest> { }
 
     // BUILDINGS
 
-    public static class Buildings extends SimpleResponse<List<Building>> { }
+    public static class Buildings extends SimpleListResponse<Building> { }
 
     public static class BuildingEntity extends SimpleResponse<Building> { }
 
-    public static class RoomCourses extends SimpleResponse<List<ClassroomCourses>> { }
+    public static class RoomCourses extends SimpleListResponse<ClassroomCourses> { }
 
 }

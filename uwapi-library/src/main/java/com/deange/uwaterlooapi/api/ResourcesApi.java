@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.api;
 import com.deange.uwaterlooapi.model.common.Response;
 
 import retrofit.http.GET;
-import retrofit.http.Query;
 
 public interface ResourcesApi {
 

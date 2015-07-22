@@ -3,22 +3,25 @@ package com.deange.uwaterlooapi.model.resources;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Tutor extends BaseModel {
 
     @SerializedName("subject")
-    private String mSubject;
+    String mSubject;
 
     @SerializedName("catalog_number")
-    private String mCatalogNumber;
+    String mCatalogNumber;
 
     @SerializedName("title")
-    private String mTitle;
+    String mTitle;
 
     @SerializedName("tutors_count")
-    private int mTutorsCount;
+    int mTutorsCount;
 
     @SerializedName("contact_url")
-    private String mContactUrl;
+    String mContactUrl;
 
     /**
      * Subject acronym

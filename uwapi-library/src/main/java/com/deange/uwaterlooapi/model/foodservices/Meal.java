@@ -3,16 +3,19 @@ package com.deange.uwaterlooapi.model.foodservices;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Meal extends BaseModel {
 
     @SerializedName("product_id")
-    private int mId;
+    int mId;
 
     @SerializedName("product_name")
-    private String mName;
+    String mName;
 
     @SerializedName("diet_type")
-    private String mDietType;
+    String mDietType;
 
     /**
      * The ID of the meal

@@ -4,30 +4,33 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
+@Parcel
 public class Building extends BaseModel {
 
     @SerializedName("building_id")
-    private String mBuildingId;
+    String mBuildingId;
 
     @SerializedName("building_code")
-    private String mBuildingCode;
+    String mBuildingCode;
 
     @SerializedName("building_name")
-    private String mBuildingName;
+    String mBuildingName;
 
     @SerializedName("alternate_names")
-    private List<String> mAlternateNames;
+    List<String> mAlternateNames;
 
     @SerializedName("latitude")
-    private float mLatitude;
+    float mLatitude;
 
     @SerializedName("longitude")
-    private float mLongitude;
+    float mLongitude;
 
     @SerializedName("building_sections")
-    private List<BuildingSection> mBuildingSections;
+    List<BuildingSection> mBuildingSections;
 
     /**
      * Official unique building number

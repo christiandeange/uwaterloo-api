@@ -3,16 +3,19 @@ package com.deange.uwaterlooapi.model.buildings;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class BuildingSection extends BaseModel {
 
     @SerializedName("section_name")
-    private String mSectionName;
+    String mSectionName;
 
     @SerializedName("latitude")
-    private float mLatitude;
+    float mLatitude;
 
     @SerializedName("longitude")
-    private float mLongitude;
+    float mLongitude;
 
     /**
      * Name of section

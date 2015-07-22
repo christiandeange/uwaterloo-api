@@ -3,31 +3,34 @@ package com.deange.uwaterlooapi.model.common;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Image extends BaseModel {
 
     @SerializedName("id")
-    private int mId;
+    int mId;
 
     @SerializedName("file")
-    private String mFile;
+    String mFile;
 
     @SerializedName("alt")
-    private String mAltText;
+    String mAltText;
 
     @SerializedName("mime")
-    private String mMimeType;
+    String mMimeType;
 
     @SerializedName("size")
-    private int mSizeBytes;
+    int mSizeBytes;
 
     @SerializedName("width")
-    private int mWidth;
+    int mWidth;
 
     @SerializedName("height")
-    private int mHeight;
+    int mHeight;
 
     @SerializedName("url")
-    private String mUrl;
+    String mUrl;
 
     /**
      * Unique id of image

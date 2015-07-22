@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.utils;
 
 import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

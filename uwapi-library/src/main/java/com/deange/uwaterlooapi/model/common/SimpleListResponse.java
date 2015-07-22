@@ -4,13 +4,15 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.google.gson.annotations.SerializedName;
 
-public class SimpleResponse<T extends BaseModel> extends BaseResponse {
+import java.util.List;
+
+public class SimpleListResponse<T extends BaseModel> extends BaseResponse {
 
     @SerializedName("data")
-    T mData;
+    List<T> mData;
 
     @Override
-    public T getData() {
+    public List<T> getData() {
         return mData;
     }
 
