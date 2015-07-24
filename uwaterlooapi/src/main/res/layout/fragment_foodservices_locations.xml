@@ -15,8 +15,7 @@
             android:layout_height="1dp"
             android:background="#777777"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginRight="8dp"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/fragment_swipe_container"
@@ -26,7 +25,9 @@
         <ListView
                 android:id="@android:id/list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

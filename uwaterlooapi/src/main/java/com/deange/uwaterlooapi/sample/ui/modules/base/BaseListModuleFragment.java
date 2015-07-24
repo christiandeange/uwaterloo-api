@@ -14,6 +14,7 @@ import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 
+import java.util.Collections;
 import java.util.List;
 
 public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V extends BaseModel>
@@ -76,7 +77,7 @@ public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V 
 
     @Override
     public final void onBindData(final Metadata metadata, final V data) {
-        throw new RuntimeException("Not to be used when dealing with a list of data!");
+        onBindData(metadata, Collections.singletonList(data));
     }
 
     public abstract ModuleAdapter getAdapter();

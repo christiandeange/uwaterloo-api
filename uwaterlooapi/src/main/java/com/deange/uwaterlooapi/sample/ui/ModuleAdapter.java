@@ -6,13 +6,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public abstract class ModuleAdapter extends BaseAdapter {
+import com.deange.uwaterlooapi.sample.R;
 
-    protected Context mContext;
+public abstract class ModuleAdapter
+        extends BaseAdapter
+        implements
+        View.OnClickListener {
+
+    protected final Context mContext;
+    protected final ModuleListItemListener mListener;
 
     public ModuleAdapter(final Context context) {
+        this(context, null);
+    }
+
+    public ModuleAdapter(final Context context, final ModuleListItemListener listener) {
         super();
         mContext = context;
+        mListener = listener;
     }
 
     @Override
@@ -23,6 +34,13 @@ public abstract class ModuleAdapter extends BaseAdapter {
         } else {
             v = convertView;
         }
+
+        final View selectable = v.findViewById(R.id.selectable);
+        if (selectable != null) {
+            selectable.setTag(position);
+            selectable.setOnClickListener(this);
+        }
+
         bindView(mContext, position, v);
         return v;
     }
@@ -52,9 +70,20 @@ public abstract class ModuleAdapter extends BaseAdapter {
         return LayoutInflater.from(context).inflate(getListItemLayoutId(), null);
     }
 
+    @Override
+    public final void onClick(final View v) {
+        if (mListener != null) {
+            mListener.onItemClicked((int) v.getTag());
+        }
+    }
+
     public int getListItemLayoutId() {
         return android.R.layout.simple_list_item_1;
     }
 
     public abstract void bindView(final Context context, final int position, final View view);
+
+    public interface ModuleListItemListener {
+        void onItemClicked(final int position);
+    }
 }

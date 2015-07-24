@@ -29,7 +29,9 @@ import java.util.List;
 )
 public class LocationsFragment
         extends BaseListModuleFragment<Response.Locations, Location>
-        implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
+        implements
+        AdapterView.OnItemSelectedListener,
+        ModuleAdapter.ModuleListItemListener {
 
     private static final Comparator<Location> sComparator = new Comparator<Location>() {
         @Override
@@ -42,13 +44,12 @@ public class LocationsFragment
     private List<Location> mAllLocations = Collections.unmodifiableList(new ArrayList<Location>());
     private final List<Location> mDataLocations = new ArrayList<>();
 
-    private Boolean mFilterOpenOnly = null;
+    private LocationFilter mFilter = LocationFilter.NONE;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         final View root = super.getContentView(inflater, savedInstanceState);
 
-        getListView().setOnItemClickListener(this);
         getListView().setDivider(null);
         getListView().setDividerHeight(0);
 
@@ -86,43 +87,58 @@ public class LocationsFragment
 
         mDataLocations.clear();
         for (final Location location : mAllLocations) {
-            if (mFilterOpenOnly == null || mFilterOpenOnly == location.isOpenNow()) {
+            if (mFilter.keep(location)) {
                 mDataLocations.add(location);
             }
         }
 
         Collections.sort(mDataLocations, sComparator);
 
-        mAdapter = new LocationAdapter(getActivity(), mDataLocations);
+        mAdapter = new LocationAdapter(getActivity(), mDataLocations, this);
         getListView().setAdapter(mAdapter);
     }
 
     @Override
-    public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-        showFragment(new LocationFragment(), true,
-                LocationFragment.newBundle(mAdapter.getItem(position)));
-    }
-
-    @Override
     public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id) {
-        switch (position) {
-            case 0:
-                mFilterOpenOnly = null;
-                break;
-            case 1:
-                mFilterOpenOnly = true;
-                break;
-            case 2:
-                mFilterOpenOnly = false;
-                break;
-            default:
-                throw new ArrayIndexOutOfBoundsException();
-        }
-
+        mFilter = LocationFilter.FILTERS[position];
         bindAndFilterData();
     }
 
     @Override
     public void onNothingSelected(final AdapterView<?> parent) {
+    }
+
+    @Override
+    public void onItemClicked(final int position) {
+        showModule(LocationFragment.class,
+                LocationFragment.newBundle(mAdapter.getItem(position)));
+    }
+
+    private interface LocationFilter {
+        boolean keep(final Location location);
+
+        LocationFilter NONE = new LocationFilter() {
+            @Override
+            public boolean keep(final Location location) {
+                return true;
+
+            }
+        };
+
+        LocationFilter OPEN = new LocationFilter() {
+            @Override
+            public boolean keep(final Location location) {
+                return location.isOpenNow();
+            }
+        };
+
+        LocationFilter TIM_HORTONS = new LocationFilter() {
+            @Override
+            public boolean keep(final Location location) {
+                return location.getName().contains("Tim Hortons");
+            }
+        };
+
+        LocationFilter[] FILTERS = new LocationFilter[] { NONE, OPEN, TIM_HORTONS };
     }
 }

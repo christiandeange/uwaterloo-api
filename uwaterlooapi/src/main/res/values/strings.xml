@@ -42,12 +42,14 @@
     <string name="foodservices_location_all">All</string>
     <string name="foodservices_location_open_now">Open Now</string>
     <string name="foodservices_location_closed_now">Closed Now</string>
+    <string name="foodservices_location_closes_at">Closes at %s</string>
+    <string name="foodservices_location_tim_hortons">"☕️ Tim Hortons"</string>
     <string name="foodservices_location_special_hours">Special Hours</string>
 
     <string-array name="foodservices_locations_array">
         <item>@string/foodservices_location_all</item>
         <item>@string/foodservices_location_open_now</item>
-        <item>@string/foodservices_location_closed_now</item>
+        <item>@string/foodservices_location_tim_hortons</item>
     </string-array>
 
     <string name="week_monday">Monday</string>

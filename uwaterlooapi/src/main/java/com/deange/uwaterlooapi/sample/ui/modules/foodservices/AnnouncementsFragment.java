@@ -82,8 +82,8 @@ public class AnnouncementsFragment extends BaseListModuleFragment<Response.Annou
         @Override
         public void bindView(final Context context, final int position, final View view) {
             final Announcement announcement = getItem(position);
-            ((TextView) view.findViewById(android.R.id.text1)).setText(announcement.getText());
-            ((TextView) view.findViewById(android.R.id.text2))
+            ((TextView) view.findViewById(R.id.announcement_title)).setText(announcement.getText());
+            ((TextView) view.findViewById(R.id.announcement_date))
                     .setText(DateUtils.formatDate(announcement.getDate()));
         }
 

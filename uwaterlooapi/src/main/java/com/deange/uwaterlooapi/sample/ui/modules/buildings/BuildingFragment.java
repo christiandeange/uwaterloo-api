@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
-import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
@@ -33,17 +32,10 @@ public class BuildingFragment
         GoogleMap.OnMapClickListener {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
-    public static final String ARG_BUILDING_CODE = "building_code";
 
     private SupportMapFragment mMapFragment;
     private ViewGroup mRoot;
     private Building mBuilding;
-
-    public static Bundle newBundle(final String buildingCode) {
-        Bundle args = new Bundle();
-        args.putString(ARG_BUILDING_CODE, buildingCode);
-        return args;
-    }
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
@@ -66,8 +58,8 @@ public class BuildingFragment
     }
 
     @Override
-    public Response.BuildingEntity onLoadData(final UWaterlooApi api) {
-        return api.Buildings.getBuilding(getArguments().getString(ARG_BUILDING_CODE));
+    public Building onLoadData() {
+        return getModel();
     }
 
     @Override

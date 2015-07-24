@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.deange.uwaterlooapi.sample.R;
 
-public class CardView extends RelativeLayout {
+public class CardView extends android.support.v7.widget.CardView {
 
     public CardView(final Context context) {
         super(context);
@@ -25,10 +25,15 @@ public class CardView extends RelativeLayout {
     }
 
     private void init() {
-        final int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8,
-                getResources().getDisplayMetrics());
-        setBackgroundResource(R.drawable.card_view_background);
-        setPadding(padding, padding, padding, padding);
+        final float dip = getResources().getDisplayMetrics().density;
+
+        if (getCardElevation() == 0) {
+            setCardElevation(4 * dip);
+        }
+
+        if (getRadius() == 0) {
+            setRadius(2 * dip);
+        }
     }
 
 }

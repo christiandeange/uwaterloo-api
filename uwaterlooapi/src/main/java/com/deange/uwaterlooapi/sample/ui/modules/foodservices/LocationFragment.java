@@ -27,14 +27,6 @@ import java.util.List;
 
 public class LocationFragment extends BaseModuleFragment<BaseResponse, Location> {
 
-    private static final String KEY_LOCATION = "location";
-
-    public static Bundle newBundle(final Location location) {
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_LOCATION, Parcels.wrap(location));
-        return bundle;
-    }
-
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_foodservices_location, null);
@@ -42,7 +34,7 @@ public class LocationFragment extends BaseModuleFragment<BaseResponse, Location>
 
     @Override
     public Location onLoadData() {
-        return Parcels.unwrap(getArguments().getParcelable(KEY_LOCATION));
+        return getModel();
     }
 
     @Override

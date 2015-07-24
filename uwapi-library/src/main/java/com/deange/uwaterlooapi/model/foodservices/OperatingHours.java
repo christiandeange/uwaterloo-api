@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Parcel
 public class OperatingHours extends BaseModel {
 
@@ -16,7 +19,11 @@ public class OperatingHours extends BaseModel {
     public static final String FRIDAY = "friday";
     public static final String SATURDAY = "saturday";
 
-    public static final String TIME_FORMAT = "hh:mm";
+    public static final List<String> WEEKDAYS = Arrays.asList(
+            SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+    );
+
+    public static final String TIME_FORMAT = "HH:mm";
 
     @SerializedName("opening_hour")
     String mOpeningHour;

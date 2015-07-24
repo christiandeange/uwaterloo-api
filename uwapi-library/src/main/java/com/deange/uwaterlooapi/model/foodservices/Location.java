@@ -143,6 +143,13 @@ public class Location extends BaseModel {
     /**
      * Special cases for operating hours
      */
+    public List<SpecialOperatingHours> getSpecialOperatingHoursRaw() {
+        return CollectionUtils.applyPolicy(mSpecialOperatingHours);
+    }
+
+    /**
+     * Special cases for operating hours
+     */
     public List<SpecialRange> getSpecialOperatingHours() {
 
         // Lazy load the parsed Date objects

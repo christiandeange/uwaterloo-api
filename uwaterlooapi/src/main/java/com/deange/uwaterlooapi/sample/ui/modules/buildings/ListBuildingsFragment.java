@@ -82,8 +82,7 @@ public class ListBuildingsFragment
     @Override
     public void onItemClick(final AdapterView<?> adapterView, final View view,
                             final int position, final long id) {
-        showFragment(new BuildingFragment(), true,
-                BuildingFragment.newBundle(mResponse.get(position).getBuildingCode()));
+        showModule(BuildingFragment.class, BuildingFragment.newBundle(mResponse.get(position)));
     }
 
     private final class BuildingsAdapter extends ModuleAdapter implements SectionIndexer {

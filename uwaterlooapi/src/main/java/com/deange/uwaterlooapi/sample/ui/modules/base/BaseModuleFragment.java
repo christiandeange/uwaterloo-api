@@ -40,7 +40,8 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     public static final long MINIMUM_UPDATE_DURATION = 1000;
     public static final long ANIMATION_DURATION = 300;
 
-    private static final String KEY_DATA = "data";
+    private static final String KEY_MODEL = "model";
+    private static final String KEY_RESPONSE = "response";
     private static final String KEY_LAST_UPDATED = "last_updated";
 
     private long mLastUpdate = 0;
@@ -49,6 +50,12 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private T mLastResponse;
     private LoadModuleDataTask mTask;
+
+    public static <V extends BaseModel> Bundle newBundle(final V model) {
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_MODEL, Parcels.wrap(model));
+        return bundle;
+    }
 
     public BaseModuleFragment() {
         // Required constructor
@@ -70,11 +77,6 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
             mTask.cancel(true);
             mTask = null;
         }
-    }
-
-    public void showFragment(final BaseModuleFragment fragment, final boolean addToBackStack,
-                             final Bundle arguments) {
-        ((ModuleHostActivity) getActivity()).showFragment(fragment, addToBackStack, arguments);
     }
 
     @Override
@@ -102,7 +104,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         if (savedInstanceState != null) {
             mLastUpdate = savedInstanceState.getLong(KEY_LAST_UPDATED);
-            mLastResponse = BaseResponse.deserialize(savedInstanceState.getString(KEY_DATA));
+            mLastResponse = BaseResponse.deserialize(savedInstanceState.getString(KEY_RESPONSE));
         }
 
         // Deliver the response if we still have one, otherwise load the data
@@ -138,7 +140,23 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(KEY_LAST_UPDATED, mLastUpdate);
-        outState.putString(KEY_DATA, BaseResponse.serialize(mLastResponse));
+        outState.putString(KEY_RESPONSE, BaseResponse.serialize(mLastResponse));
+    }
+
+    public void showModule(final Class<? extends BaseModuleFragment> fragment,
+                           final Bundle arguments) {
+        getActivity().startActivity(
+                ModuleHostActivity.getStartIntent(getActivity(), fragment, arguments));
+    }
+
+    public void showModule(final BaseModuleFragment fragment,
+                           final boolean addToBackStack,
+                           final Bundle arguments) {
+        ((ModuleHostActivity) getActivity()).showFragment(fragment, addToBackStack, arguments);
+    }
+
+    public V getModel() {
+        return Parcels.unwrap(getArguments().getParcelable(KEY_MODEL));
     }
 
     protected final void onRefreshRequested() {

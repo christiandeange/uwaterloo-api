@@ -121,6 +121,7 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
+                        android:padding="8dp"
                         android:textColor="#888"
                         android:textSize="12sp"
                         app:fontName="Roboto-LightItalic"/>
