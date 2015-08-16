@@ -19,8 +19,9 @@ public class OperatingHours extends BaseModel {
     public static final String FRIDAY = "friday";
     public static final String SATURDAY = "saturday";
 
+    // Corresponds to Calendar.DAY_OF_WEEK values
     public static final List<String> WEEKDAYS = Arrays.asList(
-            SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+            null, SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
     );
 
     public static final String TIME_FORMAT = "HH:mm";

@@ -69,11 +69,6 @@ public class AnnouncementsFragment extends BaseListModuleFragment<Response.Annou
         }
 
         @Override
-        public boolean isEnabled(final int position) {
-            return false;
-        }
-
-        @Override
         public View newView(final Context context, final int position, final ViewGroup parent) {
             return LayoutInflater.from(context)
                     .inflate(R.layout.list_item_foodservices_announcement, parent, false);

@@ -35,11 +35,6 @@ public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V 
 
         mSwipeLayout = (SwipeRefreshLayout) root.findViewById(R.id.fragment_swipe_container);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeResources(
-                android.R.color.holo_green_light,
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_orange_dark);
 
         return root;
     }

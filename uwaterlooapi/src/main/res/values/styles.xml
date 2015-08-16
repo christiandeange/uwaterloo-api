@@ -4,6 +4,7 @@
         <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme" parent="AppCommon">
@@ -72,6 +73,17 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:gravity">right|end</item>
+    </style>
+
+    <style name="MenuTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:fontFamily">cursive</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
 </resources>

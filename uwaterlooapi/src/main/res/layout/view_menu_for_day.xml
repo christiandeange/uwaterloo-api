@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/menu_title_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-light"
+            android:textSize="22sp"
+            android:textAllCaps="true"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <com.deange.uwaterlooapi.sample.ui.view.CardView
+                    android:id="@+id/menu_lunch_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            style="@style/MenuTitleStyle"
+                            android:text="@string/foodservices_menu_lunch"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/divider"/>
+
+                    <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
+                            android:id="@+id/menu_lunch_items"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:divider="@color/divider"
+                            android:dividerHeight="1dp"/>
+
+                </LinearLayout>
+
+            </com.deange.uwaterlooapi.sample.ui.view.CardView>
+
+            <com.deange.uwaterlooapi.sample.ui.view.CardView
+                    android:id="@+id/menu_dinner_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            style="@style/MenuTitleStyle"
+                            android:text="@string/foodservices_menu_dinner"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/divider"/>
+
+                    <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
+                            android:id="@+id/menu_dinner_items"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:divider="@color/divider"
+                            android:dividerHeight="1dp"/>
+
+                </LinearLayout>
+
+            </com.deange.uwaterlooapi.sample.ui.view.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

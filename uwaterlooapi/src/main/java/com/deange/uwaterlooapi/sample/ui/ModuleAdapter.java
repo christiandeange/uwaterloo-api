@@ -21,7 +21,6 @@ public abstract class ModuleAdapter
     }
 
     public ModuleAdapter(final Context context, final ModuleListItemListener listener) {
-        super();
         mContext = context;
         mListener = listener;
     }
@@ -60,6 +59,11 @@ public abstract class ModuleAdapter
     @Override
     public long getItemId(final int position) {
         return position;
+    }
+
+    @Override
+    public boolean isEnabled(final int position) {
+        return false;
     }
 
     public View newDropDownView(final Context context, final int position, final ViewGroup parent) {

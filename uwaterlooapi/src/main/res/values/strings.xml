@@ -15,6 +15,7 @@
     <string name="api_resources">Resources</string>
     <string name="api_buildings">Buildings</string>
 
+    <string name="clipboard_copied">Copied to clipboard!</string>
     <string name="button_refresh">Refresh</string>
     <string name="menu_refresh">Refresh</string>
 
@@ -45,6 +46,10 @@
     <string name="foodservices_location_closes_at">Closes at %s</string>
     <string name="foodservices_location_tim_hortons">"☕️ Tim Hortons"</string>
     <string name="foodservices_location_special_hours">Special Hours</string>
+
+    <string name="foodservices_menu_for_day">Menu for %s</string>
+    <string name="foodservices_menu_lunch">" Lunch "</string>
+    <string name="foodservices_menu_dinner">" Dinner "</string>
 
     <string-array name="foodservices_locations_array">
         <item>@string/foodservices_location_all</item>

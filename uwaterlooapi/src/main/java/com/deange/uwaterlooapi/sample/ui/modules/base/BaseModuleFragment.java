@@ -34,8 +34,10 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseModel> extends Fragment
-        implements View.OnTouchListener {
+public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseModel>
+        extends Fragment
+        implements
+        View.OnTouchListener {
 
     public static final long MINIMUM_UPDATE_DURATION = 1000;
     public static final long ANIMATION_DURATION = 300;
@@ -307,10 +309,12 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     public T onLoadData(final UWaterlooApi api) {
+        // Overriden by subclasses
         return null;
     }
 
     public V onLoadData() {
+        // Overriden by subclasses
         return null;
     }
 
