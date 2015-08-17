@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/uw_yellow">
+
+    <TextView
+            android:id="@+id/date_picker_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textSize="14sp"
+            android:text="@string/date_picker_week_label"/>
+
+    <TextView
+            android:id="@+id/date_picker_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/date_picker_label"
+            android:layout_toEndOf="@id/date_picker_label"
+            android:layout_alignBaseline="@id/date_picker_label"
+            android:background="?selectableItemBackground"
+            android:minWidth="0dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            tools:text="August 16, 2015"/>
+
+</RelativeLayout>

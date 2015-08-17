@@ -5,6 +5,7 @@
     <color name="uw_yellow_highlighted">#E0AC00</color>
     <color name="uw_yellow_activated">#F5BC00</color>
     <color name="uw_yellow_dark">#7A5E00</color>
+    <color name="uw_accent">#607D8B</color>
 
     <color name="foodservices_location_open">#33691E</color>
     <color name="foodservices_location_closed">#B71C1C</color>
