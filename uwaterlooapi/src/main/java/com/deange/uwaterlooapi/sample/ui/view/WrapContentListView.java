@@ -29,7 +29,9 @@ public class WrapContentListView extends ListView {
 
         for (int i = 0; i < adapter.getCount(); ++i) {
             final View listItem = adapter.getView(i, null, this);
-            listItem.measure(0, 0);
+            listItem.measure(
+                    widthMeasureSpec,
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             totalHeight += listItem.getMeasuredHeight();
         }
 
