@@ -18,10 +18,9 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V extends BaseModel>
-        extends BaseModuleFragment<T, V> implements SwipeRefreshLayout.OnRefreshListener {
+        extends BaseModuleFragment<T, V> {
 
     private ListView mListView;
-    private SwipeRefreshLayout mSwipeLayout;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
@@ -32,9 +31,6 @@ public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V 
         if (mListView == null) {
             throw new IllegalStateException("ListView must have id android.R.id.list");
         }
-
-        mSwipeLayout = (SwipeRefreshLayout) root.findViewById(R.id.fragment_swipe_container);
-        mSwipeLayout.setOnRefreshListener(this);
 
         return root;
     }
@@ -57,17 +53,6 @@ public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V 
         if (mListView.getAdapter() instanceof BaseAdapter) {
             ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
         }
-    }
-
-    @Override
-    protected void changeLoadingVisibility(final boolean show) {
-        mSwipeLayout.setRefreshing(show);
-        mSwipeLayout.setEnabled(!show);
-    }
-
-    @Override
-    public void onRefresh() {
-        onRefreshRequested();
     }
 
     @Override

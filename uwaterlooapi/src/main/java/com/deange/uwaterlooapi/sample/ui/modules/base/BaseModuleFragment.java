@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,7 +38,8 @@ import java.util.List;
 public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseModel>
         extends Fragment
         implements
-        View.OnTouchListener {
+        View.OnTouchListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     public static final long MINIMUM_UPDATE_DURATION = 1000;
     public static final long ANIMATION_DURATION = 300;
@@ -52,6 +54,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private T mLastResponse;
     private LoadModuleDataTask mTask;
+    private SwipeRefreshLayout mSwipeLayout;
 
     public static <V extends BaseModel> Bundle newBundle(final V model) {
         final Bundle bundle = new Bundle();
@@ -92,6 +95,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         if (contentView != null) {
             ((ViewGroup) root.findViewById(R.id.container_content_view)).addView(contentView);
+        }
+
+        mSwipeLayout = (SwipeRefreshLayout) root.findViewById(R.id.fragment_swipe_container);
+        if (mSwipeLayout != null) {
+            mSwipeLayout.setOnRefreshListener(this);
         }
 
         return root;
@@ -172,6 +180,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
                 @Override
                 public void run() {
                     deliverResponse(data);
+                    onLoadFinished();
                 }
             });
 
@@ -196,14 +205,19 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void changeLoadingVisibility(final boolean show) {
 
-        final View loadingLayout = mLoadingLayout;
-        if (mLastUpdate == 0) {
-            loadingLayout.setVisibility(View.VISIBLE);
+        if (mSwipeLayout != null) {
+            mSwipeLayout.setRefreshing(show);
+            mSwipeLayout.setEnabled(!show);
             return;
         }
 
+        final View loadingLayout = mLoadingLayout;
+
         if (show) {
             loadingLayout.setVisibility(View.VISIBLE);
+            if (mLastUpdate == 0) {
+                return;
+            }
         }
 
         final AnimatorListenerAdapter listener = new AnimatorListenerAdapter() {
@@ -324,6 +338,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     public void onBindData(final Metadata metadata, final List<V> data) {
         // Overriden by subclasses
+    }
+
+    @Override
+    public void onRefresh() {
+        onRefreshRequested();
     }
 
     private final class LoadModuleDataTask extends AsyncTask<UWaterlooApi, Void, T> {
