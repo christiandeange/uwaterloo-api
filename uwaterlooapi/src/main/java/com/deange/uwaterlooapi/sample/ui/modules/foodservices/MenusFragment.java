@@ -13,6 +13,9 @@ import com.deange.uwaterlooapi.model.foodservices.MenuInfo;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
+import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
+
+import org.joda.time.LocalDate;
 
 @ModuleFragment(
         path = "/foodservices/menu",
@@ -22,23 +25,31 @@ import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 public class MenusFragment
         extends BaseModuleFragment<Response.Menus, MenuInfo>
         implements
-        ModuleAdapter.ModuleListItemListener {
+        ModuleAdapter.ModuleListItemListener,
+        DateSelectorView.OnDateChangedListener {
 
     private ListView mListView;
     private OutletsAdapter mAdapter;
+    private DateSelectorView mDateSelector;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_foodservices_menus, null);
 
         mListView = (ListView) view.findViewById(android.R.id.list);
+        mDateSelector = (DateSelectorView) view.findViewById(R.id.fragment_date_selector);
+        mDateSelector.setOnDateSetListener(this);
 
         return view;
     }
 
     @Override
     public Response.Menus onLoadData(final UWaterlooApi api) {
-        return api.FoodServices.getWeeklyMenu();
+        final LocalDate date = mDateSelector.getDate();
+        final int year = date.getYear();
+        final int week = date.getWeekOfWeekyear();
+
+        return api.FoodServices.getWeeklyMenu(year, week);
     }
 
     @Override
@@ -49,7 +60,12 @@ public class MenusFragment
 
     @Override
     public void onItemClicked(final int position) {
-        showModule(MenuFragment.class, MenuFragment.newBundle(mAdapter.getItem(position)));
+        final int dayOfWeek = mDateSelector.getDate().getDayOfWeek(); // range [1,7]
+        showModule(MenuFragment.class, MenuFragment.newBundle(mAdapter.getItem(position), dayOfWeek));
     }
 
+    @Override
+    public void onDateSet(final int year, final int monthOfYear, final int dayOfMonth) {
+        onRefreshRequested();
+    }
 }
