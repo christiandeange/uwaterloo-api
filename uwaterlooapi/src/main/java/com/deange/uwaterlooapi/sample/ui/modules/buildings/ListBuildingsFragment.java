@@ -31,16 +31,10 @@ import java.util.TreeSet;
 public class ListBuildingsFragment
         extends BaseListModuleFragment<Response.Buildings, Building>
         implements
-        AdapterView.OnItemClickListener {
+        View.OnClickListener {
 
     private List<Building> mResponse;
     private Character[] mIndices;
-
-    @Override
-    public void onActivityCreated(final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        getListView().setOnItemClickListener(this);
-    }
 
     @Override
     public String getToolbarTitle() {
@@ -80,9 +74,10 @@ public class ListBuildingsFragment
     }
 
     @Override
-    public void onItemClick(final AdapterView<?> adapterView, final View view,
-                            final int position, final long id) {
-        showModule(BuildingFragment.class, BuildingFragment.newBundle(mResponse.get(position)));
+    public void onClick(final View v) {
+        final int position = (int) v.getTag();
+        final Building building = mResponse.get(position);
+        showModule(BuildingFragment.class, BuildingFragment.newBundle(building));
     }
 
     private final class BuildingsAdapter extends ModuleAdapter implements SectionIndexer {
@@ -98,6 +93,9 @@ public class ListBuildingsFragment
 
         @Override
         public void bindView(final Context context, final int position, final View view) {
+
+            view.setTag(position);
+            view.setOnClickListener(ListBuildingsFragment.this);
 
             final TextView header = (TextView) view.findViewById(R.id.header_view);
             final TextView buildingName = (TextView) view.findViewById(android.R.id.text1);

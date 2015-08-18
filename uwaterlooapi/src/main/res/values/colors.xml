@@ -2,7 +2,7 @@
 <resources>
 
     <color name="uw_yellow">#FFD74F</color>
-    <color name="uw_yellow_highlighted">#E0AC00</color>
+    <color name="uw_yellow_highlighted">#F5BC00</color>
     <color name="uw_yellow_activated">#F5BC00</color>
     <color name="uw_yellow_dark">#7A5E00</color>
     <color name="uw_accent">#607D8B</color>

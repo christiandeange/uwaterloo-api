@@ -42,17 +42,12 @@
                             style="@style/MenuTitleStyle"
                             android:text="@string/foodservices_menu_lunch"/>
 
-                    <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/divider"/>
-
                     <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
                             android:id="@+id/menu_lunch_items"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:divider="@color/divider"
-                            android:dividerHeight="1dp"/>
+                            android:divider="@null"
+                            android:dividerHeight="0dp"/>
 
                 </LinearLayout>
 
@@ -73,17 +68,12 @@
                             style="@style/MenuTitleStyle"
                             android:text="@string/foodservices_menu_dinner"/>
 
-                    <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/divider"/>
-
                     <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
                             android:id="@+id/menu_dinner_items"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:divider="@color/divider"
-                            android:dividerHeight="1dp"/>
+                            android:divider="@null"
+                            android:dividerHeight="0dp"/>
 
                 </LinearLayout>
 

@@ -6,7 +6,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="?selectableItemBackground">
+        android:background="@drawable/uw_yellow_selector">
 
     <TextView
             android:id="@android:id/text1"
@@ -14,13 +14,5 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="First Element"/>
-
-    <TextView
-            android:id="@android:id/text2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            tools:text="Second Element"/>
 
 </LinearLayout>

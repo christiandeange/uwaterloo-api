@@ -269,10 +269,17 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     protected void onLoadFinished() {
-        // We want to keep the refresh UI up for *at least* MINIMUM_UPDATE_DURATION
-        // Otherwise it looks very choppy and overall not a pleasant look
-        final long now = System.currentTimeMillis();
-        final long delay = MINIMUM_UPDATE_DURATION - (now - mLastUpdate);
+        final long delay;
+        if (mSwipeLayout != null) {
+            // No minimum delay for the SwipeRefreshLayout
+            delay = 0;
+
+        } else {
+            // We want to keep the refresh UI up for *at least* MINIMUM_UPDATE_DURATION
+            // Otherwise it looks very choppy and overall not a pleasant look
+            final long now = System.currentTimeMillis();
+            delay = MINIMUM_UPDATE_DURATION - (now - mLastUpdate);
+        }
 
         mTask = null;
         mHandler.postDelayed(new Runnable() {

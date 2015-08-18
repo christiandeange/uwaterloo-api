@@ -13,13 +13,15 @@ import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
+import org.joda.time.LocalDate;
+
 public class MenuFragment
         extends BaseModuleFragment<Response.Outlets, Outlet> {
 
     private static final String KEY_DAY_OF_WEEK = "day_of_week";
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-
+    private MenuDayAdapter mAdapter;
 
     public static <V extends BaseModel> Bundle newBundle(final V model, final int dayOfWeek) {
         final Bundle bundle = newBundle(model);
@@ -46,20 +48,25 @@ public class MenuFragment
 
     @Override
     public void onBindData(final Metadata metadata, final Outlet outlet) {
-        mViewPager.setAdapter(new MenuDayAdapter(outlet.getMenu()));
+        mAdapter = new MenuDayAdapter(outlet.getMenu());
+        mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        final int dayOfWeekPosition = Math.min(
-                getArguments().getInt(KEY_DAY_OF_WEEK) - 1, mTabLayout.getTabCount() - 1);
-
+        // Tab indicator does not move unless at least one layout pass has occurred
         mTabLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(
                     final View v, final int l, final int t, final int r, final int b,
                     final int ol, final int ot, final int or, final int ob) {
-                // Tab indicator does not move unless at least one layout pass has occurred
                 mTabLayout.removeOnLayoutChangeListener(this);
-                mTabLayout.getTabAt(dayOfWeekPosition).select();
+                final int dayOfWeek = getArguments().getInt(KEY_DAY_OF_WEEK);
+
+                for (int i = 0; i < mAdapter.getCount(); ++i) {
+                    final LocalDate date = LocalDate.fromDateFields(mAdapter.getItem(i).getDate());
+                    if (date.getDayOfWeek() == dayOfWeek) {
+                        mTabLayout.getTabAt(i).select();
+                    }
+                }
             }
         });
 

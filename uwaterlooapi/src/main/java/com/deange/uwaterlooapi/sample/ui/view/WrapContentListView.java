@@ -23,19 +23,19 @@ public class WrapContentListView extends ListView {
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
 
         int totalHeight = 0;
-
         final ListAdapter adapter = getAdapter();
-        final int dividersHeight = (getDividerHeight() * (adapter.getCount() - 1));
 
-        for (int i = 0; i < adapter.getCount(); ++i) {
-            final View listItem = adapter.getView(i, null, this);
-            listItem.measure(
-                    widthMeasureSpec,
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-            totalHeight += listItem.getMeasuredHeight();
+        if (adapter != null) {
+            for (int i = 0; i < adapter.getCount(); ++i) {
+                final View listItem = adapter.getView(i, null, this);
+                listItem.measure(
+                        widthMeasureSpec,
+                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+                totalHeight += listItem.getMeasuredHeight();
+            }
+
+            totalHeight += (getDividerHeight() * (adapter.getCount() - 1));
         }
-
-        totalHeight += dividersHeight;
 
         final int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
                 totalHeight, MeasureSpec.EXACTLY);

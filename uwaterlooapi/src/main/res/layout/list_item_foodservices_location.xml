@@ -6,19 +6,19 @@
         android:layout_height="match_parent">
 
     <com.deange.uwaterlooapi.sample.ui.view.CardView
-            android:id="@+id/selectable"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:foreground="?attr/selectableItemBackground">
+            android:layout_marginBottom="4dp">
 
         <LinearLayout
+                android:id="@+id/selectable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?attr/selectableItemBackground">
 
             <com.deange.uwaterlooapi.sample.ui.view.TextFontView
                     android:id="@+id/list_location_title"

@@ -88,7 +88,7 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_margin">8dp</item>
         <item name="android:fontFamily">cursive</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/black</item>
     </style>

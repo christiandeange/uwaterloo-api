@@ -8,26 +8,32 @@
         android:layout_height="match_parent">
 
     <com.deange.uwaterlooapi.sample.ui.view.CardView
-            android:id="@+id/selectable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:foreground="?attr/selectableItemBackground"
-            app:contentPadding="8dp">
+            android:layout_marginBottom="4dp">
 
-        <com.deange.uwaterlooapi.sample.ui.view.TextFontView
-                android:id="@+id/outlet_name"
+        <FrameLayout
+                android:id="@+id/selectable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:textColor="#123456"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:fontName="Roboto-Light"
-                tools:text="Bon Appetit"/>
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackground">
+
+            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                    android:id="@+id/outlet_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textColor="#123456"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:fontName="Roboto-Light"
+                    tools:text="Bon Appetit"/>
+
+        </FrameLayout>
 
     </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
