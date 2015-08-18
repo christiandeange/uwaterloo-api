@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,12 @@ import com.deange.uwaterlooapi.model.foodservices.Announcement;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
+import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 
+import org.joda.time.LocalDate;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @ModuleFragment(
@@ -24,20 +29,25 @@ import java.util.List;
         base = true,
         icon = R.drawable.ic_launcher
 )
-public class AnnouncementsFragment extends BaseListModuleFragment<Response.Announcements, Announcement> {
+public class AnnouncementsFragment extends BaseListModuleFragment<Response.Announcements, Announcement>
+        implements DateSelectorView.OnDateChangedListener {
 
-    private List<Announcement> mResponse;
+    private final List<Announcement> mResponse = new ArrayList<>();
+    private DateSelectorView mDateSelectorView;
     private View mEmptyView;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_list_foodservices_announcements;
+        return R.layout.fragment_foodservices_announcements;
     }
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         final View root = super.getContentView(inflater, savedInstanceState);
         mEmptyView = root.findViewById(R.id.fragment_empty_view);
+
+        mDateSelectorView = (DateSelectorView) root.findViewById(R.id.fragment_date_selector);
+        mDateSelectorView.setOnDateSetListener(this);
 
         getListView().setDivider(null);
         getListView().setDividerHeight(0);
@@ -52,14 +62,30 @@ public class AnnouncementsFragment extends BaseListModuleFragment<Response.Annou
 
     @Override
     public Response.Announcements onLoadData(final UWaterlooApi api) {
-        return api.FoodServices.getAnnouncements();
+        final LocalDate date = mDateSelectorView.getDate();
+        final int year = date.getYear();
+        final int week = date.getWeekOfWeekyear();
+
+        return api.FoodServices.getAnnouncements(year, week);
     }
 
     @Override
     public void onBindData(final Metadata metadata, final List<Announcement> data) {
-        mResponse = data;
-        mEmptyView.setVisibility(data.isEmpty() ? View.VISIBLE : View.GONE);
+        mResponse.clear();
+        for (final Announcement announcement : data) {
+            if (!TextUtils.isEmpty(announcement.getText())) {
+                // The api frequently sends announcements with no text in them
+                mResponse.add(announcement);
+            }
+        }
+
+        mEmptyView.setVisibility(mResponse.isEmpty() ? View.VISIBLE : View.GONE);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDateSet(final int year, final int monthOfYear, final int dayOfMonth) {
+        onRefreshRequested();
     }
 
     private class AnnouncementAdapter extends ModuleAdapter {
@@ -77,8 +103,8 @@ public class AnnouncementsFragment extends BaseListModuleFragment<Response.Annou
         @Override
         public void bindView(final Context context, final int position, final View view) {
             final Announcement announcement = getItem(position);
-            ((TextView) view.findViewById(R.id.announcement_title)).setText(announcement.getText());
-            ((TextView) view.findViewById(R.id.announcement_date))
+            ((TextView) view.findViewById(android.R.id.text1)).setText(announcement.getText());
+            ((TextView) view.findViewById(android.R.id.text2))
                     .setText(DateUtils.formatDate(announcement.getDate()));
         }
 

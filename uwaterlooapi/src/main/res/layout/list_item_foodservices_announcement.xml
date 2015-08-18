@@ -9,34 +9,12 @@
     <com.deange.uwaterlooapi.sample.ui.view.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:contentPadding="8dp">
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp">
 
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
-                    android:id="@+id/announcement_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="#000"
-                    android:textSize="@dimen/font_title"
-                    app:fontName="Roboto-Light"/>
-
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
-                    android:id="@+id/announcement_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@id/announcement_title"
-                    android:textColor="#888"
-                    android:textSize="@dimen/font_date"
-                    app:fontName="Roboto-LightItalic"/>
-
-        </RelativeLayout>
+        <include layout="@layout/simple_two_line_item"/>
 
     </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
