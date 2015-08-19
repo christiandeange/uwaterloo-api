@@ -3,10 +3,15 @@
 buildscript {
     repositories {
         mavenCentral()
+
+        maven {
+            url 'https://repos.zeroturnaround.com/nexus/content/repositories/zt-public-releases'
+        }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.zeroturnaround.jrebel.android:jr-android-gradle:0.8.+'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.6'
     }
 }
