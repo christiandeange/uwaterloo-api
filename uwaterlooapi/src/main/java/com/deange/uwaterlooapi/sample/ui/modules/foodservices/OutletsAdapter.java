@@ -10,6 +10,7 @@ import com.deange.uwaterlooapi.model.foodservices.MenuInfo;
 import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 
 class OutletsAdapter extends ModuleAdapter {
 

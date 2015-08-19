@@ -4,21 +4,11 @@ public class ModuleInfo {
 
     public final Class fragment;
     public final boolean isBase;
-    public final int icon;
+    public final int layout;
 
-    public ModuleInfo(final Class fragment, final boolean isBase,
-                      final int icon) {
+    public ModuleInfo(final Class fragment, final int layout) {
         this.fragment = fragment;
-        this.isBase = isBase;
-        this.icon = icon;
-
-        validateFields();
+        this.layout = layout;
+        this.isBase = layout != 0;
     }
-
-    private void validateFields() {
-        if (isBase && icon == 0) {
-            throw new IllegalStateException("If module is a base one, it must have an icon");
-        }
-    }
-
 }

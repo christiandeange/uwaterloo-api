@@ -10,7 +10,5 @@ import java.lang.annotation.Target;
 public @interface ModuleFragment {
     String path();
 
-    boolean base() default false;
-
-    int icon() default 0;
+    int layout() default 0;
 }

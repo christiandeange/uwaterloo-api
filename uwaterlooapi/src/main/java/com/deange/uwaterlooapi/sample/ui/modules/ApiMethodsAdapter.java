@@ -11,40 +11,69 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleInfo;
 import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 
-public class ApiMethodsAdapter extends ArrayAdapter<String> {
+public class ApiMethodsAdapter extends ArrayAdapter<String>
+        implements View.OnClickListener {
 
     final LayoutInflater mInflater;
-    final int mResId;
+    private final ModuleListItemListener mListener;
 
-    public ApiMethodsAdapter(final Context context, final int resource, final String[] objects) {
-        super(context, resource, objects);
+    public ApiMethodsAdapter(
+            final Context context,
+            final String[] objects,
+            final ModuleListItemListener listener) {
+        super(context, 0, objects);
         mInflater = LayoutInflater.from(context);
-        mResId = resource;
+        mListener = listener;
     }
 
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
 
+        final String endpoint = getItem(position);
+        final ModuleInfo info = ModuleMap.getFragmentInfo(endpoint);
+
         final View view;
         if (convertView == null) {
-            view = mInflater.inflate(mResId, parent, false);
+            final int layoutId = (info == null || !info.isBase || info.layout == 0)
+                    ? R.layout.list_item_string_adapter
+                    : info.layout;
+            view = mInflater.inflate(layoutId, parent, false);
         } else {
             view = convertView;
         }
 
-        final TextView text = (TextView) view.findViewById(android.R.id.text1);
-        final ImageView image = (ImageView) view.findViewById(R.id.item_api_method_icon);
+        final View selectable = view.findViewById(R.id.selectable);
+        if (selectable != null) {
+            selectable.setTag(position);
+            selectable.setOnClickListener(this);
+        }
 
-        final String endpoint = getItem(position);
-        final ModuleInfo info = ModuleMap.getFragmentInfo(endpoint);
-        text.setText(endpoint);
-
-        if (info != null) {
-            image.setImageResource(info.icon);
+        // TODO Remove soon
+        if (info == null || !info.isBase || info.layout == 0) {
+            ((TextView) view.findViewById(android.R.id.text1)).setText(endpoint);
         }
 
         return view;
-
     }
+
+    @Override
+    public boolean isEnabled(final int position) {
+        return false;
+    }
+
+    @Override
+    public boolean areAllItemsEnabled() {
+        return false;
+    }
+
+    @Override
+    public void onClick(final View v) {
+        final int position = (int) v.getTag();
+        if (mListener != null) {
+            mListener.onItemClicked(position);
+        }
+    }
+
 }

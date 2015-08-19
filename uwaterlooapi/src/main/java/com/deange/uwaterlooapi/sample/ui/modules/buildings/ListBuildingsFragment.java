@@ -25,8 +25,7 @@ import java.util.TreeSet;
 
 @ModuleFragment(
         path = "/buildings/list",
-        base = true,
-        icon = R.drawable.ic_launcher
+        layout = R.layout.module_buildings
 )
 public class ListBuildingsFragment
         extends BaseListModuleFragment<Response.Buildings, Building>

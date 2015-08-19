@@ -37,8 +37,7 @@ import java.util.Set;
 
 @ModuleFragment(
         path = "/weather/current",
-        base = true,
-        icon = R.drawable.ic_launcher
+        layout = R.layout.module_weather
 )
 public class WeatherFragment extends BaseModuleFragment<Response.Weather, WeatherReading>
         implements ViewTreeObserver.OnScrollChangedListener {

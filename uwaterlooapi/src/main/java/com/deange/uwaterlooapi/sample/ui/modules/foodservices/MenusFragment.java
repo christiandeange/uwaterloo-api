@@ -11,7 +11,7 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.MenuInfo;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
 
@@ -19,13 +19,12 @@ import org.joda.time.LocalDate;
 
 @ModuleFragment(
         path = "/foodservices/menu",
-        base = true,
-        icon = R.drawable.ic_launcher
+        layout = R.layout.module_foodservices_menus
 )
 public class MenusFragment
         extends BaseModuleFragment<Response.Menus, MenuInfo>
         implements
-        ModuleAdapter.ModuleListItemListener,
+        ModuleListItemListener,
         DateSelectorView.OnDateChangedListener {
 
     private ListView mListView;

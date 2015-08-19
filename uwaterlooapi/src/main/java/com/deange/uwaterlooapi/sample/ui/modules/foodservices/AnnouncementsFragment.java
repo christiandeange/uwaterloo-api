@@ -26,8 +26,7 @@ import java.util.List;
 
 @ModuleFragment(
         path = "/foodservices/announcements",
-        base = true,
-        icon = R.drawable.ic_launcher
+        layout = R.layout.module_foodservices_announcements
 )
 public class AnnouncementsFragment extends BaseListModuleFragment<Response.Announcements, Announcement>
         implements DateSelectorView.OnDateChangedListener {

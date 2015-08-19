@@ -37,6 +37,12 @@
 
     <string name="weather_last_updated">Last updated %s.</string>
 
+    <string name="title_foodservices_announcements">Announcements</string>
+    <string name="title_foodservices_locations">Locations</string>
+    <string name="title_foodservices_menus">Menus</string>
+    <string name="title_weather">Weather</string>
+    <string name="title_buildings">Buildings</string>
+
     <string name="foodservices_announcements_none">No Announcements :(</string>
     <string name="foodservices_location_hours">Hours</string>
     <string name="foodservices_location_hours_closed">Closed</string>

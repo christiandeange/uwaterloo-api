@@ -69,11 +69,8 @@ public class ModuleProcessor extends AbstractProcessor {
             final TypeElement element = (TypeElement) e;
             final ModuleFragment moduleFragment = element.getAnnotation(ModuleFragment.class);
 
-            staticz.addStatement("sEndpoints.put($S,\nnew $T("
-                    + "$T.class" + ", "
-                    + moduleFragment.base() + ", "
-                    + moduleFragment.icon()
-                    + "))"
+            staticz.addStatement("sEndpoints.put($S,\n" +
+                    "new $T($T.class, " + moduleFragment.layout() + "))"
                     , moduleFragment.path(), ModuleInfo.class, element.asType());
             staticz.add("\n");
         }

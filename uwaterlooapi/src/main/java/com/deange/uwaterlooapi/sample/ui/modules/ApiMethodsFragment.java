@@ -20,6 +20,7 @@ import com.deange.uwaterlooapi.api.TermsApi;
 import com.deange.uwaterlooapi.api.WeatherApi;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.MainActivity;
+import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -28,7 +29,8 @@ import java.util.TreeSet;
 import retrofit.http.GET;
 
 public class ApiMethodsFragment extends ListFragment
-        implements AdapterView.OnItemClickListener {
+        implements
+        ModuleListItemListener {
 
     private static final String ARG_METHODS = "methods";
     private static final String ARG_POSITION = "position";
@@ -76,32 +78,29 @@ public class ApiMethodsFragment extends ListFragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         final String[] methods = getArguments().getStringArray(ARG_METHODS);
+        setListAdapter(new ApiMethodsAdapter(getActivity(), methods, this));
 
-        getListView().setOnItemClickListener(this);
-        setListAdapter(new ApiMethodsAdapter(
-                getActivity(), R.layout.list_item_api_method, methods));
+        getListView().setDivider(null);
+        getListView().setDividerHeight(0);
+
+        final int padding = (int) (getResources().getDisplayMetrics().density * 4);
+        getListView().setPadding(0, padding, 0, padding);
     }
 
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
+
         final MainActivity parent = (MainActivity) activity;
         parent.onSectionAttached(getArguments().getInt(ARG_POSITION));
     }
 
     @Override
-    public void onItemClick(final AdapterView<?> adapterView, final View view,
-                               final int position, final long id) {
-
+    public void onItemClicked(final int position) {
         final String endpoint = String.valueOf(getListAdapter().getItem(position));
         final ModuleInfo fragmentInfo = ModuleMap.getFragmentInfo(endpoint);
         if (fragmentInfo == null) {

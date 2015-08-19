@@ -14,6 +14,7 @@ import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.model.foodservices.SpecialOperatingHours;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;

@@ -87,7 +87,4 @@ public abstract class ModuleAdapter
 
     public abstract void bindView(final Context context, final int position, final View view);
 
-    public interface ModuleListItemListener {
-        void onItemClicked(final int position);
-    }
 }

@@ -13,6 +13,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.StringAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
@@ -24,14 +25,13 @@ import java.util.List;
 
 @ModuleFragment(
         path = "/foodservices/locations",
-        base = true,
-        icon = R.drawable.ic_launcher
+        layout = R.layout.module_foodservices_locations
 )
 public class LocationsFragment
         extends BaseListModuleFragment<Response.Locations, Location>
         implements
         AdapterView.OnItemSelectedListener,
-        ModuleAdapter.ModuleListItemListener {
+        ModuleListItemListener {
 
     private static final Comparator<Location> sComparator = new Comparator<Location>() {
         @Override

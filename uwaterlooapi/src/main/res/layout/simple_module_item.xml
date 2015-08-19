@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.deange.uwaterlooapi.sample.ui.view.CardView
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent">
+
+        <FrameLayout
+                android:id="@+id/selectable"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp">
+
+            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                    android:id="@android:id/text1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_width="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:fontName="Roboto-Light"/>
+
+        </FrameLayout>
+
+    </com.deange.uwaterlooapi.sample.ui.view.CardView>
+
+</merge>
