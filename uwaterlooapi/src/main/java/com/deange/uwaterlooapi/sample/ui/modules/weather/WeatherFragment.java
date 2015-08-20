@@ -166,8 +166,8 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
     private void resizeTemperatureView() {
         // Places the temperature view programatically
         final ViewGroup sliceParent = ((ViewGroup) mSliceView.getParent());
-        final RelativeLayout.LayoutParams temperatureParams =
-                (RelativeLayout.LayoutParams) mTemperatureView.getLayoutParams();
+        final ViewGroup.MarginLayoutParams temperatureParams =
+                (ViewGroup.MarginLayoutParams) mTemperatureView.getLayoutParams();
         final int height = mTemperatureView.getMeasuredHeight();
 
         final DisplayMetrics metrics = new DisplayMetrics();

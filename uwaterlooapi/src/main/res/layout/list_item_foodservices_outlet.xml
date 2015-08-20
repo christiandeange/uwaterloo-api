@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -22,15 +21,13 @@
                 android:padding="8dp"
                 android:background="?attr/selectableItemBackground">
 
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+            <TextView
                     android:id="@+id/outlet_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:textColor="#123456"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:fontName="Roboto-Light"
+                    android:fontFamily="sans-serif-light"
                     tools:text="Bon Appetit"/>
 
         </FrameLayout>

@@ -1,33 +1,30 @@
 package com.deange.uwaterlooapi.sample.ui.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.Region;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.RelativeLayout;
 
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 public class SliceView extends RelativeLayout {
 
     private static final float DEFAULT_HEIGHT = 100;
     private static final float DEFAULT_OFFSET =   0;
 
-    private final Paint mPaint = new Paint();
     private final Path mPath = new Path();
-
-    private boolean mHasBeenLayout;
-    private Drawable mDrawable;
 
     private float mSliceOffset;
     private float mSliceHeight;
@@ -59,15 +56,20 @@ public class SliceView extends RelativeLayout {
                     getResources().getDisplayMetrics());
         }
 
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.FILL);
-
-        if (mDrawable == null) {
-            // Don't overwrite the background if specified as an attr
-            mPaint.setColor(Color.WHITE);
+        if (!PlatformUtils.hasJellyBeanMR2()) {
+            setLayerType(LAYER_TYPE_SOFTWARE, null);
         }
 
-        super.setBackgroundColor(Color.TRANSPARENT);
+        if (PlatformUtils.hasLollipop()) {
+            setOutlineProvider(new ViewOutlineProvider() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void getOutline(final View view, final Outline outline) {
+                    outline.setConvexPath(mPath);
+                }
+            });
+        }
+
     }
 
     public float getSliceOffset() {
@@ -94,76 +96,19 @@ public class SliceView extends RelativeLayout {
     protected void onLayout(final boolean changed,
                             final int l, final int t, final int r, final int b) {
         super.onLayout(changed, l, t, r, b);
-        mHasBeenLayout = true;
-
-        setBackground(mDrawable != null ? mDrawable : getBackground());
 
         mPath.reset();
         mPath.moveTo(0                 , mSliceOffset);
         mPath.lineTo(getMeasuredWidth(), mSliceOffset + mSliceHeight);
         mPath.lineTo(getMeasuredWidth(), getMeasuredHeight());
-        mPath.lineTo(0                 , getMeasuredHeight());
-        mPath.lineTo(0                 , mSliceOffset);
+        mPath.lineTo(0, getMeasuredHeight());
+        mPath.lineTo(0, mSliceOffset);
     }
 
     @Override
-    public void setBackgroundColor(final int color) {
-        mPaint.setShader(null);
-        mPaint.setColor(color);
-    }
-
-    @Override
-    public void setBackgroundResource(final int resid) {
-        setBackgroundDrawable(getResources().getDrawable(resid));
-    }
-
-    @Override
-    public void setBackground(final Drawable background) {
-        setBackgroundDrawable(background);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public void setBackgroundDrawable(final Drawable background) {
-        if (background instanceof ColorDrawable) {
-            super.setBackgroundDrawable(background);
-        } else if (background instanceof BitmapDrawable) {
-            setBackground(((BitmapDrawable) background).getBitmap());
-        } else {
-            setBackground(convertToBitmap(background));
-        }
-    }
-
-    private void setBackground(final Bitmap bitmap) {
-        if (bitmap != null) {
-            final Shader.TileMode mode = Shader.TileMode.CLAMP;
-            mPaint.setShader(new BitmapShader(bitmap, mode, mode));
-        }
-    }
-
-    private Bitmap convertToBitmap(final Drawable drawable) {
-
-        if (drawable == null) {
-            return null;
-
-        } else if (!mHasBeenLayout) {
-            mDrawable = drawable;
-            return null;
-
-        } else {
-            final Bitmap mutableBitmap = Bitmap.createBitmap(
-                    getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-            final Canvas canvas = new Canvas(mutableBitmap);
-            drawable.setBounds(0, 0, getMeasuredWidth(), getMeasuredHeight());
-            drawable.draw(canvas);
-            return mutableBitmap;
-        }
-    }
-
-    @Override
-    protected void onDraw(final Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawPath(mPath, mPaint);
+    public void draw(final Canvas canvas) {
+        canvas.clipPath(mPath, Region.Op.INTERSECT);
+        super.draw(canvas);
     }
 
 }

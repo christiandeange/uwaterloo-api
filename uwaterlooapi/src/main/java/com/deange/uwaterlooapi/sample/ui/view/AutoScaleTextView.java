@@ -9,11 +9,12 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
 
 
-public class AutoScaleTextView extends TextFontView {
+public class AutoScaleTextView extends TextView {
 
     private float mScaleFactor;
     private int mMinTextSize;

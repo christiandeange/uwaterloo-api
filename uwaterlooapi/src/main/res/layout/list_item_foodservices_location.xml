@@ -20,22 +20,22 @@
                 android:orientation="vertical"
                 android:background="?attr/selectableItemBackground">
 
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+            <TextView
                     android:id="@+id/list_location_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:textColor="#123456"
                     android:textSize="20sp"
-                    app:fontName="Roboto-Light"/>
+                    android:fontFamily="sans-serif-light"/>
 
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+            <TextView
                     android:id="@+id/list_location_timing_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:textStyle="bold"
-                    app:fontName="Roboto-Light"/>
+                    android:fontFamily="sans-serif-light"/>
 
         </LinearLayout>
 

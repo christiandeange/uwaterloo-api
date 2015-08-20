@@ -14,7 +14,8 @@
         <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:background="@android:color/white">
 
             <RelativeLayout
                     android:layout_width="match_parent"
@@ -26,25 +27,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"/>
 
-                <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                <TextView
                         android:id="@+id/list_location_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_below="@id/list_location_logo_padding"
                         android:gravity="center"
-                        android:textColor="#123456"
+                        android:fontFamily="sans-serif-light"
                         android:textSize="@dimen/font_title"
-                        app:fontName="Roboto-Light"/>
+                        android:textColor="@android:color/black"/>
 
-                <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+                <TextView
                         android:id="@+id/list_location_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_below="@id/list_location_title"
-                        app:fontName="Roboto-Light"/>
+                        android:fontFamily="sans-serif-light"/>
 
                 <RelativeLayout
                         android:id="@+id/list_location_handle_viewgroup"
@@ -69,7 +70,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginStart="16dp"
                             android:padding="4dp"
-                            android:background="#FBFBFB"
+                            android:background="@android:color/white"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             android:textSize="12sp"/>
