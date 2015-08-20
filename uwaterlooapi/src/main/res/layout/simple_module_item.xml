@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <com.deange.uwaterlooapi.sample.ui.view.CardView
             android:layout_height="wrap_content"
@@ -18,14 +18,14 @@
                 android:background="?attr/selectableItemBackground"
                 android:padding="8dp">
 
-            <com.deange.uwaterlooapi.sample.ui.view.TextFontView
+            <TextView
                     android:id="@android:id/text1"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_width="wrap_content"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:fontName="Roboto-Light"/>
+                    android:fontFamily="sans-serif-light"
+                    tools:text="Entry Title"/>
 
         </FrameLayout>
 

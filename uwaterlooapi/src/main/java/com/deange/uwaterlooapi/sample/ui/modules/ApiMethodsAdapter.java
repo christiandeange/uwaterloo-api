@@ -12,6 +12,7 @@ import com.deange.uwaterlooapi.annotations.ModuleInfo;
 import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.ui.view.ModuleListItem;
 
 public class ApiMethodsAdapter extends ArrayAdapter<String>
         implements View.OnClickListener {
@@ -51,7 +52,7 @@ public class ApiMethodsAdapter extends ArrayAdapter<String>
         }
 
         // TODO Remove soon
-        if (info == null || !info.isBase || info.layout == 0) {
+        if (!(view instanceof ModuleListItem)) {
             ((TextView) view.findViewById(android.R.id.text1)).setText(endpoint);
         }
 
