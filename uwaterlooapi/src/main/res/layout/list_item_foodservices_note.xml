@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.deange.uwaterlooapi.sample.ui.view.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp">
+
+        <RelativeLayout
+                android:id="@+id/selectable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="?selectableItemBackground">
+
+            <TextView
+                    android:id="@+id/note_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    tools:text="Daily Fish"/>
+
+            <TextView
+                    android:id="@+id/note_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/note_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:text="August 15, 2015"/>
+
+            <TextView
+                    android:id="@+id/note_outlet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/note_date"
+                    android:layout_toStartOf="@id/note_date"
+                    android:layout_below="@id/note_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:text="Festival Fare"/>
+
+        </RelativeLayout>
+
+    </com.deange.uwaterlooapi.sample.ui.view.CardView>
+
+</FrameLayout>

@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Build;
+import android.widget.Toast;
 
 import com.deange.uwaterlooapi.sample.R;
 
@@ -29,6 +30,8 @@ public final class PlatformUtils {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(context.getString(R.string.app_name), text);
         clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(context, R.string.clipboard_copied, Toast.LENGTH_SHORT).show();
     }
 
     private PlatformUtils() {

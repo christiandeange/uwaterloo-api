@@ -26,7 +26,7 @@
                     android:layout_margin="16dp"
                     android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:text="@string/foodservices_announcements_none"
+                    android:text="@string/foodservices_notes_none"
                     android:textSize="24sp"
                     android:textColor="#AAA"
                     android:fontFamily="sans-serif-condensed"/>

@@ -142,7 +142,6 @@ public class MenuDayAdapter
             final String text = view.getText().toString();
 
             PlatformUtils.copyToClipboard(getContext(), text);
-            Toast.makeText(getContext(), R.string.clipboard_copied, Toast.LENGTH_SHORT).show();
 
             return true;
         }
