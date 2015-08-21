@@ -29,7 +29,7 @@
                     android:id="@+id/weather_slider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
+                    app:sliceOffset="4dp"
                     app:sliceHeight="64dp">
 
                 <com.deange.uwaterlooapi.sample.ui.view.CardView
@@ -47,7 +47,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="32dp"
                                 android:includeFontPadding="false"
-                                android:fontFamily="sans-serif-thin"
+                                android:fontFamily="@string/sans_serif_thin"
                                 app:scaleFactor="50%"
                                 app:maxTextSize="200sp"/>
 
@@ -57,15 +57,39 @@
                                 android:layout_marginBottom="32dp"
                                 android:layout_below="@id/weather_temperature">
 
-                            <TextView
-                                    android:id="@+id/weather_min_temp"
-                                    android:layout_width="wrap_content"
+                            <LinearLayout
+                                    android:id="@+id/weather_range_parent"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_alignParentStart="true"
-                                    android:gravity="center_vertical"
-                                    android:textSize="14sp"
-                                    android:fontFamily="sans-serif-light"/>
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+
+                                <TextView
+                                        android:id="@+id/weather_min_temp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0"
+                                        android:gravity="center_vertical"
+                                        android:textSize="14sp"
+                                        android:fontFamily="sans-serif-light"/>
+
+                                <com.deange.uwaterlooapi.sample.ui.view.RangeView
+                                        android:id="@+id/weather_temperature_range"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:layout_margin="4dp"/>
+
+                                <TextView
+                                        android:id="@+id/weather_max_temp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0"
+                                        android:gravity="center_vertical"
+                                        android:textSize="14sp"
+                                        android:fontFamily="sans-serif-light"/>
+
+                            </LinearLayout>
 
                             <TextView
                                     android:id="@+id/weather_min_temp_label"
@@ -73,20 +97,11 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentLeft="true"
                                     android:layout_alignParentStart="true"
-                                    android:layout_below="@id/weather_min_temp"
+                                    android:layout_below="@id/weather_range_parent"
                                     android:layout_marginTop="4dp"
                                     android:gravity="center_vertical"
-                                    android:text="LOW"
-                                    android:textSize="14sp"
-                                    android:fontFamily="sans-serif-light"/>
-
-                            <TextView
-                                    android:id="@+id/weather_max_temp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_alignParentEnd="true"
-                                    android:gravity="center_vertical"
+                                    android:text="@string/weather_range_low"
+                                    android:textAllCaps="true"
                                     android:textSize="14sp"
                                     android:fontFamily="sans-serif-light"/>
 
@@ -96,21 +111,13 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
-                                    android:layout_below="@id/weather_max_temp"
+                                    android:layout_below="@id/weather_range_parent"
                                     android:layout_marginTop="4dp"
                                     android:gravity="center_vertical"
-                                    android:text="HIGH"
+                                    android:text="@string/weather_range_high"
+                                    android:textAllCaps="true"
                                     android:textSize="14sp"
                                     android:fontFamily="sans-serif-light"/>
-
-                            <com.deange.uwaterlooapi.sample.ui.view.RangeView
-                                    android:id="@+id/weather_temperature_range"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toRightOf="@id/weather_min_temp"
-                                    android:layout_toEndOf="@id/weather_min_temp"
-                                    android:layout_toLeftOf="@id/weather_max_temp"
-                                    android:layout_toStartOf="@id/weather_max_temp"/>
 
                         </RelativeLayout>
 
@@ -128,8 +135,7 @@
 
                 <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/white">
+                        android:layout_height="wrap_content">
 
                     <TextView
                             android:id="@+id/weather_last_updated"
@@ -139,7 +145,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true"
                             android:padding="8dp"
-                            android:textColor="#888"
                             android:textSize="12sp"
                             android:textStyle="italic"
                             android:fontFamily="sans-serif-light"/>

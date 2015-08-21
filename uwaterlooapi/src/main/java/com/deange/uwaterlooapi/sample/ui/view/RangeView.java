@@ -43,7 +43,7 @@ public class RangeView extends View {
     private void init() {
 
         mThumbRadius = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
+                TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 
         mThumbPaint.setAntiAlias(true);
         mThumbPaint.setStyle(Paint.Style.FILL);

@@ -1,6 +1,7 @@
 <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -9,9 +10,10 @@
         tools:context="com.deange.uwaterlooapi.sample.ui.MainActivity">
 
     <android.support.v7.widget.Toolbar
-            style="@style/ToolbarStyle"
+            style="@style/ToolbarStyle.Toolbar"
             android:id="@+id/toolbar"
-            android:elevation="16dp"/>
+            android:elevation="16dp"
+            app:theme="@style/ToolbarStyle"/>
 
     <android.support.v4.widget.DrawerLayout
             android:id="@+id/drawer_layout"

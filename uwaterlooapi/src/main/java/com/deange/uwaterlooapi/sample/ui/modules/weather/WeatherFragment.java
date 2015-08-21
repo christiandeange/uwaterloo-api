@@ -74,8 +74,8 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
         mLastUpdated = (TextView) root.findViewById(R.id.weather_last_updated);
 
         final int thumbDiameter = mRangeView.getThumbRadius() * 2;
-        mMinTempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, thumbDiameter);
-        mMaxTempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, thumbDiameter);
+        mMinTempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, thumbDiameter * 2);
+        mMaxTempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, thumbDiameter * 2);
 
         mScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
 

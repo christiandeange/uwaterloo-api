@@ -70,6 +70,9 @@ public class SliceView extends RelativeLayout {
             });
         }
 
+        if (getBackground() == null) {
+            setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 
     public float getSliceOffset() {

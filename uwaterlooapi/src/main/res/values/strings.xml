@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Introduced in 4.2 -->
+    <string name="sans_serif_thin">sans-serif-light</string>
+
     <string name="app_name">UWaterlooApi</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -35,6 +38,8 @@
     <string name="building_alternate_names">Alternate Names</string>
     <string name="building_alternate_sections">Building Sections</string>
 
+    <string name="weather_range_low">Low</string>
+    <string name="weather_range_high">High</string>
     <string name="weather_last_updated">Last updated %s.</string>
 
     <string name="title_foodservices_announcements">Announcements</string>

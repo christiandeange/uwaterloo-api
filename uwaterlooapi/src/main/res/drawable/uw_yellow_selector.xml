@@ -3,7 +3,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- http://colllor.com/FFD74F -->
-
+    <item android:state_pressed="true" android:drawable="@color/uw_yellow_pressed" />
     <item android:state_checked="true" android:drawable="@color/uw_yellow_activated" />
     <item android:state_activated="true" android:drawable="@color/uw_yellow_activated" />
     <item android:drawable="@android:color/transparent" />
