@@ -17,7 +17,11 @@ public class StringAdapter extends ArrayAdapter {
     private int mDropdownId = R.layout.list_item_string_adapter;
 
     public StringAdapter(final Context context, final List objects) {
-        super(context, 0, objects);
+        this(context, objects, 0);
+    }
+
+    public StringAdapter(final Context context, final List objects, final int layoutId) {
+        super(context, layoutId, objects);
     }
 
     @Override

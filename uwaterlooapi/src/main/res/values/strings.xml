@@ -49,6 +49,7 @@
     <string name="title_foodservices_watcard">WatCard Vendors</string>
     <string name="title_weather">Weather</string>
     <string name="title_buildings">Buildings</string>
+    <string name="title_courses">Courses</string>
 
     <string name="foodservices_announcements_none">No Announcements :(</string>
     <string name="foodservices_location_hours">Hours</string>
@@ -81,5 +82,7 @@
 
     <string name="date_picker_week_label">Week of</string>
     <string name="date_picker_year_label">for year</string>
+
+    <string name="course_picker_label">Course Subject:</string>
 
 </resources>

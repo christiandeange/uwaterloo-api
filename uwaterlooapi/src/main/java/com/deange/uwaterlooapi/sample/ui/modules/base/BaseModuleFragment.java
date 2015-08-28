@@ -220,6 +220,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
             }
         }
 
+        if (!show && mLastResponse == null) {
+            loadingLayout.setVisibility(View.GONE);
+            return;
+        }
+
         final AnimatorListenerAdapter listener = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(final Animator animation) {
@@ -270,8 +275,8 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     protected void onLoadFinished() {
         final long delay;
-        if (mSwipeLayout != null) {
-            // No minimum delay for the SwipeRefreshLayout
+        if (mSwipeLayout != null || mLastResponse == null) {
+            // No minimum delay for the SwipeRefreshLayout or no response at all
             delay = 0;
 
         } else {
@@ -323,6 +328,14 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         if (getActivity() != null) {
             ((ModuleHostActivity) getActivity()).refreshActionBar();
         }
+    }
+
+    public void post(final Runnable runnable) {
+        mHandler.post(runnable);
+    }
+
+    public void postDelayed(final Runnable runnable, final long delay) {
+        mHandler.postDelayed(runnable, delay);
     }
 
     public String getToolbarTitle() {

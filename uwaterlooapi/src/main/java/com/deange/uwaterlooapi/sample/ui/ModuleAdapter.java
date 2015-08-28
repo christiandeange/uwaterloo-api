@@ -34,10 +34,16 @@ public abstract class ModuleAdapter
             v = convertView;
         }
 
-        final View selectable = v.findViewById(R.id.selectable);
-        if (selectable != null) {
-            selectable.setTag(position);
-            selectable.setOnClickListener(this);
+        if (mListener != null) {
+            View selectable = v.findViewById(R.id.selectable);
+            if (selectable == null) {
+                selectable = v;
+            }
+
+            if (selectable != null) {
+                selectable.setTag(position);
+                selectable.setOnClickListener(this);
+            }
         }
 
         bindView(mContext, position, v);

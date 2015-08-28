@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@color/uw_yellow"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
+
+        <TextView
+                android:id="@+id/courses_course_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textSize="14sp"
+                android:text="@string/course_picker_label"/>
+
+        <com.deange.uwaterlooapi.sample.ui.view.ShowAllAutoCompleteTextView
+                android:id="@+id/course_picker_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/courses_course_label"
+                android:layout_toEndOf="@id/courses_course_label"
+                android:layout_alignBaseline="@id/courses_course_label"
+                android:minWidth="100dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:inputType="textNoSuggestions"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                tools:text="CS"/>
+
+    </RelativeLayout>
+
+    <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"/>
+
+</LinearLayout>
