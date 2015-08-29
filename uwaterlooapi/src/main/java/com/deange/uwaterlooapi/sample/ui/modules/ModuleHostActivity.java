@@ -48,7 +48,7 @@ public class ModuleHostActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_module_host);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(getToolbar());
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 
         mChildFragment = findContentFragment();
@@ -63,6 +63,10 @@ public class ModuleHostActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         refreshActionBar();
+    }
+
+    public Toolbar getToolbar() {
+        return (Toolbar) findViewById(R.id.toolbar);
     }
 
     private BaseModuleFragment findContentFragment() {

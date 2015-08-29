@@ -21,6 +21,7 @@
     <string name="clipboard_copied">Copied to clipboard!</string>
     <string name="button_refresh">Refresh</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_browser">Open in browser</string>
 
     <string-array name="api_array">
         <item>@string/api_foodservices</item>
@@ -84,5 +85,12 @@
     <string name="date_picker_year_label">for year</string>
 
     <string name="course_picker_label">Course Subject:</string>
+
+    <string-array name="course_info_titles">
+        <item>Info</item>
+        <item>Prerequisites</item>
+        <item>Schedule</item>
+        <item>Exams</item>
+    </string-array>
 
 </resources>

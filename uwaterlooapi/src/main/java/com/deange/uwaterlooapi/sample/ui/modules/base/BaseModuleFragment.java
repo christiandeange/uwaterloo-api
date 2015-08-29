@@ -130,10 +130,15 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.menu_base_module, menu);
+        syncRefreshMenuItem(menu);
+    }
 
+    protected final void syncRefreshMenuItem(final Menu menu) {
         final MenuItem refreshItem = menu.findItem(R.id.menu_refresh);
-        refreshItem.setVisible(!isRefreshing());
-        refreshItem.setEnabled(!isRefreshing());
+        if (refreshItem != null) {
+            refreshItem.setVisible(!isRefreshing());
+            refreshItem.setEnabled(!isRefreshing());
+        }
     }
 
     @Override

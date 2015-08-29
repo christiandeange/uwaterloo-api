@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.model.common;
 
+import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.buildings.ClassroomCourses;
 import com.deange.uwaterlooapi.model.courses.Course;
@@ -26,11 +27,13 @@ import com.deange.uwaterlooapi.model.terms.InfoSession;
 import com.deange.uwaterlooapi.model.terms.TermInfo;
 import com.deange.uwaterlooapi.model.weather.WeatherReading;
 
-public class Response {
+public final class Response {
 
     private Response() {
         // Not instantiable
     }
+
+    public static class Empty extends SimpleResponse<BaseModel> { }
 
     // FOOD SERVICES
 

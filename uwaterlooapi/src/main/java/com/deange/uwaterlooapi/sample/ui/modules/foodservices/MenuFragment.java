@@ -31,12 +31,12 @@ public class MenuFragment
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_foodservices_menu, null);
+        final View view = inflater.inflate(R.layout.view_tablayout_viewpager, null);
 
-        mTabLayout = (TabLayout) view.findViewById(R.id.menu_tab_parent);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-        mViewPager = (ViewPager) view.findViewById(R.id.menu_tab_content);
+        mViewPager = (ViewPager) view.findViewById(R.id.tab_content);
 
         return view;
     }

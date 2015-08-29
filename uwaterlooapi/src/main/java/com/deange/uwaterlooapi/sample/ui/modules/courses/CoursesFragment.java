@@ -111,6 +111,8 @@ public class CoursesFragment
     public void onItemClicked(final int position) {
         // Remove focus from the
         getListView().requestFocus();
+
+        showModule(CourseFragment.class, CourseFragment.newBundle(mResponse.get(position)));
     }
 
     @Override

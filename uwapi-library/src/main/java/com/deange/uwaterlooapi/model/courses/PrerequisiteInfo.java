@@ -80,7 +80,15 @@ public class PrerequisiteInfo extends BaseModel {
         @Override
         public PrerequisiteGroup deserialize(final JsonElement json, final Type typeOfT,
                                              final JsonDeserializationContext context) {
-            return parseGroup(json.getAsJsonArray());
+            if (json.isJsonPrimitive()) {
+                // No prerequisites
+                final PrerequisiteGroup group = new PrerequisiteGroup();
+                group.mTotal = 0;
+                return group;
+
+            } else {
+                return parseGroup(json.getAsJsonArray());
+            }
         }
 
         private PrerequisiteGroup parseGroup(final JsonArray elements) {
