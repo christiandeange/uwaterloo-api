@@ -4,6 +4,7 @@
 
     <style name="AppCommon" parent="Theme.AppCompat.Light">
         <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
+        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -19,7 +20,14 @@
     <style name="AppTheme" parent="AppCommon">
     </style>
 
+    <style name="AppTheme.Widget">
+    </style>
+
     <style name="AppTheme.DialogWhenLarge" parent="Theme.AppCompat.Light.DialogWhenLarge">
+    </style>
+
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.DeviceDefault.Light.TextView">
+        <item name="fontPath">Gotham-Book.otf</item>
     </style>
 
     <style name="DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -87,7 +95,7 @@
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:gravity">right|end</item>
     </style>
-
+    
     <style name="MenuTitleStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

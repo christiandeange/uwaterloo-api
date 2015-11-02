@@ -15,6 +15,8 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 public class ModuleHostActivity extends AppCompatActivity
         implements FragmentManager.OnBackStackChangedListener {
@@ -41,6 +43,11 @@ public class ModuleHostActivity extends AppCompatActivity
         }
 
         return intent;
+    }
+
+    @Override
+    protected void attachBaseContext(final Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

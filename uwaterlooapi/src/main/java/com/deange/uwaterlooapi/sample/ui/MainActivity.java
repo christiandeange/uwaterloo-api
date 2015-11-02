@@ -1,8 +1,9 @@
 package com.deange.uwaterlooapi.sample.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,8 +13,10 @@ import com.deange.uwaterlooapi.sample.ApiRunner;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends ActionBarActivity
+
+public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.OnDrawerItemSelectedListener {
 
     private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
@@ -22,6 +25,11 @@ public class MainActivity extends ActionBarActivity
     private String mTitle;
     private UWaterlooApi mApi = new UWaterlooApi("YOUR_API_KEY_HERE");
     private Toolbar mToolbar;
+
+    @Override
+    protected void attachBaseContext(final Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

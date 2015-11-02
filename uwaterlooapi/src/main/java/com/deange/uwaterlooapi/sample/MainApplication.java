@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 public class MainApplication extends Application {
 
     private static final String TAG = MainApplication.class.getSimpleName();
@@ -18,5 +20,11 @@ public class MainApplication extends Application {
         // For response objects that contain a collection,
         // ensure they return unmodifiable copies of the data so the underlying model is immutable
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
+
+        // Set up Calligraphy library
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("Gotham-Book.otf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build());
     }
 }
