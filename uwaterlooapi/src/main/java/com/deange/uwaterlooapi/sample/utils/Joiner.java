@@ -4,10 +4,12 @@ import java.util.Collection;
 
 public class Joiner {
 
+    private String mConjunct;
     private String mDelimiter;
 
     private Joiner(final String delimiter) {
         mDelimiter = delimiter;
+        mConjunct = mDelimiter;
     }
 
     public static Joiner on(final String delimiter) {
@@ -16,6 +18,16 @@ public class Joiner {
 
     public static Joiner on(final char delimiter) {
         return new Joiner(String.valueOf(delimiter));
+    }
+
+    public Joiner conjunct(final String lastDelimiter) {
+        mConjunct = lastDelimiter;
+        return this;
+    }
+
+    public Joiner conjunct(final char lastDelimiter) {
+        mConjunct = String.valueOf(lastDelimiter);
+        return this;
     }
 
     public String join(final Collection<String> items) {
@@ -43,7 +55,15 @@ public class Joiner {
         } else {
             final StringBuilder sb = new StringBuilder(items[0]);
             for (int i = 1; i < items.length; i++) {
-                sb.append(mDelimiter);
+                if (items.length == 2) {
+                    sb.append(mConjunct);
+                } else if (i == items.length - 1) {
+                    sb.append(mDelimiter);
+                    sb.append(mConjunct);
+                } else {
+                    sb.append(mDelimiter);
+                }
+
                 sb.append(items[i]);
             }
 

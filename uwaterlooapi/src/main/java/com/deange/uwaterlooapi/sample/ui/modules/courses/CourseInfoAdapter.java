@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
+import com.deange.uwaterlooapi.sample.ui.modules.courses.views.BaseCourseView;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.views.CourseInfoView;
+import com.deange.uwaterlooapi.sample.ui.modules.courses.views.ExamInfoView;
+import com.deange.uwaterlooapi.sample.ui.modules.courses.views.PrerequisitesView;
+import com.deange.uwaterlooapi.sample.ui.modules.courses.views.ScheduleView;
 
 public class CourseInfoAdapter extends PagerAdapter {
 
@@ -39,23 +43,31 @@ public class CourseInfoAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
-        final View view;
+        final BaseCourseView view;
 
         switch (position) {
-            case 0:  view = instantiateInfoView(); break;
-            case 1:  view = instantiateInfoView(); break;
-            case 2:  view = instantiateInfoView(); break;
-            case 3:  view = instantiateInfoView(); break;
-            default: view = null; break; // will not happen
+            case 0:
+                view = new CourseInfoView(mContext);
+                break;
+            case 1:
+                view = new PrerequisitesView(mContext);
+                break;
+            case 2:
+                view = new ScheduleView(mContext);
+                break;
+            case 3:
+                view = new ExamInfoView(mContext);
+                break;
+            default:
+                view = null;  // will not happen
+                break;
         }
 
-        container.addView(view);
-        return view;
-    }
+        if (view != null) {
+            view.bind(mInfo);
+            container.addView(view);
+        }
 
-    private View instantiateInfoView() {
-        final CourseInfoView view = new CourseInfoView(mContext);
-        view.bind(mInfo.getCourseInfo());
         return view;
     }
 

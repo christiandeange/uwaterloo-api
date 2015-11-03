@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.model;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
 import com.deange.uwaterlooapi.model.courses.ExamInfo;
@@ -9,12 +8,15 @@ import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
 
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Parcel
 public class CombinedCourseInfo extends BaseModel {
 
     private CourseInfo mCourseInfo;
     private PrerequisiteInfo mPrerequisites;
-    private CourseSchedule mSchedule;
+    private List<CourseSchedule> mSchedules;
     private ExamInfo mExams;
 
     public CourseInfo getCourseInfo() {
@@ -33,12 +35,12 @@ public class CombinedCourseInfo extends BaseModel {
         mPrerequisites = prerequisites;
     }
 
-    public CourseSchedule getSchedule() {
-        return mSchedule;
+    public List<CourseSchedule> getSchedules() {
+        return mSchedules;
     }
 
-    public void setSchedule(final CourseSchedule schedule) {
-        mSchedule = schedule;
+    public void setSchedules(final List<CourseSchedule> schedules) {
+        mSchedules = new ArrayList<>(schedules);
     }
 
     public ExamInfo getExams() {

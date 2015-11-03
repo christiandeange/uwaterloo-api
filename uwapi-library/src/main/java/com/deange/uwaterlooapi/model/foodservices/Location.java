@@ -282,6 +282,19 @@ public class Location extends BaseModel {
         return CollectionUtils.applyPolicy(mDatesClosed);
     }
 
+    public static String sanitize(String time) {
+        if (TextUtils.isEmpty(time)) {
+            return null;
+        }
+
+        if (time.startsWith("0")) {
+            time = time.substring(1);
+        }
+
+        time = time.replace(":00", "");
+        return time;
+    }
+
     public static String convert24To12(final String time) {
         if (TextUtils.isEmpty(time)) {
             return null;
@@ -293,6 +306,8 @@ public class Location extends BaseModel {
 
         if (hour == 0) {
             hour = 12;
+        } else if (hour == 12) {
+            ampm = "PM";
         } else if (hour > 12) {
             hour -= 12;
             ampm = "PM";

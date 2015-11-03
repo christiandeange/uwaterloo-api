@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.deange.uwaterlooapi.sample.ui.view.CardView
+            style="@style/CardViewListItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                <TextView
+                        android:id="@+id/schedule_section"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:textAppearanceLarge"
+                        tools:text="LEC 001"/>
+
+                <TextView
+                        android:id="@+id/schedule_campus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/schedule_section"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        tools:text="UW U"/>
+
+                <TextView
+                        android:id="@+id/schedule_capacity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/schedule_campus"
+                        android:layout_marginTop="16dp"
+                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_people"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textColor="@android:color/black"
+                        tools:text="112/119 seats filled"/>
+
+                <TextView
+                        android:id="@+id/schedule_reserves"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/schedule_capacity"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textStyle="italic"
+                        tools:text="MATH ELAS students (15/16 seats)"/>
+
+                <TextView
+                        android:id="@+id/schedule_held_with"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/schedule_reserves"
+                        android:layout_marginTop="16dp"
+                        tools:text="Held with CS 658"/>
+
+            </RelativeLayout>
+
+            <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
+                    android:id="@+id/schedule_classes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:divider="@color/divider"
+                    android:dividerHeight="1dp"
+                    android:footerDividersEnabled="true"
+                    android:headerDividersEnabled="true"/>
+
+        </LinearLayout>
+
+    </com.deange.uwaterlooapi.sample.ui.view.CardView>
+
+</FrameLayout>

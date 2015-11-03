@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.courses;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
+import com.deange.uwaterlooapi.sample.utils.SimpleTextWatcher;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,9 +53,24 @@ public class CoursesFragment
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         final View view = super.getContentView(inflater, savedInstanceState);
 
+        getListView().setFastScrollEnabled(true);
+        getListView().setFastScrollAlwaysVisible(true);
+
         mCoursePicker = (AutoCompleteTextView) view.findViewById(R.id.course_picker_view);
         mCoursePicker.setAdapter(new SubjectAdapter(getActivity()));
         mCoursePicker.setOnItemClickListener(this);
+        mCoursePicker.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(final Editable s) {
+                for (int i = 0; i < s.length(); ++i) {
+                    if (Character.isLowerCase(s.charAt(i))) {
+                        mCoursePicker.setText(s.toString().toUpperCase());
+                        mCoursePicker.setSelection(s.length());
+                        break;
+                    }
+                }
+            }
+        });
 
         return view;
     }

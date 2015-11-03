@@ -12,5 +12,6 @@
     <color name="foodservices_location_closed">#B71C1C</color>
 
     <color name="divider">#AAA</color>
+    <color name="background">#EEE</color>
 
 </resources>

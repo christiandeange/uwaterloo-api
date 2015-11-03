@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,16 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
-import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfoResponse;
-import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
-import com.deange.uwaterlooapi.sample.ui.modules.foodservices.MenuDayAdapter;
 
 import org.parceler.Parcels;
 
@@ -108,10 +104,7 @@ public class CourseFragment
         fetchCourseInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                final List<CourseSchedule> schedules =
-                        api.Courses.getCourseSchedule(subject, code).getData();
-                info.setSchedule(
-                        (schedules == null || schedules.isEmpty()) ? null : schedules.get(0));
+                info.setSchedules(api.Courses.getCourseSchedule(subject, code).getData());
             }
         });
 

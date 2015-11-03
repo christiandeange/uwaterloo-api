@@ -1,7 +1,5 @@
 <resources>
 
-    <style name="Base"/>
-
     <style name="AppCommon" parent="Theme.AppCompat.Light">
         <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
@@ -32,6 +30,20 @@
 
     <style name="DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/black</item>
+    </style>
+
+    <style name="CardListView">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="CardViewListItem">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 
     <style name="PropertyLayout">
@@ -95,7 +107,7 @@
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:gravity">right|end</item>
     </style>
-    
+
     <style name="MenuTitleStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

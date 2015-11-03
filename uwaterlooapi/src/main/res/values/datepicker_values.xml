@@ -36,6 +36,7 @@
     <dimen name="year_label_text_size">22sp</dimen>
 
     <!-- string -->
+    <eat-comment/>
     <string name="datetimepicker_done_label">Done</string>
     <string name="datetimepicker_clear_label">Clear</string>
     <string name="datetimepicker_day_description">Month grid of days</string>

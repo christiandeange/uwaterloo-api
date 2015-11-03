@@ -29,7 +29,7 @@ public class CourseSchedule extends BaseModel {
     String mNotes;
 
     @SerializedName("class_number")
-    int mClasNumber;
+    int mClassNumber;
 
     @SerializedName("section")
     String mSection;
@@ -117,8 +117,8 @@ public class CourseSchedule extends BaseModel {
     /**
      * Associated term specific class enrollment number
      */
-    public int getClasNumber() {
-        return mClasNumber;
+    public int getClassNumber() {
+        return mClassNumber;
     }
 
     /**

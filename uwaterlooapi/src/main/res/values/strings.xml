@@ -85,6 +85,10 @@
     <string name="date_picker_year_label">for year</string>
 
     <string name="course_picker_label">Course Subject:</string>
+    <string name="course_prerequisites_none">No prerequisites</string>
+    <string name="course_capacity">%1$d/%2$d seats filled</string>
+    <string name="course_reserve">%1$d/%2$d seats filled for %3$s</string>
+    <string name="course_held_with">Held with %1$s</string>
 
     <string-array name="course_info_titles">
         <item>Info</item>
@@ -92,5 +96,8 @@
         <item>Schedule</item>
         <item>Exams</item>
     </string-array>
+
+    <!-- General -->
+    <string name="and">and</string>
 
 </resources>

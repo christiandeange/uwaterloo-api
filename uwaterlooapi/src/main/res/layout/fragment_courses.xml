@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
     <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -19,6 +18,8 @@
                 android:id="@+id/courses_course_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:textSize="14sp"
@@ -39,6 +40,7 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:inputType="textNoSuggestions"
+                android:textAllCaps="true"
                 android:textSize="14sp"
                 android:textColor="@android:color/black"
                 tools:text="CS"/>

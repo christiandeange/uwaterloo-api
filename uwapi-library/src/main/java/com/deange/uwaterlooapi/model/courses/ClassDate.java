@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 @Parcel
 public class ClassDate extends BaseModel {
 
@@ -86,5 +90,41 @@ public class ClassDate extends BaseModel {
      */
     public boolean isClosed() {
         return mIsClosed;
+    }
+
+    /**
+     * Parses {@link #mWeekdays weekdays} into a list of Calendar.java weekday constants
+     * eg: Calendar.MONDAY, Calendar.WEDNESDAY, Calendar.FRIDAY, ...
+     */
+    public List<Integer> getDaysOfWeek() {
+        final List<Integer> daysOfWeek = new ArrayList<>();
+
+        for (int i = 0; i < mWeekdays.length(); ++i) {
+            String day = String.valueOf(mWeekdays.charAt(i));
+            if (i < mWeekdays.length() - 1 && Character.isLowerCase(mWeekdays.charAt(i + 1))) {
+                day += mWeekdays.charAt(i + 1);
+                i += 1;
+            }
+
+            final int dayOfWeek = convertToCalendarDay(day);
+            if (dayOfWeek != Integer.MIN_VALUE) {
+                daysOfWeek.add(dayOfWeek);
+            }
+        }
+
+        return daysOfWeek;
+    }
+
+    private int convertToCalendarDay(final String dayOfWeek) {
+        switch (dayOfWeek) {
+            case "M":  return Calendar.MONDAY;
+            case "T":  return Calendar.TUESDAY;
+            case "W":  return Calendar.WEDNESDAY;
+            case "Th": return Calendar.THURSDAY;
+            case "F":  return Calendar.FRIDAY;
+            case "Sa": return Calendar.SATURDAY;
+            case "Su": return Calendar.SUNDAY;
+            default: return Integer.MIN_VALUE;
+        }
     }
 }
