@@ -11,7 +11,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
-        classpath 'com.zeroturnaround.jrebel.android:jr-android-gradle:0.8.+'
+        classpath 'com.zeroturnaround.jrebel.android:jr-android-gradle:0.9.+'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.6'
     }
 }
