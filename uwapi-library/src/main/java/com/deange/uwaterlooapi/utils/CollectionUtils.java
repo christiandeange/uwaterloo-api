@@ -26,7 +26,10 @@ public final class CollectionUtils {
         return sPolicy;
     }
 
-    public static <E> List<E> applyPolicy(final List<E> collection) {
+    public static <E> List<E> applyPolicy(List<E> collection) {
+        if (collection == null) {
+            collection = new ArrayList<>();
+        }
         switch (sPolicy) {
             case MODIFIABLE:   return collection;
             case RETURN_COPY:  return new ArrayList<>(collection);
@@ -35,7 +38,10 @@ public final class CollectionUtils {
         }
     }
 
-    public static <K, V> Map<K, V> applyPolicy(final Map<K, V> collection) {
+    public static <K, V> Map<K, V> applyPolicy(Map<K, V> collection) {
+        if (collection == null) {
+            collection = new HashMap<>();
+        }
         switch (sPolicy) {
             case MODIFIABLE:   return collection;
             case RETURN_COPY:  return new HashMap<>(collection);

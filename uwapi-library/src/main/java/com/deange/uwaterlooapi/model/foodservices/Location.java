@@ -316,6 +316,26 @@ public class Location extends BaseModel {
         return hour + ":" + parts[1] + " " + ampm;
     }
 
+    public static String convert12To24(final String time) {
+        if (TextUtils.isEmpty(time)) {
+            return null;
+        }
+
+        final String[] components = time.split(" ");
+        final String[] parts = components[0].split(":");
+
+        final boolean isPM = "PM".equalsIgnoreCase(components[1]);
+        int hour = Integer.parseInt(parts[0]);
+
+        if (hour == 12 && !isPM) {
+            hour = 0;
+        } else if (isPM) {
+            hour += 12;
+        }
+
+        return hour + ":" + parts[1];
+    }
+
     @Parcel
     public static class Range {
 

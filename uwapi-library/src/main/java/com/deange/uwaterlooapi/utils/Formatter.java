@@ -1,5 +1,7 @@
 package com.deange.uwaterlooapi.utils;
 
+import android.content.Context;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -13,6 +15,10 @@ public final class Formatter {
 
     public static final String YMD = "yyyy-MM-dd";
     public static final String ISO8601 = "yyyy-MM-dd'T'hh:mm:ssZ";
+
+    public static final int DATE_LENGTH_SHORT = 0;
+    public static final int DATE_LENGTH_MEDIUM = 1;
+    public static final int DATE_LENGTH_LONG = 2;
 
     private static final SimpleDateFormat sYMDFormat = new SimpleDateFormat(YMD);
     private static final SimpleDateFormat sISO8601Format = new SimpleDateFormat(ISO8601);
@@ -56,5 +62,23 @@ public final class Formatter {
         return sISO8601Format.format(date);
     }
 
+    public static String formatDate(final Context context, final Date date, final int style) {
+        final java.text.DateFormat dateFormat;
+        switch (style) {
+            case DATE_LENGTH_SHORT:
+                dateFormat = DateFormat.getDateFormat(context);
+                break;
+            case DATE_LENGTH_MEDIUM:
+                dateFormat = DateFormat.getMediumDateFormat(context);
+                break;
+            case DATE_LENGTH_LONG:
+                dateFormat = DateFormat.getLongDateFormat(context);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected style '" + style + "'");
+        }
+
+        return dateFormat.format(date);
+    }
 
 }
