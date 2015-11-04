@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.view;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
@@ -77,10 +78,17 @@ public class OperatingHoursView extends FrameLayout {
                 hoursView.setText(start + " – " + end);
             }
 
+            final AssetManager assets = getContext().getAssets();
+            final Typeface bold = Typeface.createFromAsset(assets, getResources().getString(R.string.font_medium));
+            final Typeface normal = Typeface.createFromAsset(assets, getResources().getString(R.string.font_book));
+
             final int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
             if (WEEK_MAP[day].equals(dayOfWeek)) {
-                labelView.setTypeface(null, Typeface.BOLD);
-                hoursView.setTypeface(null, Typeface.BOLD);
+                labelView.setTypeface(bold, Typeface.BOLD);
+                hoursView.setTypeface(bold, Typeface.BOLD);
+            } else {
+                labelView.setTypeface(normal, Typeface.NORMAL);
+                hoursView.setTypeface(normal, Typeface.NORMAL);
             }
         }
     }
