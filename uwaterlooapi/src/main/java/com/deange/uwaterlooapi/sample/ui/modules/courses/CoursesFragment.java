@@ -53,9 +53,6 @@ public class CoursesFragment
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         final View view = super.getContentView(inflater, savedInstanceState);
 
-        getListView().setFastScrollEnabled(true);
-        getListView().setFastScrollAlwaysVisible(true);
-
         mCoursePicker = (AutoCompleteTextView) view.findViewById(R.id.course_picker_view);
         mCoursePicker.setAdapter(new SubjectAdapter(getActivity()));
         mCoursePicker.setOnItemClickListener(this);
@@ -117,6 +114,8 @@ public class CoursesFragment
             }
         });
 
+        getListView().setFastScrollEnabled(true);
+        getListView().setFastScrollAlwaysVisible(true);
         notifyDataSetChanged();
     }
 

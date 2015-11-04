@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Normal styles -->
+    <eat-comment/>
+    <string name="font_light">fonts/Gotham-Light.otf</string>
+    <string name="font_book">fonts/Gotham-Book.otf</string>
+    <string name="font_medium">fonts/Gotham-Medium.otf</string>
+    <string name="font_bold">fonts/Gotham-Bold.otf</string>
+
+    <!-- Italic styles -->
+    <eat-comment/>
+    <string name="font_light_italic">fonts/Gotham-LightItalic.otf</string>
+    <string name="font_book_italic">fonts/Gotham-BookItalic.otf</string>
+    <string name="font_medium_italic">fonts/Gotham-MediumItalic.otf</string>
+    <string name="font_bold_italic">fonts/Gotham-BoldItalic.otf</string>
+</resources>

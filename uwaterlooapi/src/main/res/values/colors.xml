@@ -11,7 +11,8 @@
     <color name="foodservices_location_open">#33691E</color>
     <color name="foodservices_location_closed">#B71C1C</color>
 
-    <color name="divider">#AAA</color>
-    <color name="background">#EEE</color>
+    <color name="divider">#AAAAAA</color>
+    <color name="background">#EEEEEE</color>
+    <color name="background_transparent">#00EEEEEE</color>
 
 </resources>

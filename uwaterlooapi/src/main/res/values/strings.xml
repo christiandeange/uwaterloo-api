@@ -89,6 +89,7 @@
     <string name="course_capacity">%1$d/%2$d seats filled</string>
     <string name="course_reserve">%1$d/%2$d seats filled for %3$s</string>
     <string name="course_held_with">Held with %1$s</string>
+    <string name="exam_section">Section %1$s</string>
 
     <string-array name="course_info_titles">
         <item>Info</item>

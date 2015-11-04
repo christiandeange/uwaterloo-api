@@ -78,7 +78,8 @@ public class ClassAdapter extends ArrayAdapter<Class> {
         start = Location.sanitize(start);
         end = Location.sanitize(end);
 
-        holder.time.setText(start + " – " + end);
+        final String time = start + " – " + end;
+        holder.time.setText(time);
 
         return view;
     }

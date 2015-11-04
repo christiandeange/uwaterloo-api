@@ -23,7 +23,7 @@ public class MainApplication extends Application {
 
         // Set up Calligraphy library
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("Gotham-Book.otf")
+                        .setDefaultFontPath("fonts/Gotham-Book.otf")
                         .setFontAttrId(R.attr.fontPath)
                         .build());
     }
