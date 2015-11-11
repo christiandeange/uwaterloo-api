@@ -51,6 +51,7 @@
     <string name="title_weather">Weather</string>
     <string name="title_buildings">Buildings</string>
     <string name="title_courses">Courses</string>
+    <string name="title_resources_sites">Sites</string>
 
     <string name="foodservices_announcements_none">No Announcements :(</string>
     <string name="foodservices_location_hours">Hours</string>

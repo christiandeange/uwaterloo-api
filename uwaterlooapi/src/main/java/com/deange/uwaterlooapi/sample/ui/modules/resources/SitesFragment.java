@@ -1,0 +1,154 @@
+package com.deange.uwaterlooapi.sample.ui.modules.resources;
+
+import android.content.Context;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.SectionIndexer;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.deange.uwaterlooapi.annotations.ModuleFragment;
+import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.model.Metadata;
+import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.resources.Site;
+import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
+import com.deange.uwaterlooapi.sample.utils.IntentUtils;
+import com.deange.uwaterlooapi.sample.utils.ViewUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+@ModuleFragment(
+        path = "/resources/sites",
+        layout = R.layout.module_resources_sites
+)
+public class SitesFragment
+        extends BaseListModuleFragment<Response.Sites, Site>
+        implements
+        ModuleListItemListener {
+
+    private final List<Site> mResponse = new ArrayList<>();
+    private final Set<String> mSections = new TreeSet<>();
+    private String[] mSectionsArray;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_resources_sites;
+    }
+
+    @Override
+    public ModuleAdapter getAdapter() {
+        return new SiteAdapter(getActivity(), this);
+    }
+
+    @Override
+    public Response.Sites onLoadData(final UWaterlooApi api) {
+        return api.Resources.getSites();
+    }
+
+    @Override
+    public void onBindData(final Metadata metadata, final List<Site> data) {
+        mResponse.clear();
+        mResponse.addAll(data);
+
+        Collections.sort(mResponse, new Comparator<Site>() {
+            @Override
+            public int compare(final Site lhs, final Site rhs) {
+                return lhs.getName().compareTo(rhs.getName());
+            }
+        });
+
+        mSections.clear();
+        for (int i = 0; i < mResponse.size(); i++) {
+            mSections.add(getFirstCharOf(i));
+        }
+        mSectionsArray = mSections.toArray(new String[mSections.size()]);
+
+        getListView().setFastScrollEnabled(true);
+        getListView().setFastScrollAlwaysVisible(true);
+
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public final void onItemClicked(final int position) {
+        onSiteClicked(mResponse.get(position));
+    }
+
+    public void onSiteClicked(final Site site) {
+        IntentUtils.openBrowser(getActivity(), site.getUrl());
+    }
+
+    private String getFirstCharOf(final int position) {
+        return String.valueOf(mResponse.get(position).getName().charAt(0));
+    }
+
+    private class SiteAdapter
+            extends ModuleAdapter
+            implements
+            SectionIndexer {
+
+        public SiteAdapter(final Context context, final ModuleListItemListener listener) {
+            super(context, listener);
+        }
+
+        @Override
+        public View newView(final Context context, final int position, final ViewGroup parent) {
+            return LayoutInflater.from(context).inflate(R.layout.simple_two_line_card_item, parent, false);
+        }
+
+        @Override
+        public void bindView(final Context context, final int position, final View view) {
+            final Site site = getItem(position);
+            ((TextView) view.findViewById(android.R.id.text1)).setText(site.getName());
+            ((TextView) view.findViewById(android.R.id.text2)).setText(site.getUnitShortName());
+
+            final View selectableView = view.findViewById(R.id.selectable);
+            selectableView.setTag(position);
+            selectableView.setOnClickListener(this);
+        }
+
+        @Override
+        public int getCount() {
+            return mResponse.size();
+        }
+
+        @Override
+        public Site getItem(final int position) {
+            return mResponse.get(position);
+        }
+
+        @Override
+        public String[] getSections() {
+            return mSectionsArray;
+        }
+
+        @Override
+        public int getPositionForSection(final int sectionIndex) {
+            final String letter = getSections()[sectionIndex];
+
+            int first = 0;
+            while (first < mResponse.size() && !TextUtils.equals(getFirstCharOf(first), letter)) {
+                first++;
+            }
+
+            return first;
+        }
+
+        @Override
+        public int getSectionForPosition(final int position) {
+            return Arrays.asList(getSections()).indexOf(getFirstCharOf(position));
+        }
+    }
+}
