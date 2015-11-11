@@ -14,6 +14,7 @@ import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.Arrays;
@@ -33,7 +34,7 @@ public class ListBuildingsFragment
         View.OnClickListener {
 
     private List<Building> mResponse;
-    private Character[] mIndices;
+    private String[] mIndices;
 
     @Override
     public String getToolbarTitle() {
@@ -55,12 +56,12 @@ public class ListBuildingsFragment
             }
         });
 
-        final Set<Character> indices = new TreeSet<>();
+        final Set<String> indices = new TreeSet<>();
         for (final Building building : mResponse) {
-            indices.add(building.getBuildingName().charAt(0));
+            indices.add(String.valueOf(building.getBuildingName().charAt(0)));
         }
 
-        mIndices = indices.toArray(new Character[indices.size()]);
+        mIndices = indices.toArray(new String[indices.size()]);
 
         getListView().setFastScrollEnabled(true);
         getListView().setFastScrollAlwaysVisible(true);
@@ -79,7 +80,8 @@ public class ListBuildingsFragment
         showModule(BuildingFragment.class, BuildingFragment.newBundle(building));
     }
 
-    private final class BuildingsAdapter extends ModuleAdapter implements SectionIndexer {
+    private final class BuildingsAdapter
+            extends ModuleIndexedAdapter<String> {
 
         public BuildingsAdapter(final Context context) {
             super(context);
@@ -99,9 +101,9 @@ public class ListBuildingsFragment
             final TextView header = (TextView) view.findViewById(R.id.header_view);
             final TextView buildingName = (TextView) view.findViewById(android.R.id.text1);
 
-            final char firstLetter = getFirstCharOf(position);
-            if (position == 0 || getFirstCharOf(position - 1) != firstLetter) {
-                header.setText("" + firstLetter);
+            final String firstLetter = getFirstCharOf(position);
+            if (position == 0 || !firstLetter.equals(getFirstCharOf(position - 1))) {
+                header.setText(firstLetter);
             } else {
                 header.setText("");
             }
@@ -120,29 +122,12 @@ public class ListBuildingsFragment
         }
 
         @Override
-        public Character[] getSections() {
+        public String[] getSections() {
             return mIndices;
         }
 
-        @Override
-        public int getPositionForSection(final int sectionIndex) {
-            final Character letter = getSections()[sectionIndex];
-
-            int first = 0;
-            while (first < mResponse.size() && getFirstCharOf(first) != letter) {
-                first++;
-            }
-
-            return first;
-        }
-
-        @Override
-        public int getSectionForPosition(final int position) {
-            return Arrays.asList(getSections()).indexOf(getFirstCharOf(position));
-        }
-
-        public Character getFirstCharOf(final int position) {
-            return getItem(position).getBuildingName().charAt(0);
+        public String getFirstCharOf(final int position) {
+            return String.valueOf(getItem(position).getBuildingName().charAt(0));
         }
     }
 }

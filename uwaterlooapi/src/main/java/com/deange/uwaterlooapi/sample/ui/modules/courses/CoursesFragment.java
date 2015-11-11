@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.courses;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -74,7 +76,7 @@ public class CoursesFragment
 
     @Override
     public ModuleAdapter getAdapter() {
-        return new CourseAdapter(getActivity(), mResponse, this);
+        return new CourseAdapter(getActivity(), this);
     }
 
     @Override
@@ -135,5 +137,37 @@ public class CoursesFragment
     public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
         // Subject clicked from AutoCompleteTextView
         onRefreshRequested();
+    }
+
+    public class CourseAdapter
+            extends ModuleAdapter {
+
+        public CourseAdapter(final Context context, final ModuleListItemListener listener) {
+            super(context, listener);
+        }
+
+        @Override
+        public void bindView(final Context context, final int position, final View view) {
+            final Course course = getItem(position);
+            final String courseCode = course.getSubject() + " " + course.getCatalogNumber();
+
+            ((TextView) view.findViewById(android.R.id.text1)).setText(courseCode);
+            ((TextView) view.findViewById(android.R.id.text2)).setText(course.getTitle());
+        }
+
+        @Override
+        public int getCount() {
+            return mResponse.size();
+        }
+
+        @Override
+        public Course getItem(final int position) {
+            return mResponse.get(position);
+        }
+
+        @Override
+        public int getListItemLayoutId() {
+            return R.layout.simple_two_line_card_item;
+        }
     }
 }

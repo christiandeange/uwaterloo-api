@@ -16,6 +16,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.resources.Site;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
@@ -95,9 +96,7 @@ public class SitesFragment
     }
 
     private class SiteAdapter
-            extends ModuleAdapter
-            implements
-            SectionIndexer {
+            extends ModuleIndexedAdapter<String> {
 
         public SiteAdapter(final Context context, final ModuleListItemListener listener) {
             super(context, listener);
@@ -135,20 +134,9 @@ public class SitesFragment
         }
 
         @Override
-        public int getPositionForSection(final int sectionIndex) {
-            final String letter = getSections()[sectionIndex];
-
-            int first = 0;
-            while (first < mResponse.size() && !TextUtils.equals(getFirstCharOf(first), letter)) {
-                first++;
-            }
-
-            return first;
+        public String getFirstCharOf(final int position) {
+            return SitesFragment.this.getFirstCharOf(position);
         }
 
-        @Override
-        public int getSectionForPosition(final int position) {
-            return Arrays.asList(getSections()).indexOf(getFirstCharOf(position));
-        }
     }
 }
