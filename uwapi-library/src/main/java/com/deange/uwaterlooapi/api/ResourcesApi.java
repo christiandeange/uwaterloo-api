@@ -7,6 +7,12 @@ import retrofit.http.GET;
 public interface ResourcesApi {
 
     /**
+     * This method returns a list of all the sites on campus
+     */
+    @GET("/resources/sites.{format}")
+    public Response.Sites getSites();
+
+    /**
      * This method returns a list of all the tutors available to help for a course for a given term
      */
     @GET("/resources/tutors.{format}")

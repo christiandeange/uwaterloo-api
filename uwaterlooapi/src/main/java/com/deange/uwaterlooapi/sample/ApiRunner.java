@@ -113,6 +113,7 @@ public final class ApiRunner {
 
     private static void runResources(final UWaterlooApi api) {
 
+        final Response.Sites sites = api.Resources.getSites();
         final Response.Tutors tutors = api.Resources.getTutors();
         final Response.Printers printers = api.Resources.getPrinters();
         final Response.InfoSessions sessions = api.Resources.getInfoSessions();

@@ -22,6 +22,7 @@ import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.model.resources.GooseNest;
 import com.deange.uwaterlooapi.model.resources.Printer;
+import com.deange.uwaterlooapi.model.resources.Site;
 import com.deange.uwaterlooapi.model.resources.Tutor;
 import com.deange.uwaterlooapi.model.terms.InfoSession;
 import com.deange.uwaterlooapi.model.terms.TermInfo;
@@ -88,6 +89,8 @@ public final class Response {
     public static class InfoSessions extends SimpleListResponse<InfoSession> { }
 
     // RESOURCES
+
+    public static class Sites extends SimpleListResponse<Site> { }
 
     public static class Tutors extends SimpleListResponse<Tutor> { }
 
