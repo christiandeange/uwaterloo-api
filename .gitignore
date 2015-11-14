@@ -1,5 +1,5 @@
 # Android Studio files
-local.properties
+*.properties
 
 *.iml
 *.ipr

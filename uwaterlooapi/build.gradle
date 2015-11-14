@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.zeroturnaround.jrebel.android'
 
+Properties properties = new Properties()
+File propertiesFile = project.rootProject.file('developer.properties')
+if (!propertiesFile.exists()) {
+    throw new GradleException('developer.properties file cannot be found in root directory')
+}
+properties.load(propertiesFile.newDataInputStream())
+String apiKey = properties.getProperty('api.key')
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -11,6 +19,12 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+    }
+
+    buildTypes {
+        all {
+            buildConfigField 'String', 'UWATERLOO_API_KEY', '"' + apiKey + '"'
+        }
     }
 
     compileOptions {

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
@@ -26,7 +27,7 @@ public class ModuleHostActivity extends AppCompatActivity
     private static final String TAG = "module_fragment";
     private static final String ARG_FRAGMENT_CLASS = "fragment_class";
 
-    private final UWaterlooApi mApi = new UWaterlooApi("YOUR_API_KEY_HERE");
+    private final UWaterlooApi mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
     private BaseModuleFragment mChildFragment;
 
     public static <T extends BaseModuleFragment> Intent getStartIntent(final Context context,

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.ApiRunner;
+import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private String mTitle;
-    private UWaterlooApi mApi = new UWaterlooApi("YOUR_API_KEY_HERE");
+    private UWaterlooApi mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
     private Toolbar mToolbar;
 
     @Override
