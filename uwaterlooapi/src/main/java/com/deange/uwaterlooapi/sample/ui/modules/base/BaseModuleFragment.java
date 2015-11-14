@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -67,10 +68,14 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         setHasOptionsMenu(true);
     }
 
+    public ModuleHostActivity getHostActivity() {
+        return (ModuleHostActivity) getActivity();
+    }
+
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof ModuleHostActivity)) {
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        if (!(context instanceof ModuleHostActivity)) {
             throw new RuntimeException("Parent activity not an instance of ModuleHostActivity");
         }
     }
@@ -170,7 +175,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         ((ModuleHostActivity) getActivity()).showFragment(fragment, addToBackStack, arguments);
     }
 
-    public V getModel() {
+    public <M> M getModel() {
         return Parcels.unwrap(getArguments().getParcelable(KEY_MODEL));
     }
 
@@ -270,6 +275,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         return true;
     }
 
+    public long getLastUpdate() {
+        return mLastUpdate;
+    }
+
     public boolean isRefreshing() {
         return mTask != null;
     }
@@ -344,7 +353,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     public String getToolbarTitle() {
-        return getString(R.string.app_name);
+        return null;
     }
 
     public T onLoadData(final UWaterlooApi api) {

@@ -52,6 +52,7 @@
     <string name="title_buildings">Buildings</string>
     <string name="title_courses">Courses</string>
     <string name="title_resources_sites">Sites</string>
+    <string name="title_events">Events</string>
 
     <string name="foodservices_announcements_none">No Announcements :(</string>
     <string name="foodservices_location_hours">Hours</string>
@@ -98,6 +99,8 @@
         <item>Schedule</item>
         <item>Exams</item>
     </string-array>
+
+    <string name="event_audience">Open to %s</string>
 
     <!-- General -->
     <string name="and">and</string>

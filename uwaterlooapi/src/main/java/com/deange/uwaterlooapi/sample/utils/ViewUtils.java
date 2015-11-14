@@ -10,7 +10,7 @@ public final class ViewUtils {
         throw new AssertionError();
     }
 
-    public static void setText(final TextView view, final String text) {
+    public static void setText(final TextView view, final CharSequence text) {
         if (TextUtils.isEmpty(text)) {
             view.setVisibility(View.GONE);
         } else {

@@ -1,0 +1,100 @@
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <FrameLayout
+            android:id="@+id/event_banner_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary">
+
+        <ImageView
+                android:id="@+id/event_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="96dp"
+                android:importantForAccessibility="no"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+
+            <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:id="@+id/event_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                    style="@style/EventProperty"
+                    android:id="@+id/event_audience"
+                    android:drawableStart="@drawable/ic_people"/>
+
+            <TextView
+                    style="@style/EventProperty"
+                    android:id="@+id/event_cost"
+                    android:drawableStart="@drawable/ic_money"/>
+
+            <TextView
+                    style="@style/EventProperty"
+                    android:id="@+id/event_location"
+                    android:drawableStart="@drawable/ic_globe"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <Space
+                    android:id="@+id/event_spacer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                    android:id="@+id/event_scrollable_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:elevation="16dp"
+                    android:background="@color/background"
+                    android:orientation="vertical">
+
+                <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
+                        android:id="@+id/event_times"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:id="@+id/event_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textIsSelectable="true"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

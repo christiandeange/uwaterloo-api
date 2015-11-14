@@ -40,7 +40,7 @@ public class WatcardFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_foodservices_watcards;
+        return R.layout.fragment_simple_listview;
     }
 
     @Override

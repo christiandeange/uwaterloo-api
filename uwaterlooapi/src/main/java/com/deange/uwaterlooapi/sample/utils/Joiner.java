@@ -1,5 +1,7 @@
 package com.deange.uwaterlooapi.sample.utils;
 
+import android.text.TextUtils;
+
 import java.util.Collection;
 
 public class Joiner {
@@ -55,7 +57,9 @@ public class Joiner {
         } else {
             final StringBuilder sb = new StringBuilder(items[0]);
             for (int i = 1; i < items.length; i++) {
-                if (items.length == 2) {
+                if (!hasConjunct()) {
+                    sb.append(mDelimiter);
+                } else if (items.length == 2) {
                     sb.append(mConjunct);
                 } else if (i == items.length - 1) {
                     sb.append(mDelimiter);
@@ -70,6 +74,10 @@ public class Joiner {
             return sb.toString();
         }
 
+    }
+
+    private boolean hasConjunct() {
+        return !TextUtils.equals(mDelimiter, mConjunct) && !TextUtils.isEmpty(mConjunct);
     }
 
 }

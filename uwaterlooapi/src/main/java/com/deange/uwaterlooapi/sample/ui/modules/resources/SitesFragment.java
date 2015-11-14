@@ -45,7 +45,7 @@ public class SitesFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_resources_sites;
+        return R.layout.fragment_simple_listview;
     }
 
     @Override
@@ -112,10 +112,6 @@ public class SitesFragment
             final Site site = getItem(position);
             ((TextView) view.findViewById(android.R.id.text1)).setText(site.getName());
             ((TextView) view.findViewById(android.R.id.text2)).setText(site.getUnitShortName());
-
-            final View selectableView = view.findViewById(R.id.selectable);
-            selectableView.setTag(position);
-            selectableView.setOnClickListener(this);
         }
 
         @Override

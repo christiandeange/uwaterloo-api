@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -51,10 +53,19 @@ public class ModuleHostActivity extends AppCompatActivity
     }
 
     @Override
+    public void startActivityForResult(final Intent intent, final int requestCode, final Bundle options) {
+        try {
+            super.startActivityForResult(intent, requestCode, options);
+        } catch (final ActivityNotFoundException e) {
+            Log.e(TAG, "No Activity found to handle Intent", e);
+        }
+    }
+
+    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_module_host);
+        setContentView(R.layout.activity_module_host_simple);
         setSupportActionBar(getToolbar());
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 

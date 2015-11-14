@@ -12,7 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 @Parcel
-public class Event extends BaseModel {
+public class Event extends BaseModel
+        implements Comparable<Event> {
 
     @SerializedName("id")
     int mId;
@@ -99,5 +100,41 @@ public class Event extends BaseModel {
      */
     public String getRawLastUpdatedDate() {
         return mUpdated;
+    }
+
+    @Override
+    public int compareTo(final Event another) {
+        final Date now = new Date();
+        return getNext(mTimes, now).compareTo(getNext(another.mTimes, now));
+    }
+
+    public static Date getNext(final List<DateRange> ranges, final Date now) {
+        if (ranges == null || ranges.isEmpty()) {
+            return new Date(0);
+        }
+
+        // Get the next one after now
+        Date earliest = null;
+        for (int i = 0; i < ranges.size(); i++) {
+            Date compare = ranges.get(i).getStart();
+            if (compare.after(now) && (earliest == null || compare.before(earliest))) {
+                earliest = compare;
+            }
+        }
+
+        if (earliest != null) {
+            return earliest;
+        }
+
+        // Get the last one at all
+        Date latest = ranges.get(0).getStart();
+        for (int i = 1; i < ranges.size(); i++) {
+            Date compare = ranges.get(i).getStart();
+            if (!compare.before(latest)) {
+                latest = compare;
+            }
+        }
+
+        return latest;
     }
 }

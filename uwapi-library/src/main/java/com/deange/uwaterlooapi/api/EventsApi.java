@@ -27,6 +27,6 @@ public interface EventsApi {
      * @param id Valid event id
      */
     @GET("/events/{site}/{id}.{format}")
-    public Response.EventDetails getEvents(@Path("site") String site, @Path("id") int id);
+    public Response.EventDetails getEvent(@Path("site") String site, @Path("id") int id);
 
 }

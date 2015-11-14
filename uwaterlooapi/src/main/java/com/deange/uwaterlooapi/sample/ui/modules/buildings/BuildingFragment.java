@@ -101,11 +101,6 @@ public class BuildingFragment
         startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding));
     }
 
-    @Override
-    public String getToolbarTitle() {
-        return getString(R.string.api_buildings);
-    }
-
     private final class UpdateMapTask extends AsyncTask<Void, Void, Integer> {
 
         @Override

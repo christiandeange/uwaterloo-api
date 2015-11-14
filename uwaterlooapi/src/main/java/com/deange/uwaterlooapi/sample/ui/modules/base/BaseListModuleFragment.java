@@ -42,7 +42,7 @@ public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V 
     }
 
     protected int getLayoutId() {
-        return R.layout.fragment_base_list;
+        return R.layout.fragment_simple_listview;
     }
 
     public ListView getListView() {
