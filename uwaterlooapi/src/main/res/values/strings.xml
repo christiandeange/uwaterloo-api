@@ -101,7 +101,8 @@
         <item>Exams</item>
     </string-array>
 
-    <string name="event_audience">Open to %s</string>
+    <string name="event_news_audience">Open to %s</string>
+    <string name="news_published">Published on %s</string>
 
     <!-- General -->
     <string name="and">and</string>

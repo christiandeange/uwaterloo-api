@@ -69,6 +69,8 @@ public class NewsListFragment
     @Override
     public void onItemClicked(final int position) {
         final NewsDetails news = mResponse.get(position);
+
+        showModule(NewsFragment.class, NewsFragment.newBundle(news));
     }
 
     private class NewsAdapter

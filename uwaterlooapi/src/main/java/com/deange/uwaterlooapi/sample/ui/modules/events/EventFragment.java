@@ -9,11 +9,9 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -27,7 +25,6 @@ import com.deange.uwaterlooapi.model.events.EventLocation;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
-import com.deange.uwaterlooapi.sample.ui.view.WrapContentListView;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
@@ -121,7 +118,7 @@ public class EventFragment
         mDescriptionView.setText(Html.fromHtml(mEventInfo.getDescription()).toString());
 
         final String audience = !mEventInfo.getAudience().isEmpty()
-                ? getString(R.string.event_audience, Joiner.on(", ").join(data.getAudience()))
+                ? getString(R.string.event_news_audience, Joiner.on(", ").join(data.getAudience()))
                 : null;
 
         final String cost = mEventInfo.getCost();

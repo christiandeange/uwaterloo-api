@@ -5,13 +5,13 @@
         android:orientation="vertical">
 
     <FrameLayout
-            android:id="@+id/event_banner_root"
+            android:id="@+id/news_banner_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorPrimary">
 
         <ImageView
-                android:id="@+id/event_image"
+                android:id="@+id/news_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAccessibility="no"
@@ -28,7 +28,7 @@
 
             <TextView
                     style="@style/TextAppearance.AppCompat.Title"
-                    android:id="@+id/event_title"
+                    android:id="@+id/news_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -36,18 +36,8 @@
 
             <TextView
                     style="@style/EventProperty"
-                    android:id="@+id/event_audience"
+                    android:id="@+id/news_audience"
                     android:drawableStart="@drawable/ic_people"/>
-
-            <TextView
-                    style="@style/EventProperty"
-                    android:id="@+id/event_cost"
-                    android:drawableStart="@drawable/ic_money"/>
-
-            <TextView
-                    style="@style/EventProperty"
-                    android:id="@+id/event_location"
-                    android:drawableStart="@drawable/ic_globe"/>
 
         </LinearLayout>
 
@@ -64,12 +54,12 @@
                 android:orientation="vertical">
 
             <Space
-                    android:id="@+id/event_spacer"
+                    android:id="@+id/news_spacer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <LinearLayout
-                    android:id="@+id/event_scrollable_content"
+                    android:id="@+id/news_scrollable_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/background"
@@ -77,16 +67,18 @@
                     android:paddingTop="16dp"
                     android:orientation="vertical">
 
-                <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
-                        android:id="@+id/event_times"
+                <TextView
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:id="@+id/news_published"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginStart="16dp"/>
+                        android:gravity="center_vertical|end"/>
 
                 <TextView
                         style="@style/TextAppearance.AppCompat.Body1"
-                        android:id="@+id/event_description"
+                        android:id="@+id/news_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
@@ -94,7 +86,7 @@
                         android:textIsSelectable="true"/>
 
                 <LinearLayout
-                        android:id="@+id/event_open_in_browser_root"
+                        android:id="@+id/news_open_in_browser_root"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="bottom"
@@ -110,7 +102,7 @@
 
                     <Button
                             style="@style/Widget.AppCompat.Button.Borderless"
-                            android:id="@+id/event_open_in_browser"
+                            android:id="@+id/news_open_in_browser"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?selectableItemBackground"
@@ -122,6 +114,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 </FrameLayout>
