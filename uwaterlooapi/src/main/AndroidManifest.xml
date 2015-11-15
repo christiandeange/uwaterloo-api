@@ -46,7 +46,7 @@
 
         <activity
                 android:name=".ui.MapActivity"
-                android:theme="@style/AppTheme.DialogWhenLarge"/>
+                android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

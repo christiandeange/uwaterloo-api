@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:background="@color/uw_yellow"
+            android:background="?colorPrimary"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true">
 

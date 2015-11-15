@@ -117,7 +117,7 @@ public class EventFragment
 
         SpannableString locationText = null;
         final EventLocation location = data.getLocation();
-        if (location != null) {
+        if (location != null && !TextUtils.isEmpty(location.getName())) {
             mLocationView.setVisibility(View.VISIBLE);
             mLocationView.setMovementMethod(LinkMovementMethod.getInstance());
 
