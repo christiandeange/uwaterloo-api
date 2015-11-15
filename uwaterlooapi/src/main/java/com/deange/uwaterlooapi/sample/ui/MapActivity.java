@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -28,7 +28,10 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends FragmentActivity implements AdapterView.OnItemSelectedListener {
+public class MapActivity
+        extends AppCompatActivity
+        implements
+        AdapterView.OnItemSelectedListener {
 
     private static final String TAG = MapActivity.class.getSimpleName();
     private static final String KEY_BUILDING = "building";

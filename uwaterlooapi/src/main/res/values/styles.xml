@@ -7,13 +7,6 @@
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
-        <item name="colorPrimary">?android:colorPrimary</item>
-        <item name="colorPrimaryDark">?android:colorPrimaryDark</item>
-        <item name="colorAccent">?android:colorAccent</item>
-        <item name="colorControlNormal">?android:colorControlNormal</item>
-        <item name="colorControlHighlight">?android:colorControlHighlight</item>
-        <item name="colorControlActivated">?android:colorControlActivated</item>
     </style>
 
     <style name="AppTheme" parent="AppCommon">
