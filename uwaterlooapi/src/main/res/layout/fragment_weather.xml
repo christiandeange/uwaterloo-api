@@ -3,11 +3,12 @@
 <com.nirhart.parallaxscroll.views.ParallaxScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/weather_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:background="#FFFFFF"
+        android:fillViewport="true"
         app:alpha_factor="1"
         app:parallax_factor="1.2">
 
@@ -18,7 +19,8 @@
         <ImageView
                 android:id="@+id/weather_background"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"/>
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -29,65 +31,67 @@
                     android:id="@+id/weather_slider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:sliceOffset="4dp"
-                    app:sliceHeight="64dp">
+                    app:sliceHeight="128dp">
 
                 <com.deange.uwaterlooapi.sample.ui.view.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                    <RelativeLayout
+                    <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             android:padding="8dp">
 
                         <com.deange.uwaterlooapi.sample.ui.view.AutoScaleTextView
                                 android:id="@+id/weather_temperature"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="32dp"
-                                android:includeFontPadding="false"
+                                android:layout_marginBottom="32dp"
+                                android:layout_marginStart="32dp"
+                                android:layout_marginTop="64dp"
                                 android:fontFamily="@string/sans_serif_thin"
+                                android:includeFontPadding="false"
+                                app:maxTextSize="200sp"
                                 app:scaleFactor="50%"
-                                app:maxTextSize="200sp"/>
+                                fontPath="@string/font_light"/>
 
                         <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="32dp"
-                                android:layout_below="@id/weather_temperature">
+                                android:layout_marginBottom="32dp">
 
                             <LinearLayout
                                     android:id="@+id/weather_range_parent"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="center_vertical">
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
 
                                 <TextView
                                         android:id="@+id/weather_min_temp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0"
+                                        android:fontFamily="sans-serif-light"
                                         android:gravity="center_vertical"
-                                        android:textSize="14sp"
-                                        android:fontFamily="sans-serif-light"/>
+                                        android:textSize="14sp"/>
 
                                 <com.deange.uwaterlooapi.sample.ui.view.RangeView
                                         android:id="@+id/weather_temperature_range"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:layout_margin="4dp"/>
+                                        android:layout_height="24dp"
+                                        android:layout_margin="4dp"
+                                        android:layout_weight="1"/>
 
                                 <TextView
                                         android:id="@+id/weather_max_temp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0"
+                                        android:fontFamily="sans-serif-light"
                                         android:gravity="center_vertical"
-                                        android:textSize="14sp"
-                                        android:fontFamily="sans-serif-light"/>
+                                        android:textSize="14sp"/>
 
                             </LinearLayout>
 
@@ -95,33 +99,78 @@
                                     android:id="@+id/weather_min_temp_label"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
                                     android:layout_alignParentStart="true"
                                     android:layout_below="@id/weather_range_parent"
                                     android:layout_marginTop="4dp"
+                                    android:fontFamily="sans-serif-light"
                                     android:gravity="center_vertical"
                                     android:text="@string/weather_range_low"
                                     android:textAllCaps="true"
-                                    android:textSize="14sp"
-                                    android:fontFamily="sans-serif-light"/>
+                                    android:textSize="14sp"/>
 
                             <TextView
                                     android:id="@+id/weather_max_temp_label"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
                                     android:layout_below="@id/weather_range_parent"
                                     android:layout_marginTop="4dp"
+                                    android:fontFamily="sans-serif-light"
                                     android:gravity="center_vertical"
                                     android:text="@string/weather_range_high"
                                     android:textAllCaps="true"
-                                    android:textSize="14sp"
+                                    android:textSize="14sp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="16dp"
+                                android:clipChildren="false">
+
+                            <RelativeLayout
+                                    android:id="@+id/weather_wind_direction_root"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@drawable/circle_stroke_black">
+
+                                <ImageView
+                                        android:id="@+id/weather_wind_direction"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:layout_margin="8dp"
+                                        android:src="@drawable/ic_arrow_up"/>
+
+                                <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="-5dp"
+                                        android:paddingStart="2dp"
+                                        android:paddingEnd="2dp"
+                                        android:background="#FAFAFA"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="10sp"
+                                        android:text="N"
+                                        tools:ignore="SmallSp"/>
+
+                            </RelativeLayout>
+
+                            <TextView
+                                    style="@style/TextAppearance.AppCompat.Large"
+                                    android:id="@+id/weather_wind_speed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toEndOf="@id/weather_wind_direction_root"
+                                    android:layout_centerVertical="true"
                                     android:fontFamily="sans-serif-light"/>
 
                         </RelativeLayout>
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
@@ -130,26 +179,23 @@
             <com.deange.uwaterlooapi.sample.ui.view.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_below="@id/weather_slider">
+                    android:layout_below="@id/weather_slider"
+                    android:layout_marginTop="8dp">
 
-                <RelativeLayout
+                <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                     <TextView
+                            style="@style/TextAppearance.AppCompat.Caption"
                             android:id="@+id/weather_last_updated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="center_vertical|end"
                             android:padding="8dp"
-                            android:textSize="12sp"
-                            android:textStyle="italic"
-                            android:fontFamily="sans-serif-light"/>
+                            android:textStyle="italic"/>
 
-                </RelativeLayout>
+                </FrameLayout>
 
             </com.deange.uwaterlooapi.sample.ui.view.CardView>
 

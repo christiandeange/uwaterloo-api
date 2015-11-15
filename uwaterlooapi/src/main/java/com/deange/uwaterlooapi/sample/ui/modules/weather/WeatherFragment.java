@@ -7,16 +7,16 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
@@ -35,6 +35,9 @@ import com.squareup.picasso.Picasso;
 import java.util.HashSet;
 import java.util.Set;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ModuleFragment(
         path = "/weather/current",
         layout = R.layout.module_weather
@@ -43,39 +46,37 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
         implements ViewTreeObserver.OnScrollChangedListener {
 
     private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
+    private static final String[] DIRECTIONS = {
+            "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N",
+    };
+    private static final float MAX_BEARING_TOLERANCE = 25f;
 
     private final Set<View> mViewsSeen = new HashSet<>();
     private final Rect mRect = new Rect();
 
-    SliceView mSliceView;
-    ImageView mBackground;
-    ParallaxScrollView mScrollView;
+    @Bind(R.id.weather_scrollview) ParallaxScrollView mScrollView;
+    @Bind(R.id.weather_slider) SliceView mSliceView;
+    @Bind(R.id.weather_background) ImageView mBackground;
+    @Bind(R.id.weather_temperature) TextView mTemperatureView;
+    @Bind(R.id.weather_temperature_range) RangeView mRangeView;
+    @Bind(R.id.weather_min_temp) TextView mMinTempView;
+    @Bind(R.id.weather_max_temp) TextView mMaxTempView;
 
-    TextView mTemperatureView;
-    TextView mMinTempView;
-    TextView mMaxTempView;
-    RangeView mRangeView;
-    TextView mLastUpdated;
+    @Bind(R.id.weather_wind_direction_root) View mWindDirectionRoot;
+    @Bind(R.id.weather_wind_direction) View mWindDirectionView;
+    @Bind(R.id.weather_wind_speed) TextView mWindSpeedView;
+
+    @Bind(R.id.weather_last_updated) TextView mLastUpdated;
 
     private WeatherReading mLastReading;
+    private ValueAnimator mWindTextAnimation;
+    private ValueAnimator mWindSpeedAnimation;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_weather, null);
 
-        mScrollView = (ParallaxScrollView) root.findViewById(R.id.weather_scrollview);
-        mSliceView = (SliceView) root.findViewById(R.id.weather_slider);
-        mBackground = (ImageView) root.findViewById(R.id.weather_background);
-
-        mTemperatureView = (TextView) root.findViewById(R.id.weather_temperature);
-        mRangeView = (RangeView) root.findViewById(R.id.weather_temperature_range);
-        mMinTempView = (TextView) root.findViewById(R.id.weather_min_temp);
-        mMaxTempView = (TextView) root.findViewById(R.id.weather_max_temp);
-        mLastUpdated = (TextView) root.findViewById(R.id.weather_last_updated);
-
-        final int thumbDiameter = mRangeView.getThumbRadius() * 2;
-        mMinTempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, thumbDiameter * 2);
-        mMaxTempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, thumbDiameter * 2);
+        ButterKnife.bind(this, root);
 
         mScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
 
@@ -106,6 +107,20 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (mWindTextAnimation != null) {
+            mWindTextAnimation.cancel();
+        }
+        if (mWindSpeedAnimation != null) {
+            mWindSpeedAnimation.cancel();
+        }
+
+        ButterKnife.unbind(this);
+    }
+
+    @Override
     public Response.Weather onLoadData(final UWaterlooApi api) {
         return api.Weather.getWeather();
     }
@@ -114,19 +129,71 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
     public void onBindData(final Metadata metadata, final WeatherReading data) {
         mLastReading = data;
 
-        mTemperatureView.setText(formatTemperature(data.getTemperature(), 0) + "˚");
+        mTemperatureView.setText(formatTemperature(data.getTemperature(), 0));
 
         mRangeView.setMin(data.getTemperature24hMin());
         mRangeView.setMax(data.getTemperature24hMax());
-        mRangeView.setThumbShown(false);    // So that we can animate it once shown
 
-        mMinTempView.setText(formatTemperature(data.getTemperature24hMin(), 1) + "˚");
-        mMaxTempView.setText(formatTemperature(data.getTemperature24hMax(), 1) + "˚");
+        mMinTempView.setText(formatTemperature(data.getTemperature24hMin(), 1));
+        mMaxTempView.setText(formatTemperature(data.getTemperature24hMax(), 1));
 
         mLastUpdated.setText(
                 getString(R.string.weather_last_updated,
                         DateUtils.formatDateTime(data.getObservationTime())));
 
+        final String direction = formatBearing(data.getWindDirection());
+        final String windSpeed = "  " + data.getWindSpeed() + " kph " + direction + "  ";
+        mWindSpeedView.setText(windSpeed);
+
+
+        final float windSpeedMax = -(Math.min(data.getWindSpeed(), 50f) / 100);
+        final float windSpeedMin = windSpeedMax / 5f;
+
+        if (mWindTextAnimation != null) {
+            mWindTextAnimation.cancel();
+        }
+        mWindTextAnimation = ValueAnimator.ofFloat(windSpeedMin, windSpeedMax);
+        mWindTextAnimation.setDuration(1000);
+        mWindTextAnimation.setInterpolator(new BounceInterpolator());
+        mWindTextAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        mWindTextAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        mWindTextAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(final ValueAnimator animation) {
+                final float value = (float) animation.getAnimatedValue();
+                if (mWindSpeedView != null) {
+                    mWindSpeedView.getPaint().setTextSkewX(value);
+                    mWindSpeedView.getPaint().setTextScaleX(1 + Math.abs(value));
+                    mWindSpeedView.invalidate();
+                }
+            }
+        });
+        mWindTextAnimation.start();
+
+        final float cappedTolerance = Math.min(data.getWindSpeed(), MAX_BEARING_TOLERANCE);
+        final float minDegrees = data.getWindDirection() - cappedTolerance;
+        final float maxDegrees = data.getWindDirection() + cappedTolerance;
+
+        if (mWindSpeedAnimation != null) {
+            mWindSpeedAnimation.cancel();
+        }
+        mWindSpeedAnimation = ValueAnimator.ofFloat(minDegrees, maxDegrees);
+        mWindSpeedAnimation.setDuration(1000);
+        mWindSpeedAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        mWindSpeedAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        mWindSpeedAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        mWindSpeedAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(final ValueAnimator animation) {
+                final float value = (float) animation.getAnimatedValue();
+                if (mWindDirectionView != null) {
+                    mWindDirectionView.setPivotX(mWindDirectionView.getMeasuredWidth() / 2f);
+                    mWindDirectionView.setPivotY(mWindDirectionView.getMeasuredHeight() / 2f);
+                    mWindDirectionView.setRotation(value);
+                }
+            }
+        });
+        mWindSpeedAnimation.start();
     }
 
     @Override
@@ -136,11 +203,15 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
     }
 
     private String formatTemperature(final float temp, final int decimals) {
-        return String.format("%." + decimals + "f", temp);
+        return String.format("%." + decimals + "f˚", temp);
+    }
+
+    private String formatBearing(final float bearing) {
+        final float normalizedBearing = (bearing % 360f) + 360f;
+        return DIRECTIONS[(int) Math.floor(((normalizedBearing + 22.5f) % 360) / 45)];
     }
 
     private void animateTemperatureRange() {
-
         if (mLastReading == null) return;
 
         final ValueAnimator animator = ValueAnimator.ofFloat(
@@ -158,13 +229,13 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
             }
         });
 
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
-        animator.setDuration(500);
+        animator.setInterpolator(new FastOutSlowInInterpolator());
+        animator.setDuration(1000);
         animator.start();
     }
 
     private void resizeTemperatureView() {
-        // Places the temperature view programatically
+        // Places the temperature view programmatically
         final ViewGroup sliceParent = ((ViewGroup) mSliceView.getParent());
         final ViewGroup.MarginLayoutParams temperatureParams =
                 (ViewGroup.MarginLayoutParams) mTemperatureView.getLayoutParams();

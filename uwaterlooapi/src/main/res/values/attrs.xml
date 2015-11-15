@@ -18,6 +18,11 @@
         <attr name="layout_collapsedHeight" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="RangeView">
+        <attr name="startColour" format="color"/>
+        <attr name="endColour" format="color"/>
+    </declare-styleable>
+
     <attr name="propertyLayoutStyle" type="reference" />
 
     <item type="id" name="view_location_hours_day" />

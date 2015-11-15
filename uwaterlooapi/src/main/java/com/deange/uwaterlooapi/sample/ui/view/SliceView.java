@@ -65,7 +65,9 @@ public class SliceView extends RelativeLayout {
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void getOutline(final View view, final Outline outline) {
-                    outline.setConvexPath(mPath);
+                    if (mPath.isConvex()) {
+                        outline.setConvexPath(mPath);
+                    }
                 }
             });
         }
