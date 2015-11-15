@@ -9,7 +9,10 @@ import org.parceler.Parcel;
 import java.util.Date;
 
 @Parcel
-public class NewsDetails extends BaseModel {
+public class NewsDetails
+        extends BaseModel
+        implements
+        Comparable<NewsDetails> {
 
     @SerializedName("id")
     int mId;
@@ -83,5 +86,10 @@ public class NewsDetails extends BaseModel {
      */
     public String getRawUpdatedDate() {
         return mUpdated;
+    }
+
+    @Override
+    public int compareTo(final NewsDetails another) {
+        return getPublishedDate().compareTo(another.getPublishedDate());
     }
 }
