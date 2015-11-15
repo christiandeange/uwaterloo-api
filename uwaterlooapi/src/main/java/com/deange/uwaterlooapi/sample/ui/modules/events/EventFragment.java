@@ -9,6 +9,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,11 +38,13 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 @ModuleFragment(path = "/events/*/*")
 public class EventFragment
         extends BaseModuleFragment<Response.EventDetails, EventInfo> {
 
+    private EventInfo mEventInfo;
     private View mRoot;
 
     @Bind(R.id.event_title) TextView mTitleView;
@@ -54,6 +57,7 @@ public class EventFragment
     @Bind(R.id.event_spacer) View mSpacer;
     @Bind(R.id.event_times) ListView mTimesListView;
     @Bind(R.id.event_description) TextView mDescriptionView;
+    @Bind(R.id.event_open_in_browser_root) View mBrowserRoot;
 
     @Override
     protected View getContentView(
@@ -97,6 +101,11 @@ public class EventFragment
         ButterKnife.unbind(this);
     }
 
+    @OnClick(R.id.event_open_in_browser)
+    public void onOpenInBrowserClicked() {
+        IntentUtils.openBrowser(getActivity(), mEventInfo.getLink());
+    }
+
     @Override
     public Response.EventDetails onLoadData(final UWaterlooApi api) {
         final Event event = getModel();
@@ -106,17 +115,19 @@ public class EventFragment
 
     @Override
     public void onBindData(final Metadata metadata, final EventInfo data) {
-        mTitleView.setText(Html.fromHtml(data.getTitle()).toString());
-        mDescriptionView.setText(Html.fromHtml(data.getDescription()).toString());
+        mEventInfo = data;
 
-        final String audience = !data.getAudience().isEmpty()
+        mTitleView.setText(Html.fromHtml(mEventInfo.getTitle()).toString());
+        mDescriptionView.setText(Html.fromHtml(mEventInfo.getDescription()).toString());
+
+        final String audience = !mEventInfo.getAudience().isEmpty()
                 ? getString(R.string.event_audience, Joiner.on(", ").join(data.getAudience()))
                 : null;
 
-        final String cost = data.getCost();
+        final String cost = mEventInfo.getCost();
 
         SpannableString locationText = null;
-        final EventLocation location = data.getLocation();
+        final EventLocation location = mEventInfo.getLocation();
         if (location != null && !TextUtils.isEmpty(location.getName())) {
             mLocationView.setVisibility(View.VISIBLE);
             mLocationView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -132,7 +143,7 @@ public class EventFragment
         ViewUtils.setText(mCostView, cost);
         ViewUtils.setText(mLocationView, locationText);
 
-        final Image image = data.getImage();
+        final Image image = mEventInfo.getImage();
         final String url = (image != null) ? image.getUrl() : null;
 
         if (url == null) {
@@ -143,7 +154,12 @@ public class EventFragment
             Picasso.with(getActivity()).load(url).into(mImageBanner);
         }
 
-        mTimesListView.setAdapter(new TimesAdapter(getContext(), data.getTimes()));
+        mTimesListView.setAdapter(new TimesAdapter(getContext(), mEventInfo.getTimes()));
+
+        mBrowserRoot.setVisibility((mEventInfo != null && !TextUtils.isEmpty(mEventInfo.getLink()))
+                ? View.VISIBLE
+                : View.GONE
+        );
     }
 
     private static class TimesAdapter extends ModuleAdapter {

@@ -53,6 +53,6 @@ dependencies {
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile 'com.squareup.picasso:picasso:2.3.4'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'net.danlew:android.joda:2.8.1'
+    compile 'net.danlew:android.joda:2.9.0'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 }

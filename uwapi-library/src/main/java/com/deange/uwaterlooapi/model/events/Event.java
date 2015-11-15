@@ -108,6 +108,10 @@ public class Event extends BaseModel
         return getNext(mTimes, now).compareTo(getNext(another.mTimes, now));
     }
 
+    public static Date getNext(final List<DateRange> ranges) {
+        return getNext(ranges, new Date());
+    }
+
     public static Date getNext(final List<DateRange> ranges, final Date now) {
         if (ranges == null || ranges.isEmpty()) {
             return new Date(0);

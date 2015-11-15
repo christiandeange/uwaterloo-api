@@ -104,5 +104,23 @@
 
     <!-- General -->
     <string name="and">and</string>
+    <string name="open_in_browser">Open in browser</string>
+
+    <!-- Durations -->
+    <string name="duration_instant">Right now</string>
+    <string name="duration_until">In</string>
+    <string name="duration_ago">ago</string>
+    <plurals name="duration_days">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+    <plurals name="duration_hours">
+        <item quantity="one">hour</item>
+        <item quantity="other">hours</item>
+    </plurals>
+    <plurals name="duration_minutes">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
 
 </resources>

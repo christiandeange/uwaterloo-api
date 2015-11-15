@@ -14,7 +14,7 @@
                 android:id="@+id/selectable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:background="?selectableItemBackground"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -25,15 +25,26 @@
                     android:fontFamily="sans-serif-light"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    tools:text="Entry Title"/>
+                    tools:text="Smokehouse Week"/>
 
             <TextView
                     android:id="@android:id/text2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="Second Element"/>
+                    android:textAppearance="?android:textAppearanceSmall"
+                    tools:text="UW Food Services"/>
+
+            <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:id="@android:id/summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:drawableEnd="@drawable/ic_clock"
+                    android:drawablePadding="8dp"
+                    android:gravity="end"
+                    tools:text="In 1 hour"/>
 
         </LinearLayout>
 

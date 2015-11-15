@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MainApplication extends Application {
@@ -26,5 +28,8 @@ public class MainApplication extends Application {
                         .setDefaultFontPath("fonts/Gotham-Book.otf")
                         .setFontAttrId(R.attr.fontPath)
                         .build());
+
+        // Joda Time config
+        JodaTimeAndroid.init(this);
     }
 }

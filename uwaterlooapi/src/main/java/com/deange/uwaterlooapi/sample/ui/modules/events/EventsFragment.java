@@ -16,6 +16,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
+import com.deange.uwaterlooapi.sample.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,7 +102,7 @@ public class EventsFragment
 
         @Override
         public View newView(final Context context, final int position, final ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.simple_two_line_card_item, parent, false);
+            return LayoutInflater.from(context).inflate(R.layout.list_item_event, parent, false);
         }
 
         @Override
@@ -110,9 +111,11 @@ public class EventsFragment
 
             final String title = Html.fromHtml(event.getTitle()).toString();
             final String siteName = Html.fromHtml(event.getSiteName()).toString();
+            final String date = DateUtils.getTimeDifference(getResources(), Event.getNext(event.getTimes()).getTime());
 
             ((TextView) view.findViewById(android.R.id.text1)).setText(title);
             ((TextView) view.findViewById(android.R.id.text2)).setText(siteName);
+            ((TextView) view.findViewById(android.R.id.summary)).setText(date);
 
             view.setAlpha((Event.getNext(event.getTimes(), mNow).before(mNow)) ? 0.5f : 1.0f);
         }
