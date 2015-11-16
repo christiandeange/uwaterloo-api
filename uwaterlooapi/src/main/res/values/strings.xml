@@ -17,10 +17,7 @@
     <string name="api_resources">Resources</string>
     <string name="api_buildings">Buildings</string>
 
-    <string name="building_building_id">Building ID</string>
-    <string name="building_building_code">Building Code</string>
-    <string name="building_alternate_names">Alternate Names</string>
-    <string name="building_alternate_sections">Building Sections</string>
+    <string name="building_no_location_data">No location data for this building</string>
 
     <string name="weather_range_low">Low</string>
     <string name="weather_range_high">High</string>
@@ -109,5 +106,34 @@
         <item quantity="one">minute</item>
         <item quantity="other">minutes</item>
     </plurals>
+
+    <!-- Greetings -->
+    <string name="greeting_morning">Good morning!</string>
+    <array name="subgreetings_morning">
+        <item>Have a great day!</item>
+        <item>You\'re looking fabulous!</item>
+        <item>Hope your day is great!</item>
+    </array>
+
+    <string name="greeting_afternoon">Good afternoon!</string>
+    <array name="subgreetings_afternoon">
+        <item>Hope you\'re having a great day!</item>
+        <item>You\'re still looking fabulous!</item>
+        <item>Hang in there! The semester is almost over!</item>
+    </array>
+
+    <string name="greeting_evening">Good evening!</string>
+    <array name="subgreetings_evening">
+        <item>Hope you had a great day!</item>
+        <item>You looked fabulous!</item>
+        <item>Don\'t stay up too late!</item>
+    </array>
+
+    <string name="greeting_night">Good night!</string>
+    <array name="subgreetings_night">
+        <item>Hope you had a wonderful day!</item>
+        <item>Stay gold, pony boy.</item>
+        <item>Burning the midnight oil?</item>
+    </array>
 
 </resources>

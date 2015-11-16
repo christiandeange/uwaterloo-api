@@ -1,58 +1,42 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.modules.buildings.BuildingFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ui.modules.buildings.BuildingFragment">
 
     <TextView
             android:id="@+id/building_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorPrimary"
+            android:fontFamily="sans-serif-light"
             android:gravity="end"
+            android:paddingBottom="32dp"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:paddingBottom="32dp"
-            android:textSize="24sp"
-            android:fontFamily="sans-serif-light"/>
+            android:textSize="24sp"/>
 
-    <ScrollView
-            android:id="@+id/building_scrollview_parent"
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
 
-        <LinearLayout
-                android:id="@+id/property_parent"
-                android:layout_width="match_parent"
+        <TextView
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:id="@+id/building_empty_view"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:orientation="vertical">
+                android:layout_margin="16dp"
+                android:layout_centerInParent="true"
+                android:text="@string/building_no_location_data"/>
 
-            <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
-                    style="@style/PropertyLayout"
-                    android:id="@+id/building_id"
-                    android:tag="@string/building_building_id"/>
+        <com.google.android.gms.maps.MapView
+                android:id="@+id/building_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:transitionName="map"/>
 
-            <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
-                    style="@style/PropertyLayout"
-                    android:id="@+id/building_code"
-                    android:tag="@string/building_building_code"/>
+    </RelativeLayout>
 
-            <com.deange.uwaterlooapi.sample.ui.view.SimplePropertyLayout
-                    style="@style/PropertyLayout"
-                    android:id="@+id/building_alternate_names"
-                    android:tag="@string/building_alternate_names"/>
-
-            <FrameLayout
-                    android:id="@+id/building_map"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="16dp"/>
-
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

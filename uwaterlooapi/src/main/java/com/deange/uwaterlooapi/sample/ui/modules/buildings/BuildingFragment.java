@@ -1,10 +1,8 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 
-import android.os.AsyncTask;
+import android.app.ActivityOptions;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +15,11 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.MapActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
-import com.deange.uwaterlooapi.sample.ui.view.PropertyLayout;
-import com.deange.uwaterlooapi.sample.utils.Joiner;
+import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
 @ModuleFragment(path = "/buildings/*")
@@ -33,26 +30,26 @@ public class BuildingFragment
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
 
-    private SupportMapFragment mMapFragment;
+    private MapView mMapView;
+    private View mEmptyView;
     private ViewGroup mRoot;
+
     private Building mBuilding;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
         mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_building, null);
 
-        PropertyLayout.resize((ViewGroup) mRoot.findViewById(R.id.property_parent));
+        mEmptyView = mRoot.findViewById(R.id.building_empty_view);
 
-        final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        mMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentByTag(TAG);
-        if (mMapFragment != null) {
-            transaction.remove(mMapFragment);
-        }
-
-        mMapFragment = SupportMapFragment.newInstance();
-        transaction.add(R.id.building_map, mMapFragment, TAG).commit();
-
-        MapsInitializer.initialize(getActivity());
+        mMapView = (MapView) mRoot.findViewById(R.id.building_map);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                showLocation();
+            }
+        });
 
         return mRoot;
     }
@@ -67,24 +64,30 @@ public class BuildingFragment
         mBuilding = data;
 
         ((TextView) mRoot.findViewById(R.id.building_name)).setText(data.getBuildingName());
-        ((TextView) mRoot.findViewById(R.id.building_code)).setText(data.getBuildingCode());
-        ((TextView) mRoot.findViewById(R.id.building_id)).setText(data.getBuildingId());
-        ((TextView) mRoot.findViewById(R.id.building_alternate_names)).setText(
-                Joiner.on('\n').join(data.getAlternateNames()));
 
-        showLocation();
+        if (mMapView.getMap() != null) {
+            showLocation();
+        }
     }
 
     private void showLocation() {
-        final float[] location = mBuilding.getLocation();
-        final LatLng buildingLocation = new LatLng(location[0], location[1]);
-        final GoogleMap map = mMapFragment.getMap();
+        if (mBuilding == null) {
+            return;
+        }
 
-        if (map == null) {
-            // Ugly hack
-            new UpdateMapTask().execute();
+        final float[] location = mBuilding.getLocation();
+
+        if (location[0] == 0 && location[1] == 0) {
+            mMapView.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.VISIBLE);
 
         } else {
+            mMapView.setVisibility(View.VISIBLE);
+            mEmptyView.setVisibility(View.GONE);
+
+            final LatLng buildingLocation = new LatLng(location[0], location[1]);
+            final GoogleMap map = mMapView.getMap();
+
             map.clear();
             map.setIndoorEnabled(false);
             map.setMyLocationEnabled(false);
@@ -97,36 +100,46 @@ public class BuildingFragment
     }
 
     @Override
-    public void onMapClick(final LatLng latLng) {
-        startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding));
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
     }
 
-    private final class UpdateMapTask extends AsyncTask<Void, Void, Integer> {
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
 
-        @Override
-        protected Integer doInBackground(final Void... voids) {
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
+    }
 
-            int count = 0;
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
 
-            try {
-                // Retry for 5s at most, every 500ms
-                while (mMapFragment.getMap() == null && count < 10) {
-                    count++;
-                    Thread.sleep(500);
-                }
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-            }
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
+    }
 
-            return count;
-        }
+    @Override
+    public void onMapClick(final LatLng latLng) {
 
-        @Override
-        protected void onPostExecute(final Integer waitPeriods) {
-            Log.v(TAG, "Map (may have) loaded after " + waitPeriods + " wait period(s)");
-            if (getActivity() != null) {
-                showLocation();
-            }
+        if (PlatformUtils.hasLollipop()) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    getActivity(), mMapView, mMapView.getTransitionName());
+
+            getActivity().startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding), options.toBundle());
+
+        } else {
+            startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding));
         }
 
     }

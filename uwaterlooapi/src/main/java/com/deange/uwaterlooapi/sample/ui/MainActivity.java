@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.ApiRunner;
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity
         mNavigationView = (NavigationView) findViewById(R.id.navigation);
         mNavigationView.getMenu().findItem(mNavItemId).setChecked(true);
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        final View headerView = mNavigationView.inflateHeaderView(R.layout.view_navigation_header);
+        final TextView titleView = (TextView) headerView.findViewById(R.id.navigation_header_title);
+        final TextView subtitleView = (TextView) headerView.findViewById(R.id.navigation_header_subtitle);
+        HeaderTitlePresenter.show(titleView, subtitleView);
 
         // set up the hamburger icon to open and close the drawer
         mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));

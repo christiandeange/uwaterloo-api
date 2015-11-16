@@ -23,8 +23,6 @@
         <attr name="endColour" format="color"/>
     </declare-styleable>
 
-    <attr name="propertyLayoutStyle" type="reference" />
-
     <item type="id" name="view_location_hours_day" />
     <item type="id" name="view_location_hours_hours" />
 

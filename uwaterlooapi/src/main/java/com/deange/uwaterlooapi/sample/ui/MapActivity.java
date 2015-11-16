@@ -2,14 +2,12 @@ package com.deange.uwaterlooapi.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 
 import com.deange.uwaterlooapi.model.buildings.Building;
@@ -18,8 +16,9 @@ import com.deange.uwaterlooapi.sample.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -35,22 +34,12 @@ public class MapActivity
 
     private static final String TAG = MapActivity.class.getSimpleName();
     private static final String KEY_BUILDING = "building";
-    private static final String KEY_OPTIONS = "options";
-    private static final String KEY_INDOORS = "indoors";
 
-    private SupportMapFragment mMapFragment;
+    private MapView mMapView;
 
     public static Intent getMapActivityIntent(final Context from, final Building building) {
-        return getMapActivityIntent(from, building, null, false);
-    }
-
-    public static Intent getMapActivityIntent(final Context from, final Building building,
-                                              final GoogleMapOptions options,
-                                              final boolean showIndoorMaps) {
         final Intent intent = new Intent(from, MapActivity.class);
         intent.putExtra(KEY_BUILDING, Parcels.wrap(building));
-        intent.putExtra(KEY_OPTIONS, options);
-        intent.putExtra(KEY_INDOORS, showIndoorMaps);
         return intent;
     }
 
@@ -63,19 +52,15 @@ public class MapActivity
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        mMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentByTag(TAG);
-        if (mMapFragment != null) {
-            transaction.remove(mMapFragment);
-        }
-
-        final GoogleMapOptions options = getOptions();
-        mMapFragment = (options == null)
-                ? SupportMapFragment.newInstance()
-                : SupportMapFragment.newInstance(options);
-        transaction.add(R.id.building_map, mMapFragment, TAG).commit();
-
-        MapsInitializer.initialize(this);
+        mMapView = (MapView) findViewById(R.id.building_map);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                final Building building = getBuilding();
+                showLocation(building.getBuildingName(), building.getLocation());
+            }
+        });
 
         final Spinner placesView = (Spinner) findViewById(R.id.building_marker_view);
         final Building building = getBuilding();
@@ -95,10 +80,33 @@ public class MapActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        final Building building = getBuilding();
-        showLocation(building.getBuildingName(), building.getLocation());
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
     }
 
     @Override
@@ -120,68 +128,19 @@ public class MapActivity
 
     private void showLocation(final String buildingName, final float[] location) {
         final LatLng buildingLocation = new LatLng(location[0], location[1]);
-        final GoogleMap map = mMapFragment.getMap();
+        final GoogleMap map = mMapView.getMap();
 
-        if (map == null) {
-            new UpdateMapTask(buildingName, location).execute();
-
-        } else {
-            map.clear();
-            map.setMyLocationEnabled(false);
-            map.setIndoorEnabled(shouldShowIndoors());
-            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
-            map.addMarker(new MarkerOptions()
-                    .title(buildingName)
-                    .position(buildingLocation));
-        }
+        map.clear();
+        map.setMyLocationEnabled(false);
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
+        map.addMarker(new MarkerOptions()
+                .title(buildingName)
+                .position(buildingLocation));
     }
 
     private Building getBuilding() {
         return Parcels.unwrap(getIntent().getParcelableExtra(KEY_BUILDING));
     }
 
-    private GoogleMapOptions getOptions() {
-        return getIntent().getParcelableExtra(KEY_OPTIONS);
-    }
-
-    private boolean shouldShowIndoors() {
-        return getIntent().getBooleanExtra(KEY_INDOORS, false);
-    }
-
-    private final class UpdateMapTask extends AsyncTask<Void, Void, Integer> {
-
-        private final String mName;
-        private final float[] mLocation;
-
-        public UpdateMapTask(final String name, final float[] location) {
-            mName = name;
-            mLocation = location;
-        }
-
-        @Override
-        protected Integer doInBackground(final Void... voids) {
-
-            int count = 0;
-
-            try {
-                // Retry for 5s at most, every 500ms
-                while (mMapFragment.getMap() == null && count < 10) {
-                    count++;
-                    Thread.sleep(500);
-                }
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            return count;
-        }
-
-        @Override
-        protected void onPostExecute(final Integer waitPeriods) {
-            Log.v(TAG, "Map (may have) loaded after " + waitPeriods + " wait period(s)");
-            showLocation(mName, mLocation);
-        }
-
-    }
 }
