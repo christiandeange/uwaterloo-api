@@ -124,12 +124,18 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         // Deliver the response if we still have one, otherwise load the data
         // (usually from coming back from another activity or rotating)
-        if (mLastResponse != null) {
-            deliverResponse(mLastResponse);
+        // post() so that the SwipeRefreshLayout draws the indicator correctly (http://stackoverflow.com/a/26860930)
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (mLastResponse != null) {
+                    deliverResponse(mLastResponse);
 
-        } else if (mLastUpdate == 0) {
-            onRefreshRequested();
-        }
+                } else if (mLastUpdate == 0) {
+                    onRefreshRequested();
+                }
+            }
+        });
     }
 
     @Override

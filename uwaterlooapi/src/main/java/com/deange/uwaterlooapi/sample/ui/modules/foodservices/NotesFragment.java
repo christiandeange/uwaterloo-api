@@ -55,6 +55,11 @@ public class NotesFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_foodservices_notes);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new NotesAdapter(getActivity());
     }

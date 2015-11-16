@@ -42,6 +42,11 @@ public class MenuFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return ((Outlet) getModel()).getName();
+    }
+
+    @Override
     public Outlet onLoadData() {
         return getModel();
     }

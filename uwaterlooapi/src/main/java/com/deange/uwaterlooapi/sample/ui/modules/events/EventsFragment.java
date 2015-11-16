@@ -40,6 +40,11 @@ public class EventsFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_events);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new EventAdapter(getActivity(), this);
     }

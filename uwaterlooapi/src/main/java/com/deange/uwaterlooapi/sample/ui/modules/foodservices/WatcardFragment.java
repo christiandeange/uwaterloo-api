@@ -44,6 +44,11 @@ public class WatcardFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_foodservices_watcard);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new WatcardVendorAdapter(getActivity());
     }
@@ -68,8 +73,10 @@ public class WatcardFragment
         notifyDataSetChanged();
     }
 
-    private class WatcardVendorAdapter extends ModuleAdapter
-            implements View.OnLongClickListener {
+    private class WatcardVendorAdapter
+            extends ModuleAdapter
+            implements
+            View.OnLongClickListener {
 
         public WatcardVendorAdapter(final Context context) {
             super(context);
@@ -77,8 +84,7 @@ public class WatcardFragment
 
         @Override
         public View newView(final Context context, final int position, final ViewGroup parent) {
-            return LayoutInflater.from(context)
-                    .inflate(R.layout.simple_one_line_card_item, parent, false);
+            return LayoutInflater.from(context).inflate(R.layout.simple_one_line_card_item, parent, false);
         }
 
         @Override

@@ -49,6 +49,11 @@ public class SitesFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_resources_sites);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new SiteAdapter(getActivity(), this);
     }

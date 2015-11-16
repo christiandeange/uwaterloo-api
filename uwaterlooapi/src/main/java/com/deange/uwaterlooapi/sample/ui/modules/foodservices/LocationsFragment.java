@@ -63,6 +63,11 @@ public class LocationsFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_foodservices_locations);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return mAdapter;
     }

@@ -52,6 +52,11 @@ public class AnnouncementsFragment extends BaseListModuleFragment<Response.Annou
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_foodservices_announcements);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new AnnouncementAdapter(getActivity());
     }

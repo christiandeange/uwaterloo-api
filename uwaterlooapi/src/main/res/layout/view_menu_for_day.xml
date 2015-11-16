@@ -11,12 +11,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-light"
-            android:textSize="22sp"
-            android:textAllCaps="true"/>
+            android:textSize="36sp"
+            android:textAllCaps="true"
+            fontPath="@string/font_fancy"/>
 
     <ScrollView
             android:layout_width="match_parent"
@@ -31,7 +32,9 @@
                     android:id="@+id/menu_lunch_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -57,7 +60,9 @@
                     android:id="@+id/menu_dinner_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp">
 
                 <LinearLayout
                         android:layout_width="match_parent"

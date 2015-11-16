@@ -43,6 +43,11 @@ public class MenusFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_foodservices_menus);
+    }
+
+    @Override
     public Response.Menus onLoadData(final UWaterlooApi api) {
         final LocalDate date = mDateSelector.getDate();
         final int year = date.getYear();

@@ -75,6 +75,11 @@ public class CoursesFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_courses);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new CourseAdapter(getActivity(), this);
     }

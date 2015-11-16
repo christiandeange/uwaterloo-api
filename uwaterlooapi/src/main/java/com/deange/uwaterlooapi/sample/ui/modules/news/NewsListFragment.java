@@ -47,6 +47,11 @@ public class NewsListFragment
     }
 
     @Override
+    public String getToolbarTitle() {
+        return getString(R.string.title_news);
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new NewsAdapter(getActivity(), this);
     }
