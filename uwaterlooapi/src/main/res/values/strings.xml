@@ -14,25 +14,8 @@
     <string name="api_events">Events</string>
     <string name="api_news">News</string>
     <string name="api_weather">Weather</string>
-    <string name="api_terms">Terms</string>
     <string name="api_resources">Resources</string>
     <string name="api_buildings">Buildings</string>
-
-    <string name="clipboard_copied">Copied to clipboard!</string>
-    <string name="button_refresh">Refresh</string>
-    <string name="menu_refresh">Refresh</string>
-    <string name="menu_browser">Open in browser</string>
-
-    <string-array name="api_array">
-        <item>@string/api_foodservices</item>
-        <item>@string/api_courses</item>
-        <item>@string/api_events</item>
-        <item>@string/api_news</item>
-        <item>@string/api_weather</item>
-        <item>@string/api_terms</item>
-        <item>@string/api_resources</item>
-        <item>@string/api_buildings</item>
-    </string-array>
 
     <string name="building_building_id">Building ID</string>
     <string name="building_building_code">Building Code</string>
@@ -107,6 +90,8 @@
     <!-- General -->
     <string name="and">and</string>
     <string name="open_in_browser">Open in browser</string>
+    <string name="clipboard_copied">Copied to clipboard!</string>
+    <string name="menu_refresh">Refresh</string>
 
     <!-- Durations -->
     <string name="duration_instant">Right now</string>

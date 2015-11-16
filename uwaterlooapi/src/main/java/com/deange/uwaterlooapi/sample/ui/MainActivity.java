@@ -1,12 +1,19 @@
 package com.deange.uwaterlooapi.sample.ui;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.internal.NavigationMenuItemView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.ApiRunner;
@@ -18,14 +25,16 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.OnDrawerItemSelectedListener {
+        implements
+        NavigationView.OnNavigationItemSelectedListener {
 
     private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
+    private static final String NAV_ITEM_ID = "nav_item_id";
 
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-    private String mTitle;
-    private UWaterlooApi mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
-    private Toolbar mToolbar;
+    private int mNavItemId;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView mNavigationView;
 
     @Override
     protected void attachBaseContext(final Context newBase) {
@@ -37,73 +46,108 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout),
-                mToolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ApiRunner.runAll(mApi);
+                ApiRunner.runAll(new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY));
             }
         }).start();
+
+        if (savedInstanceState == null) {
+            mNavItemId = R.id.menu_item_foodservices;
+        } else {
+            mNavItemId = savedInstanceState.getInt(NAV_ITEM_ID);
+        }
+
+        // listen for navigation events
+        mNavigationView = (NavigationView) findViewById(R.id.navigation);
+        mNavigationView.getMenu().findItem(mNavItemId).setChecked(true);
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        // set up the hamburger icon to open and close the drawer
+        mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, 0, 0);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
+        onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
+
+        mNavigationView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                mNavigationView.getViewTreeObserver().removeOnPreDrawListener(this);
+                fixForegrounds(mNavigationView);
+                return true;
+            }
+        });
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, ApiMethodsFragment.newInstance(position), FRAGMENT_TAG)
-                .commit();
-    }
+    private void fixForegrounds(final View view) {
+        if (view instanceof NavigationMenuItemView) {
+            //noinspection RedundantCast
+            ((NavigationMenuItemView) view).setForeground(null);
 
-    public void onSectionAttached(int number) {
-        setTitle(getResources().getStringArray(R.array.api_array)[number]);
-    }
-
-    @Override
-    public void showGlobalContextActionBar() {
-        setTitle(R.string.app_name);
-    }
-
-    public void setTitle(final String title) {
-        mTitle = title;
-        refreshActionBar();
-    }
-
-    @Override
-    public void setTitle(final int titleId) {
-        mTitle = getString(titleId);
-        refreshActionBar();
-    }
-
-    public void refreshActionBar() {
-        if (mToolbar != null) {
-            mToolbar.setTitle(mTitle);
+        } else if (view instanceof ViewGroup) {
+            final ViewGroup parent = ((ViewGroup) view);
+            for (int i = 0; i < parent.getChildCount(); ++i) {
+                fixForegrounds(parent.getChildAt(i));
+            }
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            refreshActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
+     public void onConfigurationChanged(final Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (item.getItemId() == android.support.v7.appcompat.R.id.home) {
+            return mDrawerToggle.onOptionsItemSelected(item);
+        }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(NAV_ITEM_ID, mNavItemId);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(final MenuItem item) {
+        // update the main content by replacing fragments
+
+        final int itemId = item.getItemId();
+        final String[] endpoints = ApiMethodsFragment.getApiEndpoints(itemId);
+
+        if (endpoints.length == 1) {
+            ApiMethodsFragment.openModule(this, endpoints[0]);
+            return false;
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, ApiMethodsFragment.newInstance(endpoints), FRAGMENT_TAG)
+                .commitAllowingStateLoss();
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+
+        mNavItemId = itemId;
+        setTitle(item.getTitle());
+        return true;
+    }
 }

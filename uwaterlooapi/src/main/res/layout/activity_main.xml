@@ -5,35 +5,46 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:fitsSystemWindows="true"
+        android:orientation="vertical"
         tools:context="com.deange.uwaterlooapi.sample.ui.MainActivity">
-
-    <android.support.v7.widget.Toolbar
-            style="@style/ToolbarStyle.Toolbar"
-            android:id="@+id/toolbar"
-            android:elevation="8dp"
-            app:theme="@style/ToolbarStyle"/>
 
     <android.support.v4.widget.DrawerLayout
             android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <FrameLayout
-                android:id="@+id/container"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background"/>
+                android:background="@color/background"
+                android:orientation="vertical">
 
-        <fragment
-                android:id="@+id/navigation_drawer"
-                android:layout_width="@dimen/navigation_drawer_width"
+            <android.support.v7.widget.Toolbar
+                    style="@style/ToolbarStyle.Toolbar"
+                    android:id="@+id/toolbar"
+                    android:elevation="8dp"
+                    app:theme="@style/ToolbarStyle"/>
+
+            <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.NavigationView
+                android:id="@+id/navigation"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:fitsSystemWindows="true"
-                android:name="com.deange.uwaterlooapi.sample.ui.NavigationDrawerFragment"
-                tools:layout="@layout/fragment_navigation_drawer"/>
+                android:background="@color/background"
+                app:itemBackground="?selectableItemBackground"
+                app:itemTextColor="@android:color/black"
+                app:itemIconTint="@android:color/black"
+                app:itemTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:menu="@menu/menu_modules"/>
 
     </android.support.v4.widget.DrawerLayout>
 

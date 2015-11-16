@@ -1,12 +1,9 @@
 package com.deange.uwaterlooapi.sample.ui.modules;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.deange.uwaterlooapi.annotations.ModuleInfo;
 import com.deange.uwaterlooapi.annotations.ModuleMap;
@@ -16,13 +13,15 @@ import com.deange.uwaterlooapi.api.EventsApi;
 import com.deange.uwaterlooapi.api.FoodServicesApi;
 import com.deange.uwaterlooapi.api.NewsApi;
 import com.deange.uwaterlooapi.api.ResourcesApi;
-import com.deange.uwaterlooapi.api.TermsApi;
 import com.deange.uwaterlooapi.api.WeatherApi;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.MainActivity;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -33,44 +32,57 @@ public class ApiMethodsFragment extends ListFragment
         ModuleListItemListener {
 
     private static final String ARG_METHODS = "methods";
-    private static final String ARG_POSITION = "position";
-    private static final Class[] API_CLASSES = new Class[] {
-            FoodServicesApi.class,
-            CoursesApi.class,
-            EventsApi.class,
-            NewsApi.class,
-            WeatherApi.class,
-            TermsApi.class,
-            ResourcesApi.class,
-            BuildingsApi.class,
-    };
 
-    public static ApiMethodsFragment newInstance(final int position) {
+    private static final Map<Integer, Class> API_CLASSES;
+    static {
+        final Map<Integer, Class> classes = new LinkedHashMap<>();
+        classes.put(R.id.menu_item_foodservices, FoodServicesApi.class);
+        classes.put(R.id.menu_item_courses, CoursesApi.class);
+        classes.put(R.id.menu_item_events, EventsApi.class);
+        classes.put(R.id.menu_item_news, NewsApi.class);
+        classes.put(R.id.menu_item_weather, WeatherApi.class);
+        classes.put(R.id.menu_item_resources, ResourcesApi.class);
+        classes.put(R.id.menu_item_buildings, BuildingsApi.class);
+        API_CLASSES = Collections.unmodifiableMap(classes);
+    }
 
-        ApiMethodsFragment fragment = new ApiMethodsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_POSITION, position);
-
+    public static String[] getApiEndpoints(final int itemId) {
         // Retrieve all the paths for the given API interface class
-        Set<String> apiPaths = new TreeSet<>();
-        final Method[] methods = API_CLASSES[position].getDeclaredMethods();
+        final Set<String> apiPaths = new TreeSet<>();
+        final Set<ModuleInfo> modules = new HashSet<>();
+        final Method[] methods = API_CLASSES.get(itemId).getDeclaredMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(GET.class)) {
                 String path = method.getAnnotation(GET.class).value();
                 path = path.replace(".{format}", "");
 
-                // Filter out non-base endpoints
-//                final ModuleResolver.ModuleInfo info = ModuleResolver.getFragmentInfo(path);
-//                if (info == null || !info.isBase) {
-//                    continue;
-//                }
+                // Filter out non-base endpoints and existing expoints
+                final ModuleInfo info = ModuleMap.getFragmentInfo(path);
+                if (info == null || !info.isBase || modules.contains(info)) {
+                    continue;
+                }
+
+                modules.add(info);
                 apiPaths.add(path);
             }
         }
 
-        args.putStringArray(ARG_METHODS, apiPaths.toArray(new String[apiPaths.size()]));
+        return apiPaths.toArray(new String[apiPaths.size()]);
+    }
+
+    public static ApiMethodsFragment newInstance(final String[] endpoints) {
+        final ApiMethodsFragment fragment = new ApiMethodsFragment();
+
+        final Bundle args = new Bundle();
+        args.putStringArray(ARG_METHODS, endpoints);
         fragment.setArguments(args);
+
         return fragment;
+    }
+
+    public static void openModule(final Context context, final String endpoint) {
+        final ModuleInfo fragmentInfo = ModuleMap.getFragmentInfo(endpoint);
+        context.startActivity(ModuleHostActivity.getStartIntent(context, fragmentInfo.fragment));
     }
 
     public ApiMethodsFragment() {
@@ -81,38 +93,22 @@ public class ApiMethodsFragment extends ListFragment
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final String[] methods = getArguments().getStringArray(ARG_METHODS);
-        setListAdapter(new ApiMethodsAdapter(getActivity(), methods, this));
-
+        final int padding = (int) (getResources().getDisplayMetrics().density * 4);
+        getListView().setPadding(0, padding, 0, padding);
         getListView().setDivider(null);
         getListView().setDividerHeight(0);
 
-        final int padding = (int) (getResources().getDisplayMetrics().density * 4);
-        getListView().setPadding(0, padding, 0, padding);
-    }
-
-    @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        final MainActivity parent = (MainActivity) activity;
-        parent.onSectionAttached(getArguments().getInt(ARG_POSITION));
+        final String[] methods = getArguments().getStringArray(ARG_METHODS);
+        if (methods != null) {
+            setListAdapter(new ApiMethodsAdapter(getActivity(), methods, ApiMethodsFragment.this));
+        }
     }
 
     @Override
     public void onItemClicked(final int position) {
-        final String endpoint = String.valueOf(getListAdapter().getItem(position));
-        final ModuleInfo fragmentInfo = ModuleMap.getFragmentInfo(endpoint);
-        if (fragmentInfo == null) {
-            Toast.makeText(getActivity(), "No fragment for " + endpoint, Toast.LENGTH_SHORT).show();
-
-        } else if (!fragmentInfo.isBase) {
-            Toast.makeText(getActivity(),
-                    fragmentInfo.fragment.getSimpleName() + " is not a base fragment",
-                    Toast.LENGTH_SHORT).show();
-
-        } else {
-            startActivity(ModuleHostActivity.getStartIntent(getActivity(), fragmentInfo.fragment));
+        final String[] methods = getArguments().getStringArray(ARG_METHODS);
+        if (methods != null) {
+            openModule(getActivity(), methods[position]);
         }
     }
 }

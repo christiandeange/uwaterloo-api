@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/menu_item_foodservices"
+                android:icon="@drawable/ic_foodservices"
+                android:title="@string/api_foodservices"/>
+
+        <item
+                android:id="@+id/menu_item_courses"
+                android:icon="@drawable/ic_courses"
+                android:title="@string/api_courses"/>
+
+        <item
+                android:id="@+id/menu_item_events"
+                android:icon="@drawable/ic_events"
+                android:title="@string/api_events"/>
+
+        <item
+                android:id="@+id/menu_item_news"
+                android:icon="@drawable/ic_news"
+                android:title="@string/api_news"/>
+
+        <item
+                android:id="@+id/menu_item_weather"
+                android:icon="@drawable/ic_weather"
+                android:title="@string/api_weather"/>
+
+        <item
+                android:id="@+id/menu_item_resources"
+                android:icon="@drawable/ic_resources"
+                android:title="@string/api_resources"/>
+
+        <item
+                android:id="@+id/menu_item_buildings"
+                android:icon="@drawable/ic_buildings"
+                android:title="@string/api_buildings"/>
+
+    </group>
+
+</menu>
