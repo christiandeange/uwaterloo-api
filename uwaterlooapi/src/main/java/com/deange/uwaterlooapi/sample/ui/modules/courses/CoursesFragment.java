@@ -141,7 +141,7 @@ public class CoursesFragment
     @Override
     public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
         // Subject clicked from AutoCompleteTextView
-        onRefreshRequested();
+        doRefresh();
     }
 
     public class CourseAdapter

@@ -8,7 +8,6 @@ if (!propertiesFile.exists()) {
     throw new GradleException('developer.properties file cannot be found in root directory')
 }
 properties.load(propertiesFile.newDataInputStream())
-String apiKey = properties.getProperty('api.key')
 
 android {
     compileSdkVersion 23
@@ -23,7 +22,9 @@ android {
 
     buildTypes {
         all {
-            buildConfigField 'String', 'UWATERLOO_API_KEY', '"' + apiKey + '"'
+            properties.entrySet().each {
+                buildConfigField 'String', it.key, '"' + it.value + '"'
+            }
         }
     }
 

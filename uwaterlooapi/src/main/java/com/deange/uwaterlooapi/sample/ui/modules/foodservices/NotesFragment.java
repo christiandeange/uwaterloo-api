@@ -91,7 +91,7 @@ public class NotesFragment
 
     @Override
     public void onDateSet(final int year, final int monthOfYear, final int dayOfMonth) {
-        onRefreshRequested();
+        doRefresh();
     }
 
     private class NotesAdapter

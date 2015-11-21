@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.nirhart.parallaxscroll.views.ParallaxScrollView
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/weather_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:fillViewport="true"
-        app:alpha_factor="1"
-        app:parallax_factor="1.2">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
-    <FrameLayout
+    <com.deange.uwaterlooapi.sample.ui.view.UwProgressBar
+            style="?android:progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"/>
+
+    <ImageView
+            android:id="@+id/weather_background"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no"/>
 
-        <ImageView
-                android:id="@+id/weather_background"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:importantForAccessibility="no"/>
+    <ScrollView
+            android:id="@+id/weather_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-        <RelativeLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:orientation="vertical">
 
             <com.deange.uwaterlooapi.sample.ui.view.SliceView
                     android:id="@+id/weather_slider"
@@ -33,9 +39,10 @@
                     android:layout_height="wrap_content"
                     app:sliceHeight="128dp">
 
-                <com.deange.uwaterlooapi.sample.ui.view.CardView
+                <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white">
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -59,7 +66,9 @@
                         <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="32dp">
+                                android:layout_marginBottom="32dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginStart="16dp">
 
                             <LinearLayout
                                     android:id="@+id/weather_range_parent"
@@ -149,12 +158,12 @@
                                         android:layout_height="wrap_content"
                                         android:layout_centerHorizontal="true"
                                         android:layout_marginTop="-5dp"
-                                        android:paddingStart="2dp"
-                                        android:paddingEnd="2dp"
                                         android:background="#FAFAFA"
+                                        android:paddingEnd="2dp"
+                                        android:paddingStart="2dp"
+                                        android:text="N"
                                         android:textColor="@android:color/black"
                                         android:textSize="10sp"
-                                        android:text="N"
                                         tools:ignore="SmallSp"/>
 
                             </RelativeLayout>
@@ -164,43 +173,71 @@
                                     android:id="@+id/weather_wind_speed"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_toEndOf="@id/weather_wind_direction_root"
                                     android:layout_centerVertical="true"
+                                    android:layout_toEndOf="@id/weather_wind_direction_root"
                                     android:fontFamily="sans-serif-light"/>
 
                         </RelativeLayout>
 
+                        <com.deange.uwaterlooapi.sample.ui.view.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp">
+
+                            <TextView
+                                    style="@style/TextAppearance.AppCompat.Caption"
+                                    android:id="@+id/weather_last_updated"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/white"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:padding="8dp"/>
+
+                        </com.deange.uwaterlooapi.sample.ui.view.CardView>
+
                     </LinearLayout>
-
-                </com.deange.uwaterlooapi.sample.ui.view.CardView>
-
-            </com.deange.uwaterlooapi.sample.ui.view.SliceView>
-
-            <com.deange.uwaterlooapi.sample.ui.view.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/weather_slider"
-                    android:layout_marginTop="8dp">
-
-                <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    <TextView
-                            style="@style/TextAppearance.AppCompat.Caption"
-                            android:id="@+id/weather_last_updated"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|end"
-                            android:padding="8dp"
-                            android:textStyle="italic"/>
 
                 </FrameLayout>
 
-            </com.deange.uwaterlooapi.sample.ui.view.CardView>
+            </com.deange.uwaterlooapi.sample.ui.view.SliceView>
 
-        </RelativeLayout>
+            <RelativeLayout
+                    android:id="@+id/weather_spacer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    </FrameLayout>
+                <LinearLayout
+                        android:id="@+id/weather_author_attribution_root"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/weather_author_gradient"
+                        android:paddingBottom="32dp"
+                        android:orientation="horizontal">
 
-</com.nirhart.parallaxscroll.views.ParallaxScrollView>
+                    <TextView
+                            android:id="@+id/weather_author_attribution"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|end"
+                            android:padding="8dp"
+                            tools:text="Title\nPhoto taken by Author"/>
+
+                    <ImageView
+                            android:id="@+id/weather_author_source_link"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_action_open_in_browser"
+                            android:contentDescription="@string/open_in_browser"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

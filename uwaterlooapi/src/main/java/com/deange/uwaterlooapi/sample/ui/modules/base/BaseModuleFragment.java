@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -132,7 +131,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
                     deliverResponse(mLastResponse);
 
                 } else if (mLastUpdate == 0) {
-                    onRefreshRequested();
+                    doRefresh();
                 }
             }
         });
@@ -156,7 +155,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == R.id.menu_refresh) {
             // Refresh manually requested
-            onRefreshRequested();
+            doRefresh();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -185,7 +184,9 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         return Parcels.unwrap(getArguments().getParcelable(KEY_MODEL));
     }
 
-    protected final void onRefreshRequested() {
+    protected final void doRefresh() {
+
+        onRefreshRequested();
 
         // Data can potentially be stored from above (maybe cached, or passed in as a Parcelable?)
         // In that case, there's no need to try and load any data from the network
@@ -208,6 +209,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
             mTask = new LoadModuleDataTask();
             mTask.execute(api);
         }
+    }
+
+    protected void onRefreshRequested() {
+        // Overriden by subclasses
     }
 
     private void changeLoadingVisibilityInternal(final boolean show) {
@@ -382,7 +387,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     @Override
     public void onRefresh() {
-        onRefreshRequested();
+        doRefresh();
     }
 
     private final class LoadModuleDataTask extends AsyncTask<UWaterlooApi, Void, T> {
