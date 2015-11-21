@@ -9,6 +9,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <LinearLayout
+            android:id="@+id/navigation_header_clickable"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"

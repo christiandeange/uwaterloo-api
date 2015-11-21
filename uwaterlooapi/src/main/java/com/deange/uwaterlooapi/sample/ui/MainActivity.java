@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenuItemView;
@@ -29,7 +30,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity
         implements
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener {
 
     private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
     private static final String NAV_ITEM_ID = "nav_item_id";
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
+
+    private int mClicks;
 
     @Override
     protected void attachBaseContext(final Context newBase) {
@@ -74,6 +78,8 @@ public class MainActivity extends AppCompatActivity
         final TextView titleView = (TextView) headerView.findViewById(R.id.navigation_header_title);
         final TextView subtitleView = (TextView) headerView.findViewById(R.id.navigation_header_subtitle);
         HeaderTitlePresenter.show(titleView, subtitleView);
+
+        headerView.findViewById(R.id.navigation_header_clickable).setOnClickListener(this);
 
         // set up the hamburger icon to open and close the drawer
         mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
@@ -166,5 +172,14 @@ public class MainActivity extends AppCompatActivity
         mNavItemId = itemId;
         setTitle(item.getTitle());
         return true;
+    }
+
+    @Override
+    public void onClick(final View v) {
+        // Header view
+        if (++mClicks >= 30) {
+            mClicks = 0;
+            startActivity(new Intent(this, GooseActivity.class));
+        }
     }
 }

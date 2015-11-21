@@ -35,7 +35,7 @@
                         android:layout_below="@id/list_location_logo_padding"
                         android:gravity="center"
                         android:fontFamily="sans-serif-light"
-                        android:textSize="@dimen/font_title"
+                        android:textSize="16sp"
                         android:textColor="@android:color/black"/>
 
                 <TextView

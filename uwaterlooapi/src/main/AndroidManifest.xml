@@ -45,6 +45,16 @@
                 android:name=".ui.modules.ModuleHostActivity" />
 
         <activity
+                android:name=".ui.GooseActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:screenOrientation="locked"/>
+
+        <activity
+                android:name=".ui.ExtrasActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:screenOrientation="locked"/>
+
+        <activity
                 android:name=".ui.MapActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
 

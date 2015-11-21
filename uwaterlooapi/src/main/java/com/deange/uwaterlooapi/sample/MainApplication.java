@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
@@ -9,7 +10,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class MainApplication extends Application {
+public class MainApplication extends MultiDexApplication {
 
     private static final String TAG = MainApplication.class.getSimpleName();
 
