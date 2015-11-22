@@ -4,7 +4,7 @@
     <!-- Introduced in 4.2 -->
     <string name="sans_serif_thin">sans-serif-light</string>
 
-    <string name="app_name">UWaterlooApi</string>
+    <string name="app_name">UWaterloo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
@@ -36,6 +36,15 @@
     <string name="title_resources_sites">Sites</string>
     <string name="title_events">Events</string>
     <string name="title_news">News</string>
+
+    <string name="home_quick_links">Quick Links</string>
+    <string name="home_quick_course_lookup">Course Lookup</string>
+    <string name="home_quick_course_hint_subject">MATH</string>
+    <string name="home_quick_course_hint_number">135</string>
+    <string name="home_quick_course_search_subject">Search all %s courses…</string>
+    <string name="home_quick_course_search_course">Look up %s…</string>
+    <string name="home_quick_weather">Check the weather</string>
+    <string name="home_quick_locations">Check location hours</string>
 
     <string name="foodservices_announcements_none">No Announcements :(</string>
     <string name="foodservices_location_hours">Hours</string>
@@ -69,6 +78,7 @@
     <string name="date_picker_week_label">Week of</string>
     <string name="date_picker_year_label">for year</string>
 
+    <string name="course_no_info_available">No course information available for %1$s</string>
     <string name="course_picker_label">Course Subject:</string>
     <string name="course_prerequisites_none">No prerequisites</string>
     <string name="course_capacity">%1$d/%2$d seats filled</string>

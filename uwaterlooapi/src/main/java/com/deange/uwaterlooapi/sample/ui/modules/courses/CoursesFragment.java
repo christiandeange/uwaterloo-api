@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.courses;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +11,17 @@ import android.widget.TextView;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
-import com.deange.uwaterlooapi.sample.utils.SimpleTextWatcher;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,15 +38,22 @@ public class CoursesFragment
         ModuleListItemListener,
         AdapterView.OnItemClickListener {
 
+    private static final String KEY_COURSE_SUBJECT = "subject";
+
     private final Runnable mResetListViewRunnable = new Runnable() {
         @Override
         public void run() {
             getListView().setSelectionFromTop(0, 0);
         }
     };
-
     private final List<Course> mResponse = new ArrayList<>();
     private AutoCompleteTextView mCoursePicker;
+
+    public static <V extends BaseModel> Bundle newBundle(final String subject) {
+        final Bundle bundle = new Bundle();
+        bundle.putString(KEY_COURSE_SUBJECT, subject);
+        return bundle;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -58,18 +67,10 @@ public class CoursesFragment
         mCoursePicker = (AutoCompleteTextView) view.findViewById(R.id.course_picker_view);
         mCoursePicker.setAdapter(new SubjectAdapter(getActivity()));
         mCoursePicker.setOnItemClickListener(this);
-        mCoursePicker.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void afterTextChanged(final Editable s) {
-                for (int i = 0; i < s.length(); ++i) {
-                    if (Character.isLowerCase(s.charAt(i))) {
-                        mCoursePicker.setText(s.toString().toUpperCase());
-                        mCoursePicker.setSelection(s.length());
-                        break;
-                    }
-                }
-            }
-        });
+        mCoursePicker.addTextChangedListener(new UpperCaseTextWatcher(mCoursePicker));
+
+        // May have a preloaded course passed in
+        mCoursePicker.setText(getSubject());
 
         return view;
     }
@@ -128,6 +129,19 @@ public class CoursesFragment
 
     private static int extractNumbers(final String catalog) {
         return Integer.parseInt(catalog.replaceAll("\\D+",""));
+    }
+
+    // This is a destructive call, use wisely!
+    private String getSubject() {
+        final Bundle args = getArguments();
+        if (args != null) {
+            final String subject = args.getString(KEY_COURSE_SUBJECT);
+            args.remove(KEY_COURSE_SUBJECT);
+            return subject;
+
+        } else {
+            return null;
+        }
     }
 
     @Override

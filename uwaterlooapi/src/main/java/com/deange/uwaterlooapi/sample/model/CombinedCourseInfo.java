@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.model;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
 import com.deange.uwaterlooapi.model.courses.ExamInfo;
@@ -14,10 +15,19 @@ import java.util.List;
 @Parcel
 public class CombinedCourseInfo extends BaseModel {
 
+    private Metadata mMetadata;
     private CourseInfo mCourseInfo;
     private PrerequisiteInfo mPrerequisites;
     private List<CourseSchedule> mSchedules;
     private ExamInfo mExams;
+
+    public Metadata getMetadata() {
+        return mMetadata;
+    }
+
+    public void setMetadata(Metadata metadata) {
+        mMetadata = metadata;
+    }
 
     public CourseInfo getCourseInfo() {
         return mCourseInfo;

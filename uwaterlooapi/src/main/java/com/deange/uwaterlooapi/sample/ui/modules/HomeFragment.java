@@ -1,26 +1,81 @@
 package com.deange.uwaterlooapi.sample.ui.modules;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
+import com.deange.uwaterlooapi.sample.ui.modules.courses.CourseFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.courses.CoursesFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.courses.SubjectAdapter;
+import com.deange.uwaterlooapi.sample.ui.modules.foodservices.LocationsFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.weather.WeatherFragment;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
+import com.deange.uwaterlooapi.sample.utils.SimpleTextWatcher;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
 
 public class HomeFragment
-        extends Fragment {
+        extends Fragment implements AdapterView.OnItemClickListener {
+
+    private final TextWatcher mCourseTextWatcher = new SimpleTextWatcher() {
+        @Override
+        public void afterTextChanged(final Editable s) {
+            if (mSubjectPicker == null || mNumberPicker == null) {
+                return;
+            }
+
+            final String subject = mSubjectPicker.getText().toString().trim();
+            final String number = mNumberPicker.getText().toString().trim();
+            final boolean validSubject = mAdapter.getSubjects().contains(subject);
+
+            mSearchButton.setEnabled(validSubject);
+            if (!validSubject) {
+                return;
+            }
+
+            final String buttonText;
+            if (TextUtils.isEmpty(number)) {
+                buttonText = getString(R.string.home_quick_course_search_subject, subject);
+
+            } else {
+                buttonText = getString(R.string.home_quick_course_search_course, subject + " " + number);
+            }
+
+            mSearchButton.setText(buttonText);
+        }
+    };
 
     private float mElevation;
     private Toolbar mToolbar;
+    private SubjectAdapter mAdapter;
+
+    @Bind(R.id.home_course_subject) AutoCompleteTextView mSubjectPicker;
+    @Bind(R.id.home_course_number) EditText mNumberPicker;
+    @Bind(R.id.home_course_search) Button mSearchButton;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getActivity().setTitle(null);
     }
 
@@ -34,10 +89,21 @@ public class HomeFragment
 
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
+        ButterKnife.bind(this, view);
+
         if (PlatformUtils.hasLollipop()) {
             mElevation = mToolbar.getElevation();
             mToolbar.setElevation(0f);
         }
+
+        mAdapter = new SubjectAdapter(getActivity());
+        mSubjectPicker.setAdapter(mAdapter);
+        mSubjectPicker.setOnItemClickListener(this);
+        mSubjectPicker.addTextChangedListener(mCourseTextWatcher);
+        mSubjectPicker.addTextChangedListener(new UpperCaseTextWatcher(mSubjectPicker));
+
+        mNumberPicker.addTextChangedListener(mCourseTextWatcher);
+        mNumberPicker.addTextChangedListener(new UpperCaseTextWatcher(mNumberPicker));
 
         return view;
     }
@@ -48,6 +114,58 @@ public class HomeFragment
             mToolbar.setElevation(mElevation);
         }
 
+        ButterKnife.unbind(this);
+
         super.onDestroyView();
+    }
+
+    @OnClick(R.id.home_weather_selectable)
+    public void onWeatherClicked() {
+        startActivity(ModuleHostActivity.getStartIntent(getContext(), WeatherFragment.class));
+    }
+
+    @OnClick(R.id.home_locations_selectable)
+    public void onMenusClicked() {
+        startActivity(ModuleHostActivity.getStartIntent(getContext(), LocationsFragment.class));
+    }
+
+    @OnClick(R.id.home_course_search)
+    public void onCourseSearchClicked() {
+        final String subject = mSubjectPicker.getText().toString().trim();
+        final String code = mNumberPicker.getText().toString().trim();
+
+        final Intent intent;
+        if (!TextUtils.isEmpty(code)) {
+            intent = ModuleHostActivity.getStartIntent(
+                    getContext(),
+                    CourseFragment.class,
+                    CourseFragment.newBundle(subject, code));
+        } else {
+            intent = ModuleHostActivity.getStartIntent(
+                    getContext(),
+                    CoursesFragment.class,
+                    CoursesFragment.newBundle(subject));
+        }
+
+        startActivity(intent);
+    }
+
+    @OnEditorAction({R.id.home_course_subject, R.id.home_course_number})
+    public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_NEXT) {
+            mNumberPicker.requestFocus();
+            return true;
+
+        } else if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            onCourseSearchClicked();
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+        mNumberPicker.requestFocus();
     }
 }
