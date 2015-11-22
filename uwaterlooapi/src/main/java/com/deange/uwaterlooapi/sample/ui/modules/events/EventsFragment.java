@@ -15,6 +15,7 @@ import com.deange.uwaterlooapi.model.events.Event;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 
@@ -87,6 +88,11 @@ public class EventsFragment
                 }
             }
         }
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.EVENTS;
     }
 
     @Override

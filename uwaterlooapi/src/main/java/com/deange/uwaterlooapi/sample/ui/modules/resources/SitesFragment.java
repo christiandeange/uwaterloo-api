@@ -18,6 +18,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
@@ -85,6 +86,11 @@ public class SitesFragment
         getListView().setFastScrollAlwaysVisible(true);
 
         notifyDataSetChanged();
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.SITES;
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
@@ -129,6 +130,11 @@ public class NewsFragment
                         ? View.VISIBLE
                         : View.GONE
         );
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.NEWS;
     }
 
 }

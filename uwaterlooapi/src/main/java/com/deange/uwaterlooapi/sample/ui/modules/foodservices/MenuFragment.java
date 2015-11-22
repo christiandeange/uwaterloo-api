@@ -11,6 +11,7 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
 import org.joda.time.LocalDate;
@@ -75,6 +76,11 @@ public class MenuFragment
             }
         });
 
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.MENU;
     }
 
 }

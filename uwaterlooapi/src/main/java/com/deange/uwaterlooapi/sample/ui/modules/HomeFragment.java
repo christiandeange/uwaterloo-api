@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CourseFragment;
@@ -79,6 +80,8 @@ public class HomeFragment
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(null);
+
+        Analytics.view(ModuleType.HOME);
     }
 
     @Nullable

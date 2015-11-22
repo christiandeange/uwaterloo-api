@@ -12,6 +12,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.MenuInfo;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
 
@@ -60,6 +61,11 @@ public class MenusFragment
     public void onBindData(final Metadata metadata, final MenuInfo data) {
         mAdapter = new OutletsAdapter(getActivity(), this, data);
         mListView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.MENUS;
     }
 
     @Override

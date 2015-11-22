@@ -35,6 +35,7 @@ import com.deange.uwaterlooapi.sample.model.PhotoDetails;
 import com.deange.uwaterlooapi.sample.model.PhotoSize;
 import com.deange.uwaterlooapi.sample.model.PhotoUrl;
 import com.deange.uwaterlooapi.sample.ui.CoverPhotoPresenter;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.RangeView;
 import com.deange.uwaterlooapi.sample.ui.view.SliceView;
@@ -227,6 +228,11 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
             }
         });
         mWindSpeedAnimation.start();
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.WEATHER;
     }
 
     @Override

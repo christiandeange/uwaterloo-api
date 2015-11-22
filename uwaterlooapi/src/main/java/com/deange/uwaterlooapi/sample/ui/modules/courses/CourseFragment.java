@@ -21,6 +21,7 @@ import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfoResponse;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
 import org.parceler.Parcels;
@@ -159,6 +160,11 @@ public class CourseFragment
         mAdapter = new CourseInfoAdapter(getActivity(), data);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.COURSE;
     }
 
     @Override

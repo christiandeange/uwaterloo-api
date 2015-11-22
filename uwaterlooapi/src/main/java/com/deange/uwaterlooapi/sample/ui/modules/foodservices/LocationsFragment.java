@@ -15,6 +15,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.StringAdapter;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.ArrayList;
@@ -86,6 +87,11 @@ public class LocationsFragment
     public void onBindData(final Metadata metadata, final List<Location> data) {
         mAllLocations = Collections.unmodifiableList(data);
         bindAndFilterData();
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.LOCATIONS;
     }
 
     private void bindAndFilterData() {

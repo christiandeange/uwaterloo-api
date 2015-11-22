@@ -14,6 +14,7 @@ import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.MapActivity;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -68,6 +69,11 @@ public class BuildingFragment
         if (mMapView.getMap() != null) {
             showLocation();
         }
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.BUILDING;
     }
 
     private void showLocation() {

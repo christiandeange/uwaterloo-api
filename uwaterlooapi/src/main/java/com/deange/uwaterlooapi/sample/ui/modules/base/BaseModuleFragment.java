@@ -22,11 +22,14 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleListResponse;
+import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
@@ -80,12 +83,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        if (mTask != null) {
-            mTask.cancel(true);
-            mTask = null;
-        }
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Analytics.view(getContentType());
     }
 
     @Override
@@ -168,6 +169,15 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         outState.putString(KEY_RESPONSE, BaseResponse.serialize(mLastResponse));
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mTask != null) {
+            mTask.cancel(true);
+            mTask = null;
+        }
+    }
+
     public void showModule(final Class<? extends BaseModuleFragment> fragment,
                            final Bundle arguments) {
         getActivity().startActivity(
@@ -182,6 +192,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     public <M> M getModel() {
         return Parcels.unwrap(getArguments().getParcelable(KEY_MODEL));
+    }
+
+    @Override
+    public void onRefresh() {
+        doRefresh();
     }
 
     protected final void doRefresh() {
@@ -385,10 +400,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         // Overriden by subclasses
     }
 
-    @Override
-    public void onRefresh() {
-        doRefresh();
-    }
+    public abstract String getContentType();
 
     private final class LoadModuleDataTask extends AsyncTask<UWaterlooApi, Void, T> {
 

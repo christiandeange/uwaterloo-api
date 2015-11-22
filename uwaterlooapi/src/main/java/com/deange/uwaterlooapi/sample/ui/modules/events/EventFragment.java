@@ -24,6 +24,7 @@ import com.deange.uwaterlooapi.model.events.EventInfo;
 import com.deange.uwaterlooapi.model.events.EventLocation;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
@@ -157,6 +158,11 @@ public class EventFragment
                 ? View.VISIBLE
                 : View.GONE
         );
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.EVENT;
     }
 
     private static class TimesAdapter extends ModuleAdapter {

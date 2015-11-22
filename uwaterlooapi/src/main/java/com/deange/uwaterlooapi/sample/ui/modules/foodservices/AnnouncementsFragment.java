@@ -15,6 +15,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.Announcement;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
@@ -82,6 +83,11 @@ public class AnnouncementsFragment extends BaseListModuleFragment<Response.Annou
 
         mEmptyView.setVisibility(mResponse.isEmpty() ? View.VISIBLE : View.GONE);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.ANNOUNCEMENTS;
     }
 
     @Override

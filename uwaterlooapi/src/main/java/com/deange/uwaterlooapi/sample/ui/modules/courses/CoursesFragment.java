@@ -19,6 +19,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import org.parceler.Parcels;
@@ -125,6 +126,11 @@ public class CoursesFragment
         getListView().setFastScrollEnabled(true);
         getListView().setFastScrollAlwaysVisible(true);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.COURSES;
     }
 
     private static int extractNumbers(final String catalog) {

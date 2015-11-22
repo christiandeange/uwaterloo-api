@@ -16,6 +16,7 @@ import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
@@ -84,6 +85,11 @@ public class LocationFragment extends BaseModuleFragment<BaseResponse, Location>
         Picasso.with(getActivity())
                 .load(location.getLogoUrl())
                 .into(logoView);
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.LOCATION;
     }
 
     private void showSection(final TextView view, final boolean show) {

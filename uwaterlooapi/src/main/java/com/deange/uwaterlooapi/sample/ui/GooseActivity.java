@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.view.GooseView;
 
@@ -38,5 +39,7 @@ public class GooseActivity extends Activity {
         final GooseView world = (GooseView) findViewById(R.id.world);
         world.setScoreField((TextView) findViewById(R.id.score));
         world.setSplash(findViewById(R.id.welcome));
+
+        Analytics.view("Goose Game");
     }
 }

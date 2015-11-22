@@ -1,6 +1,5 @@
 package com.deange.uwaterlooapi.sample;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
@@ -19,6 +18,10 @@ public class MainApplication extends MultiDexApplication {
         super.onCreate();
 
         Log.v(TAG, "onCreate()");
+
+        // Initialize the crash reporting wrapper and analytics reporting wrapper
+        CrashReporting.init(this);
+        Analytics.init(this);
 
         // For response objects that contain a collection,
         // ensure they return unmodifiable copies of the data so the underlying model is immutable

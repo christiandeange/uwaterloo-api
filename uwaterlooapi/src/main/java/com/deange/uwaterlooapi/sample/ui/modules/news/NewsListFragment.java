@@ -16,6 +16,7 @@ import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 
@@ -69,6 +70,11 @@ public class NewsListFragment
         Collections.sort(mResponse);
 
         notifyDataSetChanged();
+    }
+
+    @Override
+    public String getContentType() {
+        return ModuleType.NEWS_LIST;
     }
 
     @Override
