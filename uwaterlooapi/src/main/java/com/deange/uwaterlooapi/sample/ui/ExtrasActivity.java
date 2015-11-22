@@ -78,7 +78,7 @@ public class ExtrasActivity extends AppCompatActivity {
                 return false;
             }
         });
-        mHandler.post(mRumbleRunnable);
+        mHandler.postDelayed(mRumbleRunnable, 1000L);
     }
 
     private void playSoundtrack() {
@@ -95,7 +95,7 @@ public class ExtrasActivity extends AppCompatActivity {
                     mMediaPlayer.setVolume(0.5f, 0.5f);
                     setView();
                 }
-            }, 1750L);
+            }, 1500L);
         }
     }
 

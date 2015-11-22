@@ -35,7 +35,9 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 
 public class HomeFragment
-        extends Fragment implements AdapterView.OnItemClickListener {
+        extends Fragment
+        implements
+        AdapterView.OnItemClickListener {
 
     private final TextWatcher mCourseTextWatcher = new SimpleTextWatcher() {
         @Override

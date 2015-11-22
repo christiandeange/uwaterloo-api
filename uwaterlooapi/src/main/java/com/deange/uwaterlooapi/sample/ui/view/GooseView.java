@@ -69,7 +69,7 @@ public class GooseView extends FrameLayout {
     public static final boolean HAVE_STARS = true;
     final static int[] POPS = {
             // <resid, spinny> pairs
-            R.drawable.feridun, 1,
+            R.drawable.content_obstacle, 1,
     };
 
     private static class Params {
@@ -504,7 +504,7 @@ public class GooseView extends FrameLayout {
     }
 
     public Pop makePop(Context context, float h) {
-        if (irand(0, 30) == 0) {
+        if (irand(0, 2) == 0) {
             return new MagicPop(context, h);
         } else {
             return new Pop(context, h);
@@ -678,7 +678,7 @@ public class GooseView extends FrameLayout {
 
         public Player(Context context) {
             super(context);
-            setBackgroundResource(R.drawable.goose);
+            setBackgroundResource(R.drawable.content_goose);
             setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
@@ -686,7 +686,7 @@ public class GooseView extends FrameLayout {
                     final int h = view.getHeight();
                     final int ix = (int) (w * 0.3f);
                     final int iy = (int) (h * 0.2f);
-                    outline.setRect(ix, iy, w - ix, h - iy);
+                    outline.setOval(ix, iy, w - ix, h - iy);
                 }
             });
         }

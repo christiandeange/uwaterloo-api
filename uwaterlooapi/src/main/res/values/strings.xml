@@ -39,7 +39,7 @@
 
     <string name="home_quick_links">Quick Links</string>
     <string name="home_quick_course_lookup">Course Lookup</string>
-    <string name="home_quick_course_hint_subject">MATH</string>
+    <string name="home_quick_course_hint_subject">eg: MATH</string>
     <string name="home_quick_course_hint_number">135</string>
     <string name="home_quick_course_search_subject">Search all %s courses…</string>
     <string name="home_quick_course_search_course">Look up %s…</string>

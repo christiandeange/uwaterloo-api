@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.courses.views;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,23 +68,32 @@ public class ExamAdapter
         holder.section.setText(sectionName);
 
         // Date & time
-        final String formattedDay = Formatter.formatDate(getContext(), section.getDate(), Formatter.DATE_LENGTH_LONG);
-        final String fullDate = section.getDay() + ", " + formattedDay;
-        holder.date.setText(fullDate);
+        final Date date = section.getDate();
+        if (date != null) {
+            final String formattedDay = Formatter.formatDate(getContext(), section.getDate(), Formatter.DATE_LENGTH_LONG);
+            final String fullDate = section.getDay() + ", " + formattedDay;
+            holder.date.setText(fullDate);
+        } else {
+            holder.date.setText(null);
+        }
 
         String start = section.getStartTime();
         String end = section.getEndTime();
 
-        if (DateFormat.is24HourFormat(getContext())) {
-            start = Location.convert12To24(start);
-            end = Location.convert12To24(end);
+        String time = null;
+        if (!TextUtils.isEmpty(start) && !TextUtils.isEmpty(end)) {
+            if (DateFormat.is24HourFormat(getContext())) {
+                start = Location.convert12To24(start);
+                end = Location.convert12To24(end);
+            }
+
+            start = Location.sanitize(start);
+            end = Location.sanitize(end);
+
+            time = start + " – " + end;
         }
 
-        start = Location.sanitize(start);
-        end = Location.sanitize(end);
-
-        final String time = start + " – " + end;
-        holder.time.setText(time);
+        ViewUtils.setText(holder.time, time);
 
         // Room & building
         final String location = section.getLocation();
@@ -113,6 +124,8 @@ public class ExamAdapter
 
         ViewUtils.setText(holder.building, title);
         ViewUtils.setText(holder.rooms, subtitle);
+
+        ViewUtils.setText(holder.notes, section.getNotes());
 
         return view;
     }
@@ -170,6 +183,7 @@ public class ExamAdapter
         @Bind(R.id.exam_time) TextView time;
         @Bind(R.id.exam_building) TextView building;
         @Bind(R.id.exam_rooms) TextView rooms;
+        @Bind(R.id.exam_notes) TextView notes;
 
         private ViewHolder(final View view) {
             ButterKnife.bind(this, view);

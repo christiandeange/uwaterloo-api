@@ -302,9 +302,18 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
             }
         }
 
-        if (mPhotoSize == null) {
-            // They are all smaller than the screen, need to scale up. Pick the largest one
-            return photos.get(photos.size() - 1);
+        final String ignoreLabel = "Original";
+
+        if (mPhotoSize == null || ignoreLabel.equals(mPhotoSize.getLabel())) {
+            // They are all smaller than the screen, need to scale up
+            // Pick the largest one that isn't original (usually it's too big)
+            for (int i = photos.size() - 1; i >= 0; --i) {
+                final PhotoSize photoSize = photos.get(i);
+                if (!ignoreLabel.equals(photoSize.getLabel())) {
+                    mPhotoSize = photoSize;
+                    break;
+                }
+            }
         }
 
         return mPhotoSize;

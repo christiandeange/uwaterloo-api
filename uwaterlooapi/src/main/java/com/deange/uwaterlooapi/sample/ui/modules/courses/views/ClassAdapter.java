@@ -14,6 +14,7 @@ import com.deange.uwaterlooapi.model.courses.ClassDate;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
+import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class ClassAdapter extends ArrayAdapter<Class> {
             location += courseClass.getRoom() + " ";
         }
         location = location.trim();
-        holder.location.setText(location);
+        ViewUtils.setText(holder.location, location);
 
         // List of instructors
         final List<String> instructorsList = new ArrayList<>();
@@ -65,21 +66,25 @@ public class ClassAdapter extends ArrayAdapter<Class> {
 
         // Date & Time
         final ClassDate classDate = courseClass.getDate();
-        holder.date.setText(classDate.getWeekdays());
+        ViewUtils.setText(holder.date, classDate.getWeekdays());
 
         String start = classDate.getStartTime();
         String end = classDate.getEndTime();
 
-        if (!DateFormat.is24HourFormat(getContext())) {
-            start = Location.convert24To12(start);
-            end = Location.convert24To12(end);
+        String time = null;
+        if (!TextUtils.isEmpty(start) && !TextUtils.isEmpty(end)) {
+            if (!DateFormat.is24HourFormat(getContext())) {
+                start = Location.convert24To12(start);
+                end = Location.convert24To12(end);
+            }
+
+            start = Location.sanitize(start);
+            end = Location.sanitize(end);
+
+            time = start + " – " + end;
         }
 
-        start = Location.sanitize(start);
-        end = Location.sanitize(end);
-
-        final String time = start + " – " + end;
-        holder.time.setText(time);
+        ViewUtils.setText(holder.time, time);
 
         return view;
     }

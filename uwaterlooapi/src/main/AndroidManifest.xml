@@ -47,12 +47,12 @@
         <activity
                 android:name=".ui.GooseActivity"
                 android:theme="@style/AppTheme.NoActionBar"
-                android:screenOrientation="locked"/>
+                android:screenOrientation="portrait"/>
 
         <activity
                 android:name=".ui.ExtrasActivity"
                 android:theme="@style/AppTheme.NoActionBar"
-                android:screenOrientation="locked"/>
+                android:screenOrientation="portrait"/>
 
         <activity
                 android:name=".ui.MapActivity"

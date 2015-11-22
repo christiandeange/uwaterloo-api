@@ -10,66 +10,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
                 android:id="@+id/selectable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:padding="16dp"
-                android:background="?selectableItemBackground">
+                android:orientation="vertical">
 
-            <TextView
-                    android:id="@+id/exam_section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:textAppearanceSearchResultTitle"
-                    tools:text="Section 001"/>
-
-            <TextView
-                    android:id="@+id/exam_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/exam_location_parent"
-                    android:layout_below="@id/exam_section"
-                    tools:text="Monday, December 14, 2015"/>
-
-            <TextView
-                    android:id="@+id/exam_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/exam_date"
-                    tools:text="9:30AM – 12:00PM"/>
-
-            <LinearLayout
-                    android:id="@+id/exam_location_parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/exam_section"
-                    android:layout_alignBottom="@id/exam_time"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 <TextView
-                        android:id="@+id/exam_building"
+                        android:id="@+id/exam_section"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:textAppearance="?android:textAppearanceLarge"
-                        android:textSize="24sp"
-                        tools:text="PAC"/>
+                        android:textAppearance="?android:textAppearanceSearchResultTitle"
+                        tools:text="Section 001"/>
 
                 <TextView
-                        android:id="@+id/exam_rooms"
+                        android:id="@+id/exam_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@android:color/black"
-                        tools:text="1–12"/>
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@id/exam_section"
+                        android:layout_toStartOf="@+id/exam_location_parent"
+                        tools:text="Monday, December 14, 2015"/>
 
-            </LinearLayout>
+                <TextView
+                        android:id="@+id/exam_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/exam_date"
+                        tools:text="9:30AM – 12:00PM"/>
 
-        </RelativeLayout>
+                <LinearLayout
+                        android:id="@+id/exam_location_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/exam_building"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textAppearance="?android:textAppearanceLarge"
+                            android:textSize="24sp"
+                            tools:text="PAC"/>
+
+                    <TextView
+                            android:id="@+id/exam_rooms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@android:color/black"
+                            tools:text="1–12"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/exam_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:autoLink="all"
+                    android:textStyle="italic"
+                    fontPath="@string/font_book_italic"
+                    tools:text="No calculators allowed"/>
+
+        </LinearLayout>
 
     </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
