@@ -18,6 +18,7 @@ package com.deange.uwaterlooapi.sample.ui.view;
 import android.animation.TimeAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -396,7 +397,7 @@ public class GooseView extends FrameLayout {
             final Obstacle ob = mObstaclesInPlay.get(j);
             if (mPlaying && ob.intersects(mDroid) && !DEBUG_IDDQD) {
                 L("player hit an obstacle");
-                if (ob instanceof JohnCena) youCantSeeMe();
+                if (ob instanceof MagicPop) youCantSeeMe();
                 stop();
             } else if (ob.cleared(mDroid)) {
                 if (ob instanceof Stem) passedBarrier = true;
@@ -497,12 +498,14 @@ public class GooseView extends FrameLayout {
     }
 
     private void youCantSeeMe() {
-        getContext().startActivity(new Intent(getContext(), ExtrasActivity.class));
+        final Activity activity = ((Activity) getContext());
+        activity.startActivity(new Intent(getContext(), ExtrasActivity.class));
+        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     public Pop makePop(Context context, float h) {
-        if (irand(0, 69) == 0) {
-            return new JohnCena(context, h);
+        if (irand(0, 30) == 0) {
+            return new MagicPop(context, h);
         } else {
             return new Pop(context, h);
         }
@@ -826,8 +829,8 @@ public class GooseView extends FrameLayout {
         }
     }
 
-    public class JohnCena extends Pop {
-        public JohnCena(final Context context, final float h) {
+    public class MagicPop extends Pop {
+        public MagicPop(final Context context, final float h) {
             super(context, h);
             setBackgroundResource(R.drawable.extra_image);
         }

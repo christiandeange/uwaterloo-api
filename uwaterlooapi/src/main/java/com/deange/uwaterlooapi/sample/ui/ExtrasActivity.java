@@ -1,12 +1,15 @@
 package com.deange.uwaterlooapi.sample.ui;
 
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.deange.uwaterlooapi.sample.R;
@@ -48,25 +51,88 @@ public class ExtrasActivity extends AppCompatActivity {
 
         mDip = getResources().getDisplayMetrics().density;
 
+        final View view = new View(this);
+        view.setBackgroundColor(Color.BLACK);
+        view.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setContentView(view);
+    }
+
+    private void setView() {
         setContentView(R.layout.activity_extras);
 
         mImageView = (ImageView) findViewById(R.id.extras_image_view);
+        mImageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View v, final MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mMediaPlayer.setVolume(1f, 1f);
+                        break;
 
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        mMediaPlayer.setVolume(0.5f, 0.5f);
+                        break;
+                }
+                return false;
+            }
+        });
         mHandler.post(mRumbleRunnable);
+    }
 
-        mMediaPlayer = MediaPlayer.create(this, R.raw.extras_soundtrack);
-        mMediaPlayer.setAudioStreamType(STREAM);
-        mMediaPlayer.setLooping(true);
-        mMediaPlayer.start();
+    private void playSoundtrack() {
+        if (!isDestroyed()) {
+            mMediaPlayer = MediaPlayer.create(this, R.raw.extras_soundtrack);
+            mMediaPlayer.setVolume(0.25f, 0.25f);
+            mMediaPlayer.setAudioStreamType(STREAM);
+            mMediaPlayer.setLooping(true);
+            mMediaPlayer.start();
+
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mMediaPlayer.setVolume(0.5f, 0.5f);
+                    setView();
+                }
+            }, 1750L);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mImageView != null) {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                playSoundtrack();
+            }
+        }, 1000L);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+            mMediaPlayer.reset();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
     }
 
     @Override
     protected void onDestroy() {
         mHandler.removeCallbacks(mRumbleRunnable);
-        mMediaPlayer.stop();
-        mMediaPlayer.release();
-        mMediaPlayer = null;
-
         super.onDestroy();
     }
 }
