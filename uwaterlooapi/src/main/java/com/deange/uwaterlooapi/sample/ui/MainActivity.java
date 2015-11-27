@@ -24,8 +24,10 @@ import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.HomeFragment;
+import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import uk.co.chrisjenx.calligraphy.TypefaceUtils;
 
 
 public class MainActivity extends AppCompatActivity
@@ -79,7 +81,9 @@ public class MainActivity extends AppCompatActivity
         final TextView subtitleView = (TextView) headerView.findViewById(R.id.navigation_header_subtitle);
         HeaderTitlePresenter.show(titleView, subtitleView);
 
-        headerView.findViewById(R.id.navigation_header_clickable).setOnClickListener(this);
+        if (PlatformUtils.hasLollipop()) {
+            headerView.findViewById(R.id.navigation_header_clickable).setOnClickListener(this);
+        }
 
         // set up the hamburger icon to open and close the drawer
         mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
@@ -104,7 +108,12 @@ public class MainActivity extends AppCompatActivity
             //noinspection RedundantCast
             ((NavigationMenuItemView) view).setForeground(null);
 
-        } else if (view instanceof ViewGroup) {
+        } else if (view instanceof TextView) {
+            ((TextView) view).setTypeface(TypefaceUtils.load(getAssets(), getString(R.string.font_book)));
+
+        }
+
+        if (view instanceof ViewGroup) {
             final ViewGroup parent = ((ViewGroup) view);
             for (int i = 0; i < parent.getChildCount(); ++i) {
                 fixForegrounds(parent.getChildAt(i));

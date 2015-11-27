@@ -14,7 +14,7 @@ import java.util.Random;
 
 public final class HeaderTitlePresenter {
 
-    private static final int CAPTION_INDEX = new Random().nextInt(3);
+    private static final Map<Integer, Integer> CAPTION_INDEX = new HashMap<>();
     private static final Map<Integer, Integer> CAPTIONS;
     static {
         final Map<Integer, Integer> map = new HashMap<>();
@@ -49,8 +49,18 @@ public final class HeaderTitlePresenter {
         }
 
         titleView.setText(stringId);
-        subtitleView.setText(context.getResources().getStringArray(
-                CAPTIONS.get(stringId))[CAPTION_INDEX]);
+
+        final String[] subtitleArray = context.getResources().getStringArray(CAPTIONS.get(stringId));
+
+        final int captionIndex;
+        if (CAPTION_INDEX.containsKey(stringId)) {
+            captionIndex = CAPTION_INDEX.get(stringId);
+        } else {
+            captionIndex = (int) (Math.random() * subtitleArray.length);
+            CAPTION_INDEX.put(stringId, captionIndex);
+        }
+
+        subtitleView.setText(subtitleArray[captionIndex]);
     }
 
 }

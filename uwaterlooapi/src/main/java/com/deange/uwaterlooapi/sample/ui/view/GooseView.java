@@ -54,10 +54,10 @@ import java.util.ArrayList;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class GooseView extends FrameLayout {
     public static final String TAG = GooseView.class.getSimpleName();
-    public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
-    public static final boolean DEBUG_DRAW = false; // DEBUG
+    public static final boolean DEBUG = false;
+    public static final boolean DEBUG_DRAW = false;
     public static final boolean DEBUG_IDDQD = false;
-    public static final float DEBUG_SPEED_MULTIPLIER = 1f; // 0.1f;
+    public static final float DEBUG_SPEED_MULTIPLIER = 1f;
 
     public static void L(String s, Object... objects) {
         if (DEBUG) {
@@ -67,10 +67,6 @@ public class GooseView extends FrameLayout {
 
     public static final boolean AUTOSTART = true;
     public static final boolean HAVE_STARS = true;
-    final static int[] POPS = {
-            // <resid, spinny> pairs
-            R.drawable.content_obstacle, 1,
-    };
 
     private static class Params {
         public float TRANSLATION_PER_SEC;
@@ -194,7 +190,6 @@ public class GooseView extends FrameLayout {
                 SKIES[mTimeOfDay]
         );
         setBackground(sky);
-        setScaleX((frand() > 0.5f) ? -1 : 1);
         setScore(0);
         int i = getChildCount();
         while (i-- > 0) {
@@ -293,6 +288,26 @@ public class GooseView extends FrameLayout {
 
     private void addScore(int incr) {
         setScore(mScore + incr);
+
+        final float scale = 0.2f;
+
+        if (mScoreField != null) {
+            mScoreField.animate()
+                       .scaleXBy(scale)
+                       .scaleYBy(scale)
+                       .setDuration(250)
+                       .withEndAction(new Runnable() {
+                           @Override
+                           public void run() {
+                               mScoreField.animate()
+                                          .scaleXBy(-scale)
+                                          .scaleYBy(-scale)
+                                          .setDuration(250)
+                                          .start();
+                           }
+                       })
+                       .start();
+        }
     }
 
     private void start(boolean startPlaying) {
@@ -314,7 +329,6 @@ public class GooseView extends FrameLayout {
             mDroid.setVisibility(View.VISIBLE);
             mDroid.setX(mWidth / 2);
             mDroid.setY(mHeight / 2);
-            mDroid.setScaleY(-1);
         } else {
             mDroid.setVisibility(View.GONE);
         }
@@ -504,7 +518,7 @@ public class GooseView extends FrameLayout {
     }
 
     public Pop makePop(Context context, float h) {
-        if (irand(0, 2) == 0) {
+        if (irand(0, 30) == 0) {
             return new MagicPop(context, h);
         } else {
             return new Pop(context, h);
@@ -682,11 +696,6 @@ public class GooseView extends FrameLayout {
             setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
-                    final int w = view.getWidth();
-                    final int h = view.getHeight();
-                    final int ix = (int) (w * 0.3f);
-                    final int iy = (int) (h * 0.2f);
-                    outline.setOval(ix, iy, w - ix, h - iy);
                 }
             });
         }
@@ -789,15 +798,13 @@ public class GooseView extends FrameLayout {
     }
 
     private class Pop extends Obstacle {
-        int mRotate;
+        float mRotate;
         int cx, cy, r;
 
         public Pop(Context context, float h) {
             super(context, h);
-            int idx = 2 * irand(0, POPS.length / 2);
-            setBackgroundResource(POPS[idx]);
-            setScaleX(frand() < 0.5f ? -1 : 1);
-            mRotate = POPS[idx + 1] == 0 ? 0 : (frand() < 0.5f ? -1 : 1);
+            setBackgroundResource(R.drawable.content_uwaterloo_logo);
+            mRotate = frand(-1, 1);
             setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
@@ -820,9 +827,7 @@ public class GooseView extends FrameLayout {
         @Override
         public void step(long t_ms, long dt_ms, float t, float dt) {
             super.step(t_ms, dt_ms, t, dt);
-            if (mRotate != 0) {
-                setRotation(getRotation() + dt * 45 * mRotate);
-            }
+            setRotation(getRotation() + dt * 45 * mRotate);
             cx = (hitRect.left + hitRect.right) / 2;
             cy = (hitRect.top + hitRect.bottom) / 2;
             r = getWidth() / 2;
