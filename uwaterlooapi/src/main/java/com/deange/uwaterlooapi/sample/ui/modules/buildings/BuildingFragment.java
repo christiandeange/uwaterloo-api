@@ -137,16 +137,6 @@ public class BuildingFragment
 
     @Override
     public void onMapClick(final LatLng latLng) {
-
-        if (PlatformUtils.hasLollipop()) {
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                    getActivity(), mMapView, mMapView.getTransitionName());
-
-            getActivity().startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding), options.toBundle());
-
-        } else {
-            startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding));
-        }
-
+        startActivity(MapActivity.getMapActivityIntent(getActivity(), mBuilding));
     }
 }

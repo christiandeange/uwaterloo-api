@@ -56,7 +56,7 @@ public class ApiMethodsFragment extends ListFragment
                 String path = method.getAnnotation(GET.class).value();
                 path = path.replace(".{format}", "");
 
-                // Filter out non-base endpoints and existing expoints
+                // Filter out non-base endpoints and non-existing endpoints
                 final ModuleInfo info = ModuleMap.getFragmentInfo(path);
                 if (info == null || !info.isBase || modules.contains(info)) {
                     continue;

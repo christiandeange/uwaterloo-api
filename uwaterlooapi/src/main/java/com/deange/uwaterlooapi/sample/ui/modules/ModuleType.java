@@ -8,6 +8,7 @@ public interface ModuleType {
     String COURSES = "Course List";
     String EVENT = "Event";
     String EVENTS = "Event List";
+    String GOOSEWATCH = "Goose Watch";
     String HOME = "Home";
     String LOCATION = "Location";
     String LOCATIONS = "Locations List";

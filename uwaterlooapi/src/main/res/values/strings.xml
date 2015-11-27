@@ -34,6 +34,7 @@
     <string name="title_buildings">Buildings</string>
     <string name="title_courses">Courses</string>
     <string name="title_resources_sites">Sites</string>
+    <string name="title_resources_goosewatch">Goose Watch</string>
     <string name="title_events">Events</string>
     <string name="title_news">News</string>
 
@@ -95,6 +96,10 @@
 
     <string name="event_news_audience">Open to %s</string>
     <string name="news_published">Published on %s</string>
+
+    <string name="goosewatch_no_nests">No goose nests reported</string>
+    <string name="goosewatch_no_title">(No title)</string>
+    <string name="goosewatch_last_updated">Last updated %1$s</string>
 
     <!-- General -->
     <string name="and">and</string>

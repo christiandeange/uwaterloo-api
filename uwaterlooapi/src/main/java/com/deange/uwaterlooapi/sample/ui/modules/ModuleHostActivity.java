@@ -17,6 +17,7 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
+import com.deange.uwaterlooapi.sample.utils.FontUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -113,6 +114,8 @@ public class ModuleHostActivity extends AppCompatActivity
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(mChildFragment.getToolbarTitle());
+
+        FontUtils.apply(getToolbar(), FontUtils.DEFAULT);
     }
 
     @Override

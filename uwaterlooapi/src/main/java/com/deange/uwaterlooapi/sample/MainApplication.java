@@ -3,6 +3,7 @@ package com.deange.uwaterlooapi.sample;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -28,10 +29,7 @@ public class MainApplication extends MultiDexApplication {
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
 
         // Set up Calligraphy library
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/Gotham-Book.otf")
-                        .setFontAttrId(R.attr.fontPath)
-                        .build());
+        FontUtils.init(this);
 
         // Joda Time config
         JodaTimeAndroid.init(this);

@@ -24,6 +24,7 @@ import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.HomeFragment;
+import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
+    private Toolbar mToolbar;
 
     private int mClicks;
 
@@ -55,8 +57,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         new Thread(new Runnable() {
             @Override
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity
 
         // set up the hamburger icon to open and close the drawer
         mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, 0, 0);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, 0, 0);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
@@ -96,7 +98,6 @@ public class MainActivity extends AppCompatActivity
         mNavigationView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                mNavigationView.getViewTreeObserver().removeOnPreDrawListener(this);
                 fixForegrounds(mNavigationView);
                 return true;
             }
@@ -109,8 +110,7 @@ public class MainActivity extends AppCompatActivity
             ((NavigationMenuItemView) view).setForeground(null);
 
         } else if (view instanceof TextView) {
-            ((TextView) view).setTypeface(TypefaceUtils.load(getAssets(), getString(R.string.font_book)));
-
+            FontUtils.apply(view, FontUtils.DEFAULT);
         }
 
         if (view instanceof ViewGroup) {
@@ -180,6 +180,8 @@ public class MainActivity extends AppCompatActivity
 
         mNavItemId = itemId;
         setTitle(item.getTitle());
+        FontUtils.apply(mToolbar, FontUtils.DEFAULT);
+
         return true;
     }
 

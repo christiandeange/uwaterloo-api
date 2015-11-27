@@ -10,7 +10,6 @@
             android:id="@+id/building_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:transitionName="map"
             android:fitsSystemWindows="false"/>
 
     <com.deange.uwaterlooapi.sample.ui.view.CardView
