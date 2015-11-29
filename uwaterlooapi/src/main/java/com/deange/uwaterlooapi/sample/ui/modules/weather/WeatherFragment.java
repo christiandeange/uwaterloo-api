@@ -14,6 +14,7 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -59,8 +60,10 @@ import butterknife.OnClick;
         path = "/weather/current",
         layout = R.layout.module_weather
 )
-public class WeatherFragment extends BaseModuleFragment<Response.Weather, WeatherReading>
-        implements ViewTreeObserver.OnScrollChangedListener {
+public class WeatherFragment
+        extends BaseModuleFragment<Response.Weather, WeatherReading>
+        implements
+        ViewTreeObserver.OnScrollChangedListener {
 
     private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
     private static final float MAX_BEARING_TOLERANCE = 25f;
@@ -70,6 +73,8 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
 
     private final Set<View> mViewsSeen = new HashSet<>();
     private final Rect mRect = new Rect();
+    private boolean mPostVisible;
+    private boolean mPressed;
 
     @Bind(R.id.weather_scrollview) ScrollView mScrollView;
     @Bind(R.id.weather_slider) SliceView mSliceView;
@@ -100,6 +105,10 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
         ButterKnife.bind(this, root);
 
         mScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+        mScrollView.setOnTouchListener(this);
+        mScrollView.setVerticalScrollBarEnabled(false);
+
+        mSpacer.setVisibility(View.GONE);
 
         final DisplayMetrics metrics = getResources().getDisplayMetrics();
         mBackground.setLayoutParams(
@@ -124,11 +133,13 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
                     final int oldTop,
                     final int oldRight,
                     final int oldBottom) {
-                mSpacer.getLayoutParams().height =
-                        v.getMeasuredHeight()
-                                - getHostActivity().getToolbar().getMeasuredHeight()
-                                - getStatusBarHeight();
-                mSpacer.requestLayout();
+                if (mSpacer.getLayoutParams() != null) {
+                    mSpacer.getLayoutParams().height =
+                            v.getMeasuredHeight()
+                                    - getHostActivity().getToolbar().getMeasuredHeight()
+                                    - getStatusBarHeight();
+                    mSpacer.requestLayout();
+                }
             }
         });
 
@@ -401,6 +412,20 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
         if (firstViewSinceRefresh(mRangeView)) {
             animateTemperatureRange();
         }
+
+        final int scroll = (mScrollView.getHeight() + mScrollView.getScrollY());
+        final int sliceBottom = mSliceView.getBottom();
+
+        if (scroll >= sliceBottom) {
+            if (mPressed) {
+                mPostVisible = true;
+            } else {
+                postSetSpacerVisible();
+            }
+        } else {
+            mPostVisible = false;
+            mSpacer.setVisibility(View.GONE);
+        }
     }
 
     // Note that this is NOT IDEMPOTENT, successive calls for the same view may return false
@@ -411,6 +436,39 @@ public class WeatherFragment extends BaseModuleFragment<Response.Weather, Weathe
         }
 
         return false;
+    }
+
+    @Override
+    public boolean onTouch(final View view, final MotionEvent motionEvent) {
+        if (view == mScrollView) {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mPressed = true;
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    mPressed = false;
+                    if (mPostVisible) {
+                        postSetSpacerVisible();
+                    }
+                    break;
+            }
+
+            return false;
+        } else {
+            return super.onTouch(view, motionEvent);
+        }
+    }
+
+    private void postSetSpacerVisible() {
+        mPostVisible = false;
+        post(new Runnable() {
+            @Override
+            public void run() {
+                mSpacer.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private static class PhotoFetcher extends AsyncTask<String, Void, Photo> {
