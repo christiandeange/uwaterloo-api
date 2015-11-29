@@ -62,6 +62,9 @@
                 android:name=".ui.MapActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+                android:name=".ui.AboutActivity"/>
+
     </application>
 
 </manifest>

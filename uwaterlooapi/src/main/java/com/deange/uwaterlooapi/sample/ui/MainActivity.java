@@ -28,7 +28,6 @@ import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-import uk.co.chrisjenx.calligraphy.TypefaceUtils;
 
 
 public class MainActivity extends AppCompatActivity
@@ -156,6 +155,12 @@ public class MainActivity extends AppCompatActivity
 
         final int itemId = item.getItemId();
         final Fragment fragment;
+
+        if (itemId == R.id.menu_item_about) {
+            startActivity(new Intent(this, AboutActivity.class));
+            overridePendingTransition(R.anim.bottom_in, R.anim.stay);
+            return false;
+        }
 
         if (itemId == R.id.menu_item_home) {
             fragment = new HomeFragment();
