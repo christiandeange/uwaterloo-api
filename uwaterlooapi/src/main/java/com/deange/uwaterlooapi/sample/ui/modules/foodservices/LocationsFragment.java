@@ -106,6 +106,8 @@ public class LocationsFragment
         Collections.sort(mDataLocations, sComparator);
 
         mAdapter = new LocationAdapter(getActivity(), mDataLocations, this);
+
+        getListView().setFastScrollEnabled(true);
         getListView().setAdapter(mAdapter);
     }
 

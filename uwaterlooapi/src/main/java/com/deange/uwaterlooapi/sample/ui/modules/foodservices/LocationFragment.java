@@ -20,6 +20,7 @@ import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
+import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -43,8 +44,8 @@ public class LocationFragment extends BaseModuleFragment<BaseResponse, Location>
 
         final View view = getView();
 
-        final ImageView logoView = (ImageView) view.findViewById(R.id.list_location_logo);
         final TextView titleView = (TextView) view.findViewById(R.id.list_location_title);
+        final TextView locationView = (TextView) view.findViewById(R.id.list_location_building);
         final TextView descriptionView = (TextView) view.findViewById(R.id.list_location_description);
         final TextView openNowView = (TextView) view.findViewById(R.id.list_location_open_now);
 
@@ -52,13 +53,10 @@ public class LocationFragment extends BaseModuleFragment<BaseResponse, Location>
         final TextView closedDays = (TextView) view.findViewById(R.id.list_location_closed_days);
         final TextView specialDays = (TextView) view .findViewById(R.id.list_location_special_hours);
 
-        final Spannable wordtoSpan = new SpannableString(location.getName());
-        int hyphen = location.getName().indexOf('-');
-        if (hyphen == -1) {
-            hyphen = wordtoSpan.length();
-        }
-        wordtoSpan.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, hyphen, 0);
-        titleView.setText(wordtoSpan);
+        final String[] split = location.getName().split(" - ");
+
+        titleView.setText(split[0]);
+        ViewUtils.setText(locationView, (split.length == 2) ? split[1] : null);
 
         if (!TextUtils.isEmpty(location.getDescription())) {
             descriptionView.setText(Html.fromHtml(location.getDescription()));
@@ -81,10 +79,6 @@ public class LocationFragment extends BaseModuleFragment<BaseResponse, Location>
         showSection(specialDays, !specialHours.isEmpty());
         closedDays.setText(Joiner.on("\n").joinObjects(datesClosed));
         specialDays.setText(Joiner.on("\n").joinObjects(specialHours));
-
-        Picasso.with(getActivity())
-                .load(location.getLogoUrl())
-                .into(logoView);
     }
 
     @Override

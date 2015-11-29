@@ -1,20 +1,22 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.content.Context;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.model.foodservices.SpecialOperatingHours;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
+import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -24,11 +26,14 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class LocationAdapter
-        extends ModuleAdapter {
+        extends ModuleIndexedAdapter<String> {
 
     private final List<Location> mLocations;
+    private final String[] mIndices;
 
     public LocationAdapter(
             final Context context,
@@ -36,6 +41,12 @@ public class LocationAdapter
             final ModuleListItemListener listener) {
         super(context, listener);
         mLocations = locations;
+
+        final Set<String> indices = new TreeSet<>();
+        for (int i = 0; i < mLocations.size(); i++) {
+            indices.add(getFirstCharOf(i));
+        }
+        mIndices = indices.toArray(new String[indices.size()]);
     }
 
     @Override
@@ -50,28 +61,36 @@ public class LocationAdapter
 
         final Location location = getItem(position);
         final TextView titleView = (TextView) view.findViewById(R.id.list_location_title);
-
-        final Spannable wordtoSpan = new SpannableString(location.getName());
-        int hyphen = location.getName().indexOf('-');
-        if (hyphen == -1) {
-            hyphen = wordtoSpan.length();
-        }
-        wordtoSpan.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, hyphen, 0);
-        titleView.setText(wordtoSpan);
-
+        final TextView locationView = (TextView) view.findViewById(R.id.list_location_building);
         final TextView timingView = (TextView) view.findViewById(R.id.list_location_timing_desc);
+        final View gradientView = view.findViewById(R.id.list_location_gradient);
+
+        final String[] split = location.getName().split(" - ");
+
+        titleView.setText(split[0]);
+        ViewUtils.setText(locationView, (split.length == 2) ? split[1] : null);
 
         if (!location.isOpenNow()) {
-            timingView.setTextColor(context.getResources().getColor(R.color.foodservices_location_closed));
             timingView.setText(R.string.foodservices_location_closed_now);
+
+            final int color = context.getResources().getColor(R.color.foodservices_location_closed);
+            gradientView.setVisibility(View.VISIBLE);
+            timingView.setBackgroundColor(color);
+            timingView.setTextColor(Color.WHITE);
+
+            final GradientDrawable background = (GradientDrawable) gradientView.getBackground();
+            background.setDither(true);
+            background.setColors(new int[]{ mask(0x00, color), mask(0xFF, color), });
 
         } else {
             final LocalTime closing = getClosingTime(location);
-            final String mintuesFormat = (closing.getMinuteOfHour() == 0) ? "" : ":mm";
-            timingView.setTextColor(context.getResources().getColor(R.color.foodservices_location_open));
+            final String timeFormat = "h" + (closing.getMinuteOfHour() == 0 ? "" : ":mm") + " a";
             timingView.setText(context.getString(
-                    R.string.foodservices_location_closes_at,
-                    closing.toString("h" + mintuesFormat + " a")));
+                    R.string.foodservices_location_closes_at, closing.toString(timeFormat)));
+
+            gradientView.setVisibility(View.GONE);
+            timingView.setBackgroundColor(Color.TRANSPARENT);
+            timingView.setTextColor(context.getResources().getColor(R.color.foodservices_location_open));
         }
     }
 
@@ -87,7 +106,7 @@ public class LocationAdapter
 
     @Override
     public boolean areAllItemsEnabled() {
-        return false;
+        return true;
     }
 
     final LocalTime getClosingTime(final Location location) {
@@ -131,4 +150,17 @@ public class LocationAdapter
         return closing;
     }
 
+    private static int mask(final int alpha, final int colour) {
+        return (alpha << 24) | (0x00FFFFFF & colour);
+    }
+
+    @Override
+    public String[] getSections() {
+        return mIndices;
+    }
+
+    @Override
+    public String getFirstCharOf(final int position) {
+        return String.valueOf(getItem(position).getName().charAt(0));
+    }
 }

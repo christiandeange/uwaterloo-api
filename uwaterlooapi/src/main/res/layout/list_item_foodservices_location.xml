@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,21 +21,54 @@
                 android:background="?attr/selectableItemBackground">
 
             <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
                     android:id="@+id/list_location_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:textColor="#123456"
-                    android:textSize="20sp"
-                    android:fontFamily="sans-serif-light"/>
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textStyle="bold"
+                    fontPath="@string/font_medium"
+                    tools:text="Student Life Centre"/>
 
             <TextView
-                    android:id="@+id/list_location_timing_desc"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:id="@+id/list_location_building"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-light"/>
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    tools:text="Tim Hortons"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                <View
+                        android:id="@+id/list_location_gradient"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/location_open_gradient"/>
+
+                <TextView
+                        android:id="@+id/list_location_timing_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@android:color/white"
+                        tools:text="Closes at 7:30 PM"
+                        tools:background="@color/foodservices_location_open"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

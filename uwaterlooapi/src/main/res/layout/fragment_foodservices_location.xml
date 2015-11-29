@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:orientation="vertical"
+        android:background="@color/background">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary"
+            android:padding="16dp"
+            android:elevation="8dp"
+            android:orientation="vertical">
+
+        <TextView
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:id="@+id/list_location_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"/>
+
+        <TextView
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:id="@+id/list_location_building"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"/>
+
+    </LinearLayout>
 
     <com.deange.uwaterlooapi.sample.ui.view.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
         <ScrollView
                 android:layout_width="match_parent"
@@ -22,29 +47,12 @@
                     android:layout_height="wrap_content"
                     android:padding="8dp">
 
-                <View
-                        android:id="@+id/list_location_logo_padding"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"/>
-
-                <TextView
-                        android:id="@+id/list_location_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layout_below="@id/list_location_logo_padding"
-                        android:gravity="center"
-                        android:fontFamily="sans-serif-light"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/black"/>
-
                 <TextView
                         android:id="@+id/list_location_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:layout_below="@id/list_location_title"
                         android:fontFamily="sans-serif-light"/>
 
                 <RelativeLayout
@@ -64,10 +72,8 @@
                             android:id="@+id/list_location_open_now"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="16dp"
                             android:layout_marginStart="16dp"
                             android:padding="4dp"
                             android:background="@android:color/white"
@@ -106,12 +112,14 @@
                                 android:text="@string/foodservices_location_hours_closed"
                                 android:textStyle="bold"
                                 android:textAllCaps="true"
-                                android:textColor="@android:color/black"/>
+                                android:textColor="@android:color/black"
+                                fontPath="@string/font_bold"/>
 
                         <TextView
                                 style="@style/OperatingHoursValue"
                                 android:id="@+id/list_location_closed_days"
-                                android:layout_toRightOf="@id/list_location_closed_days_label"
+                                android:layout_below="@id/list_location_closed_days_label"
+                                android:layout_alignParentEnd="false"
                                 android:textColor="@android:color/black"/>
 
                     </RelativeLayout>
@@ -133,12 +141,14 @@
                                 android:text="@string/foodservices_location_special_hours"
                                 android:textStyle="bold"
                                 android:textAllCaps="true"
-                                android:textColor="@android:color/black"/>
+                                android:textColor="@android:color/black"
+                                fontPath="@string/font_bold"/>
 
                         <TextView
                                 style="@style/OperatingHoursValue"
                                 android:id="@+id/list_location_special_hours"
-                                android:layout_toRightOf="@id/list_location_special_hours_label"
+                                android:layout_below="@id/list_location_special_hours_label"
+                                android:layout_alignParentEnd="false"
                                 android:textColor="@android:color/black"/>
 
                     </RelativeLayout>
@@ -151,16 +161,4 @@
 
     </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
-
-    <ImageView
-            android:id="@+id/list_location_logo"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:elevation="8dp"
-            android:background="@android:color/white"/>
-
-
-</RelativeLayout>
+</LinearLayout>
