@@ -23,6 +23,9 @@
     <string name="weather_range_low">Low</string>
     <string name="weather_range_high">High</string>
     <string name="weather_last_updated">Last updated at %1$s %2$s</string>
+    <string name="weather_wind">%1$s kph %2$s</string>
+    <string name="weather_precipitation">%1$.1f mm in last 24h</string>
+    <string name="weather_precipitation_none">No precipitation in last 24h</string>
     <string name="weather_author_attribution">%1$s\nPhoto taken by %2$s</string>
 
     <string name="title_foodservices_announcements">Announcements</string>

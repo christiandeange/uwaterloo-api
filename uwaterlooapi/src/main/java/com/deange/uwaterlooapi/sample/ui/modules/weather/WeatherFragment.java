@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.weather;
 
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -35,13 +37,16 @@ import com.deange.uwaterlooapi.sample.model.Photo;
 import com.deange.uwaterlooapi.sample.model.PhotoDetails;
 import com.deange.uwaterlooapi.sample.model.PhotoSize;
 import com.deange.uwaterlooapi.sample.model.PhotoUrl;
+import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.CoverPhotoPresenter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.RangeView;
 import com.deange.uwaterlooapi.sample.ui.view.SliceView;
+import com.deange.uwaterlooapi.sample.ui.view.WaveView;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
+import com.deange.uwaterlooapi.sample.utils.MathUtils;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -70,6 +75,8 @@ public class WeatherFragment
 
     private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
     private static final float MAX_BEARING_TOLERANCE = 25f;
+    private static final float MIN_WAVE_LEVEL = 0.1f;
+    private static final float MAX_WAVE_LEVEL = 0.95f;
     private static final List<String> DIRECTIONS =
             Arrays.asList("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N");
 
@@ -89,6 +96,9 @@ public class WeatherFragment
     @Bind(R.id.weather_wind_direction_root) View mWindDirectionRoot;
     @Bind(R.id.weather_wind_direction) View mWindDirectionView;
     @Bind(R.id.weather_wind_speed) TextView mWindSpeedView;
+
+    @Bind(R.id.weather_waveview) WaveView mWaveView;
+    @Bind(R.id.weather_precipitation) TextView mPrecipitationView;
 
     @Bind(R.id.weather_last_updated) TextView mLastUpdated;
     @Bind(R.id.weather_spacer) View mSpacer;
@@ -145,6 +155,8 @@ public class WeatherFragment
             }
         });
 
+        initWaveView();
+
         return root;
     }
 
@@ -196,10 +208,14 @@ public class WeatherFragment
         final String cardinalDirection = data.getWindDirection();
         final int bearing = DIRECTIONS.indexOf(cardinalDirection) * 45;
 
-        final String windSpeed = "  " + data.getWindSpeed() + " kph " + cardinalDirection + "  ";
-        mWindSpeedView.setText(windSpeed);
+        final float windSpeed = data.getWindSpeed();
+        final String windSpeedString = (windSpeed == (int) windSpeed)
+                ? String.valueOf((int) windSpeed)
+                : String.valueOf(windSpeed);
 
-        final float windSpeedMax = -(Math.min(data.getWindSpeed(), 50f) / 100);
+        mWindSpeedView.setText(getString(R.string.weather_wind, windSpeedString, cardinalDirection));
+
+        final float windSpeedMax = -(Math.min(windSpeed, 50f) / 100);
         final float windSpeedMin = windSpeedMax / 5f;
 
         if (mWindTextAnimation != null) {
@@ -247,6 +263,25 @@ public class WeatherFragment
             }
         });
         mWindSpeedAnimation.start();
+
+        final float precipitation = mLastReading.getPrecipitation24Hr();
+        final String precipitationFormatted;
+        final int waveColor;
+        if (precipitation == 0) {
+            precipitationFormatted = getString(R.string.weather_precipitation_none);
+            waveColor = Colors.GREY_500;
+
+        } else {
+            precipitationFormatted = getString(R.string.weather_precipitation, precipitation);
+            waveColor = Colors.BLUE_500;
+        }
+
+        final float level = MathUtils.clamp(precipitation / 10f, MIN_WAVE_LEVEL, MAX_WAVE_LEVEL);
+
+        mWaveView.setShowWave(true);
+        mWaveView.setColor(waveColor);
+        mWaveView.setWaterLevelRatio(level);
+        mPrecipitationView.setText(precipitationFormatted);
     }
 
     @Override
@@ -344,15 +379,35 @@ public class WeatherFragment
         return mPhotoSize;
     }
 
+    private void initWaveView() {
+        // Horizontal animation, wave waves infinitely.
+        final ObjectAnimator waveShiftAnimator = ObjectAnimator.ofFloat(
+                mWaveView, "waveShiftRatio", 0f, 1f);
+        waveShiftAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        waveShiftAnimator.setDuration(1000);
+        waveShiftAnimator.setInterpolator(new LinearInterpolator());
+
+        // Amplitude animation, wave grows big then grows small, repeatedly
+        final ObjectAnimator amplitudeAnimator = ObjectAnimator.ofFloat(
+                mWaveView, "amplitudeRatio", 0.02f, 0.04f);
+        amplitudeAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        amplitudeAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        amplitudeAnimator.setDuration(5000);
+        amplitudeAnimator.setInterpolator(new LinearInterpolator());
+
+        waveShiftAnimator.start();
+        amplitudeAnimator.start();
+    }
+
     private String formatTemperature(final float temp, final int decimals) {
         return String.format("%." + decimals + "f˚", temp);
     }
 
     // TODO use this when moving to the new UWaterloo WeatherApi
-    private String formatBearing(final float bearing) {
-        final float normalizedBearing = (bearing % 360f) + 360f;
-        return DIRECTIONS.get((int) Math.floor(((normalizedBearing + 22.5f) % 360) / 45));
-    }
+    // private String formatBearing(final float bearing) {
+    //     final float normalizedBearing = (bearing % 360f) + 360f;
+    //     return DIRECTIONS.get((int) Math.floor(((normalizedBearing + 22.5f) % 360) / 45));
+    // }
 
     private void animateTemperatureRange() {
         if (mLastReading == null) return;
@@ -366,7 +421,9 @@ public class WeatherFragment
                 sMainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mRangeView.setValue((Float) animation.getAnimatedValue());
+                        if (mRangeView != null) {
+                            mRangeView.setValue((Float) animation.getAnimatedValue());
+                        }
                     }
                 });
             }
@@ -475,7 +532,9 @@ public class WeatherFragment
         post(new Runnable() {
             @Override
             public void run() {
-                mSpacer.setVisibility(View.VISIBLE);
+                if (mSpacer != null) {
+                    mSpacer.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
