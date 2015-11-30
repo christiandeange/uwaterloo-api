@@ -28,8 +28,8 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
-import com.deange.uwaterlooapi.model.weather.WeatherReading;
+import com.deange.uwaterlooapi.model.common.LegacyWeatherResponse;
+import com.deange.uwaterlooapi.model.weather.LegacyWeatherReading;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.Photo;
 import com.deange.uwaterlooapi.sample.model.PhotoDetails;
@@ -46,11 +46,14 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,15 +64,14 @@ import butterknife.OnClick;
         layout = R.layout.module_weather
 )
 public class WeatherFragment
-        extends BaseModuleFragment<Response.Weather, WeatherReading>
+        extends BaseModuleFragment<LegacyWeatherResponse, LegacyWeatherReading>
         implements
         ViewTreeObserver.OnScrollChangedListener {
 
     private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
     private static final float MAX_BEARING_TOLERANCE = 25f;
-    private static final String[] DIRECTIONS = {
-            "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N",
-    };
+    private static final List<String> DIRECTIONS =
+            Arrays.asList("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N");
 
     private final Set<View> mViewsSeen = new HashSet<>();
     private final Rect mRect = new Rect();
@@ -92,7 +94,7 @@ public class WeatherFragment
     @Bind(R.id.weather_spacer) View mSpacer;
     @Bind(R.id.weather_author_attribution) TextView mAuthor;
 
-    private WeatherReading mLastReading;
+    private LegacyWeatherReading mLastReading;
     private ValueAnimator mWindTextAnimation;
     private ValueAnimator mWindSpeedAnimation;
     private Photo mPhoto;
@@ -167,12 +169,12 @@ public class WeatherFragment
     }
 
     @Override
-    public Response.Weather onLoadData(final UWaterlooApi api) {
-        return api.Weather.getWeather();
+    public LegacyWeatherResponse onLoadData(final UWaterlooApi api) {
+        return new LegacyWeatherResponse(api.LegacyWeather.getWeather());
     }
 
     @Override
-    public void onBindData(final Metadata metadata, final WeatherReading data) {
+    public void onBindData(final Metadata metadata, final LegacyWeatherReading data) {
         mLastReading = data;
 
         mTemperatureView.setText(formatTemperature(data.getTemperature(), 0));
@@ -183,12 +185,18 @@ public class WeatherFragment
         mMinTempView.setText(formatTemperature(data.getTemperature24hMin(), 1));
         mMaxTempView.setText(formatTemperature(data.getTemperature24hMax(), 1));
 
+        final Date updated = mLastReading.getObservationTime();
+        final TimeZone tz = TimeZone.getDefault();
         mLastUpdated.setText(
                 getString(R.string.weather_last_updated,
-                        DateUtils.formatTime(getActivity(), data.getObservationTime())));
+                        DateUtils.formatTime(getActivity(), updated),
+                        tz.getDisplayName(tz.inDaylightTime(updated), TimeZone.SHORT))
+        );
 
-        final String direction = formatBearing(data.getWindDirection());
-        final String windSpeed = "  " + data.getWindSpeed() + " kph " + direction + "  ";
+        final String cardinalDirection = data.getWindDirection();
+        final int bearing = DIRECTIONS.indexOf(cardinalDirection) * 45;
+
+        final String windSpeed = "  " + data.getWindSpeed() + " kph " + cardinalDirection + "  ";
         mWindSpeedView.setText(windSpeed);
 
         final float windSpeedMax = -(Math.min(data.getWindSpeed(), 50f) / 100);
@@ -216,8 +224,8 @@ public class WeatherFragment
         mWindTextAnimation.start();
 
         final float cappedTolerance = Math.min(data.getWindSpeed(), MAX_BEARING_TOLERANCE);
-        final float minDegrees = data.getWindDirection() - cappedTolerance;
-        final float maxDegrees = data.getWindDirection() + cappedTolerance;
+        final float minDegrees = bearing - cappedTolerance;
+        final float maxDegrees = bearing + cappedTolerance;
 
         if (mWindSpeedAnimation != null) {
             mWindSpeedAnimation.cancel();
@@ -340,9 +348,10 @@ public class WeatherFragment
         return String.format("%." + decimals + "f˚", temp);
     }
 
+    // TODO use this when moving to the new UWaterloo WeatherApi
     private String formatBearing(final float bearing) {
         final float normalizedBearing = (bearing % 360f) + 360f;
-        return DIRECTIONS[(int) Math.floor(((normalizedBearing + 22.5f) % 360) / 45)];
+        return DIRECTIONS.get((int) Math.floor(((normalizedBearing + 22.5f) % 360) / 45));
     }
 
     private void animateTemperatureRange() {

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.weather.LegacyWeatherReading;
 
 /**
  * THIS CLASS IS TEMPORARY
@@ -20,7 +21,7 @@ public final class ApiRunner {
 //        runCourses(api);
 //        runEvents(api);
 //        runNews(api);
-//        runWeather(api);
+        runWeather(api);
 //        runTerms(api);
 //        runResources(api);
 //        runBuildings(api);
@@ -92,6 +93,7 @@ public final class ApiRunner {
     private static void runWeather(final UWaterlooApi api) {
 
         final Response.Weather weather = api.Weather.getWeather();
+        final LegacyWeatherReading legacyWeather = api.LegacyWeather.getWeather();
 
         Log.v("TAG", "Weather requests completed.");
     }

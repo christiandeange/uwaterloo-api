@@ -30,20 +30,22 @@ public final class UWaterlooApi {
      * APIs DEFINED BELOW
      */
 
-    public final FoodServicesApi FoodServices = ApiBuilder.build(this, FoodServicesApi.class);
+    public final FoodServicesApi FoodServices = ApiBuilder.buildJson(this, FoodServicesApi.class);
 
-    public final CoursesApi Courses = ApiBuilder.build(this, CoursesApi.class);
+    public final CoursesApi Courses = ApiBuilder.buildJson(this, CoursesApi.class);
 
-    public final EventsApi Events = ApiBuilder.build(this, EventsApi.class);
+    public final EventsApi Events = ApiBuilder.buildJson(this, EventsApi.class);
 
-    public final NewsApi News = ApiBuilder.build(this, NewsApi.class);
+    public final NewsApi News = ApiBuilder.buildJson(this, NewsApi.class);
 
-    public final WeatherApi Weather = ApiBuilder.build(this, WeatherApi.class);
+    public final WeatherApi Weather = ApiBuilder.buildJson(this, WeatherApi.class);
 
-    public final TermsApi Terms = ApiBuilder.build(this, TermsApi.class);
+    public final TermsApi Terms = ApiBuilder.buildJson(this, TermsApi.class);
 
-    public final ResourcesApi Resources = ApiBuilder.build(this, ResourcesApi.class);
+    public final ResourcesApi Resources = ApiBuilder.buildJson(this, ResourcesApi.class);
 
-    public final BuildingsApi Buildings = ApiBuilder.build(this, BuildingsApi.class);
+    public final BuildingsApi Buildings = ApiBuilder.buildJson(this, BuildingsApi.class);
+
+    public final LegacyWeatherApi LegacyWeather = ApiBuilder.buildXml(LegacyWeatherApi.URL, LegacyWeatherApi.class);
 
 }

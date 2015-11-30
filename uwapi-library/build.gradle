@@ -3,13 +3,13 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         minSdkVersion 5
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName '1.0'
     }
 
     compileOptions {
@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            proguardFiles "proguard.pro"
+            proguardFiles 'proguard.pro'
         }
     }
 }
@@ -27,8 +27,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.squareup.retrofit:retrofit:1.5.1'
+    compile 'com.mobprofs:retrofit-simplexmlconverter:1.1'
     compile 'com.google.code.gson:gson:2.2.4'
 
-    compile "org.parceler:parceler-api:1.0.2"
-    apt "org.parceler:parceler:1.0.2"
+    compile 'org.parceler:parceler-api:1.0.2'
+    apt 'org.parceler:parceler:1.0.2'
+}
+
+configurations {
+    compile.exclude group: 'stax'
+    compile.exclude group: 'xpp3'
 }

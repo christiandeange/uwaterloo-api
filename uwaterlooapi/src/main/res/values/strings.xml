@@ -22,7 +22,7 @@
 
     <string name="weather_range_low">Low</string>
     <string name="weather_range_high">High</string>
-    <string name="weather_last_updated">Last updated at %s</string>
+    <string name="weather_last_updated">Last updated at %1$s %2$s</string>
     <string name="weather_author_attribution">%1$s\nPhoto taken by %2$s</string>
 
     <string name="title_foodservices_announcements">Announcements</string>

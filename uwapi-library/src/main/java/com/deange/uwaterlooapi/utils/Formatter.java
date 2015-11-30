@@ -6,12 +6,29 @@ import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public final class Formatter {
 
     private static final String TAG = "Formatter";
+
+    public static final List<String> MONTHS = Arrays.asList(
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+    );
 
     public static final String YMD = "yyyy-MM-dd";
     public static final String ISO8601 = "yyyy-MM-dd'T'hh:mm:ssZ";

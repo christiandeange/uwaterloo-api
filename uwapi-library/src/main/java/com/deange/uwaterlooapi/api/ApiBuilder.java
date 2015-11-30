@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.api;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.converter.Converter;
 
 public class ApiBuilder {
 
@@ -12,14 +13,22 @@ public class ApiBuilder {
     public static final String API_KEY = "key";
     public static final String FORMAT = "format";
 
-    /* package */ static ApiModelConverter sConverter = ApiModelConverter.newInstance();
+    /* package */ static Converter sJsonConverter = ApiModelConverter.newGsonInstance();
+    /* package */ static Converter sXmlConverter = ApiModelConverter.newXmlInstance();
 
-    public static <T> T build(final UWaterlooApi api, final Class<T> clazz) {
-
+    public static <T> T buildJson(final UWaterlooApi api, final Class<T> clazz) {
         return new RestAdapter.Builder()
                 .setEndpoint(BASE_URL)
                 .setRequestInterceptor(new ApiInterceptor(api))
-                .setConverter(sConverter)
+                .setConverter(sJsonConverter)
+                .build()
+                .create(clazz);
+    }
+
+    public static <T> T buildXml(final String baseUrl, final Class<T> clazz) {
+        return new RestAdapter.Builder()
+                .setEndpoint(baseUrl)
+                .setConverter(sXmlConverter)
                 .build()
                 .create(clazz);
     }
