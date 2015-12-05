@@ -16,6 +16,10 @@ import java.util.regex.Pattern;
 @Root(name = "current_observation")
 public class LegacyWeatherReading extends BaseModel {
 
+    public static final String PRESSURE_STEADY = "steady";
+    public static final String PRESSURE_RISING = "rising";
+    public static final String PRESSURE_FALLING = "falling";
+
     @Element(name = "credit")
     String mCredit;
 

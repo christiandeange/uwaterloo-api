@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui;
 
+@SuppressWarnings("unused")
 public interface Colors {
     int RED_50 = 0xFFFDE0DC;
     int RED_100 = 0xFFF9BDBB;

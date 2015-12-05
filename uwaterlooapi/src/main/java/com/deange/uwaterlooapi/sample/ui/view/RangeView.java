@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -27,6 +28,7 @@ public class RangeView extends View {
     private float mMin;
     private float mMax;
     private float mValue;
+    private float mAmplitude = 1f;
 
     private int mStartColour;
     private int mEndColour;
@@ -42,11 +44,12 @@ public class RangeView extends View {
     public RangeView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RangeView);
+        final ResourcesCompat compat = new ResourcesCompat();
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RangeView);
         mStartColour = a.getColor(R.styleable.RangeView_startColour,
-                getResources().getColor(android.R.color.holo_blue_bright));
+                compat.getColor(getResources(), android.R.color.holo_blue_bright, getContext().getTheme()));
         mEndColour = a.getColor(R.styleable.RangeView_endColour,
-                getResources().getColor(android.R.color.holo_red_dark));
+                compat.getColor(getResources(), android.R.color.holo_red_light, getContext().getTheme()));
         a.recycle();
 
         init();
@@ -83,26 +86,29 @@ public class RangeView extends View {
         final float firstThird = (thumbX - mBounds.left) / 3f;
         final float secondThird = (mBounds.right - thumbX) / 3f;
 
+        final float top = lerp(mAmplitude, middleY, mBounds.top);
+        final float bottom = lerp(mAmplitude, middleY, mBounds.bottom);
+
         mPath.reset();
         mPath.moveTo(mBounds.left, middleY);
 
         mPath.cubicTo(
                 mBounds.left + firstThird, middleY,
-                thumbX - firstThird, mBounds.top,
-                thumbX, mBounds.top);
+                thumbX - firstThird, top,
+                thumbX, top);
 
         mPath.cubicTo(
-                thumbX + secondThird, mBounds.top,
+                thumbX + secondThird, top,
                 mBounds.right - secondThird, middleY,
                 mBounds.right, middleY);
 
         mPath.cubicTo(
                 mBounds.right - secondThird, middleY,
-                thumbX + secondThird, mBounds.bottom,
-                thumbX, mBounds.bottom);
+                thumbX + secondThird, bottom,
+                thumbX, bottom);
 
         mPath.cubicTo(
-                thumbX - firstThird, mBounds.bottom,
+                thumbX - firstThird, bottom,
                 mBounds.left + firstThird, middleY,
                 mBounds.left, middleY);
 
@@ -111,7 +117,11 @@ public class RangeView extends View {
         canvas.drawPath(mPath, mThumbPaint);
     }
 
-    private float getNormalizedValue() {
+    private float lerp(final float t, final float v0, final float v1) {
+        return (1 - t) * v0 + t * v1;
+    }
+
+    public float getNormalizedValue() {
         // Avoid division by 0
         final float normalized = (mMax == mMin) ? mMax : (mValue - mMin) / (mMax - mMin);
         return Math.max(0, Math.min(normalized, 1));
@@ -129,6 +139,18 @@ public class RangeView extends View {
         return mValue;
     }
 
+    public float getAmplitude() {
+        return mAmplitude;
+    }
+
+    public int getStartColour() {
+        return mStartColour;
+    }
+
+    public int getEndColour() {
+        return mEndColour;
+    }
+
     public void setMin(final float min) {
         mMin = min;
         invalidate();
@@ -144,6 +166,11 @@ public class RangeView extends View {
         invalidate();
     }
 
+    public void setAmplitude(final float amplitude) {
+        mAmplitude = amplitude;
+        invalidate();
+    }
+
     public void setStartColour(final int startColour) {
         mStartColour = startColour;
         invalidate();
@@ -151,6 +178,12 @@ public class RangeView extends View {
 
     public void setEndColour(final int endColour) {
         mEndColour = endColour;
+        invalidate();
+    }
+
+    public void reset() {
+        mValue = 0;
+        mAmplitude = 0;
         invalidate();
     }
 

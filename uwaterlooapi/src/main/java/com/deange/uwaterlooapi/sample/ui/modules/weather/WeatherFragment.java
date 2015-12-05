@@ -1,11 +1,13 @@
 package com.deange.uwaterlooapi.sample.ui.modules.weather;
 
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -61,6 +63,7 @@ import java.util.Set;
 import java.util.TimeZone;
 
 import butterknife.Bind;
+import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -74,6 +77,7 @@ public class WeatherFragment
         ViewTreeObserver.OnScrollChangedListener {
 
     private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
+    private static final ArgbEvaluator sEvaluator = new ArgbEvaluator();
     private static final float MAX_BEARING_TOLERANCE = 25f;
     private static final float MIN_WAVE_LEVEL = 0.1f;
     private static final float MAX_WAVE_LEVEL = 0.95f;
@@ -88,6 +92,8 @@ public class WeatherFragment
     @Bind(R.id.weather_scrollview) ScrollView mScrollView;
     @Bind(R.id.weather_slider) SliceView mSliceView;
     @Bind(R.id.weather_background) ImageView mBackground;
+
+    @Bind(R.id.weather_temperature_bar) View mTemperatureBar;
     @Bind(R.id.weather_temperature) TextView mTemperatureView;
     @Bind(R.id.weather_temperature_range) RangeView mRangeView;
     @Bind(R.id.weather_min_temp) TextView mMinTempView;
@@ -100,9 +106,15 @@ public class WeatherFragment
     @Bind(R.id.weather_waveview) WaveView mWaveView;
     @Bind(R.id.weather_precipitation) TextView mPrecipitationView;
 
+    @Bind(R.id.weather_pressure_trend_layout) ViewGroup mPressureLayout;
+    @Bind(R.id.weather_pressure) TextView mPressureDescription;
+    @Bind(R.id.weather_pressure_trend) TextView mPressureTrend;
+
     @Bind(R.id.weather_last_updated) TextView mLastUpdated;
     @Bind(R.id.weather_spacer) View mSpacer;
     @Bind(R.id.weather_author_attribution) TextView mAuthor;
+
+    @BindDrawable(R.drawable.ic_arrow_up) Drawable mArrowDrawable;
 
     private LegacyWeatherReading mLastReading;
     private ValueAnimator mWindTextAnimation;
@@ -155,7 +167,9 @@ public class WeatherFragment
             }
         });
 
-        initWaveView();
+        initWindView();
+        initPrecipitationView();
+        initPressureView();
 
         return root;
     }
@@ -191,8 +205,10 @@ public class WeatherFragment
 
         mTemperatureView.setText(formatTemperature(data.getTemperature(), 0));
 
+        mRangeView.reset();
         mRangeView.setMin(data.getTemperature24hMin());
         mRangeView.setMax(data.getTemperature24hMax());
+        mTemperatureBar.setBackgroundColor(mRangeView.getStartColour());
 
         mMinTempView.setText(formatTemperature(data.getTemperature24hMin(), 1));
         mMaxTempView.setText(formatTemperature(data.getTemperature24hMax(), 1));
@@ -212,56 +228,17 @@ public class WeatherFragment
         final String windSpeedString = (windSpeed == (int) windSpeed)
                 ? String.valueOf((int) windSpeed)
                 : String.valueOf(windSpeed);
-
         mWindSpeedView.setText(getString(R.string.weather_wind, windSpeedString, cardinalDirection));
 
         final float windSpeedMax = -(Math.min(windSpeed, 50f) / 100);
         final float windSpeedMin = windSpeedMax / 5f;
-
-        if (mWindTextAnimation != null) {
-            mWindTextAnimation.cancel();
-        }
-        mWindTextAnimation = ValueAnimator.ofFloat(windSpeedMin, windSpeedMax);
-        mWindTextAnimation.setDuration(1000);
-        mWindTextAnimation.setInterpolator(new BounceInterpolator());
-        mWindTextAnimation.setRepeatMode(ValueAnimator.REVERSE);
-        mWindTextAnimation.setRepeatCount(ValueAnimator.INFINITE);
-        mWindTextAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator animation) {
-                final float value = (float) animation.getAnimatedValue();
-                if (mWindSpeedView != null) {
-                    mWindSpeedView.getPaint().setTextSkewX(value);
-                    mWindSpeedView.getPaint().setTextScaleX(1 + Math.abs(value));
-                    mWindSpeedView.invalidate();
-                }
-            }
-        });
+        mWindTextAnimation.setFloatValues(windSpeedMin, windSpeedMax);
         mWindTextAnimation.start();
 
         final float cappedTolerance = Math.min(data.getWindSpeed(), MAX_BEARING_TOLERANCE);
         final float minDegrees = bearing - cappedTolerance;
         final float maxDegrees = bearing + cappedTolerance;
-
-        if (mWindSpeedAnimation != null) {
-            mWindSpeedAnimation.cancel();
-        }
-        mWindSpeedAnimation = ValueAnimator.ofFloat(minDegrees, maxDegrees);
-        mWindSpeedAnimation.setDuration(1000);
-        mWindSpeedAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-        mWindSpeedAnimation.setRepeatMode(ValueAnimator.REVERSE);
-        mWindSpeedAnimation.setRepeatCount(ValueAnimator.INFINITE);
-        mWindSpeedAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator animation) {
-                final float value = (float) animation.getAnimatedValue();
-                if (mWindDirectionView != null) {
-                    mWindDirectionView.setPivotX(mWindDirectionView.getMeasuredWidth() / 2f);
-                    mWindDirectionView.setPivotY(mWindDirectionView.getMeasuredHeight() / 2f);
-                    mWindDirectionView.setRotation(value);
-                }
-            }
-        });
+        mWindSpeedAnimation.setFloatValues(minDegrees, maxDegrees);
         mWindSpeedAnimation.start();
 
         final float precipitation = mLastReading.getPrecipitation24Hr();
@@ -277,11 +254,26 @@ public class WeatherFragment
         }
 
         final float level = MathUtils.clamp(precipitation / 10f, MIN_WAVE_LEVEL, MAX_WAVE_LEVEL);
-
         mWaveView.setShowWave(true);
         mWaveView.setColor(waveColor);
         mWaveView.setWaterLevelRatio(level);
         mPrecipitationView.setText(precipitationFormatted);
+
+        mPressureDescription.setText(getString(R.string.weather_pressure, mLastReading.getPressureKpa()));
+        mPressureLayout.setPivotX(mPressureLayout.getWidth() / 2f);
+        mPressureLayout.setPivotY(mPressureLayout.getHeight() / 2f);
+
+        final String trend = mLastReading.getPressureTrend();
+        mPressureTrend.setText(trend);
+        if (LegacyWeatherReading.PRESSURE_FALLING.equals(trend)) {
+            mPressureLayout.setRotation(0f);
+
+        } else if (LegacyWeatherReading.PRESSURE_RISING.equals(trend)) {
+            mPressureLayout.setRotation(180f);
+
+        } else {
+            mPressureLayout.setRotation(270f);
+        }
     }
 
     @Override
@@ -379,7 +371,43 @@ public class WeatherFragment
         return mPhotoSize;
     }
 
-    private void initWaveView() {
+    private void initWindView() {
+        mWindTextAnimation = ValueAnimator.ofFloat();
+        mWindTextAnimation.setDuration(1000L);
+        mWindTextAnimation.setInterpolator(new BounceInterpolator());
+        mWindTextAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        mWindTextAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        mWindTextAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(final ValueAnimator animation) {
+                final float value = (float) animation.getAnimatedValue();
+                if (mWindSpeedView != null) {
+                    mWindSpeedView.getPaint().setTextSkewX(value);
+                    mWindSpeedView.getPaint().setTextScaleX(1 + Math.abs(value));
+                    mWindSpeedView.invalidate();
+                }
+            }
+        });
+
+        mWindSpeedAnimation = ValueAnimator.ofFloat();
+        mWindSpeedAnimation.setDuration(1000L);
+        mWindSpeedAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        mWindSpeedAnimation.setRepeatMode(ValueAnimator.REVERSE);
+        mWindSpeedAnimation.setRepeatCount(ValueAnimator.INFINITE);
+        mWindSpeedAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(final ValueAnimator animation) {
+                final float value = (float) animation.getAnimatedValue();
+                if (mWindDirectionView != null) {
+                    mWindDirectionView.setPivotX(mWindDirectionView.getMeasuredWidth() / 2f);
+                    mWindDirectionView.setPivotY(mWindDirectionView.getMeasuredHeight() / 2f);
+                    mWindDirectionView.setRotation(value);
+                }
+            }
+        });
+    }
+
+    private void initPrecipitationView() {
         // Horizontal animation, wave waves infinitely.
         final ObjectAnimator waveShiftAnimator = ObjectAnimator.ofFloat(
                 mWaveView, "waveShiftRatio", 0f, 1f);
@@ -399,8 +427,31 @@ public class WeatherFragment
         amplitudeAnimator.start();
     }
 
-    private String formatTemperature(final float temp, final int decimals) {
-        return String.format("%." + decimals + "f˚", temp);
+    private void initPressureView() {
+        final int height = mArrowDrawable.getIntrinsicHeight();
+        mPressureLayout.getLayoutParams().height = height;
+        mPressureLayout.setPadding(0, 0, 0, -height);
+
+        final ValueAnimator animator = ValueAnimator.ofFloat(0, -height);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setDuration(1000);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(final ValueAnimator animation) {
+                final float translation = (float) animation.getAnimatedValue();
+                if (mPressureLayout != null) {
+                    mPressureLayout.getChildAt(0).setTranslationY(translation);
+                    mPressureLayout.getChildAt(1).setTranslationY(translation);
+                } else {
+                    animator.cancel();
+                }
+            }
+        });
+
+        animator.start();
+
+        mPressureLayout.setScaleY(-1);
     }
 
     // TODO use this when moving to the new UWaterloo WeatherApi
@@ -409,11 +460,16 @@ public class WeatherFragment
     //     return DIRECTIONS.get((int) Math.floor(((normalizedBearing + 22.5f) % 360) / 45));
     // }
 
+    private String formatTemperature(final float temp, final int decimals) {
+        return String.format("%." + decimals + "f˚", temp);
+    }
+
     private void animateTemperatureRange() {
         if (mLastReading == null) return;
 
         final ValueAnimator animator = ValueAnimator.ofFloat(
-                mLastReading.getTemperature24hMin(), mLastReading.getTemperature());
+                mLastReading.getTemperature24hMin(),
+                mLastReading.getTemperature());
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -422,7 +478,14 @@ public class WeatherFragment
                     @Override
                     public void run() {
                         if (mRangeView != null) {
+                            mRangeView.setAmplitude(animation.getAnimatedFraction());
                             mRangeView.setValue((Float) animation.getAnimatedValue());
+
+                            mTemperatureBar.setBackgroundColor((int) sEvaluator.evaluate(
+                                    mRangeView.getNormalizedValue(),
+                                    mRangeView.getStartColour(),
+                                    mRangeView.getEndColour()
+                            ));
                         }
                     }
                 });
@@ -430,7 +493,8 @@ public class WeatherFragment
         });
 
         animator.setInterpolator(new FastOutSlowInInterpolator());
-        animator.setDuration(1000);
+        animator.setStartDelay(500L);
+        animator.setDuration(1000L);
         animator.start();
     }
 
