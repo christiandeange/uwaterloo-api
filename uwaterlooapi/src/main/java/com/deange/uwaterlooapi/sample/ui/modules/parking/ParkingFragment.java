@@ -18,12 +18,10 @@ import com.deange.uwaterlooapi.model.parking.ParkingLot;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
-import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolygonOptions;
@@ -39,10 +37,9 @@ import butterknife.ButterKnife;
         layout = R.layout.module_parking
 )
 public class ParkingFragment
-        extends BaseModuleFragment<Response.Parking, ParkingLot> implements GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+        extends BaseMapFragment<Response.Parking, ParkingLot> {
 
     @Bind(R.id.parking_lot_info) ViewGroup mInfoRoot;
-    MapView mMapView;
 
     @BindColor(R.color.uw_yellow) int mPrimaryColor;
 
@@ -56,17 +53,6 @@ public class ParkingFragment
         ButterKnife.bind(this, view);
 
         mInfoRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-
-        mMapView = (MapView) view.findViewById(R.id.parking_map);
-        mMapView.onCreate(savedInstanceState);
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                if (mResponse != null) {
-                    showLotInfo();
-                }
-            }
-        });
 
         return view;
     }
@@ -136,6 +122,11 @@ public class ParkingFragment
     }
 
     @Override
+    protected void onRefreshRequested() {
+        hideInfoView();
+    }
+
+    @Override
     public void onMapLongClick(final LatLng latLng) {
         onMapClick(latLng);
     }
@@ -160,26 +151,30 @@ public class ParkingFragment
 
         // No parking lot clicked on
         if (!found) {
-            if (mInfoRoot.getVisibility() == View.VISIBLE) {
-                final Animation animOut = AnimationUtils.loadAnimation(getContext(), R.anim.top_out);
-                animOut.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(final Animation animation) {
-                    }
+            hideInfoView();
+        }
+    }
 
-                    @Override
-                    public void onAnimationRepeat(final Animation animation) {
-                    }
+    private void hideInfoView() {
+        if (mInfoRoot.getVisibility() == View.VISIBLE) {
+            final Animation animOut = AnimationUtils.loadAnimation(getContext(), R.anim.top_out);
+            animOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(final Animation animation) {
+                }
 
-                    @Override
-                    public void onAnimationEnd(final Animation animation) {
-                        if (mInfoRoot != null) {
-                            mInfoRoot.setVisibility(View.GONE);
-                        }
+                @Override
+                public void onAnimationRepeat(final Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(final Animation animation) {
+                    if (mInfoRoot != null) {
+                        mInfoRoot.setVisibility(View.GONE);
                     }
-                });
-                mInfoRoot.startAnimation(animOut);
-            }
+                }
+            });
+            mInfoRoot.startAnimation(animOut);
         }
     }
 
@@ -227,37 +222,19 @@ public class ParkingFragment
     }
 
     @Override
+    public void onMapReady(final GoogleMap googleMap) {
+        if (mResponse != null) {
+            showLotInfo();
+        }
+    }
+
+    @Override
     public String getContentType() {
         return ModuleType.PARKING;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mMapView.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mMapView.onPause();
-    }
-
-    @Override
-    public void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mMapView.onLowMemory();
+    public int getMapViewId() {
+        return R.id.parking_map;
     }
 }

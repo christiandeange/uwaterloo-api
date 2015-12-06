@@ -18,12 +18,10 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.resources.GooseNest;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
-import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -37,37 +35,26 @@ import java.util.List;
         layout = R.layout.module_resources_goosewatch
 )
 public class GooseWatchFragment
-        extends BaseModuleFragment<Response.GooseWatch, GooseNest> implements GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
+        extends BaseMapFragment<Response.GooseWatch, GooseNest>
+        implements
+        GoogleMap.OnMarkerClickListener {
 
     public static final String TAG = GooseWatchFragment.class.getSimpleName();
 
-    private MapView mMapView;
     private View mEmptyView;
-    private ViewGroup mRoot;
     private ViewGroup mInfoRoot;
 
     private List<GooseNest> mResponse;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_goosewatch, null);
+        final View root = inflater.inflate(R.layout.fragment_goosewatch, null);
 
-        mEmptyView = mRoot.findViewById(R.id.goosewatch_empty_view);
-        mInfoRoot = (ViewGroup) mRoot.findViewById(R.id.goosewatch_nest_info);
+        mEmptyView = root.findViewById(R.id.goosewatch_empty_view);
+        mInfoRoot = (ViewGroup) root.findViewById(R.id.goosewatch_nest_info);
         mInfoRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
-        mMapView = (MapView) mRoot.findViewById(R.id.goosewatch_map);
-        mMapView.onCreate(savedInstanceState);
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                if (mResponse != null) {
-                    showNests();
-                }
-            }
-        });
-
-        return mRoot;
+        return root;
     }
 
     @Override
@@ -205,32 +192,14 @@ public class GooseWatchFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mMapView.onResume();
+    public int getMapViewId() {
+        return R.id.goosewatch_map;
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mMapView.onPause();
-    }
-
-    @Override
-    public void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mMapView.onLowMemory();
+    public void onMapReady(final GoogleMap googleMap) {
+        if (mResponse != null) {
+            showNests();
+        }
     }
 }

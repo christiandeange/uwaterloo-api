@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 
-import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,23 +14,17 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.MapActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
-import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
-import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
+import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
 @ModuleFragment(path = "/buildings/*")
 public class BuildingFragment
-        extends BaseModuleFragment<Response.BuildingEntity, Building>
-        implements
-        GoogleMap.OnMapClickListener {
+        extends BaseMapFragment<Response.BuildingEntity, Building> {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
 
-    private MapView mMapView;
     private View mEmptyView;
     private ViewGroup mRoot;
 
@@ -42,15 +35,6 @@ public class BuildingFragment
         mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_building, null);
 
         mEmptyView = mRoot.findViewById(R.id.building_empty_view);
-
-        mMapView = (MapView) mRoot.findViewById(R.id.building_map);
-        mMapView.onCreate(savedInstanceState);
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                showLocation();
-            }
-        });
 
         return mRoot;
     }
@@ -106,33 +90,13 @@ public class BuildingFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mMapView.onResume();
+    public int getMapViewId() {
+        return R.id.building_map;
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mMapView.onPause();
-    }
-
-    @Override
-    public void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mMapView.onLowMemory();
+    public void onMapReady(final GoogleMap googleMap) {
+        showLocation();
     }
 
     @Override
