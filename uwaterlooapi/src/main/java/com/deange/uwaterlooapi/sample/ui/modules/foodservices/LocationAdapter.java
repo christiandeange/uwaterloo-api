@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.model.foodservices.SpecialOperatingHours;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
@@ -128,12 +126,12 @@ public class LocationAdapter
             }
         }
 
-        final int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        final OperatingHours hours = location.getHours(OperatingHours.WEEKDAYS.get(day));
-        final LocalTime opening = LocalTime.parse(hours.getOpeningHour(), format);
-
         // Check the normal operating hours schedule (if necessary)
         if (closing == null) {
+            final int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+            final OperatingHours hours = location.getHours(OperatingHours.WEEKDAYS.get(day));
+            final LocalTime opening = LocalTime.parse(hours.getOpeningHour(), format);
+
             if (opening.isAfter(DateTime.now().toLocalTime())) {
                 // It is open but opens after now, we need to look at the hours for yesterday
                 // since it closes after midnight from yesterday

@@ -13,7 +13,7 @@ import com.deange.uwaterlooapi.model.weather.LegacyWeatherReading;
 public final class ApiRunner {
 
     private ApiRunner() {
-        // Uninstantiable
+        throw new AssertionError();
     }
 
     public static void runAll(final UWaterlooApi api) {
@@ -21,7 +21,7 @@ public final class ApiRunner {
 //        runCourses(api);
 //        runEvents(api);
 //        runNews(api);
-        runWeather(api);
+//        runWeather(api);
 //        runTerms(api);
 //        runResources(api);
 //        runBuildings(api);

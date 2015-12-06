@@ -116,11 +116,9 @@
                                 fontPath="@string/font_bold"/>
 
                         <TextView
-                                style="@style/OperatingHoursValue"
+                                style="@style/LocationSpecialSection"
                                 android:id="@+id/list_location_closed_days"
-                                android:layout_below="@id/list_location_closed_days_label"
-                                android:layout_alignParentEnd="false"
-                                android:textColor="@android:color/black"/>
+                                android:layout_below="@id/list_location_closed_days_label"/>
 
                     </RelativeLayout>
 
@@ -145,11 +143,9 @@
                                 fontPath="@string/font_bold"/>
 
                         <TextView
-                                style="@style/OperatingHoursValue"
+                                style="@style/LocationSpecialSection"
                                 android:id="@+id/list_location_special_hours"
-                                android:layout_below="@id/list_location_special_hours_label"
-                                android:layout_alignParentEnd="false"
-                                android:textColor="@android:color/black"/>
+                                android:layout_below="@id/list_location_special_hours_label"/>
 
                     </RelativeLayout>
 

@@ -339,7 +339,7 @@ public class Location extends BaseModel {
     @Parcel
     public static class Range {
 
-        private static final String DATE_FORMAT = "MMMM d";
+        private static final String DATE_FORMAT = "MMM d";
         final Date first;
         final Date second;
 

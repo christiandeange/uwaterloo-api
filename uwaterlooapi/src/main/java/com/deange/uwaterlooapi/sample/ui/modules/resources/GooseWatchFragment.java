@@ -160,7 +160,9 @@ public class GooseWatchFragment
 
                 @Override
                 public void onAnimationEnd(final Animation animation) {
-                    mInfoRoot.setVisibility(View.GONE);
+                    if (mInfoRoot != null) {
+                        mInfoRoot.setVisibility(View.GONE);
+                    }
                 }
             });
             mInfoRoot.startAnimation(animOut);

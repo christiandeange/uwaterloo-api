@@ -666,33 +666,42 @@ public class GooseView extends FrameLayout {
     private class Player extends ImageView implements GameView {
         public float dv;
         private boolean mBoosting;
+        private final float sSize = 606;
         private final float[] sHull = new float[]{
                 // @formatter:off
-                0.875f,	        0f,
-                0.885416667f,	0.338283828f,
-                0.989583333f,	0.47029703f,
-                0.989583333f,	0.717821782f,
-                0.90625f,	    1f,
-                0.8125f,	    1f,
-                0.78125f,	    0.808580858f,
-                0.166666667f,	1f,
-                0f,	            1f,
-                0f,	            0.899339934f,
-                0.364583333f,	0.701320132f,
-                0.479166667f,	0.618811881f,
-                0.583333333f,	0.585808581f,
-                0.239583333f,	0.264026403f,
-                0.322916667f,	0.239273927f,
-                0.625f,	        0.297029703f,
-                0.770833333f,	0.404290429f,
-                0.770833333f,	0.090759076f,
+                415, 0,
+                415, 143,
+                465, 300,
+                476, 414,
+                433, 505,
+                433, 582,
+                407, 600,
+                395, 529,
+                375, 473,
+                66, 597,
+                32, 603,
+                8, 549,
+                63, 530,
+                190, 425,
+                225, 385,
+                290, 355,
+                120, 160,
+                145, 150,
+                245, 166,
+                262, 187,
+                290, 187,
+                368, 282,
+                387, 230,
+                387, 103,
+                374, 55,
+                404, 23,
                 // @formatter:on
         };
         public final float[] corners = new float[sHull.length];
 
         public Player(Context context) {
             super(context);
-            setBackgroundResource(R.drawable.content_goose);
+            setBackgroundResource(R.drawable.content_goose_square);
             setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
@@ -705,8 +714,8 @@ public class GooseView extends FrameLayout {
             final int scale = PARAMS.PLAYER_HIT_SIZE;
             final int N = sHull.length / 2;
             for (int i = 0; i < N; i++) {
-                corners[i * 2] = scale * sHull[i * 2] + inset;
-                corners[i * 2 + 1] = scale * sHull[i * 2 + 1] + inset;
+                corners[i * 2] = scale * (sHull[i * 2] / sSize) + inset;
+                corners[i * 2 + 1] = scale * (sHull[i * 2 + 1] / sSize) + inset;
             }
             final Matrix m = getMatrix();
             m.mapPoints(corners);
