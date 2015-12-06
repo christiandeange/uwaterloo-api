@@ -12,6 +12,7 @@ import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.model.foodservices.SpecialOperatingHours;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
@@ -78,7 +79,7 @@ public class LocationAdapter
 
             final GradientDrawable background = (GradientDrawable) gradientView.getBackground();
             background.setDither(true);
-            background.setColors(new int[]{ mask(0x00, color), mask(0xFF, color), });
+            background.setColors(new int[]{ Colors.mask(0x00, color), Colors.mask(0xFF, color), });
 
         } else {
             final LocalTime closing = getClosingTime(location);
@@ -146,10 +147,6 @@ public class LocationAdapter
         }
 
         return closing;
-    }
-
-    private static int mask(final int alpha, final int colour) {
-        return (alpha << 24) | (0x00FFFFFF & colour);
     }
 
     @Override

@@ -43,6 +43,11 @@
                 android:icon="@drawable/ic_buildings"
                 android:title="@string/api_buildings"/>
 
+        <item
+                android:id="@+id/menu_item_parking"
+                android:icon="@drawable/ic_parking"
+                android:title="@string/api_parking"/>
+
     </group>
 
     <group android:id="@+id/menu_group_about" android:checkableBehavior="single">

@@ -126,7 +126,6 @@ public class GooseWatchFragment
         map.setIndoorEnabled(false);
         map.setMyLocationEnabled(false);
         map.setOnMapClickListener(this);
-        map.setOnMarkerClickListener(this);
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         map.getUiSettings().setAllGesturesEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
@@ -199,7 +198,7 @@ public class GooseWatchFragment
         }
         final String date = getString(
                 R.string.goosewatch_last_updated,
-                DateUtils.getTimeDifference(getResources(), nest.getUpdatedDate().getTime()));
+                DateUtils.getTimeDifference(getResources(), nest.getUpdatedDate().getTime()).toLowerCase());
 
         ((TextView) mInfoRoot.findViewById(android.R.id.text1)).setText(title);
         ((TextView) mInfoRoot.findViewById(android.R.id.text2)).setText(date);

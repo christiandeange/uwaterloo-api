@@ -17,6 +17,7 @@
     <string name="api_weather">Weather</string>
     <string name="api_resources">Resources</string>
     <string name="api_buildings">Buildings</string>
+    <string name="api_parking">Parking</string>
 
     <string name="building_no_location_data">No location data for this building</string>
 
@@ -40,6 +41,7 @@
     <string name="title_resources_goosewatch">Goose Watch</string>
     <string name="title_events">Events</string>
     <string name="title_news">News</string>
+    <string name="title_parking">Parking</string>
 
     <string name="home_quick_links">Quick Links</string>
     <string name="home_quick_course_lookup">Course Lookup</string>
@@ -103,6 +105,10 @@
     <string name="goosewatch_no_nests">No goose nests reported</string>
     <string name="goosewatch_no_title">(No title)</string>
     <string name="goosewatch_last_updated">Last updated %1$s</string>
+
+    <string name="parking_lot_name">Parking Lot %1$s</string>
+    <string name="parking_lot_spots_filled">%1$d/%2$d spots filled</string>
+    <string name="parking_last_updated">@string/goosewatch_last_updated</string>
 
     <!-- Durations -->
     <string name="duration_instant">Right now</string>
