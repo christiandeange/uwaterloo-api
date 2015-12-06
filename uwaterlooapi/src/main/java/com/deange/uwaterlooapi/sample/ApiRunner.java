@@ -25,6 +25,7 @@ public final class ApiRunner {
 //        runTerms(api);
 //        runResources(api);
 //        runBuildings(api);
+//        runParking(api);
     }
 
     public static void runFoodServices(final UWaterlooApi api) {
@@ -134,6 +135,13 @@ public final class ApiRunner {
         final Response.RoomCourses courses = api.Buildings.getClassroomCourses(buildingCode, room);
 
         Log.v("TAG", "Buildings requests completed.");
+    }
+
+    private static void runParking(final UWaterlooApi api) {
+
+        final Response.Parking parking = api.Parking.getParkingInfo();
+
+        Log.v("TAG", "Parking requests completed.");
     }
 
 }

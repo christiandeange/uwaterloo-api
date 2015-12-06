@@ -20,6 +20,7 @@ import com.deange.uwaterlooapi.model.foodservices.Product;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
 import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
+import com.deange.uwaterlooapi.model.parking.ParkingLot;
 import com.deange.uwaterlooapi.model.resources.GooseNest;
 import com.deange.uwaterlooapi.model.resources.Printer;
 import com.deange.uwaterlooapi.model.resources.Site;
@@ -105,5 +106,9 @@ public final class Response {
     public static class BuildingEntity extends SimpleResponse<Building> { }
 
     public static class RoomCourses extends SimpleListResponse<ClassroomCourses> { }
+
+    // PARKING
+
+    public static class Parking extends SimpleListResponse<ParkingLot> { }
 
 }
