@@ -30,10 +30,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@ModuleFragment(
-        path = "/foodservices/watcard",
-        layout = R.layout.module_foodservices_watcards
-)
+//@ModuleFragment(
+//        path = "/foodservices/watcard",
+//        layout = R.layout.module_foodservices_watcards
+//)
 public class WatcardFragment
         extends BaseListModuleFragment<Response.Watcards, WatcardVendor> {
 
