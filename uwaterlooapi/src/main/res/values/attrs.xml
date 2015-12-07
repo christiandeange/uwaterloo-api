@@ -29,6 +29,12 @@
         <attr name="android:entries"/>
     </declare-styleable>
 
+    <declare-styleable name="ModuleListItem">
+        <attr name="moduleTitle" format="string"/>
+        <attr name="moduleDescription" format="string"/>
+        <attr name="moduleIcon" format="reference"/>
+    </declare-styleable>
+
     <item type="id" name="view_location_hours_day" />
     <item type="id" name="view_location_hours_hours" />
 
