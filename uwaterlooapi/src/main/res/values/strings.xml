@@ -188,12 +188,12 @@
 
     <string-array name="question4">
         <item>"Can I blame you for missing my exam if this app tells me the wrong time?"</item>
-        <item>"No, I'm not liable if you miss an exam, run into a flock of angry geese, get food poisoning from the V1 café, or anything else that happens from using this app."</item>
+        <item>"No, I'm not liable if you miss an exam, run into a flock of angry geese, get food poisoning from the V1 café, or anything else that happens from using this. This is information provided by the University of Waterloo under license on an 'as is' basis."</item>
     </string-array>
 
     <string-array name="question5">
         <item>"I have ideas!"</item>
-        <item>"Great! Head over &lt;a href='https://gitreports.com/issue/cdeange/uwaterloo-api'>here&lt;/a> to submit your fantastic idea."</item>
+        <item>"Great! For now, &lt;a href='https://play.google.com/store/apps/details?id=com.deange.uwaterlooapi.sample'>leave a review&lt;/a> to submit your fantastic idea. In the future I'll have something better set up to leave feedback."</item>
     </string-array>
 
     <string-array name="question6">
