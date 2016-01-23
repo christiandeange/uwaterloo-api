@@ -127,6 +127,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
             @Override
             public void run() {
                 if (mLastResponse != null) {
+                    onRefreshRequested();
                     deliverResponse(mLastResponse);
 
                 } else if (mLastUpdate == 0) {

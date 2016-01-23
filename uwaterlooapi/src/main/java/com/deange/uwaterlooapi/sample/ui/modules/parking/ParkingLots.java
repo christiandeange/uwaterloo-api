@@ -145,6 +145,10 @@ public final class ParkingLots {
         return points;
     }
 
+    public static boolean isSupported(final String parkingLot) {
+        return getFloatArray(parkingLot).length != 0;
+    }
+
     private static List<LatLng> getPoints(final float[] coordinates) {
         final List<LatLng> points = new ArrayList<>();
         for (int i = 0; i < coordinates.length; i += 2) {

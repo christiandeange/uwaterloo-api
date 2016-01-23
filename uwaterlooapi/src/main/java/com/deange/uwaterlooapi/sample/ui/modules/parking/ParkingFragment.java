@@ -15,6 +15,7 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.parking.ParkingLot;
+import com.deange.uwaterlooapi.sample.CrashReporting;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
@@ -39,8 +40,9 @@ import butterknife.ButterKnife;
 public class ParkingFragment
         extends BaseMapFragment<Response.Parking, ParkingLot> {
 
-    @Bind(R.id.parking_lot_info) ViewGroup mInfoRoot;
+    private static final String TAG = "ParkingFragment";
 
+    @Bind(R.id.parking_lot_info) ViewGroup mInfoRoot;
     @BindColor(R.color.uw_yellow) int mPrimaryColor;
 
     private List<ParkingLot> mResponse;
@@ -65,6 +67,13 @@ public class ParkingFragment
     @Override
     public void onBindData(final Metadata metadata, final List<ParkingLot> data) {
         mResponse = data;
+
+        for (final ParkingLot parkingLot : mResponse) {
+            final String lotName = parkingLot.getLotName();
+            if (!ParkingLots.isSupported(lotName)) {
+                CrashReporting.report(new IllegalArgumentException("Unknown parking lot '" + lotName + "'"));
+            }
+        }
 
         if (mMapView.getMap() != null) {
             showLotInfo();
