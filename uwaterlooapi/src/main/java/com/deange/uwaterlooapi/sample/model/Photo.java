@@ -4,19 +4,30 @@ import java.util.List;
 
 public class Photo {
 
-    private final PhotoDetails mDetails;
-    private final List<PhotoSize> mSizes;
+    private PhotoDetails mDetails;
+    private List<PhotoSize> mSizes;
+
+    public Photo() {
+    }
 
     public Photo(final PhotoDetails details, final List<PhotoSize> sizes) {
         mDetails = details;
         mSizes = sizes;
     }
 
+    public PhotoDetails getDetails() {
+        return mDetails;
+    }
+
     public List<PhotoSize> getSizes() {
         return mSizes;
     }
 
-    public PhotoDetails getDetails() {
-        return mDetails;
+    public void setDetails(final PhotoDetails details) {
+        mDetails = details;
+    }
+
+    public void setSizes(final List<PhotoSize> sizes) {
+        mSizes = sizes;
     }
 }

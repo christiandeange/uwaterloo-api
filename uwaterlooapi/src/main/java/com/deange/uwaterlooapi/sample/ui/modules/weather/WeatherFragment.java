@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.Nullable;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -299,17 +300,21 @@ public class WeatherFragment
             IntentUtils.openBrowser(getContext(),
                     (!urls.isEmpty())
                             ? urls.get(0).getUrl()
-                            : getPhotoSize().getUrl());
+                            : mPhotoSize.getUrl());
         }
     }
 
     private void loadPicture(final Photo photo) {
-        mPhoto = photo;
-        mPhotoSize = null;
+        final PhotoSize newPhotoSize = getPhotoSize(photo);
+        if (newPhotoSize == null) {
+            return;
+        }
 
-        final PhotoSize size = getPhotoSize();
+        mPhoto = photo;
+        mPhotoSize = newPhotoSize;
+
         Picasso.with(getActivity())
-               .load(size.getSource())
+               .load(newPhotoSize.getSource())
                .centerCrop()
                .resize(mBackground.getMeasuredWidth(), mBackground.getMeasuredHeight())
                .into(mBackground);
@@ -323,16 +328,12 @@ public class WeatherFragment
         mAuthor.setText(spannable);
     }
 
-    private PhotoSize getPhotoSize() {
-        if (mPhotoSize != null) {
-            return mPhotoSize;
-        }
-
+    private @Nullable PhotoSize getPhotoSize(final Photo photoResponse) {
         final int w = mBackground.getMeasuredWidth();
         final int h = mBackground.getMeasuredHeight();
         final boolean isHeightLarger = (h >= w);
 
-        final List<PhotoSize> photos = new ArrayList<>(mPhoto.getSizes());
+        final List<PhotoSize> photos = new ArrayList<>(photoResponse.getSizes());
         Collections.sort(photos, new Comparator<PhotoSize>() {
             @Override
             public int compare(final PhotoSize lhs, final PhotoSize rhs) {
@@ -343,32 +344,34 @@ public class WeatherFragment
             }
         });
 
+        PhotoSize photo = null;
+
         // Try to find the smallest image larger than the bounds of the ImageView
         for (final PhotoSize photoSize : photos) {
             if (isHeightLarger && photoSize.getHeight() >= h) {
-                mPhotoSize = photoSize;
+                photo = photoSize;
                 break;
             } else if (!isHeightLarger && photoSize.getWidth() >= w) {
-                mPhotoSize = photoSize;
+                photo = photoSize;
                 break;
             }
         }
 
         final String ignoreLabel = "Original";
 
-        if (mPhotoSize == null || ignoreLabel.equals(mPhotoSize.getLabel())) {
+        if (photo == null || ignoreLabel.equals(photo.getLabel())) {
             // They are all smaller than the screen, need to scale up
             // Pick the largest one that isn't original (usually it's too big)
             for (int i = photos.size() - 1; i >= 0; --i) {
                 final PhotoSize photoSize = photos.get(i);
                 if (!ignoreLabel.equals(photoSize.getLabel())) {
-                    mPhotoSize = photoSize;
+                    photo = photoSize;
                     break;
                 }
             }
         }
 
-        return mPhotoSize;
+        return photo;
     }
 
     private void initWindView() {
