@@ -15,14 +15,14 @@
             android:orientation="vertical">
 
         <TextView
-                style="@style/TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.UWaterloo.Headline"
                 android:id="@+id/list_location_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"/>
 
         <TextView
-                style="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/TextAppearance.UWaterloo.Subhead"
                 android:id="@+id/list_location_building"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

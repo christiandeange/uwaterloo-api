@@ -9,7 +9,7 @@
             android:layout_height="match_parent"/>
 
     <TextView
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="@style/TextAppearance.UWaterloo.Subhead"
             android:id="@+id/goosewatch_empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

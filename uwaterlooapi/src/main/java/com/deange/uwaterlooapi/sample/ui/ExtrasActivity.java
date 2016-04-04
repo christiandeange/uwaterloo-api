@@ -17,7 +17,7 @@ import com.deange.uwaterlooapi.sample.R;
 
 import java.util.Random;
 
-public class ExtrasActivity extends AppCompatActivity {
+public class ExtrasActivity extends BaseActivity {
 
     private static final int STREAM = AudioManager.STREAM_MUSIC;
     private final Handler mHandler = new Handler(Looper.getMainLooper());

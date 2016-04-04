@@ -10,13 +10,11 @@ import com.deange.uwaterlooapi.sample.R;
 public class CardView extends android.support.v7.widget.CardView {
 
     public CardView(final Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public CardView(final Context context, final AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, R.attr.cardViewStyle);
     }
 
     public CardView(final Context context, final AttributeSet attrs, final int defStyle) {

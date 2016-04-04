@@ -25,7 +25,7 @@ import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.view.GooseView;
 
-public class GooseActivity extends Activity {
+public class GooseActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

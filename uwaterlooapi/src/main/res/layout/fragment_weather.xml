@@ -141,7 +141,7 @@
                         </RelativeLayout>
 
                         <TextView
-                                style="@style/TextAppearance.AppCompat.Large"
+                                style="@style/TextAppearance.UWaterloo.Large"
                                 android:id="@+id/weather_wind_speed"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                                 android:orientation="horizontal">
 
                             <TextView
-                                    style="@style/TextAppearance.AppCompat.Large"
+                                    style="@style/TextAppearance.UWaterloo.Large"
                                     android:id="@+id/weather_precipitation"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
                                     tools:text="1.6mm"/>
 
                             <TextView
-                                    style="@style/TextAppearance.AppCompat.Small"
+                                    style="@style/TextAppearance.UWaterloo.Small"
                                     android:id="@+id/weather_precipitation_period"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -240,7 +240,7 @@
                                 android:orientation="horizontal">
 
                             <TextView
-                                    style="@style/TextAppearance.AppCompat.Large"
+                                    style="@style/TextAppearance.UWaterloo.Large"
                                     android:id="@+id/weather_pressure"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -248,7 +248,7 @@
                                     tools:text="101.3 kPa"/>
 
                             <TextView
-                                    style="@style/TextAppearance.AppCompat.Small"
+                                    style="@style/TextAppearance.UWaterloo.Small"
                                     android:id="@+id/weather_pressure_trend"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
                             android:layout_margin="16dp">
 
                         <TextView
-                                style="@style/TextAppearance.AppCompat.Caption"
+                                style="@style/TextAppearance.UWaterloo.Caption"
                                 android:id="@+id/weather_last_updated"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

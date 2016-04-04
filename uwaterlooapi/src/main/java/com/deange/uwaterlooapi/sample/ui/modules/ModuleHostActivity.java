@@ -16,14 +16,17 @@ import android.view.MenuItem;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.BaseActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class ModuleHostActivity extends AppCompatActivity
-        implements FragmentManager.OnBackStackChangedListener {
+public class ModuleHostActivity
+        extends BaseActivity
+        implements
+        FragmentManager.OnBackStackChangedListener {
 
     private static final String TAG = "module_fragment";
     private static final String ARG_FRAGMENT_CLASS = "fragment_class";

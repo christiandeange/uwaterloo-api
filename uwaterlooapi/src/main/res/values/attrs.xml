@@ -35,6 +35,9 @@
         <attr name="moduleIcon" format="reference"/>
     </declare-styleable>
 
+    <attr name="cardViewStyle" format="reference" />
+
+
     <item type="id" name="view_location_hours_day" />
     <item type="id" name="view_location_hours_hours" />
 

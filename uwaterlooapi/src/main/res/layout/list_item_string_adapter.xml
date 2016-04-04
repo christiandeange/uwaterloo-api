@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@android:id/text1"
+        android:id="@android:id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:gravity="center_vertical"
-        android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
-        android:paddingRight="?android:attr/listPreferredItemPaddingRight"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+        android:background="@drawable/uw_yellow_selector">
+
+    <TextView
+            android:id="@android:id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+            android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+</FrameLayout>

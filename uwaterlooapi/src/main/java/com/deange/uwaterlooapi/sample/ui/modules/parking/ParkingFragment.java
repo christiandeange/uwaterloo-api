@@ -96,7 +96,6 @@ public class ParkingFragment
         final int padding = (int) (16 * getResources().getDisplayMetrics().density);
 
         map.setIndoorEnabled(false);
-        map.setMyLocationEnabled(false);
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         map.setOnMapClickListener(this);
         map.setOnMapLongClickListener(this);
@@ -148,6 +147,7 @@ public class ParkingFragment
 
         mSelected = null;
         for (final ParkingLot parkingLot : mResponse) {
+            final GoogleMap map = mMapView.getMap();
             final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
             if (!found && ParkingLots.isInPoly(px, py, points)) {
                 mSelected = parkingLot;

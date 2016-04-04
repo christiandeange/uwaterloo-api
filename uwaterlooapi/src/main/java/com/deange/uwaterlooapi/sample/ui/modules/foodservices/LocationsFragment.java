@@ -95,7 +95,6 @@ public class LocationsFragment
     }
 
     private void bindAndFilterData() {
-
         mDataLocations.clear();
         for (final Location location : mAllLocations) {
             if (mFilter.keep(location)) {

@@ -30,7 +30,7 @@ import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements
         NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener {
@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity
         // set up the hamburger icon to open and close the drawer
         mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, 0, 0);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
 

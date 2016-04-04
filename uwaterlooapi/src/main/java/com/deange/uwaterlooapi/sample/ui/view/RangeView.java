@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.sample.ui.view;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -44,12 +45,12 @@ public class RangeView extends View {
     public RangeView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        final ResourcesCompat compat = new ResourcesCompat();
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RangeView);
+        final Resources.Theme theme = getContext().getTheme();
         mStartColour = a.getColor(R.styleable.RangeView_startColour,
-                compat.getColor(getResources(), android.R.color.holo_blue_bright, getContext().getTheme()));
+                ResourcesCompat.getColor(getResources(), android.R.color.holo_blue_bright, theme));
         mEndColour = a.getColor(R.styleable.RangeView_endColour,
-                compat.getColor(getResources(), android.R.color.holo_red_light, getContext().getTheme()));
+                ResourcesCompat.getColor(getResources(), android.R.color.holo_red_light, theme));
         a.recycle();
 
         init();

@@ -15,7 +15,7 @@ import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AboutActivity
-        extends AppCompatActivity {
+        extends BaseActivity {
 
     @Override
     protected void attachBaseContext(final Context newBase) {

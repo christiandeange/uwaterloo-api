@@ -8,7 +8,7 @@
         android:padding="16dp">
 
     <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.UWaterloo.Title"
             android:id="@android:id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
             tools:text="First Element"/>
 
     <TextView
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="@style/TextAppearance.UWaterloo.Subhead"
             android:id="@android:id/text2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

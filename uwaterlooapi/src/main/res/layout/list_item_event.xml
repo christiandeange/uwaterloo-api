@@ -36,7 +36,7 @@
                     tools:text="UW Food Services"/>
 
             <TextView
-                    style="@style/TextAppearance.AppCompat.Body1"
+                    style="@style/TextAppearance.UWaterloo.Body1"
                     android:id="@android:id/summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

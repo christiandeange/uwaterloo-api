@@ -4,6 +4,8 @@
         <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
         <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="cardViewStyle">@style/CardViewStyle</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -25,6 +27,28 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <!-- TextAppearances -->
+
+    <style name="TextAppearance.UWaterloo.Display1" parent="@style/TextAppearance.AppCompat.Display1"/>
+
+    <style name="TextAppearance.UWaterloo.Headline" parent="@style/TextAppearance.AppCompat.Headline"/>
+
+    <style name="TextAppearance.UWaterloo.Subhead" parent="@style/TextAppearance.AppCompat.Subhead"/>
+
+    <style name="TextAppearance.UWaterloo.Title" parent="@style/TextAppearance.AppCompat.Title"/>
+
+    <style name="TextAppearance.UWaterloo.Body1" parent="@style/TextAppearance.AppCompat.Body1"/>
+
+    <style name="TextAppearance.UWaterloo.Body2" parent="@style/TextAppearance.AppCompat.Body2"/>
+
+    <style name="TextAppearance.UWaterloo.Caption" parent="@style/TextAppearance.AppCompat.Caption"/>
+
+    <style name="TextAppearance.UWaterloo.Large" parent="@style/TextAppearance.AppCompat.Large"/>
+
+    <style name="TextAppearance.UWaterloo.Small" parent="@style/TextAppearance.AppCompat.Small"/>
+
+    <!-- Widget Styles -->
+
     <style name="AppTheme.Widget" parent="@android:style/Widget">
     </style>
 
@@ -44,12 +68,14 @@
         <item name="android:dividerHeight">0dp</item>
     </style>
 
-    <style name="CardViewListItem">
+    <style name="CardViewListItem" parent="@style/CardViewStyle">
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
     </style>
+
+    <style name="CardViewStyle" parent="@style/CardView.Light"/>
 
     <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColorSecondary">@android:color/black</item>

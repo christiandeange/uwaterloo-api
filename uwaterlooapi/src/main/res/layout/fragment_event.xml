@@ -27,7 +27,7 @@
                 android:orientation="vertical">
 
             <TextView
-                    style="@style/TextAppearance.AppCompat.Title"
+                    style="@style/TextAppearance.UWaterloo.Title"
                     android:id="@+id/event_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                         android:layout_marginStart="16dp"/>
 
                 <TextView
-                        style="@style/TextAppearance.AppCompat.Body1"
+                        style="@style/TextAppearance.UWaterloo.Body1"
                         android:id="@+id/event_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

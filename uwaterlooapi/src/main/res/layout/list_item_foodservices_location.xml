@@ -21,7 +21,7 @@
                 android:background="?attr/selectableItemBackground">
 
             <TextView
-                    style="@style/TextAppearance.AppCompat.Title"
+                    style="@style/TextAppearance.UWaterloo.Title"
                     android:id="@+id/list_location_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                     tools:text="Student Life Centre"/>
 
             <TextView
-                    style="@style/TextAppearance.AppCompat.Subhead"
+                    style="@style/TextAppearance.UWaterloo.Subhead"
                     android:id="@+id/list_location_building"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

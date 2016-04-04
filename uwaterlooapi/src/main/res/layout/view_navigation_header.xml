@@ -3,10 +3,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="144dp"
-        android:background="@color/uw_yellow_activated"
+        android:layout_height="150dp"
+        android:background="@color/uw_yellow"
         android:orientation="vertical"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:theme="@style/ThemeOverlay.AppCompat.Light">
 
     <LinearLayout
             android:id="@+id/navigation_header_clickable"
@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
         <TextView
-                style="@style/TextAppearance.AppCompat.Title"
+                style="@style/TextAppearance.UWaterloo.Title"
                 android:id="@+id/navigation_header_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 tools:text="Good morning!"/>
 
         <TextView
-                style="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/TextAppearance.UWaterloo.Subhead"
                 android:id="@+id/navigation_header_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
