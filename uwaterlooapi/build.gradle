@@ -51,6 +51,9 @@ android {
         }
 
         debug {
+            // Helps to speed up multidex builds
+            android.defaultConfig.minSdkVersion 21
+
             applicationIdSuffix '.debug'
             versionNameSuffix ' (debug)'
         }
