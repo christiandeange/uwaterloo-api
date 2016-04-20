@@ -13,6 +13,7 @@ import com.deange.uwaterlooapi.api.EventsApi;
 import com.deange.uwaterlooapi.api.FoodServicesApi;
 import com.deange.uwaterlooapi.api.NewsApi;
 import com.deange.uwaterlooapi.api.ParkingApi;
+import com.deange.uwaterlooapi.api.PointsOfInterestApi;
 import com.deange.uwaterlooapi.api.ResourcesApi;
 import com.deange.uwaterlooapi.api.WeatherApi;
 import com.deange.uwaterlooapi.sample.R;
@@ -45,6 +46,7 @@ public class ApiMethodsFragment extends ListFragment
         classes.put(R.id.menu_item_resources, ResourcesApi.class);
         classes.put(R.id.menu_item_buildings, BuildingsApi.class);
         classes.put(R.id.menu_item_parking, ParkingApi.class);
+        classes.put(R.id.menu_item_poi, PointsOfInterestApi.class);
         API_CLASSES = Collections.unmodifiableMap(classes);
     }
 

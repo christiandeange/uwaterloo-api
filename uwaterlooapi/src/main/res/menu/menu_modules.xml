@@ -48,6 +48,11 @@
                 android:icon="@drawable/ic_parking"
                 android:title="@string/api_parking"/>
 
+        <item
+                android:id="@+id/menu_item_poi"
+                android:icon="@drawable/ic_poi"
+                android:title="@string/api_poi"/>
+
     </group>
 
     <group android:id="@+id/menu_group_about" android:checkableBehavior="single">

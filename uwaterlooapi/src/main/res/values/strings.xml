@@ -18,6 +18,7 @@
     <string name="api_resources">Resources</string>
     <string name="api_buildings">Buildings</string>
     <string name="api_parking">Parking</string>
+    <string name="api_poi">Points Of Interest</string>
 
     <string name="building_no_location_data">No location data for this building</string>
 
@@ -42,20 +43,22 @@
     <string name="title_events">Events</string>
     <string name="title_news">News</string>
     <string name="title_parking">Parking</string>
+    <string name="title_poi">Points Of Interest</string>
 
     <string name="description_foodservices_announcements">Additional announcements regarding food being served at various places on campus.</string>
     <string name="description_foodservices_locations">Places serving food and beverages on campus, including operating hours and detailed outlet information.</string>
     <string name="description_foodservices_menus">Lunch and dinner menus of places serving food on campus for each day of the week.</string>
     <string name="description_foodservices_notes">Additional notes regarding food being served at various places on campus.</string>
     <string name="description_foodservices_watcard">Places on and off campus that accept WatCard as a form of payment.</string>
-    <string name="description_weather">Current weather details from the University of Waterloo Weather Station</string>
-    <string name="description_buildings">A list of official buildings affiliated with the University of Waterloo</string>
-    <string name="description_courses">Information about courses offered, including general info, prerequisites, course schedules, enrollment info, and exam schedules</string>
-    <string name="description_resources_sites">A list of official websites affiliated with the University of Waterloo</string>
-    <string name="description_resources_goosewatch">A crowdsourced list of reported geese nests during their spring mating season</string>
+    <string name="description_weather">Current weather details from the University of Waterloo Weather Station.</string>
+    <string name="description_buildings">A list of official buildings affiliated with the University of Waterloo.</string>
+    <string name="description_courses">Information about courses offered, including general info, prerequisites, course schedules, enrollment info, and exam .schedules</string>
+    <string name="description_resources_sites">A list of official websites affiliated with the University of Waterloo.</string>
+    <string name="description_resources_goosewatch">A crowdsourced list of reported geese nests during their spring mating season.</string>
     <string name="description_events">Information regarding events taking place around campus.</string>
     <string name="description_news">News curated by various sources affiliated with the University of Waterloo.</string>
     <string name="description_parking">Real-time parking counts in select parking lots across campus.</string>
+    <string name="description_poi">ATMs, libraries, and other interesting places and things to see across campus.</string>
 
     <string name="home_quick_links">Quick Links</string>
     <string name="home_quick_course_lookup">Course Lookup</string>

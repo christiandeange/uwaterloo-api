@@ -111,7 +111,6 @@ public class GooseWatchFragment
         final int padding = (int) (16 * getResources().getDisplayMetrics().density);
 
         map.setIndoorEnabled(false);
-        map.setMyLocationEnabled(false);
         map.setOnMapClickListener(this);
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         map.getUiSettings().setAllGesturesEnabled(true);

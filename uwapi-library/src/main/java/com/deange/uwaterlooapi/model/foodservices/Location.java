@@ -342,7 +342,7 @@ public class Location extends BaseModel {
         private static final String DATE_FORMAT = "MMM d";
         final Date first;
         final Date second;
-        final Date endForContains;
+        Date endForContains;
 
         @ParcelConstructor
         Range(final Date first, final Date second) {

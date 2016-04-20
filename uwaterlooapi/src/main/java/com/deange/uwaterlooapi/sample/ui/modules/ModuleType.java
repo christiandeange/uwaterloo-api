@@ -18,6 +18,7 @@ public interface ModuleType {
     String NEWS_LIST = "News List";
     String NOTES = "Notes List";
     String PARKING = "Parking";
+    String POI = "Points Of Interest";
     String SITES = "Site List";
     String WATCARD_VENDORS = "WatCard Vendor List";
     String WEATHER = "Weather";
