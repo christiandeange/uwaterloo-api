@@ -11,6 +11,7 @@
             android:layout_height="wrap_content">
 
         <LinearLayout
+                android:id="@+id/selectable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
@@ -26,7 +27,6 @@
                     tools:background="@android:color/black"/>
 
             <LinearLayout
-                    android:id="@+id/selectable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
