@@ -3,9 +3,17 @@ package com.deange.uwaterlooapi.sample.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 
+import com.deange.uwaterlooapi.sample.R;
+
 public final class IntentUtils {
+
+    private static final String EXTRA_CUSTOM_TABS_SESSION = "android.support.customtabs.extra.SESSION";
+    private static final String EXTRA_CUSTOM_TABS_TOOLBAR_COLOR = "android.support.customtabs.extra.TOOLBAR_COLOR";
 
     private IntentUtils() {
         throw new AssertionError();
@@ -14,6 +22,16 @@ public final class IntentUtils {
     public static void openBrowser(final Context context, final String url) {
         if (!TextUtils.isEmpty(url)) {
             final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+
+            // Enable Chrome Custom Tabs
+            final int color = ResourcesCompat.getColor(context.getResources(), R.color.uw_yellow, context.getTheme());
+            final IBinder binder = null;
+
+            final Bundle extras = new Bundle();
+            extras.putInt(EXTRA_CUSTOM_TABS_TOOLBAR_COLOR, color);
+            extras.putBinder(EXTRA_CUSTOM_TABS_SESSION, binder);
+            intent.putExtras(extras);
+
             if (isIntentSupported(context, intent)) {
                 context.startActivity(intent);
             }
