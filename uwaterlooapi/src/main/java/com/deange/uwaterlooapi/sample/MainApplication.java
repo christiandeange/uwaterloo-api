@@ -3,12 +3,11 @@ package com.deange.uwaterlooapi.sample;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.deange.uwaterlooapi.sample.utils.Dp;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
 import net.danlew.android.joda.JodaTimeAndroid;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MainApplication extends MultiDexApplication {
 
@@ -27,6 +26,9 @@ public class MainApplication extends MultiDexApplication {
         // For response objects that contain a collection,
         // ensure they return unmodifiable copies of the data so the underlying model is immutable
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
+
+        // Set up dp-px converter
+        Dp.init(this);
 
         // Set up Calligraphy library
         FontUtils.init(this);

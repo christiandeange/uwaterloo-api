@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.utils.Dp;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +32,7 @@ public class LayersDialog {
 
         holder.restore(flags);
 
-        new AlertDialog.Builder(context)
+        final AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(view)
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -42,7 +44,12 @@ public class LayersDialog {
                         }
                     }
                 })
-                .show();
+                .create();
+
+        dialog.getWindow().getDecorView(); // Force decor view to be installed
+        dialog.getWindow().setLayout((int) (Dp.width() * 0.75f), ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        dialog.show();
     }
 
     static final class LayersViews {
