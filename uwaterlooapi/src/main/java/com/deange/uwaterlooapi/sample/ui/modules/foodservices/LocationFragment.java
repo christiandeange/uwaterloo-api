@@ -1,15 +1,13 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.model.BaseResponse;
@@ -19,13 +17,14 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView;
+import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-
+import java.util.Date;
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 
 public class LocationFragment extends BaseModuleFragment<BaseResponse, Location> {
 
@@ -79,6 +78,51 @@ public class LocationFragment extends BaseModuleFragment<BaseResponse, Location>
         showSection(specialDays, !specialHours.isEmpty());
         closedDays.setText(Joiner.on("\n").joinObjects(datesClosed));
         specialDays.setText(Joiner.on("\n").joinObjects(specialHours));
+
+        // Handle bolding of the current time range (if any)
+        hoursView.unbold();
+
+        final Date now = new Date();
+
+        for (int i = 0; i < datesClosed.size(); i++) {
+            if (datesClosed.get(i).contains(now)) {
+                boldField(closedDays, i);
+                return;
+            }
+        }
+
+        for (int i = 0; i < specialHours.size(); i++) {
+            if (specialHours.get(i).contains(now)) {
+                boldField(specialDays, i);
+                return;
+            }
+        }
+
+        hoursView.setTodayBold();
+    }
+
+    private void boldField(final TextView textView, final int field) {
+        final String text = textView.getText().toString();
+
+        int start = 0;
+        for (int i = 0; i < field; i++) {
+            start = text.indexOf('\n', start + 1);
+            if (start == -1) {
+                // Run out of fields!
+                return;
+            }
+        }
+
+        int end = text.indexOf('\n', start + 1);
+        if (end == -1) {
+            end = text.length();
+        }
+
+        final Typeface boldFont = FontUtils.getFont(FontUtils.MEDIUM);
+
+        final SpannableString ss = new SpannableString(text);
+        ss.setSpan(new CalligraphyTypefaceSpan(boldFont), start, end, 0);
+        textView.setText(ss);
     }
 
     @Override

@@ -342,11 +342,22 @@ public class Location extends BaseModel {
         private static final String DATE_FORMAT = "MMM d";
         final Date first;
         final Date second;
+        final Date endForContains;
 
         @ParcelConstructor
         Range(final Date first, final Date second) {
             this.first = first;
             this.second = second;
+
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTime(second);
+            calendar.add(Calendar.DATE, 1);
+            endForContains = calendar.getTime();
+        }
+
+        public boolean contains(final Date date) {
+            // Days only, bounds are inclusive-exclusive
+            return !date.before(first) && date.before(endForContains);
         }
 
         @Override
@@ -372,6 +383,27 @@ public class Location extends BaseModel {
             super(first, second);
             this.open = open;
             this.close = close;
+        }
+
+        @Override
+        public boolean contains(final Date date) {
+            if (super.contains(date)) {
+                return true;
+            }
+
+            if (close.compareTo(open) < 0) {
+                // If closes after midnight, then we need to advance the end date by 1
+                final String[] fields = close.split(":");
+                final Calendar calendar = Calendar.getInstance();
+                calendar.setTime(endForContains);
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(fields[0]));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(fields[1]));
+                final Date tomorrowEnd = calendar.getTime();
+
+                return !date.before(first) && date.before(tomorrowEnd);
+            }
+
+            return false;
         }
 
         @Override

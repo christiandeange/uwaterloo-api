@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.utils.FontUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -77,12 +78,26 @@ public class OperatingHoursView extends FrameLayout {
                 final String end = Location.convert24To12(hours.getClosingHour());
                 hoursView.setText(start + " – " + end);
             }
+        }
+    }
 
-            final AssetManager assets = getContext().getAssets();
-            final Typeface bold = Typeface.createFromAsset(assets, getResources().getString(R.string.font_medium));
-            final Typeface normal = Typeface.createFromAsset(assets, getResources().getString(R.string.font_book));
+    public void setTodayBold() {
+        if (!mInflated || mHours == null) {
+            return;
+        }
 
+        final ViewGroup parentLayout = (ViewGroup) getChildAt(0);
+        for (int i = 0; i < parentLayout.getChildCount(); i++) {
+            final ViewGroup parent = (ViewGroup) parentLayout.getChildAt(i);
+            final TextView labelView = (TextView) parent.findViewById(R.id.view_location_hours_day);
+            final TextView hoursView = (TextView) parent.findViewById(R.id.view_location_hours_hours);
+
+            final String dayOfWeek = labelView.getText().toString().toLowerCase();
             final int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+
+            final Typeface bold = FontUtils.getFont(FontUtils.MEDIUM);
+            final Typeface normal = FontUtils.getFont(FontUtils.BOOK);
+
             if (WEEK_MAP[day].equals(dayOfWeek)) {
                 labelView.setTypeface(bold, Typeface.BOLD);
                 hoursView.setTypeface(bold, Typeface.BOLD);
@@ -90,6 +105,23 @@ public class OperatingHoursView extends FrameLayout {
                 labelView.setTypeface(normal, Typeface.NORMAL);
                 hoursView.setTypeface(normal, Typeface.NORMAL);
             }
+        }
+    }
+
+    public void unbold() {
+        if (!mInflated || mHours == null) {
+            return;
+        }
+
+        final ViewGroup parentLayout = (ViewGroup) getChildAt(0);
+        for (int i = 0; i < parentLayout.getChildCount(); i++) {
+            final ViewGroup parent = (ViewGroup) parentLayout.getChildAt(i);
+            final TextView labelView = (TextView) parent.findViewById(R.id.view_location_hours_day);
+            final TextView hoursView = (TextView) parent.findViewById(R.id.view_location_hours_hours);
+
+            final Typeface normal = FontUtils.getFont(FontUtils.DEFAULT);
+            labelView.setTypeface(normal, Typeface.NORMAL);
+            hoursView.setTypeface(normal, Typeface.NORMAL);
         }
     }
 
