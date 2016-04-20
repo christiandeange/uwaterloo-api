@@ -48,6 +48,8 @@ public final class UWaterlooApi {
 
     public final ParkingApi Parking = ApiBuilder.buildJson(this, ParkingApi.class);
 
+    public final PointsOfInterestApi PointsOfInterest = ApiBuilder.buildJson(this, PointsOfInterestApi.class);
+
     public final LegacyWeatherApi LegacyWeather = ApiBuilder.buildXml(LegacyWeatherApi.URL, LegacyWeatherApi.class);
 
 }

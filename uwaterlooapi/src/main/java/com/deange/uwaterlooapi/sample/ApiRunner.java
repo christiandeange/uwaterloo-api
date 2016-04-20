@@ -26,9 +26,10 @@ public final class ApiRunner {
 //        runResources(api);
 //        runBuildings(api);
 //        runParking(api);
+        runPointsOfInterest(api);
     }
 
-    public static void runFoodServices(final UWaterlooApi api) {
+    private static void runFoodServices(final UWaterlooApi api) {
 
         final int year = 2014;
         final int week = 10;
@@ -48,7 +49,7 @@ public final class ApiRunner {
         Log.v("TAG", "FoodServices requests completed.");
     }
 
-    public static void runCourses(final UWaterlooApi api) {
+    private static void runCourses(final UWaterlooApi api) {
 
         final String section = "CS";
         final String courseCode = "349";
@@ -142,6 +143,13 @@ public final class ApiRunner {
         final Response.Parking parking = api.Parking.getParkingInfo();
 
         Log.v("TAG", "Parking requests completed.");
+    }
+
+    private static void runPointsOfInterest(final UWaterlooApi api) {
+
+        final Response.ATMs atms = api.PointsOfInterest.getATMs();
+
+        Log.v("TAG", "POI requests completed.");
     }
 
 }

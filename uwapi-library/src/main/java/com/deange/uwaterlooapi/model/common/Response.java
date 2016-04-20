@@ -21,6 +21,7 @@ import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
 import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.model.parking.ParkingLot;
+import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.resources.GooseNest;
 import com.deange.uwaterlooapi.model.resources.Printer;
 import com.deange.uwaterlooapi.model.resources.Site;
@@ -110,5 +111,9 @@ public final class Response {
     // PARKING
 
     public static class Parking extends SimpleListResponse<ParkingLot> { }
+
+    // POINTS OF INTEREST
+
+    public static class ATMs extends SimpleListResponse<ATM> { }
 
 }
