@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <CheckedTextView
+                    android:id="@+id/poi_layers_atm_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/poi_layers_atm_check"
+                    android:layout_alignTop="@+id/poi_layers_atm_check"
+                    android:layout_alignBottom="@+id/poi_layers_atm_check"
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:background="?selectableItemBackground"
+                    android:text="@string/poi_layers_atms"
+                    android:drawableStart="@drawable/ic_local_atm"
+                    android:drawablePadding="16dp"/>
+
+            <CheckBox
+                    android:id="@+id/poi_layers_atm_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

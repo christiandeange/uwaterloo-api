@@ -127,6 +127,9 @@
     <string name="parking_lot_spots_filled">%1$d/%2$d spots filled</string>
     <string name="parking_last_updated">Last updated %1$s</string>
 
+    <string name="menu_poi_layers">Layers</string>
+    <string name="poi_layers_atms">ATMs</string>
+
     <!-- Durations -->
     <string name="duration_instant">Right now</string>
     <string name="duration_until">In</string>

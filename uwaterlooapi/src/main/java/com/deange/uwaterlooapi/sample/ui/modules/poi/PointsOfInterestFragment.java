@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -44,18 +47,17 @@ import butterknife.ButterKnife;
 public class PointsOfInterestFragment
         extends BaseMapFragment<CombinedPointsOfInterestInfoResponse, CombinedPointsOfInterestInfo>
         implements
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMarkerClickListener, LayersDialog.OnLayersSelectedListener {
 
     private static final String TAG = "PointsOfInterestFragment";
 
     private static final int BEST_SIZE = Runtime.getRuntime().availableProcessors() * 2 - 1;
     private static final Executor EXECUTOR = Executors.newFixedThreadPool(BEST_SIZE);
 
-    private static final int FLAG_ATM = 0x01;
-
     @Bind(R.id.points_of_interest_info) ViewGroup mInfoRoot;
 
     private CombinedPointsOfInterestInfo mResponse;
+    private int mFlags = LayersDialog.FLAG_ALL;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
@@ -66,6 +68,28 @@ public class PointsOfInterestFragment
         mInfoRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_poi_layers, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (item.getItemId() == R.id.menu_layers) {
+            LayersDialog.showDialog(getContext(), mFlags, this);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLayersSelected(final int flags) {
+        mFlags = flags;
+        showPointsOfInterestInfo();
     }
 
     @Override
@@ -103,28 +127,16 @@ public class PointsOfInterestFragment
 
     private void showPointsOfInterestInfo() {
         final GoogleMap map = mMapView.getMap();
+        map.clear();
 
-        final LatLngBounds.Builder builder = LatLngBounds.builder();
-        for (final ATM atm : mResponse.getATMs()) {
-            final LatLng latLng = LocationUtils.getLatLng(atm.getLocation());
-            builder.include(latLng);
-            map.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(getIcon(atm)))
-                    .title(atm.getName())
-                    .position(latLng));
+        if ((mFlags & LayersDialog.FLAG_ATM) != 0) {
+            for (final ATM atm : mResponse.getATMs()) {
+                map.addMarker(new MarkerOptions()
+                        .position(LocationUtils.getLatLng(atm.getLocation()))
+                        .icon(BitmapDescriptorFactory.fromResource(getIcon(atm)))
+                        .title(atm.getName()));
+            }
         }
-
-        final LatLngBounds bounds = builder.build();
-        final int padding = (int) (16 * getResources().getDisplayMetrics().density);
-
-        map.setIndoorEnabled(false);
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        map.setOnMapClickListener(this);
-        map.setOnMarkerClickListener(this);
-        map.setOnMapLongClickListener(this);
-        map.getUiSettings().setAllGesturesEnabled(true);
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
     }
 
     @Override
@@ -213,7 +225,7 @@ public class PointsOfInterestFragment
 
     }
 
-    private @DrawableRes int getIcon(final BasicPointOfInterest poi) {
+    private int getIcon(final BasicPointOfInterest poi) {
         if (poi instanceof ATM) {
             final ATM atm = (ATM) poi;
             final String name = atm.getName();
@@ -243,7 +255,23 @@ public class PointsOfInterestFragment
     }
 
     @Override
-    public void onMapReady(final GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap map) {
+        final LatLngBounds.Builder builder = LatLngBounds.builder();
+        builder.include(new LatLng(43.473655, -80.556242));
+        builder.include(new LatLng(43.465495, -80.537446));
+
+        final LatLngBounds bounds = builder.build();
+        final int padding = (int) (16 * getResources().getDisplayMetrics().density);
+
+        map.setIndoorEnabled(false);
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        map.setOnMapClickListener(this);
+        map.setOnMarkerClickListener(this);
+        map.setOnMapLongClickListener(this);
+        map.getUiSettings().setAllGesturesEnabled(true);
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+
         if (mResponse != null) {
             showPointsOfInterestInfo();
         }
