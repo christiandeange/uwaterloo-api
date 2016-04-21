@@ -150,6 +150,7 @@ public final class ApiRunner {
 
         final Response.ATMs atms = api.PointsOfInterest.getATMs();
         final Response.Greyhound greyhounds = api.PointsOfInterest.getGreyhoundStops();
+        final Response.Photospheres photospheres = api.PointsOfInterest.getPhotospheres();
 
         Log.v("TAG", "POI requests completed.");
     }

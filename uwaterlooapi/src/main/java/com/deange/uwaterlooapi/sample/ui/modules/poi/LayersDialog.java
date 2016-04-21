@@ -19,9 +19,10 @@ public class LayersDialog {
 
     public static final int FLAG_ATM = 0x01;
     public static final int FLAG_GREYHOUND = 0x02;
-    public static final int FLAG_ALL = FLAG_ATM | FLAG_GREYHOUND;
+    public static final int FLAG_PHOTOSPHERE = 0x04;
+    public static final int FLAG_ALL = FLAG_ATM | FLAG_GREYHOUND | FLAG_PHOTOSPHERE;
 
-    public static final int LAYERS_COUNT = 2;
+    public static final int LAYERS_COUNT = 3;
 
     private LayersDialog() {
         throw new AssertionError();
@@ -58,10 +59,12 @@ public class LayersDialog {
     static final class LayersViews {
         @Bind(R.id.poi_layers_atm_check) CheckBox mCheckAtm;
         @Bind(R.id.poi_layers_greyhound_check) CheckBox mCheckGreyhound;
+        @Bind(R.id.poi_layers_photosphere_check) CheckBox mCheckPhotosphere;
 
         @OnClick({
                 R.id.poi_layers_atm_label,
                 R.id.poi_layers_greyhound_label,
+                R.id.poi_layers_photosphere_label,
         })
         public void onAtmLabelClicked(final View view) {
             ((CheckBox) ((ViewGroup) view.getParent()).getChildAt(1)).toggle();
@@ -70,6 +73,7 @@ public class LayersDialog {
         public void restore(final int flags) {
             mCheckAtm.setChecked((flags & FLAG_ATM) != 0);
             mCheckGreyhound.setChecked((flags & FLAG_GREYHOUND) != 0);
+            mCheckPhotosphere.setChecked((flags & FLAG_PHOTOSPHERE) != 0);
         }
 
         public int save() {
@@ -77,6 +81,7 @@ public class LayersDialog {
 
             flags |= mCheckAtm.isChecked() ? FLAG_ATM : 0;
             flags |= mCheckGreyhound.isChecked() ? FLAG_GREYHOUND : 0;
+            flags |= mCheckPhotosphere.isChecked() ? FLAG_PHOTOSPHERE : 0;
 
             return flags;
         }

@@ -1,6 +1,5 @@
 package com.deange.uwaterlooapi.sample.ui.modules.poi;
 
-import android.animation.LayoutTransition;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
@@ -19,12 +19,15 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.poi.BasicPointOfInterest;
 import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
+import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfo;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfoResponse;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
+import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.LocationUtils;
+import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -56,6 +59,9 @@ public class PointsOfInterestFragment
     private static final Executor EXECUTOR = Executors.newFixedThreadPool(BEST_SIZE);
 
     @Bind(R.id.points_of_interest_info) ViewGroup mInfoRoot;
+    @Bind(android.R.id.text1) TextView mTitle;
+    @Bind(android.R.id.text2) TextView mDescription;
+    @Bind(R.id.points_of_interest_info_icon) ImageView mPhotosphereViewBton;
 
     private CombinedPointsOfInterestInfo mResponse;
     private int mFlags = LayersDialog.FLAG_ALL;
@@ -66,15 +72,13 @@ public class PointsOfInterestFragment
 
         ButterKnife.bind(this, view);
 
-        mInfoRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_poi_layers, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_poi_layers, menu);
     }
 
     @Override
@@ -115,6 +119,14 @@ public class PointsOfInterestFragment
             }
         });
 
+        // Photospheres
+        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
+            @Override
+            public void fetch() {
+                info.setPhotospheres(api.PointsOfInterest.getPhotospheres().getData());
+            }
+        });
+
         try {
             // Wait until all data is loaded
             semaphore.acquire();
@@ -139,6 +151,7 @@ public class PointsOfInterestFragment
 
         addMarkersIfEnabled(mResponse.getATMs(), LayersDialog.FLAG_ATM);
         addMarkersIfEnabled(mResponse.getGreyhounds(), LayersDialog.FLAG_GREYHOUND);
+        addMarkersIfEnabled(mResponse.getPhotospheres(), LayersDialog.FLAG_PHOTOSPHERE);
     }
 
     private void addMarkersIfEnabled(final List<? extends BasicPointOfInterest> items, final int flag) {
@@ -173,26 +186,42 @@ public class PointsOfInterestFragment
     public boolean onMarkerClick(final Marker marker) {
         marker.showInfoWindow();
 
-        final LatLng latLng = marker.getPosition();
-        if (matchPointByLocation(mResponse.getATMs(), latLng)) {
-            return true;
+        mPhotosphereViewBton.setVisibility(View.GONE);
 
-        } else if (matchPointByLocation(mResponse.getGreyhounds(), latLng)) {
+        final LatLng latLng = marker.getPosition();
+        if (matchPointByLocation(mResponse.getATMs(), latLng) != null) {
+            return true;
+        }
+
+        if (matchPointByLocation(mResponse.getGreyhounds(), latLng) != null) {
+            return true;
+        }
+
+        final Photosphere photosphere;
+        if ((photosphere = matchPointByLocation(mResponse.getPhotospheres(), latLng)) != null) {
+            mPhotosphereViewBton.setVisibility(View.VISIBLE);
+            mPhotosphereViewBton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    IntentUtils.openBrowser(getContext(), photosphere.getUrl());
+                }
+            });
+
             return true;
         }
 
         return false;
     }
 
-    private boolean matchPointByLocation(final List<? extends BasicPointOfInterest> items, final LatLng latLng) {
-        for (final BasicPointOfInterest poi : items) {
+    private <T extends BasicPointOfInterest> T matchPointByLocation(final List<T> items, final LatLng latLng) {
+        for (final T poi : items) {
             if (LocationUtils.getLatLng(poi.getLocation()).equals(latLng)) {
                 onPointOfInterestInfoRequested(poi);
-                return true;
+                return poi;
             }
         }
 
-        return false;
+        return null;
     }
 
     private void hideInfoView() {
@@ -231,8 +260,8 @@ public class PointsOfInterestFragment
             description = poi.getNote();
         }
 
-        ((TextView) mInfoRoot.findViewById(android.R.id.text1)).setText(title);
-        ((TextView) mInfoRoot.findViewById(android.R.id.text2)).setText(description);
+        ViewUtils.setText(mTitle, title);
+        ViewUtils.setText(mDescription, description);
     }
 
     private void fetchPointOfInterestInfo(
@@ -272,6 +301,9 @@ public class PointsOfInterestFragment
 
         } else if (poi instanceof GreyhoundStop) {
             return R.drawable.ic_poi_greyhound;
+
+        } else if (poi instanceof Photosphere) {
+            return R.drawable.ic_poi_photosphere;
 
         } else {
             return R.drawable.ic_poi;

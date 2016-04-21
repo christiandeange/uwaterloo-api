@@ -18,4 +18,10 @@ public interface PointsOfInterestApi {
     @GET("/poi/greyhound.{format}")
     public Response.Greyhound getGreyhoundStops();
 
+    /**
+     * This method returns list of photospheres across campus.
+     */
+    @GET("/poi/photospheres.{format}")
+    public Response.Photospheres getPhotospheres();
+
 }

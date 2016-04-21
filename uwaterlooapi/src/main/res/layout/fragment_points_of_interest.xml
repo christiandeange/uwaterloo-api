@@ -8,18 +8,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    <FrameLayout
+    <LinearLayout
             android:id="@+id/points_of_interest_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:background="?colorPrimary"
             android:elevation="16dp"
-            android:animateLayoutChanges="true"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:orientation="horizontal">
 
-        <include layout="@layout/simple_two_line_item"/>
+        <include
+                layout="@layout/simple_two_line_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-    </FrameLayout>
+        <ImageView
+                android:id="@+id/points_of_interest_info_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:layout_weight="0"
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:src="@drawable/ic_poi_photosphere"
+                android:visibility="gone"
+                android:background="?selectableItemBackgroundBorderless"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
