@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -123,7 +124,8 @@ public class PointsOfInterestFragment
         fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setPhotospheres(api.PointsOfInterest.getPhotospheres().getData());
+                // Disable Photospheres API due to bug
+                info.setPhotospheres(new ArrayList<Photosphere>() /*api.PointsOfInterest.getPhotospheres().getData()*/);
             }
         });
 
