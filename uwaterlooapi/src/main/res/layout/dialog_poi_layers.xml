@@ -11,29 +11,31 @@
             android:layout_margin="16dp"
             android:orientation="vertical">
 
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <RelativeLayout style="@style/LayerParent">
 
             <CheckedTextView
+                    style="@style/LayerLabel"
                     android:id="@+id/poi_layers_atm_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/poi_layers_atm_check"
-                    android:layout_alignTop="@+id/poi_layers_atm_check"
-                    android:layout_alignBottom="@+id/poi_layers_atm_check"
-                    android:padding="8dp"
-                    android:gravity="center_vertical"
-                    android:background="?selectableItemBackground"
-                    android:text="@string/poi_layers_atms"
                     android:drawableStart="@drawable/ic_local_atm"
-                    android:drawablePadding="16dp"/>
+                    android:text="@string/poi_layers_atms"/>
 
             <CheckBox
-                    android:id="@+id/poi_layers_atm_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"/>
+                    style="@style/LayerCheckBox"
+                    android:id="@+id/poi_layers_atm_check"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/LayerParent">
+
+            <CheckedTextView
+                    style="@style/LayerLabel"
+                    android:id="@+id/poi_layers_greyhound_label"
+                    android:drawableStart="@drawable/ic_directions_bus"
+                    android:text="@string/poi_layers_greyhound"/>
+
+            <CheckBox
+                    style="@style/LayerCheckBox"
+                    android:id="@+id/poi_layers_greyhound_check"/>
 
         </RelativeLayout>
 

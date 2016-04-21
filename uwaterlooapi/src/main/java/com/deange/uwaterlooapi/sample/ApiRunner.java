@@ -10,6 +10,7 @@ import com.deange.uwaterlooapi.model.weather.LegacyWeatherReading;
  * THIS CLASS IS TEMPORARY
  * IT IS FOR INITIAL DEVELOPMENT PURPOSES ONLY
  */
+@SuppressWarnings("unused")
 public final class ApiRunner {
 
     private ApiRunner() {
@@ -26,7 +27,7 @@ public final class ApiRunner {
 //        runResources(api);
 //        runBuildings(api);
 //        runParking(api);
-        runPointsOfInterest(api);
+//        runPointsOfInterest(api);
     }
 
     private static void runFoodServices(final UWaterlooApi api) {
@@ -148,6 +149,7 @@ public final class ApiRunner {
     private static void runPointsOfInterest(final UWaterlooApi api) {
 
         final Response.ATMs atms = api.PointsOfInterest.getATMs();
+        final Response.Greyhound greyhounds = api.PointsOfInterest.getGreyhoundStops();
 
         Log.v("TAG", "POI requests completed.");
     }

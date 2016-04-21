@@ -140,4 +140,25 @@
         <item name="android:drawablePadding">8dp</item>
     </style>
 
+    <style name="LayerParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="LayerLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?listPreferredItemHeightSmall</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:drawablePadding">16dp</item>
+    </style>
+
+    <style name="LayerCheckBox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
 </resources>

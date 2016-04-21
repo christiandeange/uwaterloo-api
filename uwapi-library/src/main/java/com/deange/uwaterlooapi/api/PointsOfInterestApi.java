@@ -12,4 +12,10 @@ public interface PointsOfInterestApi {
     @GET("/poi/atms.{format}")
     public Response.ATMs getATMs();
 
+    /**
+     * This method returns list of Greyhound bus stops across city.
+     */
+    @GET("/poi/greyhound.{format}")
+    public Response.Greyhound getGreyhoundStops();
+
 }

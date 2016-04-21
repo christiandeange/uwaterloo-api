@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.poi;
 
 import android.animation.LayoutTransition;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +18,7 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.poi.BasicPointOfInterest;
+import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfo;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfoResponse;
@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -96,13 +97,21 @@ public class PointsOfInterestFragment
     public CombinedPointsOfInterestInfoResponse onLoadData(final UWaterlooApi api) {
         final CombinedPointsOfInterestInfo info = new CombinedPointsOfInterestInfo();
         final CombinedPointsOfInterestInfoResponse response = new CombinedPointsOfInterestInfoResponse(info);
-        final Semaphore semaphore = new Semaphore(1 - /* TODO */ 1);
+        final Semaphore semaphore = new Semaphore(1 - LayersDialog.LAYERS_COUNT);
 
         // ATMs
         fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
                 info.setATMs(api.PointsOfInterest.getATMs().getData());
+            }
+        });
+
+        // Greyhound stops
+        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
+            @Override
+            public void fetch() {
+                info.setGreyhounds(api.PointsOfInterest.getGreyhoundStops().getData());
             }
         });
 
@@ -126,15 +135,21 @@ public class PointsOfInterestFragment
     }
 
     private void showPointsOfInterestInfo() {
-        final GoogleMap map = mMapView.getMap();
-        map.clear();
+        mMapView.getMap().clear();
 
-        if ((mFlags & LayersDialog.FLAG_ATM) != 0) {
-            for (final ATM atm : mResponse.getATMs()) {
+        addMarkersIfEnabled(mResponse.getATMs(), LayersDialog.FLAG_ATM);
+        addMarkersIfEnabled(mResponse.getGreyhounds(), LayersDialog.FLAG_GREYHOUND);
+    }
+
+    private void addMarkersIfEnabled(final List<? extends BasicPointOfInterest> items, final int flag) {
+        final GoogleMap map = mMapView.getMap();
+
+        if ((mFlags & flag) != 0) {
+            for (final BasicPointOfInterest item : items) {
                 map.addMarker(new MarkerOptions()
-                        .position(LocationUtils.getLatLng(atm.getLocation()))
-                        .icon(BitmapDescriptorFactory.fromResource(getIcon(atm)))
-                        .title(atm.getName()));
+                        .position(LocationUtils.getLatLng(item.getLocation()))
+                        .icon(BitmapDescriptorFactory.fromResource(getIcon(item)))
+                        .title(item.getName()));
             }
         }
     }
@@ -158,9 +173,21 @@ public class PointsOfInterestFragment
     public boolean onMarkerClick(final Marker marker) {
         marker.showInfoWindow();
 
-        for (final ATM atm : mResponse.getATMs()) {
-            if (LocationUtils.getLatLng(atm.getLocation()).equals(marker.getPosition())) {
-                onPointOfInterestInfoRequested(atm);
+        final LatLng latLng = marker.getPosition();
+        if (matchPointByLocation(mResponse.getATMs(), latLng)) {
+            return true;
+
+        } else if (matchPointByLocation(mResponse.getGreyhounds(), latLng)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean matchPointByLocation(final List<? extends BasicPointOfInterest> items, final LatLng latLng) {
+        for (final BasicPointOfInterest poi : items) {
+            if (LocationUtils.getLatLng(poi.getLocation()).equals(latLng)) {
+                onPointOfInterestInfoRequested(poi);
                 return true;
             }
         }
@@ -229,21 +256,25 @@ public class PointsOfInterestFragment
         if (poi instanceof ATM) {
             final ATM atm = (ATM) poi;
             final String name = atm.getName();
-            if (name.equalsIgnoreCase("CIBC")) {
+            if ("CIBC".equalsIgnoreCase(name)) {
                 return R.drawable.ic_bank_cibc;
-            } else if (name.equalsIgnoreCase("BMO")) {
+            } else if ("BMO".equalsIgnoreCase(name)) {
                 return R.drawable.ic_bank_bmo;
-            } else if (name.equalsIgnoreCase("TD")) {
+            } else if ("TD".equalsIgnoreCase(name)) {
                 return R.drawable.ic_bank_td;
-            } else if (name.equalsIgnoreCase("RBC")) {
+            } else if ("RBC".equalsIgnoreCase(name)) {
                 return R.drawable.ic_bank_rbc;
-            } else if (name.equalsIgnoreCase("Scotiabank")) {
+            } else if ("Scotiabank".equalsIgnoreCase(name)) {
                 return R.drawable.ic_bank_scotiabank;
             } else {
                 return R.drawable.ic_local_atm;
             }
+
+        } else if (poi instanceof GreyhoundStop) {
+            return R.drawable.ic_poi_greyhound;
+
         } else {
-            return R.drawable.cloud_off;
+            return R.drawable.ic_poi;
         }
     }
 
