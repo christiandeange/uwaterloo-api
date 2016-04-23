@@ -11,6 +11,6 @@ public interface WeatherApi {
      * Weather Station. Visit http://weather.uwaterloo.ca for more details
      */
     @GET("/weather/current.{format}")
-    public Response.Weather getWeather();
+    Response.Weather getWeather();
 
 }

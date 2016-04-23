@@ -11,51 +11,51 @@ public interface FoodServicesApi {
      * This method returns current week's food menu.
      */
     @GET("/foodservices/menu.{format}")
-    public Response.Menus getWeeklyMenu();
+    Response.Menus getWeeklyMenu();
 
     /**
      * This method returns additional notes regarding food served in the current week
      */
     @GET("/foodservices/notes.{format}")
-    public Response.Notes getNotes();
+    Response.Notes getNotes();
 
     /**
      * This method returns a list of all diets
      */
     @GET("/foodservices/diets.{format}")
-    public Response.Diets getDiets();
+    Response.Diets getDiets();
 
     /**
      * This method returns a list of all outlets and their unique IDs, names and
      * breakfast/lunch/dinner meal service indicators
      */
     @GET("/foodservices/outlets.{format}")
-    public Response.Outlets getOutlets();
+    Response.Outlets getOutlets();
 
     /**
      * This method returns a list of all outlets and their operating hour data
      */
     @GET("/foodservices/locations.{format}")
-    public Response.Locations getLocations();
+    Response.Locations getLocations();
 
     /**
      * This method returns a list of all WatCard locations according to Food Services
      */
     @GET("/foodservices/watcard.{format}")
-    public Response.Watcards getWatcardVendors();
+    Response.Watcards getWatcardVendors();
 
     /**
      * This method returns additional announcements regarding food served in the current week
      */
     @GET("/foodservices/announcements.{format}")
-    public Response.Announcements getAnnouncements();
+    Response.Announcements getAnnouncements();
 
     /**
      * This method returns a product's nutritional information
      * @param productId Valid product ID from menu
      */
     @GET("/foodservices/products/{product_id}.{format}")
-    public Response.Products getProduct(@Path("product_id") int productId);
+    Response.Products getProduct(@Path("product_id") int productId);
 
     /**
      * This method returns the given week and year's food menu.
@@ -63,7 +63,7 @@ public interface FoodServicesApi {
      * @param week The week number of the menu to be requested
      */
     @GET("/foodservices/{year}/{week}/menu.{format}")
-    public Response.Menus getWeeklyMenu(@Path("year") int year, @Path("week") int week);
+    Response.Menus getWeeklyMenu(@Path("year") int year, @Path("week") int week);
 
     /**
      * This method returns additional notes regarding food served in the given week
@@ -71,7 +71,7 @@ public interface FoodServicesApi {
      * @param week The week number of the notes to be requested
      */
     @GET("/foodservices/{year}/{week}/notes.{format}")
-    public Response.Notes getNotes(@Path("year") int year, @Path("week") int week);
+    Response.Notes getNotes(@Path("year") int year, @Path("week") int week);
 
     /**
      * This method returns additional announcements regarding food served in the given week
@@ -79,5 +79,5 @@ public interface FoodServicesApi {
      * @param week The week number of the announcements to be requested
      */
     @GET("/foodservices/{year}/{week}/announcements.{format}")
-    public Response.Announcements getAnnouncements(@Path("year") int year, @Path("week") int week);
+    Response.Announcements getAnnouncements(@Path("year") int year, @Path("week") int week);
 }

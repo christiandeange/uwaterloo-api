@@ -12,7 +12,7 @@ public interface BuildingsApi {
      * lat/long coordinates.
      */
     @GET("/buildings/list.{format}")
-    public Response.Buildings getBuildings();
+    Response.Buildings getBuildings();
 
     /**
      * This method returns the official building name, its unique number, and its
@@ -20,7 +20,7 @@ public interface BuildingsApi {
      * @param buildingCode Building code, eg: CPH, SLC, DC
      */
     @GET("/buildings/{building_code}.{format}")
-    public Response.BuildingEntity getBuilding(@Path("building_code") String buildingCode);
+    Response.BuildingEntity getBuilding(@Path("building_code") String buildingCode);
 
     /**
      * This method gives out the all the courses offered in a given classroom.
@@ -28,7 +28,6 @@ public interface BuildingsApi {
      * @param room Room number
      */
     @GET("/buildings/{building_code}/{room}/courses.{format}")
-    public Response.RoomCourses getClassroomCourses(@Path("building_code") String buildingCode,
-                                                    @Path("room") String room);
+    Response.RoomCourses getClassroomCourses(@Path("building_code") String buildingCode, @Path("room") String room);
 
 }

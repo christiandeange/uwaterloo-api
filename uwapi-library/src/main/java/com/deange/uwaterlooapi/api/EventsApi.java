@@ -12,14 +12,14 @@ public interface EventsApi {
      * all University WCMS sites listed at https://api.uwaterloo.ca/v2/resources/sites.json
      */
     @GET("/events.{format}")
-    public Response.Events getEvents();
+    Response.Events getEvents();
 
     /**
      * This method returns a list of the upcoming site events given a site slug
      * @param site Valid site slug from /resources/sites
      */
     @GET("/events/{site}.{format}")
-    public Response.Events getEvents(@Path("site") String site);
+    Response.Events getEvents(@Path("site") String site);
 
     /**
      * This method returns a specific event's information given a site slug and the unique id
@@ -27,6 +27,6 @@ public interface EventsApi {
      * @param id Valid event id
      */
     @GET("/events/{site}/{id}.{format}")
-    public Response.EventDetails getEvent(@Path("site") String site, @Path("id") int id);
+    Response.EventDetails getEvent(@Path("site") String site, @Path("id") int id);
 
 }

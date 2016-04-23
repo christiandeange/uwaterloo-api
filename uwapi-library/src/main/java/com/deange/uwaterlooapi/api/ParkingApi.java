@@ -10,6 +10,6 @@ public interface ParkingApi {
      * This method returns real-time parking counts in select parking lots across campus.
      */
     @GET("/parking/watpark.{format}")
-    public Response.Parking getParkingInfo();
+    Response.Parking getParkingInfo();
 
 }

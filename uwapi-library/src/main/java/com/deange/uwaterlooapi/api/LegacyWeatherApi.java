@@ -13,6 +13,6 @@ public interface LegacyWeatherApi {
      * Weather Station. Visit http://weather.uwaterloo.ca for more details
      */
     @GET("/waterloo_weather_station_data.xml")
-    public LegacyWeatherReading getWeather();
+    LegacyWeatherReading getWeather();
 
 }
