@@ -20,6 +20,7 @@ import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.poi.BasicPointOfInterest;
 import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
 import com.deange.uwaterlooapi.model.poi.Helpline;
+import com.deange.uwaterlooapi.model.poi.Library;
 import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfo;
@@ -62,9 +63,9 @@ public class PointsOfInterestFragment
     private static final Executor EXECUTOR = Executors.newFixedThreadPool(BEST_SIZE);
 
     @Bind(R.id.points_of_interest_info) ViewGroup mInfoRoot;
+    @Bind(R.id.points_of_interest_info_icon) ImageView mViewInBrowserBton;
     @Bind(android.R.id.text1) TextView mTitle;
     @Bind(android.R.id.text2) TextView mDescription;
-    @Bind(R.id.points_of_interest_info_icon) ImageView mPhotosphereViewBton;
 
     private CombinedPointsOfInterestInfo mResponse;
     private int mFlags = LayersDialog.FLAG_ALL;
@@ -139,6 +140,14 @@ public class PointsOfInterestFragment
             }
         });
 
+        // Libraries
+        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
+            @Override
+            public void fetch() {
+                info.setLibraries(api.PointsOfInterest.getLibraries().getData());
+            }
+        });
+
         try {
             // Wait until all data is loaded
             semaphore.acquire();
@@ -165,6 +174,7 @@ public class PointsOfInterestFragment
         addMarkersIfEnabled(mResponse.getGreyhounds(), LayersDialog.FLAG_GREYHOUND);
         addMarkersIfEnabled(mResponse.getPhotospheres(), LayersDialog.FLAG_PHOTOSPHERE);
         addMarkersIfEnabled(mResponse.getHelplines(), LayersDialog.FLAG_HELPLINE);
+        addMarkersIfEnabled(mResponse.getLibraries(), LayersDialog.FLAG_LIBRARY);
     }
 
     private void addMarkersIfEnabled(final List<? extends BasicPointOfInterest> items, final int flag) {
@@ -201,19 +211,20 @@ public class PointsOfInterestFragment
 
         final LatLng latLng = marker.getPosition();
         final BasicPointOfInterest poi = matchPointByLocation(mResponse.getAllPointsOfInterest(), latLng);
+        final String url = getUrl(poi);
 
-        if (poi instanceof Photosphere) {
-            mPhotosphereViewBton.setVisibility(View.VISIBLE);
-            mPhotosphereViewBton.setOnClickListener(new View.OnClickListener() {
+        if (url != null) {
+            mViewInBrowserBton.setVisibility(View.VISIBLE);
+            mViewInBrowserBton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    IntentUtils.openBrowser(getContext(), ((Photosphere) poi).getUrl());
+                    IntentUtils.openBrowser(getContext(), url);
                 }
             });
 
         } else {
-            mPhotosphereViewBton.setVisibility(View.GONE);
-            mPhotosphereViewBton.setOnClickListener(null);
+            mViewInBrowserBton.setVisibility(View.GONE);
+            mViewInBrowserBton.setOnClickListener(null);
         }
 
         return (poi != null);
@@ -314,8 +325,23 @@ public class PointsOfInterestFragment
         } else if (poi instanceof Helpline) {
             return R.drawable.ic_alert;
 
+        } else if (poi instanceof Library) {
+            return R.drawable.ic_poi_library_badge;
+
         } else {
             return R.drawable.ic_poi;
+        }
+    }
+
+    private String getUrl(final BasicPointOfInterest poi) {
+        if (poi instanceof Photosphere) {
+            return ((Photosphere) poi).getUrl();
+
+        } else if (poi instanceof Library) {
+            return poi.getNote();
+
+        } else {
+            return null;
         }
     }
 

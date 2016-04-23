@@ -13,7 +13,7 @@ public interface PointsOfInterestApi {
     public Response.ATMs getATMs();
 
     /**
-     * This method returns list of Greyhound bus stops across city.
+     * This method returns list of Greyhound bus stops across the city.
      */
     @GET("/poi/greyhound.{format}")
     public Response.Greyhound getGreyhoundStops();
@@ -29,5 +29,11 @@ public interface PointsOfInterestApi {
      */
     @GET("/poi/helplines.{format}")
     public Response.Helplines getHelplines();
+
+    /**
+     * This method returns list of libraries across the city.
+     */
+    @GET("/poi/libraries.{format}")
+    public Response.Libraries getLibraries();
 
 }

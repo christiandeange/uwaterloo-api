@@ -21,7 +21,8 @@ public class LayersDialog {
     public static final int FLAG_GREYHOUND   = 0x02;
     public static final int FLAG_PHOTOSPHERE = 0x04;
     public static final int FLAG_HELPLINE    = 0x08;
-    public static final int FLAG_ALL = FLAG_ATM | FLAG_GREYHOUND | FLAG_PHOTOSPHERE | FLAG_HELPLINE;
+    public static final int FLAG_LIBRARY     = 0x10;
+    public static final int FLAG_ALL = FLAG_ATM | FLAG_GREYHOUND | FLAG_PHOTOSPHERE | FLAG_HELPLINE | FLAG_LIBRARY;
 
     public static final int LAYERS_COUNT = Integer.bitCount(FLAG_ALL);
 
@@ -62,12 +63,14 @@ public class LayersDialog {
         @Bind(R.id.poi_layers_greyhound_check) CheckBox mCheckGreyhound;
         @Bind(R.id.poi_layers_photosphere_check) CheckBox mCheckPhotosphere;
         @Bind(R.id.poi_layers_helplines_check) CheckBox mCheckHelplines;
+        @Bind(R.id.poi_layers_libraries_check) CheckBox mCheckLibraries;
 
         @OnClick({
                 R.id.poi_layers_atm_label,
                 R.id.poi_layers_greyhound_label,
                 R.id.poi_layers_photosphere_label,
                 R.id.poi_layers_helplines_label,
+                R.id.poi_layers_libraries_label,
         })
         public void onAtmLabelClicked(final View view) {
             ((CheckBox) ((ViewGroup) view.getParent()).getChildAt(1)).toggle();
@@ -78,6 +81,7 @@ public class LayersDialog {
             mCheckGreyhound.setChecked((flags & FLAG_GREYHOUND) != 0);
             mCheckPhotosphere.setChecked((flags & FLAG_PHOTOSPHERE) != 0);
             mCheckHelplines.setChecked((flags & FLAG_HELPLINE) != 0);
+            mCheckLibraries.setChecked((flags & FLAG_LIBRARY) != 0);
         }
 
         public int save() {
@@ -87,6 +91,7 @@ public class LayersDialog {
             flags |= mCheckGreyhound.isChecked() ? FLAG_GREYHOUND : 0;
             flags |= mCheckPhotosphere.isChecked() ? FLAG_PHOTOSPHERE : 0;
             flags |= mCheckHelplines.isChecked() ? FLAG_HELPLINE : 0;
+            flags |= mCheckLibraries.isChecked() ? FLAG_LIBRARY : 0;
 
             return flags;
         }
