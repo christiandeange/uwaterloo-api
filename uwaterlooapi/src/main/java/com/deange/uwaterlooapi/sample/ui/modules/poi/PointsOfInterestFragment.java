@@ -19,6 +19,7 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.poi.BasicPointOfInterest;
 import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
+import com.deange.uwaterlooapi.model.poi.Helpline;
 import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfo;
@@ -52,7 +53,8 @@ import butterknife.ButterKnife;
 public class PointsOfInterestFragment
         extends BaseMapFragment<CombinedPointsOfInterestInfoResponse, CombinedPointsOfInterestInfo>
         implements
-        GoogleMap.OnMarkerClickListener, LayersDialog.OnLayersSelectedListener {
+        GoogleMap.OnMarkerClickListener,
+        LayersDialog.OnLayersSelectedListener {
 
     private static final String TAG = "PointsOfInterestFragment";
 
@@ -129,6 +131,14 @@ public class PointsOfInterestFragment
             }
         });
 
+        // Helplines
+        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
+            @Override
+            public void fetch() {
+                info.setHelplines(api.PointsOfInterest.getHelplines().getData());
+            }
+        });
+
         try {
             // Wait until all data is loaded
             semaphore.acquire();
@@ -154,6 +164,7 @@ public class PointsOfInterestFragment
         addMarkersIfEnabled(mResponse.getATMs(), LayersDialog.FLAG_ATM);
         addMarkersIfEnabled(mResponse.getGreyhounds(), LayersDialog.FLAG_GREYHOUND);
         addMarkersIfEnabled(mResponse.getPhotospheres(), LayersDialog.FLAG_PHOTOSPHERE);
+        addMarkersIfEnabled(mResponse.getHelplines(), LayersDialog.FLAG_HELPLINE);
     }
 
     private void addMarkersIfEnabled(final List<? extends BasicPointOfInterest> items, final int flag) {
@@ -188,34 +199,27 @@ public class PointsOfInterestFragment
     public boolean onMarkerClick(final Marker marker) {
         marker.showInfoWindow();
 
-        mPhotosphereViewBton.setVisibility(View.GONE);
-
         final LatLng latLng = marker.getPosition();
-        if (matchPointByLocation(mResponse.getATMs(), latLng) != null) {
-            return true;
-        }
+        final BasicPointOfInterest poi = matchPointByLocation(mResponse.getAllPointsOfInterest(), latLng);
 
-        if (matchPointByLocation(mResponse.getGreyhounds(), latLng) != null) {
-            return true;
-        }
-
-        final Photosphere photosphere;
-        if ((photosphere = matchPointByLocation(mResponse.getPhotospheres(), latLng)) != null) {
+        if (poi instanceof Photosphere) {
             mPhotosphereViewBton.setVisibility(View.VISIBLE);
             mPhotosphereViewBton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    IntentUtils.openBrowser(getContext(), photosphere.getUrl());
+                    IntentUtils.openBrowser(getContext(), ((Photosphere) poi).getUrl());
                 }
             });
 
-            return true;
+        } else {
+            mPhotosphereViewBton.setVisibility(View.GONE);
+            mPhotosphereViewBton.setOnClickListener(null);
         }
 
-        return false;
+        return (poi != null);
     }
 
-    private <T extends BasicPointOfInterest> T matchPointByLocation(final List<T> items, final LatLng latLng) {
+    private <T extends BasicPointOfInterest> T matchPointByLocation(final Iterable<T> items, final LatLng latLng) {
         for (final T poi : items) {
             if (LocationUtils.getLatLng(poi.getLocation()).equals(latLng)) {
                 onPointOfInterestInfoRequested(poi);
@@ -306,6 +310,9 @@ public class PointsOfInterestFragment
 
         } else if (poi instanceof Photosphere) {
             return R.drawable.ic_poi_photosphere;
+
+        } else if (poi instanceof Helpline) {
+            return R.drawable.ic_alert;
 
         } else {
             return R.drawable.ic_poi;

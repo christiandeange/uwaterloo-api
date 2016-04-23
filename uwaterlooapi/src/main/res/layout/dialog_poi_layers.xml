@@ -40,17 +40,31 @@
         </RelativeLayout>
 
         <RelativeLayout style="@style/LayerParent"
-                android:visibility="gone">
+                        android:visibility="gone">
 
             <CheckedTextView
                     style="@style/LayerLabel"
                     android:id="@+id/poi_layers_photosphere_label"
                     android:drawableStart="@drawable/ic_poi_photosphere"
-                    android:text="@string/poi_layers_photosphere"/>
+                    android:text="@string/poi_layers_photospheres"/>
 
             <CheckBox
                     style="@style/LayerCheckBox"
                     android:id="@+id/poi_layers_photosphere_check"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/LayerParent">
+
+            <CheckedTextView
+                    style="@style/LayerLabel"
+                    android:id="@+id/poi_layers_helplines_label"
+                    android:drawableStart="@drawable/ic_alert"
+                    android:text="@string/poi_layers_helplines"/>
+
+            <CheckBox
+                    style="@style/LayerCheckBox"
+                    android:id="@+id/poi_layers_helplines_check"/>
 
         </RelativeLayout>
 

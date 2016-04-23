@@ -130,7 +130,8 @@
     <string name="menu_poi_layers">Layers</string>
     <string name="poi_layers_atms">ATMs</string>
     <string name="poi_layers_greyhound">Greyhound</string>
-    <string name="poi_layers_photosphere">Photospheres</string>
+    <string name="poi_layers_photospheres">Photospheres</string>
+    <string name="poi_layers_helplines">Helplines</string>
 
     <!-- Durations -->
     <string name="duration_instant">Right now</string>

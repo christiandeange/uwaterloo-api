@@ -23,6 +23,7 @@ import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.model.parking.ParkingLot;
 import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
+import com.deange.uwaterlooapi.model.poi.Helpline;
 import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.model.resources.GooseNest;
 import com.deange.uwaterlooapi.model.resources.Printer;
@@ -121,5 +122,7 @@ public final class Response {
     public static class Greyhound extends SimpleListResponse<GreyhoundStop> { }
 
     public static class Photospheres extends SimpleListResponse<Photosphere> { }
+
+    public static class Helplines extends SimpleListResponse<Helpline> { }
 
 }

@@ -24,4 +24,10 @@ public interface PointsOfInterestApi {
     @GET("/poi/photospheres.{format}")
     public Response.Photospheres getPhotospheres();
 
+    /**
+     * This method returns list of emergency helplines across campus.
+     */
+    @GET("/poi/helplines.{format}")
+    public Response.Helplines getHelplines();
+
 }
