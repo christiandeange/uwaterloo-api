@@ -53,11 +53,6 @@ public class ModuleHostActivity
     }
 
     @Override
-    protected void attachBaseContext(final Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     public void startActivityForResult(final Intent intent, final int requestCode, final Bundle options) {
         try {
             super.startActivityForResult(intent, requestCode, options);

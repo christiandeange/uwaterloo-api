@@ -128,6 +128,8 @@
     <string name="parking_last_updated">Last updated %1$s</string>
 
     <string name="menu_poi_layers">Layers</string>
+    <string name="poi_layers_select_all">Select All</string>
+    <string name="poi_layers_deselect_all">Deselect All</string>
     <string name="poi_layers_atms">ATMs</string>
     <string name="poi_layers_greyhound">Greyhound</string>
     <string name="poi_layers_photospheres">Photospheres</string>

@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui;
 
 import android.app.ActivityManager;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.deange.uwaterlooapi.sample.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity
         extends AppCompatActivity {
@@ -24,5 +27,10 @@ public class BaseActivity
                 BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher),
                 statusBarColor)
         );
+    }
+
+    @Override
+    protected void attachBaseContext(final Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

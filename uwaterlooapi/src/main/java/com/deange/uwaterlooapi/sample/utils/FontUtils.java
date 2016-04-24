@@ -57,10 +57,6 @@ public final class FontUtils {
         sAssets = context.getResources().getAssets();
     }
 
-    public static void apply(final View view) {
-        apply(view, getFont(DEFAULT));
-    }
-
     public static void apply(final View view, final @Font int type) {
         apply(view, getFont(type));
     }

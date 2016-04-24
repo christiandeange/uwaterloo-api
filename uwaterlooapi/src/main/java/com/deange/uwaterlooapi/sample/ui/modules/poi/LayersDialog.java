@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.deange.uwaterlooapi.sample.R;
@@ -13,6 +14,7 @@ import com.deange.uwaterlooapi.sample.utils.Dp;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class LayersDialog {
@@ -61,12 +63,23 @@ public class LayersDialog {
     }
 
     static final class LayersViews {
+        @Bind(R.id.poi_layers_select_all) Button mSelectAllButton;
+        @Bind(R.id.poi_layers_parent) ViewGroup mLayersParent;
         @Bind(R.id.poi_layers_atm_check) CheckBox mCheckAtm;
         @Bind(R.id.poi_layers_greyhound_check) CheckBox mCheckGreyhound;
         @Bind(R.id.poi_layers_photosphere_check) CheckBox mCheckPhotosphere;
         @Bind(R.id.poi_layers_helplines_check) CheckBox mCheckHelplines;
         @Bind(R.id.poi_layers_libraries_check) CheckBox mCheckLibraries;
         @Bind(R.id.poi_layers_defibrillators_check) CheckBox mCheckDefibrillators;
+
+        @OnClick(R.id.poi_layers_select_all)
+        public void onSelectAllClicked() {
+            // Select all if all not already selected, otherwise deselect all
+            final boolean newValue = (save() != FLAG_ALL);
+            for (int i = 0; i < mLayersParent.getChildCount(); i++) {
+                ((CheckBox) ((ViewGroup) mLayersParent.getChildAt(i)).getChildAt(1)).setChecked(newValue);
+            }
+        }
 
         @OnClick({
                 R.id.poi_layers_atm_label,
@@ -78,6 +91,20 @@ public class LayersDialog {
         })
         public void onAtmLabelClicked(final View view) {
             ((CheckBox) ((ViewGroup) view.getParent()).getChildAt(1)).toggle();
+        }
+
+        @OnCheckedChanged({
+                R.id.poi_layers_atm_check,
+                R.id.poi_layers_greyhound_check,
+                R.id.poi_layers_photosphere_check,
+                R.id.poi_layers_helplines_check,
+                R.id.poi_layers_libraries_check,
+                R.id.poi_layers_defibrillators_check,
+        })
+        public void onLayerToggled() {
+            mSelectAllButton.setText((save() == FLAG_ALL)
+                    ? R.string.poi_layers_deselect_all
+                    : R.string.poi_layers_select_all);
         }
 
         public void restore(final int flags) {
