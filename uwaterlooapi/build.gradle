@@ -19,7 +19,6 @@ repositories {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'com.zeroturnaround.jrebel.android'
 
 Properties properties = new Properties()
 File propertiesFile = project.rootProject.file('developer.properties')
