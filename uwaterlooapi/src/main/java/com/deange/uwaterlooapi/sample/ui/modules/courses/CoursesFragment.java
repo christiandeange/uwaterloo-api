@@ -24,6 +24,7 @@ import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
+import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -133,6 +134,9 @@ public class CoursesFragment
                     return (catalogNumberComp != 0) ? catalogNumberComp : firstStr.compareTo(secondStr);
                 }
             });
+
+            mCoursePicker.clearFocus();
+            ViewUtils.hideKeyboard(getActivity());
         }
 
         getListView().setFastScrollEnabled(true);
@@ -179,6 +183,8 @@ public class CoursesFragment
     @Override
     public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            mCoursePicker.dismissDropDown();
+
             doRefresh();
             return true;
         }
