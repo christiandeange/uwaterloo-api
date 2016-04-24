@@ -19,9 +19,9 @@
                 android:title="@string/api_courses"/>
 
         <item
-                android:id="@+id/menu_item_events"
-                android:icon="@drawable/ic_events"
-                android:title="@string/api_events"/>
+                android:id="@+id/menu_item_maps"
+                android:icon="@drawable/ic_maps"
+                android:title="@string/api_maps"/>
 
         <item
                 android:id="@+id/menu_item_news"
@@ -34,24 +34,9 @@
                 android:title="@string/api_weather"/>
 
         <item
-                android:id="@+id/menu_item_resources"
-                android:icon="@drawable/ic_resources"
-                android:title="@string/api_resources"/>
-
-        <item
-                android:id="@+id/menu_item_buildings"
-                android:icon="@drawable/ic_buildings"
-                android:title="@string/api_buildings"/>
-
-        <item
-                android:id="@+id/menu_item_parking"
-                android:icon="@drawable/ic_parking"
-                android:title="@string/api_parking"/>
-
-        <item
-                android:id="@+id/menu_item_poi"
-                android:icon="@drawable/ic_poi"
-                android:title="@string/api_poi"/>
+                android:id="@+id/menu_item_sites"
+                android:icon="@drawable/ic_sites"
+                android:title="@string/api_sites"/>
 
     </group>
 

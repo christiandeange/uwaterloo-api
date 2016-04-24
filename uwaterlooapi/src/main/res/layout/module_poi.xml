@@ -4,5 +4,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:moduleTitle="@string/title_poi"
-        app:moduleDescription="@string/description_poi"/>
+        app:moduleDescription="@string/description_poi"
+        app:moduleIcon="@drawable/ic_my_location"
+        app:moduleTitle="@string/title_poi"/>

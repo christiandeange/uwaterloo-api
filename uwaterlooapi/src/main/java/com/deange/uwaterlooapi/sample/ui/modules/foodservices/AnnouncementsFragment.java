@@ -25,10 +25,10 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-//@ModuleFragment(
-//        path = "/foodservices/announcements",
-//        layout = R.layout.module_foodservices_announcements
-//)
+@ModuleFragment(
+        path = "/foodservices/announcements",
+        layout = R.layout.module_foodservices_announcements
+)
 public class AnnouncementsFragment extends BaseListModuleFragment<Response.Announcements, Announcement>
         implements DateSelectorView.OnDateChangedListener {
 

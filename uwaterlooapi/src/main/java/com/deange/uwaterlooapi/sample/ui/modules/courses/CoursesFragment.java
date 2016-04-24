@@ -3,11 +3,14 @@ package com.deange.uwaterlooapi.sample.ui.modules.courses;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -22,8 +25,6 @@ import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,7 +38,8 @@ public class CoursesFragment
         extends BaseListModuleFragment<Response.Courses, Course>
         implements
         ModuleListItemListener,
-        AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener,
+        TextView.OnEditorActionListener {
 
     private static final String KEY_COURSE_SUBJECT = "subject";
 
@@ -69,6 +71,7 @@ public class CoursesFragment
         mCoursePicker.setAdapter(new SubjectAdapter(getActivity()));
         mCoursePicker.setOnItemClickListener(this);
         mCoursePicker.addTextChangedListener(new UpperCaseTextWatcher(mCoursePicker));
+        mCoursePicker.setOnEditorActionListener(this);
 
         // May have a preloaded course passed in
         mCoursePicker.setText(getSubject());
@@ -110,18 +113,27 @@ public class CoursesFragment
         mResponse.clear();
         mResponse.addAll(data);
 
-        Collections.sort(mResponse, new Comparator<Course>() {
-            @Override
-            public int compare(final Course lhs, final Course rhs) {
-                final String firstStr = lhs.getCatalogNumber();
-                final String secondStr = rhs.getCatalogNumber();
-                final int first = extractNumbers(lhs.getCatalogNumber());
-                final int second = extractNumbers(rhs.getCatalogNumber());
-
-                final int catalogNumberComp = Double.compare(first, second);
-                return (catalogNumberComp != 0) ? catalogNumberComp : firstStr.compareTo(secondStr);
+        if (metadata.getStatus() == 204) {
+            if (getActivity() != null) {
+                final String courseSubject = mCoursePicker.getText().toString();
+                final String text = getString(R.string.course_no_info_available, courseSubject);
+                Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
             }
-        });
+
+        } else {
+            Collections.sort(mResponse, new Comparator<Course>() {
+                @Override
+                public int compare(final Course lhs, final Course rhs) {
+                    final String firstStr = lhs.getCatalogNumber();
+                    final String secondStr = rhs.getCatalogNumber();
+                    final int first = extractNumbers(lhs.getCatalogNumber());
+                    final int second = extractNumbers(rhs.getCatalogNumber());
+
+                    final int catalogNumberComp = Double.compare(first, second);
+                    return (catalogNumberComp != 0) ? catalogNumberComp : firstStr.compareTo(secondStr);
+                }
+            });
+        }
 
         getListView().setFastScrollEnabled(true);
         getListView().setFastScrollAlwaysVisible(true);
@@ -134,7 +146,7 @@ public class CoursesFragment
     }
 
     private static int extractNumbers(final String catalog) {
-        return Integer.parseInt(catalog.replaceAll("\\D+",""));
+        return Integer.parseInt(catalog.replaceAll("\\D+", ""));
     }
 
     // This is a destructive call, use wisely!
@@ -162,6 +174,16 @@ public class CoursesFragment
     public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
         // Subject clicked from AutoCompleteTextView
         doRefresh();
+    }
+
+    @Override
+    public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            doRefresh();
+            return true;
+        }
+
+        return false;
     }
 
     public class CourseAdapter

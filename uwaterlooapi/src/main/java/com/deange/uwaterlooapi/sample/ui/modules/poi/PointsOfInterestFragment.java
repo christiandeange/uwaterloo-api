@@ -49,7 +49,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 @ModuleFragment(
-        path = "/poi/atms",
+        path = "/poi",
         layout = R.layout.module_poi
 )
 public class PointsOfInterestFragment
@@ -349,7 +349,7 @@ public class PointsOfInterestFragment
             return R.drawable.ic_poi_defibrillator;
 
         } else {
-            return R.drawable.ic_poi;
+            return R.drawable.ic_about;
         }
     }
 

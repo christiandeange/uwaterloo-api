@@ -1,16 +1,16 @@
 package com.deange.uwaterlooapi.sample.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.internal.NavigationMenuItemView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,8 +26,12 @@ import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
+import com.deange.uwaterlooapi.utils.GsonController;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class MainActivity extends BaseActivity
@@ -45,6 +49,7 @@ public class MainActivity extends BaseActivity
     private Toolbar mToolbar;
 
     private int mClicks;
+    private ModuleCategories mMenuStructure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,9 @@ public class MainActivity extends BaseActivity
                 return true;
             }
         });
+
+        final InputStreamReader reader = new InputStreamReader(getResources().openRawResource(R.raw.menu_structure));
+        mMenuStructure = GsonController.getInstance().fromJson(reader, ModuleCategories.class);
     }
 
     private void fixForegrounds(final View view) {
@@ -116,7 +124,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-     public void onConfigurationChanged(final Configuration newConfig) {
+    public void onConfigurationChanged(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
@@ -161,7 +169,7 @@ public class MainActivity extends BaseActivity
             fragment = new HomeFragment();
 
         } else {
-            final String[] endpoints = ApiMethodsFragment.getApiEndpoints(itemId);
+            final String[] endpoints = mMenuStructure.getApiMethods(item.getItemId(), getResources());
 
             if (endpoints.length == 1) {
                 ApiMethodsFragment.openModule(this, endpoints[0]);
@@ -192,5 +200,17 @@ public class MainActivity extends BaseActivity
             mClicks = 0;
             startActivity(new Intent(this, GooseActivity.class));
         }
+    }
+
+    static final class ModuleCategories extends HashMap<String, List<String>> {
+
+        public String[] getApiMethods(final @IdRes int menuItemId, final Resources res) {
+            final String idName = res.getResourceEntryName(menuItemId);
+            final String category = idName.substring("menu_item_".length());
+            final List<String> endpoints = containsKey(category) ? get(category) : new ArrayList<String>();
+
+            return endpoints.toArray(new String[endpoints.size()]);
+        }
+
     }
 }

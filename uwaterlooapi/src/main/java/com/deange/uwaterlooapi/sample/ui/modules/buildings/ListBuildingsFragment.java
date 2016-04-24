@@ -1,10 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
@@ -18,7 +15,6 @@ import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -39,7 +35,7 @@ public class ListBuildingsFragment
 
     @Override
     public String getToolbarTitle() {
-        return getString(R.string.api_buildings);
+        return getString(R.string.api_maps);
     }
 
     @Override
