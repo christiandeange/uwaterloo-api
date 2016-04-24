@@ -18,6 +18,7 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.poi.BasicPointOfInterest;
+import com.deange.uwaterlooapi.model.poi.Defibrillator;
 import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
 import com.deange.uwaterlooapi.model.poi.Helpline;
 import com.deange.uwaterlooapi.model.poi.Library;
@@ -68,7 +69,7 @@ public class PointsOfInterestFragment
     @Bind(android.R.id.text2) TextView mDescription;
 
     private CombinedPointsOfInterestInfo mResponse;
-    private int mFlags = LayersDialog.FLAG_ALL;
+    private int mFlags = 0;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
@@ -77,6 +78,13 @@ public class PointsOfInterestFragment
         ButterKnife.bind(this, view);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        LayersDialog.showDialog(getContext(), mFlags, this);
     }
 
     @Override
@@ -148,6 +156,14 @@ public class PointsOfInterestFragment
             }
         });
 
+        // Defibrillators
+        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
+            @Override
+            public void fetch() {
+                info.setDefibrillators(api.PointsOfInterest.getDefibrillators().getData());
+            }
+        });
+
         try {
             // Wait until all data is loaded
             semaphore.acquire();
@@ -175,6 +191,7 @@ public class PointsOfInterestFragment
         addMarkersIfEnabled(mResponse.getPhotospheres(), LayersDialog.FLAG_PHOTOSPHERE);
         addMarkersIfEnabled(mResponse.getHelplines(), LayersDialog.FLAG_HELPLINE);
         addMarkersIfEnabled(mResponse.getLibraries(), LayersDialog.FLAG_LIBRARY);
+        addMarkersIfEnabled(mResponse.getDefibrillators(), LayersDialog.FLAG_DEFIBRILLATOR);
     }
 
     private void addMarkersIfEnabled(final List<? extends BasicPointOfInterest> items, final int flag) {
@@ -327,6 +344,9 @@ public class PointsOfInterestFragment
 
         } else if (poi instanceof Library) {
             return R.drawable.ic_poi_library_badge;
+
+        } else if (poi instanceof Defibrillator) {
+            return R.drawable.ic_poi_defibrillator;
 
         } else {
             return R.drawable.ic_poi;

@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.sample.model;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.poi.ATM;
+import com.deange.uwaterlooapi.model.poi.Defibrillator;
 import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
 import com.deange.uwaterlooapi.model.poi.Helpline;
 import com.deange.uwaterlooapi.model.poi.Library;
@@ -20,9 +21,10 @@ public class CombinedPointsOfInterestInfo extends BaseModel {
     private List<Photosphere> mPhotospheres;
     private List<Helpline> mHelplines;
     private List<Library> mLibraries;
+    private List<Defibrillator> mDefibrillators;
 
     public PointsOfInterestIterator getAllPointsOfInterest() {
-        return new PointsOfInterestIterator(mATMs, mGreyhounds, mPhotospheres, mHelplines, mLibraries);
+        return new PointsOfInterestIterator(mATMs, mGreyhounds, mPhotospheres, mHelplines, mLibraries, mDefibrillators);
     }
 
     public List<ATM> getATMs() {
@@ -63,5 +65,13 @@ public class CombinedPointsOfInterestInfo extends BaseModel {
 
     public void setLibraries(final List<Library> libraries) {
         mLibraries = libraries;
+    }
+
+    public List<Defibrillator> getDefibrillators() {
+        return mDefibrillators;
+    }
+
+    public void setDefibrillators(final List<Defibrillator> defibrillators) {
+        mDefibrillators = defibrillators;
     }
 }

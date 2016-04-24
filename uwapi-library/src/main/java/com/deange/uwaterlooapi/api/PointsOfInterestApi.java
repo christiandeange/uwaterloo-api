@@ -36,4 +36,10 @@ public interface PointsOfInterestApi {
     @GET("/poi/libraries.{format}")
     Response.Libraries getLibraries();
 
+    /**
+     * This method returns list of defibrillators across campus.
+     */
+    @GET("/poi/defibrillators.{format}")
+    Response.Defibrillators getDefibrillators();
+
 }

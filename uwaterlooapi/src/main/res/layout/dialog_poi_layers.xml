@@ -82,6 +82,20 @@
 
         </RelativeLayout>
 
+        <RelativeLayout style="@style/LayerParent">
+
+            <CheckedTextView
+                    style="@style/LayerLabel"
+                    android:id="@+id/poi_layers_defibrillators_label"
+                    android:drawableStart="@drawable/ic_poi_defibrillator"
+                    android:text="@string/poi_layers_defibrillators"/>
+
+            <CheckBox
+                    style="@style/LayerCheckBox"
+                    android:id="@+id/poi_layers_defibrillators_check"/>
+
+        </RelativeLayout>
+
     </LinearLayout>
 
 </ScrollView>

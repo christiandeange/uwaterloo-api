@@ -22,6 +22,7 @@ import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.model.parking.ParkingLot;
 import com.deange.uwaterlooapi.model.poi.ATM;
+import com.deange.uwaterlooapi.model.poi.Defibrillator;
 import com.deange.uwaterlooapi.model.poi.GreyhoundStop;
 import com.deange.uwaterlooapi.model.poi.Helpline;
 import com.deange.uwaterlooapi.model.poi.Library;
@@ -127,5 +128,7 @@ public final class Response {
     public static class Helplines extends SimpleListResponse<Helpline> { }
 
     public static class Libraries extends SimpleListResponse<Library> { }
+
+    public static class Defibrillators extends SimpleListResponse<Defibrillator> { }
 
 }
