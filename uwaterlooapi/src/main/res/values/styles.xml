@@ -4,7 +4,7 @@
         <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
         <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowContentTransitions">true</item>
         <item name="cardViewStyle">@style/CardViewStyle</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="windowActionBar">false</item>
