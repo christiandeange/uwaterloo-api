@@ -213,7 +213,6 @@ public class ParkingFragment
                 parkingLot.getCapacity());
 
         final String title = lotName + " (" + filledSpots + ")";
-
         final String date = getString(
                 R.string.parking_last_updated,
                 DateUtils.getTimeDifference(getResources(), parkingLot.getLastUpdated().getTime()).toLowerCase());

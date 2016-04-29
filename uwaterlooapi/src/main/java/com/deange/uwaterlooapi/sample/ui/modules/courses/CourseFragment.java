@@ -31,6 +31,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class CourseFragment
         extends BaseModuleFragment<CombinedCourseInfoResponse, CombinedCourseInfo> {
 
@@ -41,8 +44,8 @@ public class CourseFragment
     private static final int BEST_SIZE = Runtime.getRuntime().availableProcessors() * 2 - 1;
     private static final Executor EXECUTOR = Executors.newFixedThreadPool(BEST_SIZE);
 
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    @Bind(R.id.tab_layout) TabLayout mTabLayout;
+    @Bind(R.id.tab_content) ViewPager mViewPager;
     private CourseInfoAdapter mAdapter;
     private CombinedCourseInfo mCourseData;
 
@@ -62,11 +65,9 @@ public class CourseFragment
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
         final View view = inflater.inflate(R.layout.view_tablayout_viewpager, parent, false);
+        ButterKnife.bind(this, view);
 
-        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-        mViewPager = (ViewPager) view.findViewById(R.id.tab_content);
 
         return view;
     }

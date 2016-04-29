@@ -32,6 +32,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ModuleFragment(
         path = "/courses/*",
         layout = R.layout.module_courses
@@ -52,7 +55,8 @@ public class CoursesFragment
         }
     };
     private final List<Course> mResponse = new ArrayList<>();
-    private AutoCompleteTextView mCoursePicker;
+
+    @Bind(R.id.course_picker_view) AutoCompleteTextView mCoursePicker;
 
     public static <V extends BaseModel> Bundle newBundle(final String subject) {
         final Bundle bundle = new Bundle();
@@ -69,7 +73,8 @@ public class CoursesFragment
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
         final View view = super.getContentView(inflater, parent);
 
-        mCoursePicker = (AutoCompleteTextView) view.findViewById(R.id.course_picker_view);
+        ButterKnife.bind(this, view);
+
         mCoursePicker.setAdapter(new SubjectAdapter(getActivity()));
         mCoursePicker.setOnItemClickListener(this);
         mCoursePicker.addTextChangedListener(new UpperCaseTextWatcher(mCoursePicker));

@@ -24,6 +24,9 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ModuleFragment(
         path = "/foodservices/announcements",
         layout = R.layout.module_foodservices_announcements
@@ -33,9 +36,10 @@ public class AnnouncementsFragment
         implements
         DateSelectorView.OnDateChangedListener {
 
+    @Bind(R.id.fragment_empty_view) View mEmptyView;
+    @Bind(R.id.fragment_date_selector) DateSelectorView mDateSelectorView;
+
     private final List<Announcement> mResponse = new ArrayList<>();
-    private DateSelectorView mDateSelectorView;
-    private View mEmptyView;
 
     @Override
     protected int getLayoutId() {
@@ -44,13 +48,12 @@ public class AnnouncementsFragment
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
-        final View root = super.getContentView(inflater, parent);
-        mEmptyView = root.findViewById(R.id.fragment_empty_view);
+        final View view = super.getContentView(inflater, parent);
+        ButterKnife.bind(this, view);
 
-        mDateSelectorView = (DateSelectorView) root.findViewById(R.id.fragment_date_selector);
         mDateSelectorView.setOnDateSetListener(this);
 
-        return root;
+        return view;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class AnnouncementsFragment
         @Override
         public View newView(final Context context, final int position, final ViewGroup parent) {
             return LayoutInflater.from(context)
-                    .inflate(R.layout.list_item_foodservices_announcement, parent, false);
+                                 .inflate(R.layout.list_item_foodservices_announcement, parent, false);
         }
 
         @Override

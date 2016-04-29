@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.courses.views;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.deange.uwaterlooapi.model.courses.ExamInfo;
@@ -14,9 +13,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+
 public class ExamInfoView extends BaseCourseView {
 
-    private ListView mListView;
+    @Bind(R.id.exam_list_view) ListView mListView;
 
     public ExamInfoView(final Context context) {
         super(context);
@@ -25,11 +26,6 @@ public class ExamInfoView extends BaseCourseView {
     @Override
     protected int getLayoutId() {
         return R.layout.view_exam_info;
-    }
-
-    @Override
-    protected void findViews() {
-        mListView = (ListView) findViewById(R.id.exam_list_view);
     }
 
     @Override
@@ -44,7 +40,6 @@ public class ExamInfoView extends BaseCourseView {
             }
         });
 
-        Log.v("TAG", "" + sections);
         mListView.setAdapter(new ExamAdapter(getContext(), sections));
     }
 }

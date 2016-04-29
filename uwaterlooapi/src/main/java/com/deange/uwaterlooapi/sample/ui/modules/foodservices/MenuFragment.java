@@ -17,12 +17,16 @@ import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
 import org.joda.time.LocalDate;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MenuFragment
         extends BaseModuleFragment<Response.Outlets, Outlet> {
 
     private static final String KEY_DAY_OF_WEEK = "day_of_week";
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+
+    @Bind(R.id.tab_layout) TabLayout mTabLayout;
+    @Bind(R.id.tab_content) ViewPager mViewPager;
     private MenuDayAdapter mAdapter;
 
     public static <V extends BaseModel> Bundle newBundle(final V model, final int dayOfWeek) {
@@ -34,11 +38,9 @@ public class MenuFragment
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
         final View view = inflater.inflate(R.layout.view_tablayout_viewpager, parent, false);
+        ButterKnife.bind(this, view);
 
-        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-        mViewPager = (ViewPager) view.findViewById(R.id.tab_content);
 
         return view;
     }

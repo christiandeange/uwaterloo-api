@@ -20,6 +20,9 @@ import org.joda.time.LocalDate;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MenuDayAdapter
         extends PagerAdapter {
 
@@ -65,23 +68,18 @@ public class MenuDayAdapter
 
     public static final class ContentView extends FrameLayout {
 
-        private final TextView mTitle;
-        private final ViewGroup mLunchContainer;
-        private final ViewGroup mDinnerContainer;
-        private final WrapContentListView mLunchView;
-        private final WrapContentListView mDinnerView;
+        @Bind(R.id.menu_title_day) TextView mTitle;
+        @Bind(R.id.menu_lunch_container) ViewGroup mLunchContainer;
+        @Bind(R.id.menu_dinner_container) ViewGroup mDinnerContainer;
+        @Bind(R.id.menu_lunch_items) WrapContentListView mLunchView;
+        @Bind(R.id.menu_dinner_items) WrapContentListView mDinnerView;
 
         public ContentView(final Context context) {
             super(context);
             setLayoutParams(generateDefaultLayoutParams());
 
             inflate(context, R.layout.view_menu_for_day, this);
-            mTitle = (TextView) findViewById(R.id.menu_title_day);
-            mLunchView = (WrapContentListView) findViewById(R.id.menu_lunch_items);
-            mDinnerView = (WrapContentListView) findViewById(R.id.menu_dinner_items);
-
-            mLunchContainer = (ViewGroup) findViewById(R.id.menu_lunch_container);
-            mDinnerContainer = (ViewGroup) findViewById(R.id.menu_dinner_container);
+            ButterKnife.bind(this);
         }
 
         public void bind(final Menu menu) {
@@ -121,7 +119,7 @@ public class MenuDayAdapter
                 view = convertView;
             } else {
                 view = LayoutInflater.from(getContext())
-                        .inflate(R.layout.simple_two_line_item, parent, false);
+                                     .inflate(R.layout.simple_two_line_item, parent, false);
             }
 
             view.setLongClickable(true);

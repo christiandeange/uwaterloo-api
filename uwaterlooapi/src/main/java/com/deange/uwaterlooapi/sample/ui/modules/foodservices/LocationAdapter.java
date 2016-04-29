@@ -57,8 +57,8 @@ public class LocationAdapter
 
     @Override
     public void bindView(final Context context, final int position, final View view) {
-
         final Location location = getItem(position);
+
         final TextView titleView = (TextView) view.findViewById(R.id.list_location_title);
         final TextView locationView = (TextView) view.findViewById(R.id.list_location_building);
         final TextView timingView = (TextView) view.findViewById(R.id.list_location_timing_desc);

@@ -29,6 +29,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ModuleFragment(
         path = "/resources/goosewatch",
         layout = R.layout.module_resources_goosewatch
@@ -40,20 +43,21 @@ public class GooseWatchFragment
 
     public static final String TAG = GooseWatchFragment.class.getSimpleName();
 
-    private View mEmptyView;
-    private ViewGroup mInfoRoot;
+    @Bind(R.id.goosewatch_empty_view) View mEmptyView;
+    @Bind(R.id.goosewatch_nest_info) ViewGroup mInfoRoot;
+    @Bind(android.R.id.text1) TextView mNestDetails;
+    @Bind(android.R.id.text2) TextView mNestUpdated;
 
     private List<GooseNest> mResponse;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
-        final View root = inflater.inflate(R.layout.fragment_goosewatch, parent, false);
+        final View view = inflater.inflate(R.layout.fragment_goosewatch, parent, false);
+        ButterKnife.bind(this, view);
 
-        mEmptyView = root.findViewById(R.id.goosewatch_empty_view);
-        mInfoRoot = (ViewGroup) root.findViewById(R.id.goosewatch_nest_info);
         mInfoRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
-        return root;
+        return view;
     }
 
     @Override
@@ -137,10 +141,12 @@ public class GooseWatchFragment
             final Animation animOut = AnimationUtils.loadAnimation(getContext(), R.anim.top_out);
             animOut.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(final Animation animation) { }
+                public void onAnimationStart(final Animation animation) {
+                }
 
                 @Override
-                public void onAnimationRepeat(final Animation animation) { }
+                public void onAnimationRepeat(final Animation animation) {
+                }
 
                 @Override
                 public void onAnimationEnd(final Animation animation) {
@@ -185,8 +191,8 @@ public class GooseWatchFragment
                 R.string.goosewatch_last_updated,
                 DateUtils.getTimeDifference(getResources(), nest.getUpdatedDate().getTime()).toLowerCase());
 
-        ((TextView) mInfoRoot.findViewById(android.R.id.text1)).setText(title);
-        ((TextView) mInfoRoot.findViewById(android.R.id.text2)).setText(date);
+        mNestDetails.setText(title);
+        mNestUpdated.setText(date);
     }
 
     @Override

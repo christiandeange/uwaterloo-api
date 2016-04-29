@@ -18,14 +18,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ModuleFragment(path = "/buildings/*")
 public class BuildingFragment
         extends BaseMapFragment<Response.BuildingEntity, Building> {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
 
-    private View mEmptyView;
     private ViewGroup mRoot;
+    @Bind(R.id.building_empty_view) View mEmptyView;
+    @Bind(R.id.building_name) TextView mNameView;
 
     private Building mBuilding;
 
@@ -33,7 +37,7 @@ public class BuildingFragment
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
         mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_building, parent, false);
 
-        mEmptyView = mRoot.findViewById(R.id.building_empty_view);
+        ButterKnife.bind(this, mRoot);
 
         return mRoot;
     }
@@ -47,7 +51,7 @@ public class BuildingFragment
     public void onBindData(final Metadata metadata, final Building data) {
         mBuilding = data;
 
-        ((TextView) mRoot.findViewById(R.id.building_name)).setText(data.getBuildingName());
+        mNameView.setText(data.getBuildingName());
 
         if (mMapView.getMap() != null) {
             showLocation();

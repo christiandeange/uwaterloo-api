@@ -8,9 +8,11 @@ import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 
+import butterknife.Bind;
+
 public class PrerequisitesView extends BaseCourseView {
 
-    private TextView mDescription;
+    @Bind(R.id.prerequisite_info_description) TextView mDescription;
 
     public PrerequisitesView(final Context context) {
         super(context);
@@ -19,11 +21,6 @@ public class PrerequisitesView extends BaseCourseView {
     @Override
     protected int getLayoutId() {
         return R.layout.view_prerequisite_info;
-    }
-
-    @Override
-    protected void findViews() {
-        mDescription = (TextView) findViewById(R.id.prerequisite_info_description);
     }
 
     @Override

@@ -11,9 +11,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+
 public class ScheduleView extends BaseCourseView {
 
-    private ListView mListView;
+    @Bind(R.id.schedule_list_view) ListView mListView;
 
     public ScheduleView(final Context context) {
         super(context);
@@ -22,11 +24,6 @@ public class ScheduleView extends BaseCourseView {
     @Override
     protected int getLayoutId() {
         return R.layout.view_schedule_info;
-    }
-
-    @Override
-    protected void findViews() {
-        mListView = (ListView) findViewById(R.id.schedule_list_view);
     }
 
     @Override

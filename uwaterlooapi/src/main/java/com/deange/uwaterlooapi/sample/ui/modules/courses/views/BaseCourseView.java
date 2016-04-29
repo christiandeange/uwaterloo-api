@@ -7,6 +7,8 @@ import android.widget.FrameLayout;
 
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseCourseView extends FrameLayout {
     public BaseCourseView(final Context context) {
         super(context);
@@ -22,12 +24,10 @@ public abstract class BaseCourseView extends FrameLayout {
             inflate(getContext(), layoutId, this);
         }
 
-        findViews();
+        ButterKnife.bind(this);
     }
 
     protected abstract @LayoutRes int getLayoutId();
-
-    protected abstract void findViews();
 
     public abstract void bind(final CombinedCourseInfo info);
 

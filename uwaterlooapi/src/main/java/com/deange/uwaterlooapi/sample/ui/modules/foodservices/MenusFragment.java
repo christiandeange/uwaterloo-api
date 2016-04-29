@@ -18,6 +18,9 @@ import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
 
 import org.joda.time.LocalDate;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ModuleFragment(
         path = "/foodservices/menu",
         layout = R.layout.module_foodservices_menus
@@ -28,16 +31,16 @@ public class MenusFragment
         ModuleListItemListener,
         DateSelectorView.OnDateChangedListener {
 
-    private ListView mListView;
+    @Bind(R.id.fragment_date_selector) DateSelectorView mDateSelector;
+    @Bind(android.R.id.list) ListView mListView;
+
     private OutletsAdapter mAdapter;
-    private DateSelectorView mDateSelector;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
         final View view = inflater.inflate(R.layout.fragment_foodservices_menus, parent, false);
+        ButterKnife.bind(this, view);
 
-        mListView = (ListView) view.findViewById(android.R.id.list);
-        mDateSelector = (DateSelectorView) view.findViewById(R.id.fragment_date_selector);
         mDateSelector.setOnDateSetListener(this);
 
         return view;

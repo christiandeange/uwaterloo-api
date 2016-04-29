@@ -26,6 +26,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ModuleFragment(
         path = "/foodservices/notes",
         layout = R.layout.module_foodservices_notes
@@ -35,9 +38,10 @@ public class NotesFragment
         implements
         DateSelectorView.OnDateChangedListener {
 
+    @Bind(R.id.fragment_date_selector) DateSelectorView mDateSelectorView;
+    @Bind(R.id.fragment_empty_view) View mEmptyView;
+
     private final List<Note> mResponse = new ArrayList<>();
-    private DateSelectorView mDateSelectorView;
-    private View mEmptyView;
 
     @Override
     protected int getLayoutId() {
@@ -46,13 +50,12 @@ public class NotesFragment
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
-        final View root = super.getContentView(inflater, parent);
-        mEmptyView = root.findViewById(R.id.fragment_empty_view);
+        final View view = super.getContentView(inflater, parent);
+        ButterKnife.bind(this, view);
 
-        mDateSelectorView = (DateSelectorView) root.findViewById(R.id.fragment_date_selector);
         mDateSelectorView.setOnDateSetListener(this);
 
-        return root;
+        return view;
     }
 
     @Override
@@ -111,7 +114,7 @@ public class NotesFragment
         @Override
         public View newView(final Context context, final int position, final ViewGroup parent) {
             return LayoutInflater.from(context)
-                    .inflate(R.layout.list_item_foodservices_note, parent, false);
+                                 .inflate(R.layout.list_item_foodservices_note, parent, false);
         }
 
         @Override
