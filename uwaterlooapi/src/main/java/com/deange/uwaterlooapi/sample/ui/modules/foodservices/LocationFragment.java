@@ -1,6 +1,8 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
+import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -23,14 +25,28 @@ import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 
 public class LocationFragment
         extends BaseModuleFragment<BaseResponse, Location> {
 
+    @Bind(R.id.list_location_title) TextView mTitleView;
+    @Bind(R.id.list_location_building) TextView mLocationView;
+    @Bind(R.id.list_location_description) TextView mDescriptionView;
+    @Bind(R.id.list_location_open_now) TextView mOpenNowView;
+    @Bind(R.id.list_location_hours) OperatingHoursView mHoursView;
+    @Bind(R.id.list_location_closed_days) TextView mClosedDays;
+    @Bind(R.id.list_location_special_hours) TextView mSpecialDays;
+
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
-        return inflater.inflate(R.layout.fragment_foodservices_location, parent, false);
+        final View view = inflater.inflate(R.layout.fragment_foodservices_location, parent, false);
+
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 
     @Override
@@ -40,64 +56,55 @@ public class LocationFragment
 
     @Override
     public void onBindData(final Metadata metadata, final Location location) {
-        final View view = getView();
-
-        final TextView titleView = (TextView) view.findViewById(R.id.list_location_title);
-        final TextView locationView = (TextView) view.findViewById(R.id.list_location_building);
-        final TextView descriptionView = (TextView) view.findViewById(R.id.list_location_description);
-        final TextView openNowView = (TextView) view.findViewById(R.id.list_location_open_now);
-
-        final OperatingHoursView hoursView = (OperatingHoursView) view.findViewById(R.id.list_location_hours);
-        final TextView closedDays = (TextView) view.findViewById(R.id.list_location_closed_days);
-        final TextView specialDays = (TextView) view .findViewById(R.id.list_location_special_hours);
-
         final String[] split = location.getName().split(" - ");
 
-        titleView.setText(split[0]);
-        ViewUtils.setText(locationView, (split.length == 2) ? split[1] : null);
+        mTitleView.setText(split[0]);
+        ViewUtils.setText(mLocationView, (split.length == 2) ? split[1] : null);
 
         if (!TextUtils.isEmpty(location.getDescription())) {
-            descriptionView.setText(Html.fromHtml(location.getDescription()));
+            mDescriptionView.setText(Html.fromHtml(location.getDescription()));
         }
 
+        final Resources res = getResources();
+        final Resources.Theme theme = getContext().getTheme();
         if (location.isOpenNow()) {
-            openNowView.setTextColor(getResources().getColor(R.color.foodservices_location_open));
-            openNowView.setText(R.string.foodservices_location_open_now);
+            mOpenNowView.setTextColor(ResourcesCompat.getColor(res, R.color.foodservices_location_open, theme));
+            mOpenNowView.setText(R.string.foodservices_location_open_now);
         } else {
-            openNowView.setTextColor(getResources().getColor(R.color.foodservices_location_closed));
-            openNowView.setText(R.string.foodservices_location_closed_now);
+            mOpenNowView.setTextColor(ResourcesCompat.getColor(res, R.color.foodservices_location_closed, theme));
+            mOpenNowView.setText(R.string.foodservices_location_closed_now);
         }
 
-        hoursView.setHours(location.getHours());
+        mHoursView.setHours(location.getHours());
 
         final List<Location.Range> datesClosed = location.getDatesClosed();
         final List<Location.SpecialRange> specialHours = location.getSpecialOperatingHours();
 
-        showSection(closedDays, !datesClosed.isEmpty());
-        showSection(specialDays, !specialHours.isEmpty());
-        closedDays.setText(Joiner.on("\n").joinObjects(datesClosed));
-        specialDays.setText(Joiner.on("\n").joinObjects(specialHours));
+        showSection(mClosedDays, !datesClosed.isEmpty());
+        showSection(mSpecialDays, !specialHours.isEmpty());
+        mClosedDays.setText(Joiner.on("\n").joinObjects(datesClosed));
+        mSpecialDays.setText(Joiner.on("\n").joinObjects(specialHours));
 
         // Handle bolding of the current time range (if any)
-        hoursView.unbold();
+        mHoursView.unbold();
 
         final Date now = new Date();
 
         for (int i = 0; i < datesClosed.size(); i++) {
             if (datesClosed.get(i).contains(now)) {
-                boldField(closedDays, i);
+                boldField(mClosedDays, i);
                 return;
             }
         }
 
         for (int i = 0; i < specialHours.size(); i++) {
             if (specialHours.get(i).contains(now)) {
-                boldField(specialDays, i);
+                boldField(mSpecialDays, i);
                 return;
             }
         }
 
-        hoursView.setTodayBold();
+        mHoursView.setTodayBold();
     }
 
     private void boldField(final TextView textView, final int field) {
