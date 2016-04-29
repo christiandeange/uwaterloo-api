@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -124,8 +123,8 @@ public class WeatherFragment
     private PhotoSize mPhotoSize;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_weather, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_weather, parent, false);
 
         ButterKnife.bind(this, root);
 

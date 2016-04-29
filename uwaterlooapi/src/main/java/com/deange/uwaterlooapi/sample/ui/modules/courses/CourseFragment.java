@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -59,8 +60,8 @@ public class CourseFragment
     }
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.view_tablayout_viewpager, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View view = inflater.inflate(R.layout.view_tablayout_viewpager, parent, false);
 
         mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);

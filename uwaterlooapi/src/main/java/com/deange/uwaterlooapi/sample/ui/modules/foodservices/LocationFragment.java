@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -26,11 +25,12 @@ import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 
-public class LocationFragment extends BaseModuleFragment<BaseResponse, Location> {
+public class LocationFragment
+        extends BaseModuleFragment<BaseResponse, Location> {
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_foodservices_location, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        return inflater.inflate(R.layout.fragment_foodservices_location, parent, false);
     }
 
     @Override
@@ -40,7 +40,6 @@ public class LocationFragment extends BaseModuleFragment<BaseResponse, Location>
 
     @Override
     public void onBindData(final Metadata metadata, final Location location) {
-
         final View view = getView();
 
         final TextView titleView = (TextView) view.findViewById(R.id.list_location_title);

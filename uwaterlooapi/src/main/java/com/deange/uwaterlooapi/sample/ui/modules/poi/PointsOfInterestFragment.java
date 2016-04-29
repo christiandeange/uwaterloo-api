@@ -72,8 +72,8 @@ public class PointsOfInterestFragment
     private int mFlags = 0;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_points_of_interest, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View view = inflater.inflate(R.layout.fragment_points_of_interest, parent, false);
 
         ButterKnife.bind(this, view);
 

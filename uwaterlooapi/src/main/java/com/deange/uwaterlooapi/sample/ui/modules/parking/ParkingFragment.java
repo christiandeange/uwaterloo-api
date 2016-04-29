@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.parking;
 
 import android.animation.LayoutTransition;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +48,8 @@ public class ParkingFragment
     private ParkingLot mSelected;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_parking, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View view = inflater.inflate(R.layout.fragment_parking, parent, false);
 
         ButterKnife.bind(this, view);
 

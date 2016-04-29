@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -65,8 +66,8 @@ public class CoursesFragment
     }
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = super.getContentView(inflater, savedInstanceState);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View view = super.getContentView(inflater, parent);
 
         mCoursePicker = (AutoCompleteTextView) view.findViewById(R.id.course_picker_view);
         mCoursePicker.setAdapter(new SubjectAdapter(getActivity()));

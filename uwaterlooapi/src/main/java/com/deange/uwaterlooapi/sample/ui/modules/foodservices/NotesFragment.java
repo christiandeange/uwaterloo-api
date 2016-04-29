@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,8 @@ import java.util.List;
 )
 public class NotesFragment
         extends BaseListModuleFragment<Response.Notes, Note>
-        implements DateSelectorView.OnDateChangedListener {
+        implements
+        DateSelectorView.OnDateChangedListener {
 
     private final List<Note> mResponse = new ArrayList<>();
     private DateSelectorView mDateSelectorView;
@@ -45,8 +45,8 @@ public class NotesFragment
     }
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View root = super.getContentView(inflater, savedInstanceState);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View root = super.getContentView(inflater, parent);
         mEmptyView = root.findViewById(R.id.fragment_empty_view);
 
         mDateSelectorView = (DateSelectorView) root.findViewById(R.id.fragment_date_selector);

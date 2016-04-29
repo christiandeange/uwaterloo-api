@@ -1,8 +1,8 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
@@ -48,8 +48,8 @@ public class LocationsFragment
     private LocationFilter mFilter = LocationFilter.NONE;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View root = super.getContentView(inflater, savedInstanceState);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View root = super.getContentView(inflater, parent);
 
         getListView().setDivider(null);
         getListView().setDividerHeight(0);

@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.events;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -9,6 +8,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,8 +60,8 @@ public class EventFragment
     @Override
     protected View getContentView(
             final LayoutInflater inflater,
-            final Bundle savedInstanceState) {
-        mRoot = inflater.inflate(R.layout.fragment_event, null);
+            final ViewGroup parent) {
+        mRoot = inflater.inflate(R.layout.fragment_event, parent, false);
 
         ButterKnife.bind(this, mRoot);
 

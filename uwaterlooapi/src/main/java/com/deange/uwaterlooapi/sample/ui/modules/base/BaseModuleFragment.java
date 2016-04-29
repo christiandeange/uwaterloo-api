@@ -88,16 +88,20 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     @Override
-    public final View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                             final Bundle savedInstanceState) {
+    public final View onCreateView(
+            final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
+
         final View root = inflater.inflate(R.layout.fragment_module, container, false);
-        final View contentView = getContentView(inflater, savedInstanceState);
+        final ViewGroup parent = ((ViewGroup) root.findViewById(R.id.container_content_view));
 
         mLoadingLayout = (ViewGroup) root.findViewById(R.id.loading_layout);
         mLoadingLayout.setOnTouchListener(this);
 
-        if (contentView != null) {
-            ((ViewGroup) root.findViewById(R.id.container_content_view)).addView(contentView);
+        final View contentView = getContentView(inflater, parent);
+        if (contentView != null && contentView.getParent() == null) {
+            parent.addView(contentView);
         }
 
         mSwipeLayout = (SwipeRefreshLayout) root.findViewById(R.id.fragment_swipe_container);
@@ -108,8 +112,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         return root;
     }
 
-    protected abstract View getContentView(final LayoutInflater inflater,
-                                           final Bundle savedInstanceState);
+    protected abstract View getContentView(final LayoutInflater inflater, final ViewGroup parent);
 
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
@@ -177,15 +180,17 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         }
     }
 
-    public void showModule(final Class<? extends BaseModuleFragment> fragment,
-                           final Bundle arguments) {
+    public void showModule(
+            final Class<? extends BaseModuleFragment> fragment,
+            final Bundle arguments) {
         getActivity().startActivity(
                 ModuleHostActivity.getStartIntent(getActivity(), fragment, arguments));
     }
 
-    public void showModule(final BaseModuleFragment fragment,
-                           final boolean addToBackStack,
-                           final Bundle arguments) {
+    public void showModule(
+            final BaseModuleFragment fragment,
+            final boolean addToBackStack,
+            final Bundle arguments) {
         ((ModuleHostActivity) getActivity()).showFragment(fragment, addToBackStack, arguments);
     }
 
@@ -286,10 +291,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         } else {
             loadingLayout.animate()
-                    .alpha(show ? 1 : 0)
-                    .setDuration(ANIMATION_DURATION)
-                    .setListener(listener)
-                    .start();
+                         .alpha(show ? 1 : 0)
+                         .setDuration(ANIMATION_DURATION)
+                         .setListener(listener)
+                         .start();
         }
 
     }
@@ -346,7 +351,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         if (response == null || response.getData() == null) {
             onNullResponseReceived();
-        } else if (response instanceof SimpleListResponse)  {
+        } else if (response instanceof SimpleListResponse) {
             onBindData(response.getMetadata(), (List<V>) response.getData());
         } else {
             onBindData(response.getMetadata(), (V) response.getData());

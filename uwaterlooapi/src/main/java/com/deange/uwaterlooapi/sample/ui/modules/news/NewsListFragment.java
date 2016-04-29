@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.news;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +35,8 @@ public class NewsListFragment
     private final List<NewsDetails> mResponse = new ArrayList<>();
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = super.getContentView(inflater, savedInstanceState);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View view = super.getContentView(inflater, parent);
         getListView().setStackFromBottom(true);
         return view;
     }

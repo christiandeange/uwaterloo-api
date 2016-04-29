@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -31,8 +32,8 @@ public class MenuFragment
     }
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.view_tablayout_viewpager, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View view = inflater.inflate(R.layout.view_tablayout_viewpager, parent, false);
 
         mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);

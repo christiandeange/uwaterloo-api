@@ -1,10 +1,10 @@
 package com.deange.uwaterlooapi.sample.ui.modules.news;
 
-import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,8 +47,8 @@ public class NewsFragment
     @Override
     protected View getContentView(
             final LayoutInflater inflater,
-            final Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_news, null);
+            final ViewGroup parent) {
+        final View root = inflater.inflate(R.layout.fragment_news, parent, false);
 
         ButterKnife.bind(this, root);
 

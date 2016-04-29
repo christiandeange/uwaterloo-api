@@ -1,21 +1,19 @@
 package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleListResponse;
-import com.deange.uwaterlooapi.model.common.SimpleResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 
 import java.util.Collections;
-import java.util.List;
 
 public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V extends BaseModel>
         extends BaseModuleFragment<T, V> {
@@ -23,9 +21,8 @@ public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V 
     private ListView mListView;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-
-        final View root = inflater.inflate(getLayoutId(), null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View root = inflater.inflate(getLayoutId(), parent, false);
 
         mListView = (ListView) root.findViewById(android.R.id.list);
         if (mListView == null) {

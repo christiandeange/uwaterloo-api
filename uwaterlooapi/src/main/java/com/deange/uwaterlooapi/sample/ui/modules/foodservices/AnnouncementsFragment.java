@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +28,10 @@ import java.util.List;
         path = "/foodservices/announcements",
         layout = R.layout.module_foodservices_announcements
 )
-public class AnnouncementsFragment extends BaseListModuleFragment<Response.Announcements, Announcement>
-        implements DateSelectorView.OnDateChangedListener {
+public class AnnouncementsFragment
+        extends BaseListModuleFragment<Response.Announcements, Announcement>
+        implements
+        DateSelectorView.OnDateChangedListener {
 
     private final List<Announcement> mResponse = new ArrayList<>();
     private DateSelectorView mDateSelectorView;
@@ -42,8 +43,8 @@ public class AnnouncementsFragment extends BaseListModuleFragment<Response.Annou
     }
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View root = super.getContentView(inflater, savedInstanceState);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View root = super.getContentView(inflater, parent);
         mEmptyView = root.findViewById(R.id.fragment_empty_view);
 
         mDateSelectorView = (DateSelectorView) root.findViewById(R.id.fragment_date_selector);

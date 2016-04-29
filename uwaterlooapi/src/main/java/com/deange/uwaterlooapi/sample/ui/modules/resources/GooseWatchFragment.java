@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.resources;
 
 
 import android.animation.LayoutTransition;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,8 +46,8 @@ public class GooseWatchFragment
     private List<GooseNest> mResponse;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_goosewatch, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View root = inflater.inflate(R.layout.fragment_goosewatch, parent, false);
 
         mEmptyView = root.findViewById(R.id.goosewatch_empty_view);
         mInfoRoot = (ViewGroup) root.findViewById(R.id.goosewatch_nest_info);

@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +30,8 @@ public class BuildingFragment
     private Building mBuilding;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_building, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_building, parent, false);
 
         mEmptyView = mRoot.findViewById(R.id.building_empty_view);
 
@@ -80,7 +79,6 @@ public class BuildingFragment
 
             map.clear();
             map.setIndoorEnabled(false);
-            map.setMyLocationEnabled(false);
             map.setOnMapClickListener(this);
             map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             map.getUiSettings().setAllGesturesEnabled(false);

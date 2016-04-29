@@ -1,8 +1,8 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
@@ -33,8 +33,8 @@ public class MenusFragment
     private DateSelectorView mDateSelector;
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_foodservices_menus, null);
+    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+        final View view = inflater.inflate(R.layout.fragment_foodservices_menus, parent, false);
 
         mListView = (ListView) view.findViewById(android.R.id.list);
         mDateSelector = (DateSelectorView) view.findViewById(R.id.fragment_date_selector);
