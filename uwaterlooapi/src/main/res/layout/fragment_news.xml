@@ -10,13 +10,6 @@
             android:layout_height="wrap_content"
             android:background="?colorPrimary">
 
-        <ImageView
-                android:id="@+id/news_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:importantForAccessibility="no"
-                android:minHeight="96dp"/>
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,16 +57,16 @@
                     android:layout_height="match_parent"
                     android:background="@color/background"
                     android:elevation="16dp"
-                    android:paddingTop="16dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="16dp">
 
                 <TextView
                         style="@style/TextAppearance.UWaterloo.Caption"
                         android:id="@+id/news_published"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical|end"/>
 
                 <TextView

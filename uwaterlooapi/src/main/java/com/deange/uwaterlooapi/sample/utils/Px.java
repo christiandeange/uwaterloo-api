@@ -2,7 +2,7 @@ package com.deange.uwaterlooapi.sample.utils;
 
 import android.content.Context;
 
-public final class Dp {
+public final class Px {
 
     private static Context sContext;
 
@@ -10,12 +10,12 @@ public final class Dp {
         sContext = context.getApplicationContext();
     }
 
-    public static int toPx(final int dp) {
+    public static int fromDp(final float dp) {
         return (int) (sContext.getResources().getDisplayMetrics().density * dp);
     }
 
-    public static float fromPx(final int px) {
-        return px / sContext.getResources().getDisplayMetrics().density;
+    public static int fromSp(final float sp) {
+        return (int) (sContext.getResources().getDisplayMetrics().scaledDensity * sp);
     }
 
     public static int width() {

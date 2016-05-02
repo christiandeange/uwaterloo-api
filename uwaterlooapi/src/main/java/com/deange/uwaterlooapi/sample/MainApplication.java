@@ -3,7 +3,7 @@ package com.deange.uwaterlooapi.sample;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-import com.deange.uwaterlooapi.sample.utils.Dp;
+import com.deange.uwaterlooapi.sample.utils.Px;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
@@ -28,7 +28,7 @@ public class MainApplication extends MultiDexApplication {
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
 
         // Set up dp-px converter
-        Dp.init(this);
+        Px.init(this);
 
         // Set up Calligraphy library
         FontUtils.init(this);

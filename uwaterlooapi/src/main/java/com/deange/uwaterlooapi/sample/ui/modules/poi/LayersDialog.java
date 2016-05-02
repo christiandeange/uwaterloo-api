@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.utils.Dp;
+import com.deange.uwaterlooapi.sample.utils.Px;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,7 +57,7 @@ public class LayersDialog {
                 .create();
 
         dialog.getWindow().getDecorView(); // Force decor view to be installed
-        dialog.getWindow().setLayout((int) (Dp.width() * 0.75f), ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout((int) (Px.width() * 0.75f), ViewGroup.LayoutParams.WRAP_CONTENT);
 
         dialog.show();
     }
