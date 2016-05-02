@@ -9,7 +9,10 @@ import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-public class MainApplication extends MultiDexApplication {
+import pl.tajchert.nammu.Nammu;
+
+public class MainApplication
+        extends MultiDexApplication {
 
     private static final String TAG = MainApplication.class.getSimpleName();
 
@@ -26,6 +29,9 @@ public class MainApplication extends MultiDexApplication {
         // For response objects that contain a collection,
         // ensure they return unmodifiable copies of the data so the underlying model is immutable
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
+
+        // Permissions library
+        Nammu.init(this);
 
         // Set up dp-px converter
         Px.init(this);

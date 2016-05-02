@@ -14,6 +14,9 @@ repositories {
     maven {
         url 'https://maven.fabric.io/public'
     }
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -86,6 +89,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.4'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'net.danlew:android.joda:2.9.0'
+    compile 'com.github.tajchert:nammu:1.1.1'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {

@@ -2,22 +2,19 @@ package com.deange.uwaterlooapi.sample.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.Spinner;
 
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.buildings.BuildingSection;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.utils.MapManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -49,6 +46,7 @@ public class MapActivity
 
         setContentView(R.layout.activity_map);
 
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
@@ -131,16 +129,16 @@ public class MapActivity
         final GoogleMap map = mMapView.getMap();
 
         map.clear();
-        map.setMyLocationEnabled(false);
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
         map.addMarker(new MarkerOptions()
                 .title(buildingName)
                 .position(buildingLocation));
+
+        MapManager.setLocationEnabled(this, map);
     }
 
     private Building getBuilding() {
         return Parcels.unwrap(getIntent().getParcelableExtra(KEY_BUILDING));
     }
-
 }

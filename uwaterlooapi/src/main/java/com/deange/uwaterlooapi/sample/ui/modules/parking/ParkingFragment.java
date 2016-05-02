@@ -20,6 +20,7 @@ import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
+import com.deange.uwaterlooapi.sample.utils.MapManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -101,6 +102,8 @@ public class ParkingFragment
         map.getUiSettings().setAllGesturesEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+
+        MapManager.setLocationEnabled(getActivity(), map);
     }
 
     private void redrawPolygons() {

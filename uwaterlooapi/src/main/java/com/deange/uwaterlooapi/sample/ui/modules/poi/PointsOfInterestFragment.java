@@ -30,6 +30,7 @@ import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.LocationUtils;
+import com.deange.uwaterlooapi.sample.utils.MapManager;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -374,11 +375,11 @@ public class PointsOfInterestFragment
 
     @Override
     public void onMapReady(final GoogleMap map) {
-        final LatLngBounds.Builder builder = LatLngBounds.builder();
-        builder.include(new LatLng(43.473655, -80.556242));
-        builder.include(new LatLng(43.465495, -80.537446));
+        final LatLngBounds bounds = LatLngBounds.builder()
+                                                .include(new LatLng(43.473655, -80.556242))
+                                                .include(new LatLng(43.465495, -80.537446))
+                                                .build();
 
-        final LatLngBounds bounds = builder.build();
         final int padding = (int) (16 * getResources().getDisplayMetrics().density);
 
         map.setIndoorEnabled(false);
@@ -389,6 +390,8 @@ public class PointsOfInterestFragment
         map.getUiSettings().setAllGesturesEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+
+        MapManager.setLocationEnabled(getActivity(), map);
 
         if (mResponse != null) {
             showPointsOfInterestInfo();
