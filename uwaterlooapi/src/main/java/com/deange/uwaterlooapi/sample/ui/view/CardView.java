@@ -2,10 +2,9 @@ package com.deange.uwaterlooapi.sample.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.widget.RelativeLayout;
 
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.utils.Px;
 
 public class CardView extends android.support.v7.widget.CardView {
 
@@ -23,14 +22,12 @@ public class CardView extends android.support.v7.widget.CardView {
     }
 
     private void init() {
-        final float dip = getResources().getDisplayMetrics().density;
-
         if (getCardElevation() == 0) {
-            setCardElevation(4 * dip);
+            setCardElevation(Px.fromDp(4));
         }
 
         if (getRadius() == 0) {
-            setRadius(2 * dip);
+            setRadius(Px.fromDp(2));
         }
     }
 

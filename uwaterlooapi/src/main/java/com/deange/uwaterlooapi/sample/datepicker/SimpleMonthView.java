@@ -197,12 +197,10 @@ public class SimpleMonthView
         MONTH_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_label_size);
         MONTH_DAY_LABEL_TEXT_SIZE = res.getDimensionPixelSize(R.dimen.month_day_label_text_size);
         MONTH_HEADER_SIZE = res.getDimensionPixelOffset(R.dimen.month_list_item_header_height);
-        DAY_SELECTED_CIRCLE_SIZE = res
-                .getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
-        FULL_ROW_OFFSET = (int) (22 * res.getDisplayMetrics().density);
+        DAY_SELECTED_CIRCLE_SIZE = res.getDimensionPixelSize(R.dimen.day_number_select_circle_radius);
+        FULL_ROW_OFFSET = res.getDimensionPixelSize(R.dimen.full_row_offset);
 
-        mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height)
-                - MONTH_HEADER_SIZE) / MAX_NUM_ROWS;
+        mRowHeight = (res.getDimensionPixelOffset(R.dimen.date_picker_view_animator_height) - MONTH_HEADER_SIZE) / MAX_NUM_ROWS;
 
         // Set up accessibility components.
         mNodeProvider = new MonthViewNodeProvider(context, this);

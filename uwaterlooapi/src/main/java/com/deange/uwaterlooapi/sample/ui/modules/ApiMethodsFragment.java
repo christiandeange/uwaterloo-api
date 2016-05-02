@@ -8,6 +8,7 @@ import android.support.v4.app.ListFragment;
 import com.deange.uwaterlooapi.annotations.ModuleInfo;
 import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
+import com.deange.uwaterlooapi.sample.utils.Px;
 
 public class ApiMethodsFragment extends ListFragment
         implements
@@ -38,7 +39,7 @@ public class ApiMethodsFragment extends ListFragment
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final int padding = (int) (getResources().getDisplayMetrics().density * 4);
+        final int padding = Px.fromDp(4);
         getListView().setPadding(0, padding, 0, padding);
         getListView().setDivider(null);
         getListView().setDividerHeight(0);
