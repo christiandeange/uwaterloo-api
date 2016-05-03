@@ -60,7 +60,7 @@ public class Location extends BaseModel {
     List<SpecialRange> mDatesSpecial;
 
     /**
-     * Outlet ID number (not always same as outets.json method). Can be null
+     * Outlet ID number (not always same as outlets.json method). Can be null
      */
     public int getId() {
         return mId;
