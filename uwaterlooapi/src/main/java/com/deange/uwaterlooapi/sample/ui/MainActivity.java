@@ -23,7 +23,7 @@ import com.deange.uwaterlooapi.sample.ApiRunner;
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
-import com.deange.uwaterlooapi.sample.ui.modules.HomeFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.deange.uwaterlooapi.utils.GsonController;

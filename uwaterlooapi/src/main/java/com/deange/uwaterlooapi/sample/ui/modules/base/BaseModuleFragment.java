@@ -84,7 +84,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Analytics.view(getContentType());
+        final String contentType = getContentType();
+        if (contentType != null) {
+            Analytics.view(contentType);
+        }
     }
 
     @Override

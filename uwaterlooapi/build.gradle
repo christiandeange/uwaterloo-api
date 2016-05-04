@@ -73,6 +73,7 @@ android {
 }
 
 def SUPPORT_VERSION = '23.2.0'
+def GOOGLE_API_VERSION = '8.4.0'
 
 dependencies {
     provided project(':uwaterlooapi-processor')
@@ -85,7 +86,8 @@ dependencies {
     compile 'com.android.support:cardview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile 'com.google.android.gms:play-services-maps:' + GOOGLE_API_VERSION
+    compile 'com.google.android.gms:play-services-location:' + GOOGLE_API_VERSION
     compile 'com.squareup.picasso:picasso:2.3.4'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'net.danlew:android.joda:2.9.0'

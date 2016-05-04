@@ -48,6 +48,12 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
+            <fragment
+                    class="com.deange.uwaterlooapi.sample.ui.modules.home.NearbyLocationsFragment"
+                    android:id="@+id/home_nearby_locations_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
             <com.deange.uwaterlooapi.sample.ui.view.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

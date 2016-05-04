@@ -60,6 +60,9 @@
     <string name="home_quick_weather">Check the weather</string>
     <string name="home_quick_locations">Check location hours</string>
 
+    <string name="nearby_locations_title">Nearby Locations</string>
+    <string name="nearby_locations_permission">Grant us permission to locate nearby food spots!</string>
+
     <string name="foodservices_announcements_none">No Announcements :(</string>
     <string name="foodservices_location_hours">Hours</string>
     <string name="foodservices_location_hours_closed">Closed</string>

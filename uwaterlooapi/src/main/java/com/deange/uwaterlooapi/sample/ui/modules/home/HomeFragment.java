@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.sample.ui.modules;
+package com.deange.uwaterlooapi.sample.ui.modules.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CourseFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CoursesFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.SubjectAdapter;
@@ -76,6 +78,8 @@ public class HomeFragment
     @Bind(R.id.home_course_number) EditText mNumberPicker;
     @Bind(R.id.home_course_search) Button mSearchButton;
 
+    private NearbyLocationsFragment mNearbyLocationsFragment;
+
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +115,14 @@ public class HomeFragment
         mNumberPicker.addTextChangedListener(new UpperCaseTextWatcher(mNumberPicker));
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mNearbyLocationsFragment = (NearbyLocationsFragment)
+                getChildFragmentManager().findFragmentById(R.id.home_nearby_locations_fragment);
     }
 
     @Override
@@ -155,7 +167,7 @@ public class HomeFragment
         startActivity(intent);
     }
 
-    @OnEditorAction({R.id.home_course_subject, R.id.home_course_number})
+    @OnEditorAction({ R.id.home_course_subject, R.id.home_course_number })
     public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_NEXT) {
             mNumberPicker.requestFocus();
