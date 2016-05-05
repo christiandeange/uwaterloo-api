@@ -14,15 +14,14 @@
 
         <ImageView
                 android:id="@+id/home_header_icon"
-                android:layout_width="72dp"
-                android:layout_height="94dp"
-                android:layout_gravity="end|bottom"
+                android:layout_width="85dp"
+                android:layout_height="110dp"
+                android:layout_gravity="end|top"
                 android:alpha="0.4"
-                android:padding="16dp"
-                android:scaleType="fitXY"
                 android:background="@drawable/content_uwaterloo_crest"
-                android:translationX="16dp"
-                android:translationY="16dp"/>
+                android:scaleType="fitXY"
+                android:translationX="24dp"
+                tools:ignore="ContentDescription"/>
 
         <TextView
                 style="@style/TextAppearance.UWaterloo.Headline"

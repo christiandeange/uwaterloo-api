@@ -336,12 +336,14 @@ public class NearbyLocationsFragment
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            if (success && getActivity() != null) {
-                onLocationsLoaded(mResponse.getData());
-                onLocationChanged(mLocation);
-            }
+            if (getActivity() != null) {
+                if (success) {
+                    onLocationsLoaded(mResponse.getData());
+                    onLocationChanged(mLocation);
+                }
 
-            showError(R.string.error_no_network, !success);
+                showError(R.string.error_no_network, !success);
+            }
         }
     }
 

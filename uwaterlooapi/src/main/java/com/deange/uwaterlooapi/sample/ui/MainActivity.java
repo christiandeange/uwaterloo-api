@@ -93,6 +93,9 @@ public class MainActivity
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
+        final InputStreamReader reader = new InputStreamReader(getResources().openRawResource(R.raw.menu_structure));
+        mMenuStructure = GsonController.getInstance().fromJson(reader, ModuleCategories.class);
+
         onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
 
         mNavigationView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -102,9 +105,6 @@ public class MainActivity
                 return true;
             }
         });
-
-        final InputStreamReader reader = new InputStreamReader(getResources().openRawResource(R.raw.menu_structure));
-        mMenuStructure = GsonController.getInstance().fromJson(reader, ModuleCategories.class);
     }
 
     private void fixForegrounds(final View view) {
