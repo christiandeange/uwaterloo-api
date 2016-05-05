@@ -51,7 +51,6 @@
     <string name="description_parking">Real-time parking counts in select parking lots across campus.</string>
     <string name="description_poi">ATMs, libraries, and other interesting places and things to see across campus.</string>
 
-    <string name="home_quick_links">Quick Links</string>
     <string name="home_quick_course_lookup">Course Lookup</string>
     <string name="home_quick_course_hint_subject">eg: MATH</string>
     <string name="home_quick_course_hint_number">135</string>

@@ -31,7 +31,8 @@
             android:id="@+id/nearby_locations_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nearby_locations_title"/>
+            android:layout_below="@id/nearby_locations_title"
+            android:scrollbars="none"/>
 
     <LinearLayout
             android:id="@+id/nearby_locations_enable_permission"

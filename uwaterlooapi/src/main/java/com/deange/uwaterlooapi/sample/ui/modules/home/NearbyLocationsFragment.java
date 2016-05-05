@@ -4,6 +4,7 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -56,8 +57,20 @@ public class NearbyLocationsFragment
     @Bind(R.id.nearby_locations_list) ListView mLocationsList;
 
     private GoogleApiClient mApiClient;
-    private List<Location> mAllLocations = new ArrayList<>();
     private NearbyLocationsAdapter mAdapter;
+    private List<Location> mAllLocations = new ArrayList<>();
+    private android.location.Location mCurrentLocation;
+
+    private final Handler mHandler = new Handler();
+    private final Runnable mLocationsRunnable = new Runnable() {
+        @Override
+        public void run() {
+            new LocationTask(mApiClient).execute();
+
+            // Repeat again in a minute
+            mHandler.postDelayed(this, TimeUnit.SECONDS.toMillis(10));
+        }
+    };
 
     @Override
     public void onAttach(final Context context) {
@@ -103,11 +116,7 @@ public class NearbyLocationsFragment
     public void onPause() {
         super.onPause();
 
-        LocationServices.FusedLocationApi.removeLocationUpdates(mApiClient, this);
-    }
-
-    private void onLocationsLoaded(final List<Location> locations) {
-        mAllLocations = locations;
+        stopLocationUpdates();
     }
 
     private void startLocationUpdates() {
@@ -125,11 +134,19 @@ public class NearbyLocationsFragment
         getLocationAndSubscribe();
     }
 
+    private void stopLocationUpdates() {
+        mHandler.removeCallbacks(mLocationsRunnable);
+        LocationServices.FusedLocationApi.removeLocationUpdates(mApiClient, this);
+    }
+
     @NonNull
-    private List<Location> getClosest(final int takeCount, final float latitude, final float longitude) {
-        if (mAllLocations.isEmpty()) {
+    private List<Location> getClosest(final int takeCount, final android.location.Location currentLocation) {
+        if (mAllLocations.isEmpty() || takeCount <= 0 || currentLocation == null) {
             return new ArrayList<>();
         }
+
+        final float latitude = (float) currentLocation.getLatitude();
+        final float longitude = (float) currentLocation.getLongitude();
 
         final List<Location> locations = new ArrayList<>();
         for (final Location location : mAllLocations) {
@@ -181,7 +198,7 @@ public class NearbyLocationsFragment
     @SuppressWarnings("MissingPermission")
     private void getLocationAndSubscribe() {
         if (Nammu.hasPermission(getActivity(), MapManager.LOCATION_PERMISSION)) {
-            new LocationTask(mApiClient).execute();
+            mHandler.post(mLocationsRunnable);
             LocationServices.FusedLocationApi.requestLocationUpdates(mApiClient, LOCATION_REQUEST, this);
         }
     }
@@ -198,11 +215,19 @@ public class NearbyLocationsFragment
 
     @Override
     public void onLocationChanged(final android.location.Location location) {
-        final List<Location> closestLocations =
-                getClosest(LOCATION_AMOUNT, (float) location.getLatitude(), (float) location.getLongitude());
+        mCurrentLocation = location;
+        updateAdapter();
+    }
 
+    private void onLocationsLoaded(final List<Location> locations) {
+        mAllLocations = locations;
+        updateAdapter();
+    }
+
+    private void updateAdapter() {
+        final List<Location> closestLocations = getClosest(LOCATION_AMOUNT, mCurrentLocation);
         mAdapter.updateLocations(closestLocations);
-        mAdapter.updateCurrentLocation(location);
+        mAdapter.updateCurrentLocation(mCurrentLocation);
     }
 
     @Override
@@ -212,6 +237,7 @@ public class NearbyLocationsFragment
 
     @Override
     public void onConnectionSuspended(final int reasonCode) {
+        stopLocationUpdates();
     }
 
     @Override

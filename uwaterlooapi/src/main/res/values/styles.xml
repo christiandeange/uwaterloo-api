@@ -31,6 +31,12 @@
 
     <style name="TextAppearance.UWaterloo.Display1" parent="@style/TextAppearance.AppCompat.Display1"/>
 
+    <style name="TextAppearance.UWaterloo.Display2" parent="@style/TextAppearance.AppCompat.Display2"/>
+
+    <style name="TextAppearance.UWaterloo.Display3" parent="@style/TextAppearance.AppCompat.Display3"/>
+
+    <style name="TextAppearance.UWaterloo.Display4" parent="@style/TextAppearance.AppCompat.Display4"/>
+
     <style name="TextAppearance.UWaterloo.Headline" parent="@style/TextAppearance.AppCompat.Headline"/>
 
     <style name="TextAppearance.UWaterloo.Subhead" parent="@style/TextAppearance.AppCompat.Subhead"/>
