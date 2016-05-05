@@ -8,6 +8,7 @@
 .gradle/
 .idea/
 build/
+captures/
 
 # Proprietary fonts
 Gotham*.[ot]tf

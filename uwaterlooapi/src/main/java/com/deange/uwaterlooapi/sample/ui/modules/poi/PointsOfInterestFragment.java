@@ -30,7 +30,7 @@ import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.LocationUtils;
-import com.deange.uwaterlooapi.sample.utils.MapManager;
+import com.deange.uwaterlooapi.sample.utils.MapUtils;
 import com.deange.uwaterlooapi.sample.utils.Px;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -392,7 +392,7 @@ public class PointsOfInterestFragment
         map.getUiSettings().setZoomControlsEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
 
-        MapManager.setLocationEnabled(getActivity(), map);
+        MapUtils.setLocationEnabled(getActivity(), map);
 
         if (mResponse != null) {
             showPointsOfInterestInfo();

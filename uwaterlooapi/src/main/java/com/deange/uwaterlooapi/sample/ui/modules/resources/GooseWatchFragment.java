@@ -19,7 +19,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
-import com.deange.uwaterlooapi.sample.utils.MapManager;
+import com.deange.uwaterlooapi.sample.utils.MapUtils;
 import com.deange.uwaterlooapi.sample.utils.Px;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -122,7 +122,7 @@ public class GooseWatchFragment
         map.getUiSettings().setZoomControlsEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
 
-        MapManager.setLocationEnabled(getActivity(), map);
+        MapUtils.setLocationEnabled(getActivity(), map);
     }
 
     private LatLng getLatLng(final GooseNest nest) {

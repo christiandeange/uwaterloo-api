@@ -60,6 +60,7 @@
 
     <string name="nearby_locations_title">Nearby Open Locations</string>
     <string name="nearby_locations_see_all">See All</string>
+    <string name="nearby_locations_none">Nothing open near you</string>
     <string name="nearby_locations_waiting">Waiting…</string>
     <string name="nearby_locations_permission">Click here to grant permission to locate nearby food spots!</string>
 
@@ -217,6 +218,7 @@
     <string name="and">and</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="clipboard_copied">Copied to clipboard!</string>
+    <string name="error_no_network">No network connection.</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_about">About</string>
 

@@ -3,8 +3,9 @@ package com.deange.uwaterlooapi.sample;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-import com.deange.uwaterlooapi.sample.utils.Px;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
+import com.deange.uwaterlooapi.sample.utils.NetworkController;
+import com.deange.uwaterlooapi.sample.utils.Px;
 import com.deange.uwaterlooapi.utils.CollectionsPolicy;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -29,6 +30,9 @@ public class MainApplication
         // For response objects that contain a collection,
         // ensure they return unmodifiable copies of the data so the underlying model is immutable
         CollectionsPolicy.setPolicy(CollectionsPolicy.UNMODIFIABLE);
+
+        // Set up connectivity manager
+        NetworkController.init(this);
 
         // Permissions library
         Nammu.init(this);

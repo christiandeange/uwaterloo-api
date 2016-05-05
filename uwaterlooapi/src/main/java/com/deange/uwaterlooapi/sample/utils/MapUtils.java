@@ -8,7 +8,7 @@ import com.google.android.gms.maps.GoogleMap;
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
 
-public class MapManager {
+public class MapUtils {
 
     public static final String LOCATION_PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION;
 

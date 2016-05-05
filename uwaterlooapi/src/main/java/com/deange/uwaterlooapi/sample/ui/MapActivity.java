@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.buildings.BuildingSection;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.utils.MapManager;
+import com.deange.uwaterlooapi.sample.utils.MapUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -135,7 +135,7 @@ public class MapActivity
                 .title(buildingName)
                 .position(buildingLocation));
 
-        MapManager.setLocationEnabled(this, map);
+        MapUtils.setLocationEnabled(this, map);
     }
 
     private Building getBuilding() {
