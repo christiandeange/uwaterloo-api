@@ -34,7 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity
+public class MainActivity
+        extends BaseActivity
         implements
         NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener {

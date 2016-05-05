@@ -108,7 +108,17 @@ public class LocationAdapter
         return true;
     }
 
-    final LocalTime getClosingTime(final Location location) {
+    @Override
+    public String[] getSections() {
+        return mIndices;
+    }
+
+    @Override
+    public String getFirstCharOf(final int position) {
+        return String.valueOf(getItem(position).getName().charAt(0));
+    }
+
+    public static LocalTime getClosingTime(final Location location) {
 
         LocalTime closing = null;
         final LocalDate today = LocalDate.now();
@@ -147,15 +157,5 @@ public class LocationAdapter
         }
 
         return closing;
-    }
-
-    @Override
-    public String[] getSections() {
-        return mIndices;
-    }
-
-    @Override
-    public String getFirstCharOf(final int position) {
-        return String.valueOf(getItem(position).getName().charAt(0));
     }
 }

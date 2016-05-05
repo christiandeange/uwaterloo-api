@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:animateLayoutChanges="true">
+
+    <Button
+            android:id="@+id/nearby_locations_see_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="?colorPrimary"
+            android:foregroundTint="?colorPrimaryDark"
+            android:textColor="?android:textColorPrimary"
+            android:text="@string/nearby_locations_see_all"/>
 
     <TextView
             style="@style/TextAppearance.UWaterloo.Title"
-            android:layout_width="wrap_content"
+            android:id="@+id/nearby_locations_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/nearby_locations_see_all"
             android:text="@string/nearby_locations_title"/>
+
+    <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
+            android:id="@+id/nearby_locations_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nearby_locations_title"/>
 
     <LinearLayout
             android:id="@+id/nearby_locations_enable_permission"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/nearby_locations_list"
             android:background="?selectableItemBackground"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -37,4 +57,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

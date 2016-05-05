@@ -56,7 +56,25 @@
 
             <com.deange.uwaterlooapi.sample.ui.view.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                <TextView
+                        style="@style/TextAppearance.UWaterloo.Title"
+                        android:id="@+id/home_weather_selectable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="32dp"
+                        android:background="?selectableItemBackground"
+                        android:text="@string/home_quick_weather"/>
+
+            </com.deange.uwaterlooapi.sample.ui.view.CardView>
+
+            <com.deange.uwaterlooapi.sample.ui.view.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
 
                 <LinearLayout
                         android:id="@+id/home_course_selectable"
@@ -149,41 +167,6 @@
                             android:text="@android:string/search_go"/>
 
                 </LinearLayout>
-
-            </com.deange.uwaterlooapi.sample.ui.view.CardView>
-
-            <com.deange.uwaterlooapi.sample.ui.view.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
-
-                <TextView
-                        style="@style/TextAppearance.UWaterloo.Title"
-                        android:id="@+id/home_weather_selectable"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="32dp"
-                        android:background="?selectableItemBackground"
-                        android:text="@string/home_quick_weather"/>
-
-            </com.deange.uwaterlooapi.sample.ui.view.CardView>
-
-            <com.deange.uwaterlooapi.sample.ui.view.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="2dp">
-
-                <TextView
-                        style="@style/TextAppearance.UWaterloo.Title"
-                        android:id="@+id/home_locations_selectable"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="32dp"
-                        android:background="?selectableItemBackground"
-                        android:text="@string/home_quick_locations"/>
 
             </com.deange.uwaterlooapi.sample.ui.view.CardView>
 

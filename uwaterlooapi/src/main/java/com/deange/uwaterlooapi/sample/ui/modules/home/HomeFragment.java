@@ -141,11 +141,6 @@ public class HomeFragment
         startActivity(ModuleHostActivity.getStartIntent(getContext(), WeatherFragment.class));
     }
 
-    @OnClick(R.id.home_locations_selectable)
-    public void onMenusClicked() {
-        startActivity(ModuleHostActivity.getStartIntent(getContext(), LocationsFragment.class));
-    }
-
     @OnClick(R.id.home_course_search)
     public void onCourseSearchClicked() {
         final String subject = mSubjectPicker.getText().toString().trim();

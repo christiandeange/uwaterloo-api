@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.home;
 
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,13 +10,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
+import com.deange.uwaterlooapi.sample.ui.modules.foodservices.LocationsFragment;
 import com.deange.uwaterlooapi.sample.utils.MapManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,13 +48,16 @@ public class NearbyLocationsFragment
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
+    private static final int LOCATION_AMOUNT = 3;
     private static final LocationRequest LOCATION_REQUEST =
-            LocationRequest.create().setInterval(TimeUnit.MINUTES.toMillis(1));
+            LocationRequest.create().setInterval(TimeUnit.SECONDS.toMillis(10));
 
     @Bind(R.id.nearby_locations_enable_permission) View mLocationPermission;
+    @Bind(R.id.nearby_locations_list) ListView mLocationsList;
 
     private GoogleApiClient mApiClient;
-    private List<Location> mLocations = new ArrayList<>();
+    private List<Location> mAllLocations = new ArrayList<>();
+    private NearbyLocationsAdapter mAdapter;
 
     @Override
     public void onAttach(final Context context) {
@@ -76,6 +82,11 @@ public class NearbyLocationsFragment
 
         ButterKnife.bind(this, view);
 
+        ((ViewGroup) view).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+
+        mAdapter = new NearbyLocationsAdapter(getContext(), new ArrayList<Location>(), null);
+        mLocationsList.setAdapter(mAdapter);
+
         return view;
     }
 
@@ -95,6 +106,10 @@ public class NearbyLocationsFragment
         LocationServices.FusedLocationApi.removeLocationUpdates(mApiClient, this);
     }
 
+    private void onLocationsLoaded(final List<Location> locations) {
+        mAllLocations = locations;
+    }
+
     private void startLocationUpdates() {
         if (getActivity() == null) {
             return;
@@ -110,14 +125,19 @@ public class NearbyLocationsFragment
         getLocationAndSubscribe();
     }
 
-    private
     @NonNull
-    List<Location> getClosest(final int takeCount, final float latitude, final float longitude) {
-        if (mLocations.isEmpty()) {
+    private List<Location> getClosest(final int takeCount, final float latitude, final float longitude) {
+        if (mAllLocations.isEmpty()) {
             return new ArrayList<>();
         }
 
-        final List<Location> locations = new ArrayList<>(mLocations);
+        final List<Location> locations = new ArrayList<>();
+        for (final Location location : mAllLocations) {
+            if (location.isOpenNow()) {
+                locations.add(location);
+            }
+        }
+
         final Map<Location, Float> distances = new HashMap<>();
 
         Collections.sort(locations, new Comparator<Location>() {
@@ -155,13 +175,20 @@ public class NearbyLocationsFragment
             }
         });
 
-        return locations.subList(0, takeCount);
+        return locations.subList(0, Math.min(takeCount, locations.size()));
     }
 
     @SuppressWarnings("MissingPermission")
     private void getLocationAndSubscribe() {
-        new LocationTask(mApiClient).execute();
-        LocationServices.FusedLocationApi.requestLocationUpdates(mApiClient, LOCATION_REQUEST, this);
+        if (Nammu.hasPermission(getActivity(), MapManager.LOCATION_PERMISSION)) {
+            new LocationTask(mApiClient).execute();
+            LocationServices.FusedLocationApi.requestLocationUpdates(mApiClient, LOCATION_REQUEST, this);
+        }
+    }
+
+    @OnClick(R.id.nearby_locations_see_all)
+    public void onSeeAllClicked() {
+        getContext().startActivity(ModuleHostActivity.getStartIntent(getContext(), LocationsFragment.class));
     }
 
     @OnClick(R.id.nearby_locations_enable_permission)
@@ -171,13 +198,11 @@ public class NearbyLocationsFragment
 
     @Override
     public void onLocationChanged(final android.location.Location location) {
-        final List<Location> closest = getClosest(3, (float) location.getLatitude(), (float) location.getLongitude());
+        final List<Location> closestLocations =
+                getClosest(LOCATION_AMOUNT, (float) location.getLatitude(), (float) location.getLongitude());
 
-        final List<String> names = new ArrayList<>();
-        for (final Location place : closest) {
-            names.add(place.getName());
-        }
-        Toast.makeText(getActivity(), names.toString(), Toast.LENGTH_LONG).show();
+        mAdapter.updateLocations(closestLocations);
+        mAdapter.updateCurrentLocation(location);
     }
 
     @Override
@@ -208,6 +233,7 @@ public class NearbyLocationsFragment
             extends AsyncTask<Void, Void, android.location.Location> {
 
         private final GoogleApiClient mApiClient;
+        private Response.Locations mResponse;
 
         private LocationTask(final GoogleApiClient apiClient) {
             mApiClient = apiClient;
@@ -217,8 +243,7 @@ public class NearbyLocationsFragment
         protected android.location.Location doInBackground(final Void... params) {
 
             final UWaterlooApi api = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
-            final Response.Locations response = api.FoodServices.getLocations();
-            mLocations = response.getData();
+            mResponse = api.FoodServices.getLocations();
 
             return LocationServices.FusedLocationApi.getLastLocation(mApiClient);
         }
@@ -226,9 +251,10 @@ public class NearbyLocationsFragment
         @Override
         protected void onPostExecute(final android.location.Location location) {
             if (isAdded()) {
+                onLocationsLoaded(mResponse.getData());
                 onLocationChanged(location);
             }
         }
-
     }
+
 }
