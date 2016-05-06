@@ -23,15 +23,13 @@
                 android:translationX="24dp"
                 tools:ignore="ContentDescription"/>
 
-        <TextView
-                style="@style/TextAppearance.UWaterloo.Headline"
-                android:layout_width="match_parent"
+        <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
                 android:layout_margin="16dp"
-                android:text="@string/app_name"
-                android:textColor="@android:color/black"
-                fontPath="@string/font_light"/>
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_app_title"/>
 
     </FrameLayout>
 
@@ -42,12 +40,14 @@
             android:fillViewport="true">
 
         <LinearLayout
+                android:id="@+id/home_cards_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:descendantFocusability="beforeDescendants"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:animateLayoutChanges="true">
 
             <fragment
                     android:id="@+id/home_nearby_locations_fragment"

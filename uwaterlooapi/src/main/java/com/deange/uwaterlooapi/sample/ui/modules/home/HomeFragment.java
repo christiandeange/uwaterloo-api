@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.home;
 
+import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -77,6 +78,7 @@ public class HomeFragment
     @Bind(R.id.home_course_subject) AutoCompleteTextView mSubjectPicker;
     @Bind(R.id.home_course_number) EditText mNumberPicker;
     @Bind(R.id.home_course_search) Button mSearchButton;
+    @Bind(R.id.home_cards_parent) ViewGroup mCardsParent;
 
     private NearbyLocationsFragment mNearbyLocationsFragment;
 
@@ -99,6 +101,8 @@ public class HomeFragment
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
         ButterKnife.bind(this, view);
+
+        mCardsParent.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
         if (PlatformUtils.hasLollipop()) {
             mElevation = mToolbar.getElevation();
