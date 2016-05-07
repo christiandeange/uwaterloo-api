@@ -25,7 +25,7 @@ import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -37,14 +37,14 @@ public class NewsFragment
 
     private NewsArticle mNewsArticle;
 
-    @Bind(R.id.news_title) TextView mTitleView;
-    @Bind(R.id.news_audience) TextView mAudienceView;
+    @BindView(R.id.news_title) TextView mTitleView;
+    @BindView(R.id.news_audience) TextView mAudienceView;
 
-    @Bind(R.id.news_banner_root) View mBannerRoot;
-    @Bind(R.id.news_spacer) View mSpacer;
-    @Bind(R.id.news_published) TextView mPublishedView;
-    @Bind(R.id.news_description) TextView mDescriptionView;
-    @Bind(R.id.news_open_in_browser_root) View mBrowserRoot;
+    @BindView(R.id.news_banner_root) View mBannerRoot;
+    @BindView(R.id.news_spacer) View mSpacer;
+    @BindView(R.id.news_published) TextView mPublishedView;
+    @BindView(R.id.news_description) TextView mDescriptionView;
+    @BindView(R.id.news_open_in_browser_root) View mBrowserRoot;
 
     @Override
     protected View getContentView(
@@ -79,13 +79,6 @@ public class NewsFragment
         mDescriptionView.setMovementMethod(LinkMovementMethod.getInstance());
 
         return root;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        ButterKnife.unbind(this);
     }
 
     @OnClick(R.id.news_open_in_browser)

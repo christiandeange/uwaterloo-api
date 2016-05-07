@@ -62,7 +62,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -89,30 +89,30 @@ public class WeatherFragment
     private boolean mPostVisible;
     private boolean mPressed;
 
-    @Bind(R.id.weather_scrollview) ScrollView mScrollView;
-    @Bind(R.id.weather_slider) SliceView mSliceView;
-    @Bind(R.id.weather_background) ImageView mBackground;
+    @BindView(R.id.weather_scrollview) ScrollView mScrollView;
+    @BindView(R.id.weather_slider) SliceView mSliceView;
+    @BindView(R.id.weather_background) ImageView mBackground;
 
-    @Bind(R.id.weather_temperature_bar) View mTemperatureBar;
-    @Bind(R.id.weather_temperature) TextView mTemperatureView;
-    @Bind(R.id.weather_temperature_range) RangeView mRangeView;
-    @Bind(R.id.weather_min_temp) TextView mMinTempView;
-    @Bind(R.id.weather_max_temp) TextView mMaxTempView;
+    @BindView(R.id.weather_temperature_bar) View mTemperatureBar;
+    @BindView(R.id.weather_temperature) TextView mTemperatureView;
+    @BindView(R.id.weather_temperature_range) RangeView mRangeView;
+    @BindView(R.id.weather_min_temp) TextView mMinTempView;
+    @BindView(R.id.weather_max_temp) TextView mMaxTempView;
 
-    @Bind(R.id.weather_wind_direction_root) View mWindDirectionRoot;
-    @Bind(R.id.weather_wind_direction) View mWindDirectionView;
-    @Bind(R.id.weather_wind_speed) TextView mWindSpeedView;
+    @BindView(R.id.weather_wind_direction_root) View mWindDirectionRoot;
+    @BindView(R.id.weather_wind_direction) View mWindDirectionView;
+    @BindView(R.id.weather_wind_speed) TextView mWindSpeedView;
 
-    @Bind(R.id.weather_waveview) WaveView mWaveView;
-    @Bind(R.id.weather_precipitation) TextView mPrecipitationView;
+    @BindView(R.id.weather_waveview) WaveView mWaveView;
+    @BindView(R.id.weather_precipitation) TextView mPrecipitationView;
 
-    @Bind(R.id.weather_pressure_trend_layout) ViewGroup mPressureLayout;
-    @Bind(R.id.weather_pressure) TextView mPressureDescription;
-    @Bind(R.id.weather_pressure_trend) TextView mPressureTrend;
+    @BindView(R.id.weather_pressure_trend_layout) ViewGroup mPressureLayout;
+    @BindView(R.id.weather_pressure) TextView mPressureDescription;
+    @BindView(R.id.weather_pressure_trend) TextView mPressureTrend;
 
-    @Bind(R.id.weather_last_updated) TextView mLastUpdated;
-    @Bind(R.id.weather_spacer) View mSpacer;
-    @Bind(R.id.weather_author_attribution) TextView mAuthor;
+    @BindView(R.id.weather_last_updated) TextView mLastUpdated;
+    @BindView(R.id.weather_spacer) View mSpacer;
+    @BindView(R.id.weather_author_attribution) TextView mAuthor;
 
     @BindDrawable(R.drawable.ic_arrow_up) Drawable mArrowDrawable;
 
@@ -190,8 +190,6 @@ public class WeatherFragment
         if (mWindSpeedAnimation != null) {
             mWindSpeedAnimation.cancel();
         }
-
-        ButterKnife.unbind(this);
     }
 
     @Override

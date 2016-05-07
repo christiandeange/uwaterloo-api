@@ -31,7 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @ModuleFragment(
@@ -45,10 +45,10 @@ public class GooseWatchFragment
 
     public static final String TAG = GooseWatchFragment.class.getSimpleName();
 
-    @Bind(R.id.goosewatch_empty_view) View mEmptyView;
-    @Bind(R.id.goosewatch_nest_info) ViewGroup mInfoRoot;
-    @Bind(android.R.id.text1) TextView mNestDetails;
-    @Bind(android.R.id.text2) TextView mNestUpdated;
+    @BindView(R.id.goosewatch_empty_view) View mEmptyView;
+    @BindView(R.id.goosewatch_nest_info) ViewGroup mInfoRoot;
+    @BindView(android.R.id.text1) TextView mNestDetails;
+    @BindView(android.R.id.text2) TextView mNestUpdated;
 
     private List<GooseNest> mResponse;
 

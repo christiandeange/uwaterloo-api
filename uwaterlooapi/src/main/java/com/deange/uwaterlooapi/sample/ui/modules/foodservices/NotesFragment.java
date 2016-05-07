@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @ModuleFragment(
@@ -38,8 +38,8 @@ public class NotesFragment
         implements
         DateSelectorView.OnDateChangedListener {
 
-    @Bind(R.id.fragment_date_selector) DateSelectorView mDateSelectorView;
-    @Bind(R.id.fragment_empty_view) View mEmptyView;
+    @BindView(R.id.fragment_date_selector) DateSelectorView mDateSelectorView;
+    @BindView(R.id.fragment_empty_view) View mEmptyView;
 
     private final List<Note> mResponse = new ArrayList<>();
 

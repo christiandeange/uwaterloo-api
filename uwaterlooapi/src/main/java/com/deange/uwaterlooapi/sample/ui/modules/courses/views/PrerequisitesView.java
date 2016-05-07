@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class PrerequisitesView extends BaseCourseView {
 
-    @Bind(R.id.prerequisite_info_description) TextView mDescription;
-    @Bind(R.id.prerequisite_info_courses) TextView mCourses;
+    @BindView(R.id.prerequisite_info_description) TextView mDescription;
+    @BindView(R.id.prerequisite_info_courses) TextView mCourses;
 
     public PrerequisitesView(final Context context) {
         super(context);

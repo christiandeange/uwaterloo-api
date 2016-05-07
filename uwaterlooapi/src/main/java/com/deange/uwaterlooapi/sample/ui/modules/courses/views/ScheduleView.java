@@ -11,11 +11,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ScheduleView extends BaseCourseView {
 
-    @Bind(R.id.schedule_list_view) ListView mListView;
+    @BindView(R.id.schedule_list_view) ListView mListView;
 
     public ScheduleView(final Context context) {
         super(context);

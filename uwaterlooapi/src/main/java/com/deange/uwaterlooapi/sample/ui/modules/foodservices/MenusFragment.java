@@ -18,7 +18,7 @@ import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
 
 import org.joda.time.LocalDate;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @ModuleFragment(
@@ -31,8 +31,8 @@ public class MenusFragment
         ModuleListItemListener,
         DateSelectorView.OnDateChangedListener {
 
-    @Bind(R.id.fragment_date_selector) DateSelectorView mDateSelector;
-    @Bind(android.R.id.list) ListView mListView;
+    @BindView(R.id.fragment_date_selector) DateSelectorView mDateSelector;
+    @BindView(android.R.id.list) ListView mListView;
 
     private OutletsAdapter mAdapter;
 

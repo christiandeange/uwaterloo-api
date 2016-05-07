@@ -25,20 +25,20 @@ import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 
 public class LocationFragment
         extends BaseModuleFragment<BaseResponse, Location> {
 
-    @Bind(R.id.list_location_title) TextView mTitleView;
-    @Bind(R.id.list_location_building) TextView mLocationView;
-    @Bind(R.id.list_location_description) TextView mDescriptionView;
-    @Bind(R.id.list_location_open_now) TextView mOpenNowView;
-    @Bind(R.id.list_location_hours) OperatingHoursView mHoursView;
-    @Bind(R.id.list_location_closed_days) TextView mClosedDays;
-    @Bind(R.id.list_location_special_hours) TextView mSpecialDays;
+    @BindView(R.id.list_location_title) TextView mTitleView;
+    @BindView(R.id.list_location_building) TextView mLocationView;
+    @BindView(R.id.list_location_description) TextView mDescriptionView;
+    @BindView(R.id.list_location_open_now) TextView mOpenNowView;
+    @BindView(R.id.list_location_hours) OperatingHoursView mHoursView;
+    @BindView(R.id.list_location_closed_days) TextView mClosedDays;
+    @BindView(R.id.list_location_special_hours) TextView mSpecialDays;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {

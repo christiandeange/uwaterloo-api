@@ -24,7 +24,7 @@ import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @ModuleFragment(
@@ -36,8 +36,8 @@ public class AnnouncementsFragment
         implements
         DateSelectorView.OnDateChangedListener {
 
-    @Bind(R.id.fragment_empty_view) View mEmptyView;
-    @Bind(R.id.fragment_date_selector) DateSelectorView mDateSelectorView;
+    @BindView(R.id.fragment_empty_view) View mEmptyView;
+    @BindView(R.id.fragment_date_selector) DateSelectorView mDateSelectorView;
 
     private final List<Announcement> mResponse = new ArrayList<>();
 

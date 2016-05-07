@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.Px;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
@@ -63,14 +63,14 @@ public class LayersDialog {
     }
 
     static final class LayersViews {
-        @Bind(R.id.poi_layers_select_all) Button mSelectAllButton;
-        @Bind(R.id.poi_layers_parent) ViewGroup mLayersParent;
-        @Bind(R.id.poi_layers_atm_check) CheckBox mCheckAtm;
-        @Bind(R.id.poi_layers_greyhound_check) CheckBox mCheckGreyhound;
-        @Bind(R.id.poi_layers_photosphere_check) CheckBox mCheckPhotosphere;
-        @Bind(R.id.poi_layers_helplines_check) CheckBox mCheckHelplines;
-        @Bind(R.id.poi_layers_libraries_check) CheckBox mCheckLibraries;
-        @Bind(R.id.poi_layers_defibrillators_check) CheckBox mCheckDefibrillators;
+        @BindView(R.id.poi_layers_select_all) Button mSelectAllButton;
+        @BindView(R.id.poi_layers_parent) ViewGroup mLayersParent;
+        @BindView(R.id.poi_layers_atm_check) CheckBox mCheckAtm;
+        @BindView(R.id.poi_layers_greyhound_check) CheckBox mCheckGreyhound;
+        @BindView(R.id.poi_layers_photosphere_check) CheckBox mCheckPhotosphere;
+        @BindView(R.id.poi_layers_helplines_check) CheckBox mCheckHelplines;
+        @BindView(R.id.poi_layers_libraries_check) CheckBox mCheckLibraries;
+        @BindView(R.id.poi_layers_defibrillators_check) CheckBox mCheckDefibrillators;
 
         @OnClick(R.id.poi_layers_select_all)
         public void onSelectAllClicked() {

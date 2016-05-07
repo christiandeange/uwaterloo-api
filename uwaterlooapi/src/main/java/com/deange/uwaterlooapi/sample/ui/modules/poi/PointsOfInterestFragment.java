@@ -47,7 +47,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @ModuleFragment(
@@ -65,10 +65,10 @@ public class PointsOfInterestFragment
     private static final int BEST_SIZE = Runtime.getRuntime().availableProcessors() * 2 - 1;
     private static final Executor EXECUTOR = Executors.newFixedThreadPool(BEST_SIZE);
 
-    @Bind(R.id.points_of_interest_info) ViewGroup mInfoRoot;
-    @Bind(R.id.points_of_interest_info_icon) ImageView mViewInBrowserBton;
-    @Bind(android.R.id.text1) TextView mTitle;
-    @Bind(android.R.id.text2) TextView mDescription;
+    @BindView(R.id.points_of_interest_info) ViewGroup mInfoRoot;
+    @BindView(R.id.points_of_interest_info_icon) ImageView mViewInBrowserBton;
+    @BindView(android.R.id.text1) TextView mTitle;
+    @BindView(android.R.id.text2) TextView mDescription;
 
     private CombinedPointsOfInterestInfo mResponse;
     private int mFlags = 0;
@@ -365,13 +365,6 @@ public class PointsOfInterestFragment
         } else {
             return null;
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        ButterKnife.unbind(this);
     }
 
     @Override

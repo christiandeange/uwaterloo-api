@@ -30,7 +30,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
 
@@ -43,7 +43,7 @@ public class ParkingFragment
 
     private static final String TAG = "ParkingFragment";
 
-    @Bind(R.id.parking_lot_info) ViewGroup mInfoRoot;
+    @BindView(R.id.parking_lot_info) ViewGroup mInfoRoot;
     @BindColor(R.color.uw_yellow) int mPrimaryColor;
 
     private List<ParkingLot> mResponse;
@@ -223,13 +223,6 @@ public class ParkingFragment
 
         ((TextView) mInfoRoot.findViewById(android.R.id.text1)).setText(title);
         ((TextView) mInfoRoot.findViewById(android.R.id.text2)).setText(date);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        ButterKnife.unbind(this);
     }
 
     @Override

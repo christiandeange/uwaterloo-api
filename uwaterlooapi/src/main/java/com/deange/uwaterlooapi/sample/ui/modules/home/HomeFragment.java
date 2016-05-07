@@ -33,7 +33,7 @@ import com.deange.uwaterlooapi.sample.ui.modules.weather.WeatherFragment;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.deange.uwaterlooapi.sample.utils.SimpleTextWatcher;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
@@ -75,10 +75,10 @@ public class HomeFragment
     private Toolbar mToolbar;
     private SubjectAdapter mAdapter;
 
-    @Bind(R.id.home_course_subject) AutoCompleteTextView mSubjectPicker;
-    @Bind(R.id.home_course_number) EditText mNumberPicker;
-    @Bind(R.id.home_course_search) Button mSearchButton;
-    @Bind(R.id.home_cards_parent) ViewGroup mCardsParent;
+    @BindView(R.id.home_course_subject) AutoCompleteTextView mSubjectPicker;
+    @BindView(R.id.home_course_number) EditText mNumberPicker;
+    @BindView(R.id.home_course_search) Button mSearchButton;
+    @BindView(R.id.home_cards_parent) ViewGroup mCardsParent;
 
     private NearbyLocationsFragment mNearbyLocationsFragment;
 
@@ -134,8 +134,6 @@ public class HomeFragment
         if (PlatformUtils.hasLollipop()) {
             mToolbar.setElevation(mElevation);
         }
-
-        ButterKnife.unbind(this);
 
         super.onDestroyView();
     }

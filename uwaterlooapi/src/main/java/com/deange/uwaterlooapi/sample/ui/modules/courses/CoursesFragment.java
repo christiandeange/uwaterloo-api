@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @ModuleFragment(
@@ -56,7 +56,7 @@ public class CoursesFragment
     };
     private final List<Course> mResponse = new ArrayList<>();
 
-    @Bind(R.id.course_picker_view) AutoCompleteTextView mCoursePicker;
+    @BindView(R.id.course_picker_view) AutoCompleteTextView mCoursePicker;
 
     public static <V extends BaseModel> Bundle newBundle(final String subject) {
         final Bundle bundle = new Bundle();

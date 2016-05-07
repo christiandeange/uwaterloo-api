@@ -43,15 +43,6 @@ android {
         multiDexEnabled true
     }
 
-    signingConfigs {
-        release {
-            storeFile new File("notYourRealFileName")
-            keyAlias 'notYourRealKeystoreAlias'
-            storePassword 'notYourRealPassword'
-            keyPassword 'notYourRealPassword'
-        }
-    }
-
     buildTypes {
         all {
             properties.entrySet().each {
@@ -64,10 +55,6 @@ android {
         debug {
             applicationIdSuffix '.debug'
             versionNameSuffix ' (debug)'
-        }
-
-        release {
-            signingConfig signingConfigs.release
         }
     }
 
@@ -91,43 +78,22 @@ dependencies {
 
     compile project(":uwapi-library")
 
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:design:' + SUPPORT_VERSION
     compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSION
     compile 'com.android.support:cardview-v7:' + SUPPORT_VERSION
-    compile 'com.android.support:multidex:1.0.1'
-
     compile 'com.google.android.gms:play-services-maps:' + GOOGLE_API_VERSION
     compile 'com.google.android.gms:play-services-location:' + GOOGLE_API_VERSION
-    compile 'com.squareup.picasso:picasso:2.3.4'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'net.danlew:android.joda:2.9.0'
+
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'net.danlew:android.joda:2.9.3'
     compile 'com.github.tajchert:nammu:1.1.1'
-    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
-    }
-}
-
-task askForPasswords << {
-
-    if (!System.console()) {
-        throw new RuntimeException("No console available!")
-    }
-
-    def filePath = new File(System.getenv("KEYSTORE_PATH"))
-    def alias    = System.getenv("KEYSTORE_ALIAS")
-    def storePw  = new String(System.console().readPassword("\nKeystore password: "))
-    def keyPw    = new String(System.console().readPassword("Key password for '" + alias + "': "))
-
-    android.signingConfigs.release.storeFile = filePath
-    android.signingConfigs.release.keyAlias = alias
-    android.signingConfigs.release.storePassword = storePw
-    android.signingConfigs.release.keyPassword = keyPw
-}
-
-tasks.whenTaskAdded { theTask ->
-    if ("packageRelease".equals(theTask.name)) {
-        theTask.dependsOn "askForPasswords"
     }
 }

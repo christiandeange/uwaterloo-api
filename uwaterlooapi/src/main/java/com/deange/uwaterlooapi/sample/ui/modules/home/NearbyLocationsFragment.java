@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.tajchert.nammu.Nammu;
@@ -59,10 +59,10 @@ public class NearbyLocationsFragment
     private static final LocationRequest LOCATION_REQUEST =
             LocationRequest.create().setInterval(TimeUnit.SECONDS.toMillis(10));
 
-    @Bind(R.id.nearby_locations_root) ViewGroup mRoot;
-    @Bind(R.id.nearby_locations_enable_permission) View mLocationPermission;
-    @Bind(R.id.nearby_locations_list) ListView mLocationsList;
-    @Bind(R.id.nearby_locations_error) TextView mErrorView;
+    @BindView(R.id.nearby_locations_root) ViewGroup mRoot;
+    @BindView(R.id.nearby_locations_enable_permission) View mLocationPermission;
+    @BindView(R.id.nearby_locations_list) ListView mLocationsList;
+    @BindView(R.id.nearby_locations_error) TextView mErrorView;
 
     private GoogleApiClient mApiClient;
     private NearbyLocationsAdapter mAdapter;

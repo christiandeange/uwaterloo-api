@@ -17,7 +17,7 @@ import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
 import org.joda.time.LocalDate;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MenuFragment
@@ -25,8 +25,8 @@ public class MenuFragment
 
     private static final String KEY_DAY_OF_WEEK = "day_of_week";
 
-    @Bind(R.id.tab_layout) TabLayout mTabLayout;
-    @Bind(R.id.tab_content) ViewPager mViewPager;
+    @BindView(R.id.tab_layout) TabLayout mTabLayout;
+    @BindView(R.id.tab_content) ViewPager mViewPager;
     private MenuDayAdapter mAdapter;
 
     public static <V extends BaseModel> Bundle newBundle(final V model, final int dayOfWeek) {

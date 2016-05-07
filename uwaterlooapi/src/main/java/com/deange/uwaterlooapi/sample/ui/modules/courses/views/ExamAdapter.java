@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ExamAdapter
@@ -177,13 +177,13 @@ public class ExamAdapter
     }
 
     static final class ViewHolder {
-        @Bind(R.id.selectable) View selectable;
-        @Bind(R.id.exam_section) TextView section;
-        @Bind(R.id.exam_date) TextView date;
-        @Bind(R.id.exam_time) TextView time;
-        @Bind(R.id.exam_building) TextView building;
-        @Bind(R.id.exam_rooms) TextView rooms;
-        @Bind(R.id.exam_notes) TextView notes;
+        @BindView(R.id.selectable) View selectable;
+        @BindView(R.id.exam_section) TextView section;
+        @BindView(R.id.exam_date) TextView date;
+        @BindView(R.id.exam_time) TextView time;
+        @BindView(R.id.exam_building) TextView building;
+        @BindView(R.id.exam_rooms) TextView rooms;
+        @BindView(R.id.exam_notes) TextView notes;
 
         private ViewHolder(final View view) {
             ButterKnife.bind(this, view);

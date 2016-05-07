@@ -13,11 +13,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ExamInfoView extends BaseCourseView {
 
-    @Bind(R.id.exam_list_view) ListView mListView;
+    @BindView(R.id.exam_list_view) ListView mListView;
 
     public ExamInfoView(final Context context) {
         super(context);

@@ -18,7 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @ModuleFragment(path = "/buildings/*")
@@ -28,8 +28,8 @@ public class BuildingFragment
     public static final String TAG = BuildingFragment.class.getSimpleName();
 
     private ViewGroup mRoot;
-    @Bind(R.id.building_empty_view) View mEmptyView;
-    @Bind(R.id.building_name) TextView mNameView;
+    @BindView(R.id.building_empty_view) View mEmptyView;
+    @BindView(R.id.building_name) TextView mNameView;
 
     private Building mBuilding;
 

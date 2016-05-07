@@ -7,12 +7,12 @@ import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CourseInfoView extends BaseCourseView {
 
-    @Bind(R.id.course_info_title) TextView mTitle;
-    @Bind(R.id.course_info_description) TextView mDescription;
+    @BindView(R.id.course_info_title) TextView mTitle;
+    @BindView(R.id.course_info_description) TextView mDescription;
 
     public CourseInfoView(final Context context) {
         super(context);

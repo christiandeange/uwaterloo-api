@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ScheduleAdapter
@@ -110,12 +110,12 @@ public class ScheduleAdapter
     }
 
     static class ViewHolder {
-        @Bind(R.id.schedule_section) TextView section;
-        @Bind(R.id.schedule_campus) TextView campus;
-        @Bind(R.id.schedule_capacity) TextView capacity;
-        @Bind(R.id.schedule_reserves) TextView reserves;
-        @Bind(R.id.schedule_held_with) TextView heldWith;
-        @Bind(R.id.schedule_classes) ListView classesListView;
+        @BindView(R.id.schedule_section) TextView section;
+        @BindView(R.id.schedule_campus) TextView campus;
+        @BindView(R.id.schedule_capacity) TextView capacity;
+        @BindView(R.id.schedule_reserves) TextView reserves;
+        @BindView(R.id.schedule_held_with) TextView heldWith;
+        @BindView(R.id.schedule_classes) ListView classesListView;
 
         public ViewHolder(final View view) {
             ButterKnife.bind(this, view);

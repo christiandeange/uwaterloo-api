@@ -31,7 +31,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CourseFragment
@@ -44,8 +44,8 @@ public class CourseFragment
     private static final int BEST_SIZE = Runtime.getRuntime().availableProcessors() * 2 - 1;
     private static final Executor EXECUTOR = Executors.newFixedThreadPool(BEST_SIZE);
 
-    @Bind(R.id.tab_layout) TabLayout mTabLayout;
-    @Bind(R.id.tab_content) ViewPager mViewPager;
+    @BindView(R.id.tab_layout) TabLayout mTabLayout;
+    @BindView(R.id.tab_content) ViewPager mViewPager;
     private CourseInfoAdapter mAdapter;
     private CombinedCourseInfo mCourseData;
 

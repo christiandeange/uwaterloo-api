@@ -20,7 +20,7 @@ import org.joda.time.LocalDate;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MenuDayAdapter
@@ -68,11 +68,11 @@ public class MenuDayAdapter
 
     public static final class ContentView extends FrameLayout {
 
-        @Bind(R.id.menu_title_day) TextView mTitle;
-        @Bind(R.id.menu_lunch_container) ViewGroup mLunchContainer;
-        @Bind(R.id.menu_dinner_container) ViewGroup mDinnerContainer;
-        @Bind(R.id.menu_lunch_items) WrapContentListView mLunchView;
-        @Bind(R.id.menu_dinner_items) WrapContentListView mDinnerView;
+        @BindView(R.id.menu_title_day) TextView mTitle;
+        @BindView(R.id.menu_lunch_container) ViewGroup mLunchContainer;
+        @BindView(R.id.menu_dinner_container) ViewGroup mDinnerContainer;
+        @BindView(R.id.menu_lunch_items) WrapContentListView mLunchView;
+        @BindView(R.id.menu_dinner_items) WrapContentListView mDinnerView;
 
         public ContentView(final Context context) {
             super(context);

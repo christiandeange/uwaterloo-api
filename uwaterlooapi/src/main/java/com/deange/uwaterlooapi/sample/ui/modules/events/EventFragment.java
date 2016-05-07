@@ -34,7 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -45,17 +45,17 @@ public class EventFragment
     private EventInfo mEventInfo;
     private View mRoot;
 
-    @Bind(R.id.event_title) TextView mTitleView;
-    @Bind(R.id.event_image) ImageView mImageBanner;
-    @Bind(R.id.event_audience) TextView mAudienceView;
-    @Bind(R.id.event_cost) TextView mCostView;
-    @Bind(R.id.event_location) TextView mLocationView;
+    @BindView(R.id.event_title) TextView mTitleView;
+    @BindView(R.id.event_image) ImageView mImageBanner;
+    @BindView(R.id.event_audience) TextView mAudienceView;
+    @BindView(R.id.event_cost) TextView mCostView;
+    @BindView(R.id.event_location) TextView mLocationView;
 
-    @Bind(R.id.event_banner_root) View mBannerRoot;
-    @Bind(R.id.event_spacer) View mSpacer;
-    @Bind(R.id.event_times) ListView mTimesListView;
-    @Bind(R.id.event_description) TextView mDescriptionView;
-    @Bind(R.id.event_open_in_browser_root) View mBrowserRoot;
+    @BindView(R.id.event_banner_root) View mBannerRoot;
+    @BindView(R.id.event_spacer) View mSpacer;
+    @BindView(R.id.event_times) ListView mTimesListView;
+    @BindView(R.id.event_description) TextView mDescriptionView;
+    @BindView(R.id.event_open_in_browser_root) View mBrowserRoot;
 
     @Override
     protected View getContentView(
@@ -90,13 +90,6 @@ public class EventFragment
         });
 
         return mRoot;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        ButterKnife.unbind(this);
     }
 
     @OnClick(R.id.event_open_in_browser)

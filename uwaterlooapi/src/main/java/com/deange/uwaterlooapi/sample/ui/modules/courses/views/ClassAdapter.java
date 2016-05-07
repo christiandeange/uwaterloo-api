@@ -19,7 +19,7 @@ import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ClassAdapter extends ArrayAdapter<Class> {
@@ -117,10 +117,10 @@ public class ClassAdapter extends ArrayAdapter<Class> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.class_location) TextView location;
-        @Bind(R.id.class_instructors) TextView instructors;
-        @Bind(R.id.class_date) TextView date;
-        @Bind(R.id.class_time) TextView time;
+        @BindView(R.id.class_location) TextView location;
+        @BindView(R.id.class_instructors) TextView instructors;
+        @BindView(R.id.class_date) TextView date;
+        @BindView(R.id.class_time) TextView time;
 
         public ViewHolder(final View view) {
             ButterKnife.bind(this, view);
