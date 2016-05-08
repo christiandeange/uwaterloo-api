@@ -59,7 +59,7 @@
     </style>
 
     <style name="AppTheme.Widget.TextView" parent="android:Widget.DeviceDefault.Light.TextView">
-        <item name="fontPath">Gotham-Book.otf</item>
+        <item name="fontPath">@string/font_book</item>
     </style>
 
     <style name="DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
