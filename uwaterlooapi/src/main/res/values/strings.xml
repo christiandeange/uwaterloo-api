@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">UWaterloop</string>
+    <string name="app_title_1">UWaterl</string>
+    <string name="app_title_2">p</string>
 
     <string name="api_home">Home</string>
     <string name="api_foodservices">Food Services</string>
@@ -10,8 +12,6 @@
     <string name="api_weather">Weather</string>
     <string name="api_sites">Sites</string>
     <string name="api_maps">Maps</string>
-
-    <string name="building_no_location_data">No location data for this building</string>
 
     <string name="weather_last_updated">Last updated at %1$s %2$s</string>
     <string name="weather_wind">%1$s kph %2$s</string>
@@ -121,6 +121,8 @@
     <string name="parking_lot_name">Parking Lot %1$s</string>
     <string name="parking_lot_spots_filled">%1$d/%2$d spots filled</string>
     <string name="parking_last_updated">Last updated %1$s</string>
+
+    <string name="building_no_location_data">No location data for this building</string>
 
     <string name="menu_poi_layers">Layers</string>
     <string name="poi_layers_select_all">Select All</string>

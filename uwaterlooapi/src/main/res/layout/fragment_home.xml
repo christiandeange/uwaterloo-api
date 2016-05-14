@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,13 +24,37 @@
                 android:translationX="24dp"
                 tools:ignore="ContentDescription"/>
 
-        <ImageView
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
                 android:layout_margin="16dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_app_title"/>
+                android:orientation="horizontal">
+
+            <TextView
+                    style="@style/TextAppearance.UWaterloo.Display1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_title_1"
+                    android:textColor="?android:textColorPrimary"/>
+
+            <com.deange.uwaterlooapi.sample.ui.view.LoopView
+                    android:layout_width="33sp"
+                    android:layout_height="18sp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
+                    app:strokeWidth="2.5sp"/>
+
+            <TextView
+                    style="@style/TextAppearance.UWaterloo.Display1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_title_2"
+                    android:textColor="?android:textColorPrimary"/>
+
+        </LinearLayout>
 
     </FrameLayout>
 
@@ -43,11 +68,11 @@
                 android:id="@+id/home_cards_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:descendantFocusability="beforeDescendants"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:animateLayoutChanges="true">
+                android:padding="16dp">
 
             <fragment
                     android:id="@+id/home_nearby_locations_fragment"

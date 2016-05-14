@@ -11,11 +11,19 @@ public final class Px {
     }
 
     public static int fromDp(final float dp) {
-        return (int) (sContext.getResources().getDisplayMetrics().density * dp);
+        return (int) fromDpF(dp);
+    }
+
+    public static float fromDpF(final float dp) {
+        return (sContext.getResources().getDisplayMetrics().density * dp);
     }
 
     public static int fromSp(final float sp) {
-        return (int) (sContext.getResources().getDisplayMetrics().scaledDensity * sp);
+        return (int) fromSpF(sp);
+    }
+
+    public static float fromSpF(final float sp) {
+        return (sContext.getResources().getDisplayMetrics().scaledDensity * sp);
     }
 
     public static int width() {
