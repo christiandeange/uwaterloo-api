@@ -1,9 +1,12 @@
 package com.deange.uwaterlooapi.model.terms;
 
 import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
+
+import java.util.List;
 
 @Parcel
 public class InfoSession extends BaseModel {
@@ -30,7 +33,7 @@ public class InfoSession extends BaseModel {
     String mWebsite;
 
     @SerializedName("audience")
-    String mAudience;
+    List<String> mAudience;
 
     @SerializedName("programs")
     String mPrograms;
@@ -88,10 +91,10 @@ public class InfoSession extends BaseModel {
     }
 
     /**
-     * Target audience of session
+     * List of intended programs for student audience
      */
-    public String getAudience() {
-        return mAudience;
+    public List<String> getAudience() {
+        return CollectionUtils.applyPolicy(mAudience);
     }
 
     /**

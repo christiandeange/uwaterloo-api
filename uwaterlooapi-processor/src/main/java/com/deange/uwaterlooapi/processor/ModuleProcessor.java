@@ -58,7 +58,7 @@ public class ModuleProcessor extends AbstractProcessor {
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .addParameter(String.class, "endpoint", Modifier.FINAL)
                 .addStatement("String path = endpoint")
-                .addStatement("path = path.replace(\".{format}\", \"\")")
+                .addStatement("path = path.replace(\".json\", \"\")")
                 .addStatement("path = path.replaceAll(\"\\\\{[^\\\\}]*\\\\}\", \"*\")")
                 .addStatement("return sEndpoints.get(path)")
                 .build();

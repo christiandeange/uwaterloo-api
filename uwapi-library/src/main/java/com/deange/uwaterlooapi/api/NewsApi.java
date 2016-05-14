@@ -11,14 +11,14 @@ public interface NewsApi {
      * This method returns a list of the freshest (most recently updated) 100
      * University of Waterloo news items as crawled from all University WCMS sites
      */
-    @GET("/news.{format}")
+    @GET("/news.json")
     Response.News getNews();
 
     /**
      * This method returns a list of the upcoming site's news given a site slug
      * @param site Valid site slug from /resources/sites
      */
-    @GET("/news/{site}.{format}")
+    @GET("/news/{site}.json")
     Response.News getNews(@Path("site") String site);
 
     /**
@@ -26,7 +26,7 @@ public interface NewsApi {
      * @param site Valid site slug from /resources/sites
      * @param id Valid news id
      */
-    @GET("/news/{site}/{id}.{format}")
+    @GET("/news/{site}/{id}.json")
     Response.NewsEntity getNews(@Path("site") String site, @Path("id") int id);
 
 }

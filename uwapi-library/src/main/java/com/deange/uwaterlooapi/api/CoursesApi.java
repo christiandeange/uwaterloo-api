@@ -12,21 +12,21 @@ public interface CoursesApi {
      * This method returns all the coures offered under a given subject
      * @param subject Valid uWaterloo subject name
      */
-    @GET("/courses/{subject}.{format}")
+    @GET("/courses/{subject}.json")
     Response.Courses getCourseInfo(@Path("subject") String subject);
 
     /**
      * This method returns all available information for a given course
      * @param courseId Valid uWaterloo course ID
      */
-    @GET("/courses/{course_id}.{format}")
+    @GET("/courses/{course_id}.json")
     Response.CoursesInfo getCourseInfo(@Path("course_id") int courseId);
 
     /**
      * This method returns the class schedule for a given course and term
      * @param classNumber Valid uWaterloo course number
      */
-    @GET("/courses/{class_number}/schedule.{format}")
+    @GET("/courses/{class_number}/schedule.json")
     Response.CoursesSchedule getCourseSchedule(@Path("class_number") int classNumber);
 
     /**
@@ -34,7 +34,7 @@ public interface CoursesApi {
      * @param classNumber Valid uWaterloo course number
      * @param term Four digit term representation
      */
-    @GET("/courses/{class_number}/schedule.{format}")
+    @GET("/courses/{class_number}/schedule.json")
     Response.CoursesSchedule getCourseSchedule(@Path("class_number") int classNumber, @Query("term") int term);
 
     /**
@@ -42,7 +42,7 @@ public interface CoursesApi {
      * @param subject Valid uWaterloo subject name
      * @param courseCode Valid uWaterloo course number
      */
-    @GET("/courses/{subject}/{catalog_number}.{format}")
+    @GET("/courses/{subject}/{catalog_number}.json")
     Response.CoursesInfo getCourseInfo(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
     /**
@@ -50,7 +50,7 @@ public interface CoursesApi {
      * @param subject Valid uWaterloo subject name
      * @param courseCode Valid uWaterloo course number
      */
-    @GET("/courses/{subject}/{catalog_number}/schedule.{format}")
+    @GET("/courses/{subject}/{catalog_number}/schedule.json")
     Response.CoursesSchedule getCourseSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
     /**
@@ -59,7 +59,7 @@ public interface CoursesApi {
      * @param courseCode Valid uWaterloo course number
      * @param term Four digit term representation
      */
-    @GET("/courses/{subject}/{catalog_number}/schedule.{format}")
+    @GET("/courses/{subject}/{catalog_number}/schedule.json")
     Response.CoursesSchedule getCourseSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode, @Query("term") int term);
 
     /**
@@ -67,7 +67,7 @@ public interface CoursesApi {
      * @param subject Valid uWaterloo subject name
      * @param courseCode Valid uWaterloo course number
      */
-    @GET("/courses/{subject}/{catalog_number}/prerequisites.{format}")
+    @GET("/courses/{subject}/{catalog_number}/prerequisites.json")
     Response.Prerequisites getPrerequisites(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
     /**
@@ -75,7 +75,7 @@ public interface CoursesApi {
      * @param subject Valid uWaterloo subject name
      * @param courseCode Valid uWaterloo course number
      */
-    @GET("/courses/{subject}/{catalog_number}/examschedule.{format}")
+    @GET("/courses/{subject}/{catalog_number}/examschedule.json")
     Response.ExamSchedule getExamSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
 }

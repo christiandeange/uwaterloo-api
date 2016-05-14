@@ -9,7 +9,7 @@ public interface ParkingApi {
     /**
      * This method returns real-time parking counts in select parking lots across campus.
      */
-    @GET("/parking/watpark.{format}")
+    @GET("/parking/watpark.json")
     Response.Parking getParkingInfo();
 
 }

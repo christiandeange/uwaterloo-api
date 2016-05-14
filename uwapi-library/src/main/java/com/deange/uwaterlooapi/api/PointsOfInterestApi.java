@@ -9,37 +9,37 @@ public interface PointsOfInterestApi {
     /**
      * This method returns list of ATMs across campus.
      */
-    @GET("/poi/atms.{format}")
+    @GET("/poi/atms.json")
     Response.ATMs getATMs();
 
     /**
      * This method returns list of Greyhound bus stops across the city.
      */
-    @GET("/poi/greyhound.{format}")
+    @GET("/poi/greyhound.json")
     Response.Greyhound getGreyhoundStops();
 
     /**
      * This method returns list of photospheres across campus.
      */
-    @GET("/poi/photospheres.{format}")
+    @GET("/poi/photospheres.json")
     Response.Photospheres getPhotospheres();
 
     /**
      * This method returns list of emergency helplines across campus.
      */
-    @GET("/poi/helplines.{format}")
+    @GET("/poi/helplines.json")
     Response.Helplines getHelplines();
 
     /**
      * This method returns list of libraries across the city.
      */
-    @GET("/poi/libraries.{format}")
+    @GET("/poi/libraries.json")
     Response.Libraries getLibraries();
 
     /**
      * This method returns list of defibrillators across campus.
      */
-    @GET("/poi/defibrillators.{format}")
+    @GET("/poi/defibrillators.json")
     Response.Defibrillators getDefibrillators();
 
 }

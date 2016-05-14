@@ -8,10 +8,7 @@ public class ApiBuilder {
 
     public static final int VERSION = 2;
     public static final String BASE_URL = "https://api.uwaterloo.ca/v" + VERSION;
-    private static final String DATA_FORMAT = "json";
-
     public static final String API_KEY = "key";
-    public static final String FORMAT = "format";
 
     /* package */ static Converter sJsonConverter = ApiModelConverter.newGsonInstance();
     /* package */ static Converter sXmlConverter = ApiModelConverter.newXmlInstance();
@@ -37,7 +34,7 @@ public class ApiBuilder {
 
         private UWaterlooApi mApi;
 
-        private ApiInterceptor(UWaterlooApi api) {
+        private ApiInterceptor(final UWaterlooApi api) {
             mApi = api;
         }
 
@@ -48,7 +45,6 @@ public class ApiBuilder {
             mApi.checkAccess();
 
             requestFacade.addQueryParam(API_KEY, mApi.getApiKey());
-            requestFacade.addEncodedPathParam(FORMAT, DATA_FORMAT);
         }
 
     }
