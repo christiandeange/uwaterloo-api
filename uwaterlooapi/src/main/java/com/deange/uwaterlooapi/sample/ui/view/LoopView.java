@@ -21,6 +21,7 @@ public class LoopView
         extends View {
 
     private static final float SLICE_DEGREES = 315;
+    private static final long DURATION = 800L;
 
     private final float mPadding;
     private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -77,25 +78,25 @@ public class LoopView
 
         sweepAngle1 = ObjectAnimator.ofPropertyValuesHolder(this,
                 PropertyValuesHolder.ofFloat("sweepAngle1", SLICE_DEGREES, 0));
-        sweepAngle1.setStartDelay(500L);
+        sweepAngle1.setStartDelay(DURATION / 4);
         sweepAngle1.setInterpolator(new AccelerateInterpolator());
-        sweepAngle1.setDuration(2000L);
+        sweepAngle1.setDuration(DURATION);
 
         sweepAngle2 = ObjectAnimator.ofPropertyValuesHolder(this,
                 PropertyValuesHolder.ofFloat("sweepAngle2", -SLICE_DEGREES, 0));
         sweepAngle2.setInterpolator(new DecelerateInterpolator());
-        sweepAngle2.setDuration(2000L);
+        sweepAngle2.setDuration(DURATION);
 
         sweepAngle1Second = ObjectAnimator.ofPropertyValuesHolder(this,
                 PropertyValuesHolder.ofFloat("sweepAngle1", 0, -SLICE_DEGREES));
-        sweepAngle1Second.setStartDelay(500L);
+        sweepAngle1Second.setStartDelay(DURATION / 4);
         sweepAngle1Second.setInterpolator(new AccelerateInterpolator());
-        sweepAngle1Second.setDuration(2000L);
+        sweepAngle1Second.setDuration(DURATION);
 
         sweepAngle2Second = ObjectAnimator.ofPropertyValuesHolder(this,
                 PropertyValuesHolder.ofFloat("sweepAngle2", 0, SLICE_DEGREES));
         sweepAngle2Second.setInterpolator(new DecelerateInterpolator());
-        sweepAngle2Second.setDuration(2000L);
+        sweepAngle2Second.setDuration(DURATION);
 
         sweepAngle1.addListener(new AnimatorListenerAdapter() {
             @Override
