@@ -3,3 +3,8 @@
 }
 
 -keep class org.parceler.Parceler$$Parcels
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions

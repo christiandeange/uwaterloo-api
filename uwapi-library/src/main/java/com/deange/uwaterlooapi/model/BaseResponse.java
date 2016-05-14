@@ -43,10 +43,12 @@ public abstract class BaseResponse {
         final String clazzName = obj.substring(0, semicolonPos);
         final Class<T> clazz;
         try {
+            //noinspection unchecked
             clazz = (Class<T>) Class.forName(clazzName);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         final String data = obj.substring(semicolonPos + 1, obj.length());
         return GsonController.getInstance().fromJson(data, clazz);
     }

@@ -34,6 +34,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 @ModuleFragment(
         path = "/courses/*",
@@ -97,7 +98,7 @@ public class CoursesFragment
     }
 
     @Override
-    public Response.Courses onLoadData(final UWaterlooApi api) {
+    public Call<Response.Courses> onLoadData(final UWaterlooApi api) {
         final String course = mCoursePicker.getText().toString();
 
         postDelayed(mResetListViewRunnable, ANIMATION_DURATION);

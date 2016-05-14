@@ -22,6 +22,7 @@ import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfoResponse;
+import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
@@ -33,6 +34,7 @@ import java.util.concurrent.Semaphore;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 public class CourseFragment
         extends BaseModuleFragment<CombinedCourseInfoResponse, CombinedCourseInfo> {
@@ -90,7 +92,7 @@ public class CourseFragment
     }
 
     @Override
-    public CombinedCourseInfoResponse onLoadData(final UWaterlooApi api) {
+    public Call<CombinedCourseInfoResponse> onLoadData(final UWaterlooApi api) {
 
         final Pair<String, String> courseSubject = getCourseSubject();
         final String subject = courseSubject.first;
@@ -103,7 +105,7 @@ public class CourseFragment
         fetchCourseInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                final Response.CoursesInfo response = api.Courses.getCourseInfo(subject, code);
+                final Response.CoursesInfo response = Calls.unwrap(api.Courses.getCourseInfo(subject, code));
                 info.setMetadata(response.getMetadata());
                 info.setCourseInfo(response.getData());
             }
@@ -113,7 +115,7 @@ public class CourseFragment
         fetchCourseInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setPrerequisites(api.Courses.getPrerequisites(subject, code).getData());
+                info.setPrerequisites(Calls.unwrap(api.Courses.getPrerequisites(subject, code)).getData());
             }
         });
 
@@ -121,7 +123,7 @@ public class CourseFragment
         fetchCourseInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setSchedules(api.Courses.getCourseSchedule(subject, code).getData());
+                info.setSchedules(Calls.unwrap(api.Courses.getCourseSchedule(subject, code)).getData());
             }
         });
 
@@ -129,7 +131,7 @@ public class CourseFragment
         fetchCourseInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setExams(api.Courses.getExamSchedule(subject, code).getData());
+                info.setExams(Calls.unwrap(api.Courses.getExamSchedule(subject, code)).getData());
             }
         });
 
@@ -140,7 +142,7 @@ public class CourseFragment
             throw new RuntimeException(e);
         }
 
-        return response;
+        return Calls.wrap(response);
     }
 
     @Override
@@ -175,7 +177,9 @@ public class CourseFragment
         return subject.first + " " + subject.second;
     }
 
-    private @Nullable Course getCourse() {
+    private
+    @Nullable
+    Course getCourse() {
         return Parcels.unwrap(getArguments().getParcelable(KEY_COURSE_MODEL));
     }
 

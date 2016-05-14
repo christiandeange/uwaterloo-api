@@ -2,44 +2,45 @@ package com.deange.uwaterlooapi.api;
 
 import com.deange.uwaterlooapi.model.common.Response;
 
-import retrofit.http.GET;
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 public interface PointsOfInterestApi {
 
     /**
      * This method returns list of ATMs across campus.
      */
-    @GET("/poi/atms.json")
-    Response.ATMs getATMs();
+    @GET("poi/atms.json")
+    Call<Response.ATMs> getATMs();
 
     /**
      * This method returns list of Greyhound bus stops across the city.
      */
-    @GET("/poi/greyhound.json")
-    Response.Greyhound getGreyhoundStops();
+    @GET("poi/greyhound.json")
+    Call<Response.Greyhound> getGreyhoundStops();
 
     /**
      * This method returns list of photospheres across campus.
      */
-    @GET("/poi/photospheres.json")
-    Response.Photospheres getPhotospheres();
+    @GET("poi/photospheres.json")
+    Call<Response.Photospheres> getPhotospheres();
 
     /**
      * This method returns list of emergency helplines across campus.
      */
-    @GET("/poi/helplines.json")
-    Response.Helplines getHelplines();
+    @GET("poi/helplines.json")
+    Call<Response.Helplines> getHelplines();
 
     /**
      * This method returns list of libraries across the city.
      */
-    @GET("/poi/libraries.json")
-    Response.Libraries getLibraries();
+    @GET("poi/libraries.json")
+    Call<Response.Libraries> getLibraries();
 
     /**
      * This method returns list of defibrillators across campus.
      */
-    @GET("/poi/defibrillators.json")
-    Response.Defibrillators getDefibrillators();
+    @GET("poi/defibrillators.json")
+    Call<Response.Defibrillators> getDefibrillators();
 
 }

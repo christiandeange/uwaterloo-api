@@ -20,6 +20,7 @@ import org.joda.time.LocalDate;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 @ModuleFragment(
         path = "/foodservices/menu",
@@ -52,7 +53,7 @@ public class MenusFragment
     }
 
     @Override
-    public Response.Menus onLoadData(final UWaterlooApi api) {
+    public Call<Response.Menus> onLoadData(final UWaterlooApi api) {
         final LocalDate date = mDateSelector.getDate();
         final int year = date.getYear();
         final int week = date.getWeekOfWeekyear();

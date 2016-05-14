@@ -33,6 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 @ModuleFragment(
         path = "/parking/watpark",
@@ -61,7 +62,7 @@ public class ParkingFragment
     }
 
     @Override
-    public Response.Parking onLoadData(final UWaterlooApi api) {
+    public Call<Response.Parking> onLoadData(final UWaterlooApi api) {
         return api.Parking.getParkingInfo();
     }
 

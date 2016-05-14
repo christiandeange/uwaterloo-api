@@ -29,12 +29,16 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleListResponse;
 import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
 
 public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseModel>
         extends Fragment
@@ -389,7 +393,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         return null;
     }
 
-    public T onLoadData(final UWaterlooApi api) {
+    public Call<T> onLoadData(final UWaterlooApi api) {
         // Overriden by subclasses
         return null;
     }
@@ -415,7 +419,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         protected T doInBackground(final UWaterlooApi... apis) {
             // Performed on a background thread, so network calls are performed here
             try {
-                return onLoadData(apis[0]);
+                return Calls.unwrap(onLoadData(apis[0]));
             } catch (final Exception e) {
                 Log.e("LoadModuleDataTask", e.getMessage(), e);
                 return null;

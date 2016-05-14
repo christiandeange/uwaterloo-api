@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 @ModuleFragment(
         path = "/foodservices/notes",
@@ -69,7 +70,7 @@ public class NotesFragment
     }
 
     @Override
-    public Response.Notes onLoadData(final UWaterlooApi api) {
+    public Call<Response.Notes> onLoadData(final UWaterlooApi api) {
         final LocalDate date = mDateSelectorView.getDate();
         final int year = date.getYear();
         final int week = date.getWeekOfWeekyear();

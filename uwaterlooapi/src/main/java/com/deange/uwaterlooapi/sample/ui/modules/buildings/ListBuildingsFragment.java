@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import retrofit2.Call;
+
 @ModuleFragment(
         path = "/buildings/list",
         layout = R.layout.module_buildings
@@ -39,7 +41,7 @@ public class ListBuildingsFragment
     }
 
     @Override
-    public Response.Buildings onLoadData(final UWaterlooApi api) {
+    public Call<Response.Buildings> onLoadData(final UWaterlooApi api) {
         return api.Buildings.getBuildings();
     }
 

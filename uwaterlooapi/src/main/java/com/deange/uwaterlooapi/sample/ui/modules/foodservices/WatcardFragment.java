@@ -30,6 +30,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import retrofit2.Call;
+
 //@ModuleFragment(
 //        path = "/foodservices/watcard",
 //        layout = R.layout.module_foodservices_watcards
@@ -55,7 +57,7 @@ public class WatcardFragment
     }
 
     @Override
-    public Response.Watcards onLoadData(final UWaterlooApi api) {
+    public Call<Response.Watcards> onLoadData(final UWaterlooApi api) {
         return api.FoodServices.getWatcardVendors();
     }
 

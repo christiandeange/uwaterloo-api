@@ -1,15 +1,15 @@
 package com.deange.uwaterlooapi.sample.net;
 
-import retrofit.Callback;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface FlickrInterface {
 
-    @GET("/?method=flickr.photos.getInfo")
-    void getPhotoDetails(@Query("photo_id") final String photoId, Callback<Contract.Photo> callback);
+    @GET("?method=flickr.photos.getInfo")
+    Call<Contract.Photo> getPhotoDetails(@Query("photo_id") final String photoId);
 
-    @GET("/?method=flickr.photos.getSizes")
-    void getPhotoSizes(@Query("photo_id") final String photoId, Callback<Contract.Size> callback);
+    @GET("?method=flickr.photos.getSizes")
+    Call<Contract.Size> getPhotoSizes(@Query("photo_id") final String photoId);
 
 }

@@ -24,6 +24,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+
 @ModuleFragment(
         path = "/events",
         layout = R.layout.module_events
@@ -51,7 +53,7 @@ public class EventsFragment
     }
 
     @Override
-    public Response.Events onLoadData(final UWaterlooApi api) {
+    public Call<Response.Events> onLoadData(final UWaterlooApi api) {
         return api.Events.getEvents();
     }
 

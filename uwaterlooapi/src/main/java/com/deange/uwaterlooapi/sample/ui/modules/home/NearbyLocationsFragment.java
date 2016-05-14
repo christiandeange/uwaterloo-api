@@ -21,6 +21,7 @@ import com.deange.uwaterlooapi.model.common.Response;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.foodservices.LocationsFragment;
 import com.deange.uwaterlooapi.sample.utils.MapUtils;
@@ -324,7 +325,7 @@ public class NearbyLocationsFragment
         protected Boolean doInBackground(final Void... params) {
             try {
                 final UWaterlooApi api = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
-                mResponse = api.FoodServices.getLocations();
+                mResponse = Calls.unwrap(api.FoodServices.getLocations());
                 mLocation = LocationServices.FusedLocationApi.getLastLocation(mApiClient);
 
                 return true;

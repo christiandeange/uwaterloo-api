@@ -7,13 +7,12 @@ import com.deange.uwaterlooapi.sample.model.Photo;
 import com.deange.uwaterlooapi.sample.net.Contract;
 import com.deange.uwaterlooapi.sample.net.FlickrApi;
 
-import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public final class CoverPhotoPresenter {
 
@@ -46,6 +45,9 @@ public final class CoverPhotoPresenter {
         throw new AssertionError();
     }
 
+    /**
+     * Should *NOT* be called on the main thread!
+     */
     public static Photo getPhoto(String photoId) {
         if (photoId == null) {
             photoId = PHOTO_IDS[sRandom.nextInt(PHOTO_IDS.length)];
@@ -55,28 +57,29 @@ public final class CoverPhotoPresenter {
 
         final Semaphore semaphore = new Semaphore(1 - 2);
         final Photo photo = new Photo();
-        API.get().getPhotoDetails(photoId, new Callback<Contract.Photo>() {
+
+        API.get().getPhotoDetails(photoId).enqueue(new Callback<Contract.Photo>() {
             @Override
-            public void success(final Contract.Photo photoResponse, final Response response) {
-                photo.setDetails(photoResponse.getDetails());
+            public void onResponse(final Call<Contract.Photo> call, final Response<Contract.Photo> response) {
+                photo.setDetails(response.body().getDetails());
                 semaphore.release();
             }
 
             @Override
-            public void failure(final RetrofitError error) {
+            public void onFailure(final Call<Contract.Photo> call, final Throwable t) {
                 semaphore.release();
             }
         });
 
-        API.get().getPhotoSizes(photoId, new Callback<Contract.Size>() {
+        API.get().getPhotoSizes(photoId).enqueue(new Callback<Contract.Size>() {
             @Override
-            public void success(final Contract.Size sizeResponse, final Response response) {
-                photo.setSizes(sizeResponse.getSizes());
+            public void onResponse(final Call<Contract.Size> call, final Response<Contract.Size> response) {
+                photo.setSizes(response.body().getSizes());
                 semaphore.release();
             }
 
             @Override
-            public void failure(final RetrofitError error) {
+            public void onFailure(final Call<Contract.Size> call, final Throwable t) {
                 semaphore.release();
             }
         });

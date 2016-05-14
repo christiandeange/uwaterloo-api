@@ -39,6 +39,7 @@ import com.deange.uwaterlooapi.sample.model.Photo;
 import com.deange.uwaterlooapi.sample.model.PhotoDetails;
 import com.deange.uwaterlooapi.sample.model.PhotoSize;
 import com.deange.uwaterlooapi.sample.model.PhotoUrl;
+import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.CoverPhotoPresenter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
@@ -62,10 +63,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
-import butterknife.BindView;
 import butterknife.BindDrawable;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 @ModuleFragment(
         path = "/weather/current",
@@ -193,8 +195,8 @@ public class WeatherFragment
     }
 
     @Override
-    public LegacyWeatherResponse onLoadData(final UWaterlooApi api) {
-        return new LegacyWeatherResponse(api.LegacyWeather.getWeather());
+    public Call<LegacyWeatherResponse> onLoadData(final UWaterlooApi api) {
+        return Calls.wrap(new LegacyWeatherResponse(Calls.unwrap(api.LegacyWeather.getWeather())));
     }
 
     @Override
@@ -325,7 +327,9 @@ public class WeatherFragment
         mAuthor.setText(spannable);
     }
 
-    private @Nullable PhotoSize getPhotoSize(final Photo photoResponse) {
+    private
+    @Nullable
+    PhotoSize getPhotoSize(final Photo photoResponse) {
         final int w = mBackground.getMeasuredWidth();
         final int h = mBackground.getMeasuredHeight();
         final boolean isHeightLarger = (h >= w);

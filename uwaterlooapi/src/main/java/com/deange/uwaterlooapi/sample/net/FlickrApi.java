@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.sample.net;
 
-import com.deange.uwaterlooapi.sample.BuildConfig;
-import com.google.gson.Gson;
+import java.io.IOException;
 
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
-import retrofit.converter.GsonConverter;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class FlickrApi {
 
-    private static final String BASE_URL = "https://api.flickr.com/services/rest";
+    private static final String BASE_URL = "https://api.flickr.com/services/rest/";
     private static final String API_KEY = "api_key";
     private static final String FORMAT_KEY = "format";
     private static final String FORMAT_VALUE = "json";
@@ -33,30 +36,39 @@ public final class FlickrApi {
     }
 
     private FlickrInterface buildInterface() {
-        return new RestAdapter.Builder()
-                .setEndpoint(BASE_URL)
-                .setRequestInterceptor(new ApiInterceptor(this))
-                .setConverter(new GsonConverter(new Gson(), "UTF-8"))
-                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
+        return new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(getClient(this))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(FlickrInterface.class);
     }
 
-    private static class ApiInterceptor implements RequestInterceptor {
+    private static OkHttpClient getClient(final FlickrApi api) {
+        return new OkHttpClient.Builder().addInterceptor(new ApiInterceptor(api)).build();
+    }
 
-        private FlickrApi mApi;
+    private static class ApiInterceptor
+            implements
+            Interceptor {
 
-        private ApiInterceptor(FlickrApi api) {
+        private final FlickrApi mApi;
+
+        private ApiInterceptor(final FlickrApi api) {
             mApi = api;
         }
 
         @Override
-        public void intercept(final RequestFacade requestFacade) {
-            requestFacade.addQueryParam(API_KEY, mApi.getApiKey());
-            requestFacade.addQueryParam(FORMAT_KEY, FORMAT_VALUE);
-            requestFacade.addQueryParam(CALLBACK_KEY, CALLBACK_VALUE);
-        }
+        public Response intercept(final Chain chain) throws IOException {
+            final HttpUrl.Builder urlBuilder = chain.request().url().newBuilder();
 
+            urlBuilder.addQueryParameter(API_KEY, mApi.getApiKey());
+            urlBuilder.addQueryParameter(FORMAT_KEY, FORMAT_VALUE);
+            urlBuilder.addQueryParameter(CALLBACK_KEY, CALLBACK_VALUE);
+
+            final Request request = chain.request().newBuilder().url(urlBuilder.build()).build();
+            return chain.proceed(request);
+        }
     }
 
 }

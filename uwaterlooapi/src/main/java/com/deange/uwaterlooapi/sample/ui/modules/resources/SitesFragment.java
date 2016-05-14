@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import retrofit2.Call;
+
 @ModuleFragment(
         path = "/resources/sites",
         layout = R.layout.module_resources_sites
@@ -60,7 +62,7 @@ public class SitesFragment
     }
 
     @Override
-    public Response.Sites onLoadData(final UWaterlooApi api) {
+    public Call<Response.Sites> onLoadData(final UWaterlooApi api) {
         return api.Resources.getSites();
     }
 

@@ -24,6 +24,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import retrofit2.Call;
+
 @ModuleFragment(
         path = "/foodservices/locations",
         layout = R.layout.module_foodservices_locations
@@ -79,7 +81,7 @@ public class LocationsFragment
     }
 
     @Override
-    public Response.Locations onLoadData(final UWaterlooApi api) {
+    public Call<Response.Locations> onLoadData(final UWaterlooApi api) {
         return api.FoodServices.getLocations();
     }
 

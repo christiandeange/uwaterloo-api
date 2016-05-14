@@ -33,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 @ModuleFragment(
         path = "/resources/goosewatch",
@@ -63,7 +64,7 @@ public class GooseWatchFragment
     }
 
     @Override
-    public Response.GooseWatch onLoadData(final UWaterlooApi api) {
+    public Call<Response.GooseWatch> onLoadData(final UWaterlooApi api) {
         return api.Resources.getGeeseNests();
     }
 

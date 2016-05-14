@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import retrofit2.Call;
+
 @ModuleFragment(
         path = "/news",
         layout = R.layout.module_news
@@ -57,7 +59,7 @@ public class NewsListFragment
     }
 
     @Override
-    public Response.News onLoadData(final UWaterlooApi api) {
+    public Call<Response.News> onLoadData(final UWaterlooApi api) {
         return api.News.getNews();
     }
 

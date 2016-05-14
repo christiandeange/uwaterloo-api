@@ -26,6 +26,7 @@ import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfo;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfoResponse;
+import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
@@ -49,6 +50,7 @@ import java.util.concurrent.Semaphore;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 
 @ModuleFragment(
         path = "/poi",
@@ -112,7 +114,7 @@ public class PointsOfInterestFragment
     }
 
     @Override
-    public CombinedPointsOfInterestInfoResponse onLoadData(final UWaterlooApi api) {
+    public Call<CombinedPointsOfInterestInfoResponse> onLoadData(final UWaterlooApi api) {
         final CombinedPointsOfInterestInfo info = new CombinedPointsOfInterestInfo();
         final CombinedPointsOfInterestInfoResponse response = new CombinedPointsOfInterestInfoResponse(info);
         final Semaphore semaphore = new Semaphore(1 - LayersDialog.LAYERS_COUNT);
@@ -121,7 +123,7 @@ public class PointsOfInterestFragment
         fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setATMs(api.PointsOfInterest.getATMs().getData());
+                info.setATMs(Calls.unwrap(api.PointsOfInterest.getATMs()).getData());
             }
         });
 
@@ -129,7 +131,7 @@ public class PointsOfInterestFragment
         fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setGreyhounds(api.PointsOfInterest.getGreyhoundStops().getData());
+                info.setGreyhounds(Calls.unwrap(api.PointsOfInterest.getGreyhoundStops()).getData());
             }
         });
 
@@ -146,7 +148,7 @@ public class PointsOfInterestFragment
         fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setHelplines(api.PointsOfInterest.getHelplines().getData());
+                info.setHelplines(Calls.unwrap(api.PointsOfInterest.getHelplines()).getData());
             }
         });
 
@@ -154,7 +156,7 @@ public class PointsOfInterestFragment
         fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setLibraries(api.PointsOfInterest.getLibraries().getData());
+                info.setLibraries(Calls.unwrap(api.PointsOfInterest.getLibraries()).getData());
             }
         });
 
@@ -162,7 +164,7 @@ public class PointsOfInterestFragment
         fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
             @Override
             public void fetch() {
-                info.setDefibrillators(api.PointsOfInterest.getDefibrillators().getData());
+                info.setDefibrillators(Calls.unwrap(api.PointsOfInterest.getDefibrillators()).getData());
             }
         });
 
@@ -173,7 +175,7 @@ public class PointsOfInterestFragment
             throw new RuntimeException(e);
         }
 
-        return response;
+        return Calls.wrap(response);
     }
 
     @Override

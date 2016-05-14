@@ -37,6 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 @ModuleFragment(path = "/events/*/*")
 public class EventFragment
@@ -98,7 +99,7 @@ public class EventFragment
     }
 
     @Override
-    public Response.EventDetails onLoadData(final UWaterlooApi api) {
+    public Call<Response.EventDetails> onLoadData(final UWaterlooApi api) {
         final Event event = getModel();
 
         return api.Events.getEvent(event.getSite(), event.getId());
