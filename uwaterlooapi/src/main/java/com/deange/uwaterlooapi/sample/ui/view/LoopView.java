@@ -53,7 +53,12 @@ public class LoopView
         super(context, attrs, defStyleAttr, defStyleRes);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoopView);
-        final float strokeWidth = a.getDimension(R.styleable.LoopView_strokeWidth, Px.fromSpF(1));
+        final float strokeWidth;
+        if (!isInEditMode()) {
+            strokeWidth = a.getDimension(R.styleable.LoopView_strokeWidth, Px.fromSpF(1));
+        }  else {
+            strokeWidth = 5;
+        }
         a.recycle();
 
         mPadding = strokeWidth / 2f;

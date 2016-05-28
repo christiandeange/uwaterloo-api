@@ -43,8 +43,8 @@
                     android:layout_height="18sp"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="2dp"
                     android:layout_marginEnd="2dp"
+                    android:layout_marginStart="2dp"
                     app:strokeWidth="2.5sp"/>
 
             <TextView
@@ -78,7 +78,8 @@
                     android:id="@+id/home_nearby_locations_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    class="com.deange.uwaterlooapi.sample.ui.modules.home.NearbyLocationsFragment"/>
+                    class="com.deange.uwaterlooapi.sample.ui.modules.home.NearbyLocationsFragment"
+                    tools:layout="@layout/fragment_nearby_locations"/>
 
             <com.deange.uwaterlooapi.sample.ui.view.CardView
                     android:layout_width="match_parent"
@@ -132,8 +133,8 @@
                                 android:gravity="right"
                                 android:imeOptions="actionNext"
                                 android:inputType="textNoSuggestions"
+                                android:maxLines="1"
                                 android:minWidth="100dp"
-                                android:singleLine="true"
                                 android:textAllCaps="true"
                                 android:textColor="@android:color/black"
                                 tools:ignore="RtlHardcoded"/>
@@ -146,11 +147,11 @@
                                 android:gravity="start"
                                 android:imeOptions="actionSearch"
                                 android:inputType="textNoSuggestions"
+                                android:maxLines="1"
                                 android:minWidth="100dp"
-                                android:singleLine="true"
                                 android:textAllCaps="true"
                                 android:textColor="@android:color/black"
-                                tools:ignore="RtlHardcoded,TextFields"/>
+                                tools:ignore="LabelFor,RtlHardcoded,TextFields"/>
 
                         <TextView
                                 style="@style/TextAppearance.UWaterloo.Caption"

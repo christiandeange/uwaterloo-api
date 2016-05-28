@@ -175,7 +175,7 @@ public class CoursesFragment
 
     @Override
     public void onItemClicked(final int position) {
-        // Remove focus from the
+        // Remove focus from the list item
         getListView().requestFocus();
 
         showModule(CourseFragment.class, CourseFragment.newBundle(mResponse.get(position)));

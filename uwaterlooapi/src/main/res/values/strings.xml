@@ -221,6 +221,7 @@
     <string name="open_in_browser">Open in browser</string>
     <string name="clipboard_copied">Copied to clipboard!</string>
     <string name="error_no_network">No network connection.</string>
+    <string name="error_no_network_detailed">No network connection! Please reconnect to the internet and try again.</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_about">About</string>
 

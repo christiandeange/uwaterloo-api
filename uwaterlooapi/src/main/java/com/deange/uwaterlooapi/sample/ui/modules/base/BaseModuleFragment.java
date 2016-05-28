@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -31,11 +32,11 @@ import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
+import com.deange.uwaterlooapi.sample.utils.NetworkController;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 import org.parceler.Parcels;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,9 +56,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     private long mLastUpdate = 0;
     private ViewGroup mLoadingLayout;
+    private ViewGroup mNetworkLayout;
 
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private T mLastResponse;
+    private Animator mLoadingAnimator;
     private LoadModuleDataTask mTask;
     private SwipeRefreshLayout mSwipeLayout;
 
@@ -105,6 +108,9 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         mLoadingLayout = (ViewGroup) root.findViewById(R.id.loading_layout);
         mLoadingLayout.setOnTouchListener(this);
+
+        mNetworkLayout = (ViewGroup) root.findViewById(R.id.no_network_layout);
+        mNetworkLayout.setOnTouchListener(this);
 
         final View contentView = getContentView(inflater, parent);
         if (contentView != null && contentView.getParent() == null) {
@@ -251,64 +257,58 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void changeLoadingVisibility(final boolean show) {
-
         if (mSwipeLayout != null) {
             mSwipeLayout.setRefreshing(show);
             mSwipeLayout.setEnabled(!show);
             return;
         }
 
-        final View loadingLayout = mLoadingLayout;
-
         if (show) {
-            loadingLayout.setVisibility(View.VISIBLE);
+            mLoadingLayout.setVisibility(View.VISIBLE);
             if (mLastUpdate == 0) {
                 return;
             }
         }
 
-        if (!show && mLastResponse == null) {
-            loadingLayout.setVisibility(View.GONE);
-            return;
-        }
-
         final AnimatorListenerAdapter listener = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(final Animator animation) {
-                loadingLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+                mLoadingLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
             }
 
             @Override
             public void onAnimationCancel(final Animator animation) {
-                loadingLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+                mLoadingLayout.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
             }
         };
 
+        if (mLoadingAnimator != null) {
+            mLoadingAnimator.cancel();
+        }
+        mLoadingAnimator = getVisibilityAnimator(mLoadingLayout, show);
+        mLoadingAnimator.setDuration(ANIMATION_DURATION);
+        mLoadingAnimator.addListener(listener);
+        mLoadingAnimator.start();
+    }
+
+    private Animator getVisibilityAnimator(final View view, final boolean show) {
         if (PlatformUtils.hasLollipop()) {
-            final int full = Math.max(loadingLayout.getWidth(), loadingLayout.getHeight());
+            final int full = Math.max(view.getWidth(), view.getHeight());
             final int startRadius = (show) ? 0 : full;
             final int finalRadius = (show) ? full : 0;
-            final int centerX = (loadingLayout.getLeft() + loadingLayout.getRight()) / 2;
-            final int centerY = (loadingLayout.getTop() + loadingLayout.getBottom()) / 2;
-            final Animator anim = ViewAnimationUtils.createCircularReveal(
-                    loadingLayout, centerX, centerY, startRadius, finalRadius);
-            anim.setDuration(ANIMATION_DURATION);
-            anim.addListener(listener);
-            anim.start();
+            final int centerX = (view.getLeft() + view.getRight()) / 2;
+            final int centerY = (view.getTop() + view.getBottom()) / 2;
+
+            return ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, finalRadius);
 
         } else {
-            loadingLayout.animate()
-                         .alpha(show ? 1 : 0)
-                         .setDuration(ANIMATION_DURATION)
-                         .setListener(listener)
-                         .start();
+            return ObjectAnimator.ofFloat(view, View.ALPHA, view.getAlpha(), (show) ? 1 : 0);
         }
-
     }
 
     @Override
     public boolean onTouch(final View view, final MotionEvent motionEvent) {
-        // Loading layout intercepts all touch events
+        // Loading/Network layouts intercept all touch events
         return true;
     }
 
@@ -354,12 +354,41 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         Toast.makeText(getActivity(), "Received no data", Toast.LENGTH_SHORT).show();
     }
 
+    private void resolveNetworkLayoutVisibility() {
+        final boolean connected = NetworkController.getInstance().isConnected();
+
+        final Animator animator = getVisibilityAnimator(mNetworkLayout, !connected);
+        if (!connected && mNetworkLayout.getVisibility() == View.INVISIBLE) {
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(final Animator animation) {
+                    mNetworkLayout.setVisibility(View.VISIBLE);
+                }
+            });
+
+            animator.start();
+
+        } else if (connected && mNetworkLayout.getVisibility() == View.VISIBLE) {
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(final Animator animation) {
+                    mNetworkLayout.setVisibility(View.INVISIBLE);
+                }
+            });
+
+            animator.start();
+        }
+    }
+
     private void deliverResponse(final T response) {
+        resolveNetworkLayoutVisibility();
 
         if (response == null || response.getData() == null) {
             onNullResponseReceived();
+
         } else if (response instanceof SimpleListResponse) {
             onBindData(response.getMetadata(), (List<V>) response.getData());
+
         } else {
             onBindData(response.getMetadata(), (V) response.getData());
         }
@@ -418,12 +447,18 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         @Override
         protected T doInBackground(final UWaterlooApi... apis) {
             // Performed on a background thread, so network calls are performed here
+
             try {
-                return Calls.unwrap(onLoadData(apis[0]));
+                if (NetworkController.getInstance().isConnected()) {
+                    return Calls.unwrap(onLoadData(apis[0]));
+                } else {
+                    Thread.sleep(MINIMUM_UPDATE_DURATION);
+                }
             } catch (final Exception e) {
                 Log.e("LoadModuleDataTask", e.getMessage(), e);
-                return null;
             }
+
+            return null;
         }
 
         @Override

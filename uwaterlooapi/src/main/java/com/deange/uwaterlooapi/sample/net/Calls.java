@@ -1,5 +1,8 @@
 package com.deange.uwaterlooapi.sample.net;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import java.io.IOException;
 
 import okhttp3.Request;
@@ -29,6 +32,8 @@ public class Calls {
             implements
             Call<T> {
 
+        private static final Handler sHandler = new Handler(Looper.getMainLooper());
+
         private final T mObj;
 
         private InternalCall(final T obj) {
@@ -42,7 +47,13 @@ public class Calls {
 
         @Override
         public void enqueue(final Callback<T> callback) {
-            callback.onResponse(this, execute());
+            // Yield execution to caller before returning success
+            sHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onResponse(InternalCall.this, execute());
+                }
+            });
         }
 
         @Override

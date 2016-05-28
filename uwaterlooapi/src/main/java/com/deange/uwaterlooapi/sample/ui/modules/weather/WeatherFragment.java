@@ -304,6 +304,10 @@ public class WeatherFragment
     }
 
     private void loadPicture(final Photo photo) {
+        if (photo.getDetails() == null || photo.getSizes() == null) {
+            return;
+        }
+
         final PhotoSize newPhotoSize = getPhotoSize(photo);
         if (newPhotoSize == null) {
             return;
@@ -327,9 +331,8 @@ public class WeatherFragment
         mAuthor.setText(spannable);
     }
 
-    private
     @Nullable
-    PhotoSize getPhotoSize(final Photo photoResponse) {
+    private PhotoSize getPhotoSize(final Photo photoResponse) {
         final int w = mBackground.getMeasuredWidth();
         final int h = mBackground.getMeasuredHeight();
         final boolean isHeightLarger = (h >= w);
