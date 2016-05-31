@@ -22,6 +22,10 @@ public class CardView extends android.support.v7.widget.CardView {
     }
 
     private void init() {
+        if (isInEditMode()) {
+            return;
+        }
+
         if (getCardElevation() == 0) {
             setCardElevation(Px.fromDp(4));
         }

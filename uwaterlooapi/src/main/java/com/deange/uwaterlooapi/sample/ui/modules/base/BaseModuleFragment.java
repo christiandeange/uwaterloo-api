@@ -155,7 +155,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_base_module, menu);
+        if (getModel() == null) {
+            // If there is a response available in memory, no need to "refresh"
+            inflater.inflate(R.menu.menu_base_module, menu);
+        }
+
         syncRefreshMenuItem(menu);
     }
 

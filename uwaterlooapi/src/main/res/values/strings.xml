@@ -73,6 +73,7 @@
     <string name="foodservices_location_closes_at">Closes at %s</string>
     <string name="foodservices_location_tim_hortons">"☕️ Tim Hortons"</string>
     <string name="foodservices_location_special_hours">Special Hours</string>
+    <string name="foodservices_location_directions">Directions</string>
     <string name="foodservices_notes_none">No Notes :(</string>
 
     <string name="foodservices_menu_for_day">Menu for %s</string>
