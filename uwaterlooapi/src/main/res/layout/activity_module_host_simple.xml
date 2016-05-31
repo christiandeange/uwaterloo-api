@@ -4,13 +4,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
             style="@style/ToolbarStyle.Toolbar"
             android:id="@+id/toolbar"
-            app:theme="@style/ToolbarStyle"/>
+            android:theme="@style/ToolbarStyle"/>
 
     <FrameLayout
             android:id="@+id/content"

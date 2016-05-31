@@ -41,8 +41,8 @@
                     android:id="@+id/list_location_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:theme="@style/ToolbarStyle"/>
+                    android:theme="@style/ToolbarStyle"
+                    app:layout_collapseMode="pin"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
