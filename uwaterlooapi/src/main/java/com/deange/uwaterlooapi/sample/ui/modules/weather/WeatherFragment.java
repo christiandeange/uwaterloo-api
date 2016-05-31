@@ -474,9 +474,17 @@ public class WeatherFragment
     private void animateTemperatureRange() {
         if (mLastReading == null) return;
 
-        final ValueAnimator animator = ValueAnimator.ofFloat(
-                mLastReading.getTemperature24hMin(),
-                mLastReading.getTemperature());
+        float endValue = mLastReading.getTemperature();
+        final float max = mRangeView.getMax();
+        final float min = mRangeView.getMin();
+        final float range = max - min;
+        final float padding = 0.1f;
+
+        final float upperBound = min + range * (1 - padding);
+        final float lowerBound = min + range * padding;
+        endValue = MathUtils.clamp(endValue, lowerBound, upperBound);
+
+        final ValueAnimator animator = ValueAnimator.ofFloat(min, endValue);
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
