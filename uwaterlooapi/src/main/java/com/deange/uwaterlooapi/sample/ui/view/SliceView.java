@@ -1,15 +1,12 @@
 package com.deange.uwaterlooapi.sample.ui.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Outline;
-import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Region;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -17,7 +14,6 @@ import android.view.ViewOutlineProvider;
 import android.widget.RelativeLayout;
 
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 public class SliceView extends RelativeLayout {
 
@@ -56,21 +52,14 @@ public class SliceView extends RelativeLayout {
                     getResources().getDisplayMetrics());
         }
 
-        if (!PlatformUtils.hasJellyBeanMR2()) {
-            setLayerType(LAYER_TYPE_SOFTWARE, null);
-        }
-
-        if (PlatformUtils.hasLollipop()) {
-            setOutlineProvider(new ViewOutlineProvider() {
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void getOutline(final View view, final Outline outline) {
-                    if (mPath.isConvex()) {
-                        outline.setConvexPath(mPath);
-                    }
+        setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(final View view, final Outline outline) {
+                if (mPath.isConvex()) {
+                    outline.setConvexPath(mPath);
                 }
-            });
-        }
+            }
+        });
 
         if (getBackground() == null) {
             setBackgroundColor(Color.TRANSPARENT);
@@ -98,8 +87,9 @@ public class SliceView extends RelativeLayout {
     }
 
     @Override
-    protected void onLayout(final boolean changed,
-                            final int l, final int t, final int r, final int b) {
+    protected void onLayout(
+            final boolean changed,
+            final int l, final int t, final int r, final int b) {
         super.onLayout(changed, l, t, r, b);
 
         mPath.reset();

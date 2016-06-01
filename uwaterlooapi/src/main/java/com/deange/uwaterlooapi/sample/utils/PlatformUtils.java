@@ -34,9 +34,13 @@ public final class PlatformUtils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
+    public static boolean hasMarshmallow() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
     public static void copyToClipboard(final Context context, final String text) {
-        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(context.getString(R.string.app_name), text);
+        final ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        final ClipData clip = ClipData.newPlainText(context.getString(R.string.app_name), text);
         clipboard.setPrimaryClip(clip);
 
         Toast.makeText(context, R.string.clipboard_copied, Toast.LENGTH_SHORT).show();

@@ -104,10 +104,8 @@ public class HomeFragment
 
         mCardsParent.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
-        if (PlatformUtils.hasLollipop()) {
-            mElevation = mToolbar.getElevation();
-            mToolbar.setElevation(0f);
-        }
+        mElevation = mToolbar.getElevation();
+        mToolbar.setElevation(0f);
 
         mAdapter = new SubjectAdapter(getActivity());
         mSubjectPicker.setAdapter(mAdapter);
@@ -131,9 +129,7 @@ public class HomeFragment
 
     @Override
     public void onDestroyView() {
-        if (PlatformUtils.hasLollipop()) {
-            mToolbar.setElevation(mElevation);
-        }
+        mToolbar.setElevation(mElevation);
 
         super.onDestroyView();
     }

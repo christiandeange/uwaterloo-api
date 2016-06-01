@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -33,7 +32,6 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.NetworkController;
-import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 
 import org.parceler.Parcels;
 
@@ -296,18 +294,13 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     private Animator getVisibilityAnimator(final View view, final boolean show) {
-        if (PlatformUtils.hasLollipop()) {
-            final int full = Math.max(view.getWidth(), view.getHeight());
-            final int startRadius = (show) ? 0 : full;
-            final int finalRadius = (show) ? full : 0;
-            final int centerX = (view.getLeft() + view.getRight()) / 2;
-            final int centerY = (view.getTop() + view.getBottom()) / 2;
+        final int full = Math.max(view.getWidth(), view.getHeight());
+        final int startRadius = (show) ? 0 : full;
+        final int finalRadius = (show) ? full : 0;
+        final int centerX = (view.getLeft() + view.getRight()) / 2;
+        final int centerY = (view.getTop() + view.getBottom()) / 2;
 
-            return ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, finalRadius);
-
-        } else {
-            return ObjectAnimator.ofFloat(view, View.ALPHA, view.getAlpha(), (show) ? 1 : 0);
-        }
+        return ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, finalRadius);
     }
 
     @Override

@@ -5,18 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.deange.uwaterlooapi.annotations.ModuleInfo;
 import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
-import com.deange.uwaterlooapi.sample.ui.view.ModuleListItem;
 
 public class ApiMethodsAdapter extends ArrayAdapter<String>
         implements View.OnClickListener {
 
-    final LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
     private final ModuleListItemListener mListener;
 
     public ApiMethodsAdapter(
@@ -30,16 +28,16 @@ public class ApiMethodsAdapter extends ArrayAdapter<String>
 
     @Override
     public View getView(final int position, final View convertView, final ViewGroup parent) {
-
         final String endpoint = getItem(position);
         final ModuleInfo info = ModuleMap.getFragmentInfo(endpoint);
 
+        if (info == null || !info.isBase || info.layout == 0) {
+            throw new RuntimeException(endpoint + " is not a base module!");
+        }
+
         final View view;
         if (convertView == null) {
-            final int layoutId = (info == null || !info.isBase || info.layout == 0)
-                    ? R.layout.list_item_string_adapter
-                    : info.layout;
-            view = mInflater.inflate(layoutId, parent, false);
+            view = mInflater.inflate(info.layout, parent, false);
         } else {
             view = convertView;
         }
@@ -50,12 +48,17 @@ public class ApiMethodsAdapter extends ArrayAdapter<String>
             selectable.setOnClickListener(this);
         }
 
-        // TODO Remove soon
-        if (!(view instanceof ModuleListItem)) {
-            ((TextView) view.findViewById(android.R.id.text1)).setText(endpoint);
-        }
-
         return view;
+    }
+
+    @Override
+    public int getItemViewType(final int position) {
+        return position;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getCount();
     }
 
     @Override

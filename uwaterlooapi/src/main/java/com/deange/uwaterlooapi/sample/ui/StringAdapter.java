@@ -13,8 +13,8 @@ import java.util.List;
 
 public class StringAdapter extends ArrayAdapter {
 
-    private int mViewId = R.layout.list_item_string_adapter;
-    private int mDropdownId = R.layout.list_item_string_adapter;
+    private int mViewId = android.R.layout.simple_list_item_1;
+    private int mDropdownId = android.R.layout.simple_list_item_1;
 
     public StringAdapter(final Context context, final List objects) {
         this(context, objects, 0);

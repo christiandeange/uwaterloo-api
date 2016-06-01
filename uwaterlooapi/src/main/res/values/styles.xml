@@ -1,7 +1,6 @@
 <resources>
 
     <style name="AppCommon" parent="Theme.AppCompat.Light">
-        <item name="android:activatedBackgroundIndicator">@drawable/uw_yellow_selector</item>
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowContentTransitions">true</item>

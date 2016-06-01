@@ -25,13 +25,15 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
-import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.deange.uwaterlooapi.utils.GsonController;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class MainActivity
@@ -43,21 +45,22 @@ public class MainActivity
     private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
     private static final String NAV_ITEM_ID = "nav_item_id";
 
-    private int mNavItemId;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private NavigationView mNavigationView;
-    private Toolbar mToolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.navigation) NavigationView mNavigationView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
     private int mClicks;
+    private int mNavItemId;
     private ModuleCategories mMenuStructure;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(mToolbar);
 
         new Thread(new Runnable() {
@@ -74,7 +77,6 @@ public class MainActivity
         }
 
         // listen for navigation events
-        mNavigationView = (NavigationView) findViewById(R.id.navigation);
         mNavigationView.getMenu().findItem(mNavItemId).setChecked(true);
         mNavigationView.setNavigationItemSelectedListener(this);
 
@@ -83,12 +85,10 @@ public class MainActivity
         final TextView subtitleView = (TextView) headerView.findViewById(R.id.navigation_header_subtitle);
         HeaderTitlePresenter.show(titleView, subtitleView);
 
-        if (PlatformUtils.hasLollipop()) {
-            headerView.findViewById(R.id.navigation_header_clickable).setOnClickListener(this);
-        }
+        // Can't use butterknife for this call, inflation happens in inflateHeaderView()
+        headerView.findViewById(R.id.navigation_header_clickable).setOnClickListener(this);
 
         // set up the hamburger icon to open and close the drawer
-        mDrawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, 0, 0);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);

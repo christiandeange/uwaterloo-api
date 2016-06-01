@@ -1,28 +1,23 @@
 package com.deange.uwaterlooapi.sample.ui;
 
 import android.content.Context;
+import android.util.SparseIntArray;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
 
 import org.joda.time.LocalTime;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 public final class HeaderTitlePresenter {
 
-    private static final Map<Integer, Integer> CAPTION_INDEX = new HashMap<>();
-    private static final Map<Integer, Integer> CAPTIONS;
+    private static final SparseIntArray CAPTION_INDEX = new SparseIntArray();
+    private static final SparseIntArray CAPTIONS = new SparseIntArray();
+
     static {
-        final Map<Integer, Integer> map = new HashMap<>();
-        map.put(R.string.greeting_morning, R.array.subgreetings_morning);
-        map.put(R.string.greeting_afternoon, R.array.subgreetings_afternoon);
-        map.put(R.string.greeting_evening, R.array.subgreetings_evening);
-        map.put(R.string.greeting_night, R.array.subgreetings_night);
-        CAPTIONS = Collections.unmodifiableMap(map);
+        CAPTIONS.put(R.string.greeting_morning, R.array.subgreetings_morning);
+        CAPTIONS.put(R.string.greeting_afternoon, R.array.subgreetings_afternoon);
+        CAPTIONS.put(R.string.greeting_evening, R.array.subgreetings_evening);
+        CAPTIONS.put(R.string.greeting_night, R.array.subgreetings_night);
     }
 
     private HeaderTitlePresenter() {
@@ -34,8 +29,7 @@ public final class HeaderTitlePresenter {
             final TextView subtitleView) {
         final Context context = titleView.getContext();
 
-        final LocalTime now = LocalTime.now();
-        final int hour = now.getHourOfDay();
+        final int hour = LocalTime.now().getHourOfDay();
 
         final int stringId;
         if (hour >= 6 && hour < 12) {
@@ -53,7 +47,7 @@ public final class HeaderTitlePresenter {
         final String[] subtitleArray = context.getResources().getStringArray(CAPTIONS.get(stringId));
 
         final int captionIndex;
-        if (CAPTION_INDEX.containsKey(stringId)) {
+        if (CAPTION_INDEX.indexOfKey(stringId) < 0) {
             captionIndex = CAPTION_INDEX.get(stringId);
         } else {
             captionIndex = (int) (Math.random() * subtitleArray.length);
