@@ -1,8 +1,9 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.model.foodservices.SpecialOperatingHours;
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
@@ -62,35 +62,33 @@ public class LocationAdapter
         final TextView titleView = (TextView) view.findViewById(R.id.list_location_title);
         final TextView locationView = (TextView) view.findViewById(R.id.list_location_building);
         final TextView timingView = (TextView) view.findViewById(R.id.list_location_timing_desc);
-        final View gradientView = view.findViewById(R.id.list_location_gradient);
+        final View iconView = view.findViewById(R.id.list_location_timing_icon);
 
         final String[] split = location.getName().split(" - ");
 
         titleView.setText(split[0]);
         ViewUtils.setText(locationView, (split.length == 2) ? split[1] : null);
 
+        final Resources r = context.getResources();
+        final Resources.Theme t = context.getTheme();
+        final int color;
+
         if (!location.isOpenNow()) {
+            color = ResourcesCompat.getColor(r, R.color.foodservices_location_closed, t);
+
             timingView.setText(R.string.foodservices_location_closed_now);
 
-            final int color = context.getResources().getColor(R.color.foodservices_location_closed);
-            gradientView.setVisibility(View.VISIBLE);
-            timingView.setBackgroundColor(color);
-            timingView.setTextColor(Color.WHITE);
-
-            final GradientDrawable background = (GradientDrawable) gradientView.getBackground();
-            background.setDither(true);
-            background.setColors(new int[]{ Colors.mask(0x00, color), Colors.mask(0xFF, color), });
-
         } else {
+            color = ResourcesCompat.getColor(r, R.color.foodservices_location_open, t);
+
             final LocalTime closing = getClosingTime(location);
             final String timeFormat = "h" + (closing.getMinuteOfHour() == 0 ? "" : ":mm") + " a";
-            timingView.setText(context.getString(
+            timingView.setText(r.getString(
                     R.string.foodservices_location_closes_at, closing.toString(timeFormat)));
-
-            gradientView.setVisibility(View.GONE);
-            timingView.setBackgroundColor(Color.TRANSPARENT);
-            timingView.setTextColor(context.getResources().getColor(R.color.foodservices_location_open));
         }
+
+        timingView.setTextColor(color);
+        iconView.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override
