@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="48dp"/>
 
     <ImageView
             android:id="@+id/weather_background"
@@ -67,15 +67,15 @@
                                 android:id="@+id/weather_temperature_bar"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@android:color/black"
-                                android:layout_centerVertical="true"/>
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/black"/>
 
                         <TextView
                                 android:id="@+id/weather_min_temp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
                                 android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginLeft="8dp"
                                 android:paddingTop="20sp"
                                 android:textSize="14sp"
@@ -85,8 +85,8 @@
                                 android:id="@+id/weather_max_temp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
                                 android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginRight="8dp"
                                 android:paddingBottom="20sp"
                                 android:textSize="14sp"
@@ -96,10 +96,10 @@
                                 android:id="@+id/weather_temperature_range"
                                 android:layout_width="match_parent"
                                 android:layout_height="32dp"
-                                android:layout_marginTop="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:layout_toRightOf="@id/weather_min_temp"
+                                android:layout_marginTop="4dp"
                                 android:layout_toLeftOf="@id/weather_max_temp"
+                                android:layout_toRightOf="@id/weather_min_temp"
                                 tools:ignore="RtlHardcoded"/>
 
                     </RelativeLayout>
@@ -133,7 +133,7 @@
                                     android:background="@android:color/white"
                                     android:paddingEnd="2dp"
                                     android:paddingStart="2dp"
-                                    android:text="N"
+                                    android:text="@string/weather_north_symbol"
                                     android:textColor="@android:color/black"
                                     android:textSize="10sp"
                                     tools:ignore="SmallSp"/>
@@ -145,8 +145,8 @@
                                 android:id="@+id/weather_wind_speed"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
                                 android:layout_centerVertical="true"
+                                android:layout_marginStart="16dp"
                                 android:layout_toEndOf="@id/weather_wind_direction_root"
                                 android:paddingTop="6sp"
                                 tools:text="8.4 kph NW"/>
@@ -194,10 +194,10 @@
                     <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="32dp"
-                            android:layout_marginStart="16dp"
+                            android:layout_marginBottom="16dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="16dp">
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="32dp">
 
                         <RelativeLayout
                                 android:id="@+id/weather_pressure_trend_container"
@@ -289,8 +289,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/weather_author_gradient"
-                        android:paddingBottom="48dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingBottom="48dp">
 
                     <TextView
                             android:id="@+id/weather_author_attribution"
@@ -305,10 +305,10 @@
                             android:id="@+id/weather_author_source_link"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="8dp"
                             android:background="?selectableItemBackgroundBorderless"
-                            android:src="@drawable/ic_action_open_in_browser"
-                            android:contentDescription="@string/open_in_browser"/>
+                            android:contentDescription="@string/open_in_browser"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_action_open_in_browser"/>
 
                 </LinearLayout>
 

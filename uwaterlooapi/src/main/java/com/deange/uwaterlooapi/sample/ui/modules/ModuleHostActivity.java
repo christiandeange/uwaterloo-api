@@ -33,6 +33,7 @@ public class ModuleHostActivity
 
     private final UWaterlooApi mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
     private BaseModuleFragment mChildFragment;
+    private Toolbar mToolbar;
 
     public static <T extends BaseModuleFragment> Intent getStartIntent(final Context context,
                                                                        final Class<T> fragment) {
@@ -66,7 +67,9 @@ public class ModuleHostActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_module_host_simple);
-        setSupportActionBar(getToolbar());
+
+        mToolbar = getToolbar();
+        setSupportActionBar(mToolbar);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
 
         mChildFragment = findContentFragment();
@@ -84,7 +87,7 @@ public class ModuleHostActivity
     }
 
     public Toolbar getToolbar() {
-        return (Toolbar) findViewById(R.id.toolbar);
+        return (Toolbar) findViewById(R.id.host_toolbar);
     }
 
     private BaseModuleFragment findContentFragment() {
@@ -112,6 +115,7 @@ public class ModuleHostActivity
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(mChildFragment.getToolbarTitle());
+        actionBar.setElevation(mChildFragment.getToolbarElevationPx());
 
         FontUtils.apply(getToolbar(), FontUtils.DEFAULT);
     }

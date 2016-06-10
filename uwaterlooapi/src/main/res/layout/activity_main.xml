@@ -21,10 +21,8 @@
                 android:orientation="vertical">
 
             <android.support.v7.widget.Toolbar
-                    style="@style/ToolbarStyle.Toolbar"
-                    android:id="@+id/toolbar"
-                    android:elevation="8dp"
-                    android:theme="@style/ToolbarStyle"/>
+                    style="@style/ToolbarStyle"
+                    android:elevation="8dp"/>
 
             <FrameLayout
                     android:id="@+id/container"

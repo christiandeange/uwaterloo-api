@@ -43,6 +43,11 @@ public class BuildingFragment
     }
 
     @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
+    @Override
     public Building onLoadData() {
         return getModel();
     }

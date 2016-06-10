@@ -82,6 +82,11 @@ public class NewsFragment
         return root;
     }
 
+    @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
     @OnClick(R.id.news_open_in_browser)
     public void onOpenInBrowserClicked() {
         IntentUtils.openBrowser(getActivity(), mNewsArticle.getLink());

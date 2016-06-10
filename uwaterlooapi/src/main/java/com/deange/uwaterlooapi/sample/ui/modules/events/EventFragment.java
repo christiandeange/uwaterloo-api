@@ -93,6 +93,11 @@ public class EventFragment
         return mRoot;
     }
 
+    @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
     @OnClick(R.id.event_open_in_browser)
     public void onOpenInBrowserClicked() {
         IntentUtils.openBrowser(getActivity(), mEventInfo.getLink());
@@ -109,8 +114,15 @@ public class EventFragment
     public void onBindData(final Metadata metadata, final EventInfo data) {
         mEventInfo = data;
 
-        mTitleView.setText(Html.fromHtml(mEventInfo.getTitle()).toString());
-        mDescriptionView.setText(Html.fromHtml(mEventInfo.getDescription()).toString());
+        final String title = mEventInfo.getTitle();
+        if (!TextUtils.isEmpty(title)) {
+            mTitleView.setText(Html.fromHtml(title).toString());
+        }
+
+        final String description = mEventInfo.getDescription();
+        if (!TextUtils.isEmpty(description)) {
+            mDescriptionView.setText(Html.fromHtml(description).toString());
+        }
 
         final String audience = !mEventInfo.getAudience().isEmpty()
                 ? getString(R.string.event_news_audience, Joiner.on(", ").join(data.getAudience()))

@@ -47,7 +47,7 @@ public class LocationFragment
         implements
         OnMapReadyCallback {
 
-    @BindView(R.id.list_location_toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.list_location_collapsing_toolbar) CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.list_location_description) TextView mDescriptionView;
     @BindView(R.id.list_location_open_now) TextView mOpenNowView;
@@ -92,8 +92,9 @@ public class LocationFragment
     public void onBindData(final Metadata metadata, final Location location) {
         mToolbarLayout.setTitle(getLocationTitle());
 
-        if (!TextUtils.isEmpty(location.getDescription())) {
-            mDescriptionView.setText(Html.fromHtml(location.getDescription()));
+        final String description = location.getDescription();
+        if (!TextUtils.isEmpty(description)) {
+            mDescriptionView.setText(Html.fromHtml(description));
         }
 
         final Resources res = getResources();

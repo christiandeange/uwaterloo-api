@@ -68,6 +68,11 @@ public class MenusFragment
     }
 
     @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
+    @Override
     public String getContentType() {
         return ModuleType.MENUS;
     }

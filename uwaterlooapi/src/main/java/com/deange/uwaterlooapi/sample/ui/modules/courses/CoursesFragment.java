@@ -93,6 +93,11 @@ public class CoursesFragment
     }
 
     @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return new CourseAdapter(getActivity(), this);
     }

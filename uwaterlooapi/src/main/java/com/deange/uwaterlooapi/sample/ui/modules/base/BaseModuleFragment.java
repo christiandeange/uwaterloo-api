@@ -32,6 +32,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.NetworkController;
+import com.deange.uwaterlooapi.sample.utils.Px;
 
 import org.parceler.Parcels;
 
@@ -419,6 +420,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         return null;
     }
 
+    public float getToolbarElevationPx() {
+        // Overriden by subclasses
+        return Px.fromDpF(8);
+    }
+
     public Call<T> onLoadData(final UWaterlooApi api) {
         // Overriden by subclasses
         return null;
@@ -447,7 +453,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
             try {
                 if (NetworkController.getInstance().isConnected()) {
-                    return Calls.unwrap(onLoadData(apis[0]));
+                    final Call<T> call = onLoadData(apis[0]);
+                    if (call != null) {
+                        return Calls.unwrap(call);
+                    }
                 } else {
                     Thread.sleep(MINIMUM_UPDATE_DURATION);
                 }

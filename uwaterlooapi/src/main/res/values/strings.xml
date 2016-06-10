@@ -14,6 +14,7 @@
     <string name="api_maps">Maps</string>
 
     <string name="weather_last_updated">Last updated at %1$s %2$s</string>
+    <string name="weather_north_symbol">N</string>
     <string name="weather_wind">%1$s kph %2$s</string>
     <string name="weather_precipitation">%1$.1f mm</string>
     <string name="weather_precipitation_none">No precipitation</string>

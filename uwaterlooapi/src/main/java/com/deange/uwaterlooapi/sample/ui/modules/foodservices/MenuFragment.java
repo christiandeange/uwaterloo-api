@@ -51,6 +51,11 @@ public class MenuFragment
     }
 
     @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
+    @Override
     public Outlet onLoadData() {
         return getModel();
     }

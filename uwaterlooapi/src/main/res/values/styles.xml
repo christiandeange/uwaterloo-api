@@ -82,14 +82,17 @@
 
     <style name="CardViewStyle" parent="@style/CardView.Light"/>
 
-    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:textColorSecondary">@android:color/black</item>
-    </style>
-
-    <style name="ToolbarStyle.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:id">@id/toolbar</item>
+        <item name="android:theme">@style/ToolbarTheme</item>
         <item name="android:layout_height">?actionBarSize</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">?colorPrimary</item>
+        <item name="layout_collapseMode">pin</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorSecondary">@android:color/black</item>
     </style>
 
     <style name="OperatingHoursLayout">

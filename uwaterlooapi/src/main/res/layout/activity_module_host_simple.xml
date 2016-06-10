@@ -7,9 +7,8 @@
         android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-            style="@style/ToolbarStyle.Toolbar"
-            android:id="@+id/toolbar"
-            android:theme="@style/ToolbarStyle"/>
+            style="@style/ToolbarStyle"
+            android:id="@+id/host_toolbar"/>
 
     <FrameLayout
             android:id="@+id/content"

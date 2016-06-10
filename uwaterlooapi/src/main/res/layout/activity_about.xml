@@ -21,10 +21,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <android.support.v7.widget.Toolbar
-                    style="@style/ToolbarStyle.Toolbar"
-                    android:id="@+id/toolbar"
-                    android:theme="@style/ToolbarStyle"
-                    app:layout_collapseMode="pin"/>
+                    style="@style/ToolbarStyle"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

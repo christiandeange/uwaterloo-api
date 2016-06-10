@@ -6,12 +6,14 @@ import android.support.v4.app.FragmentManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.datepicker.DatePickerDialog;
+import com.deange.uwaterlooapi.sample.utils.Px;
 
 import org.joda.time.LocalDate;
 
@@ -42,6 +44,11 @@ public class DateSelectorView
 
     private void init() {
         inflate(getContext(), R.layout.date_picker_view, this);
+
+        final TypedValue value = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
+        setBackgroundColor(value.data);
+        setElevation(Px.fromDpF(8));
 
         mPickerButton = (TextView) findViewById(R.id.date_picker_view);
         mPickerButton.setOnClickListener(this);

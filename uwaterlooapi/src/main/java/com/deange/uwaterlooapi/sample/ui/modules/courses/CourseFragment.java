@@ -92,6 +92,11 @@ public class CourseFragment
     }
 
     @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
+    @Override
     public Call<CombinedCourseInfoResponse> onLoadData(final UWaterlooApi api) {
 
         final Pair<String, String> courseSubject = getCourseSubject();
