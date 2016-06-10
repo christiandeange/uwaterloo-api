@@ -29,7 +29,7 @@
         <attr name="android:entries"/>
     </declare-styleable>
 
-    <declare-styleable name="ModuleListItem">
+    <declare-styleable name="ModuleListItemView">
         <attr name="moduleTitle" format="string"/>
         <attr name="moduleDescription" format="string"/>
         <attr name="moduleIcon" format="reference"/>

@@ -24,7 +24,7 @@
                     android:layout_height="32dp"
                     android:layout_marginEnd="16dp"
                     android:importantForAccessibility="no"
-                    tools:background="@android:color/black"/>
+                    tools:background="@drawable/ic_layers"/>
 
             <LinearLayout
                     android:layout_width="0dp"

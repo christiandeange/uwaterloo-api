@@ -78,7 +78,7 @@
                 <CheckedTextView
                         style="@style/LayerLabel"
                         android:id="@+id/poi_layers_helplines_label"
-                        android:drawableStart="@drawable/ic_alert"
+                        android:drawableStart="@drawable/ic_poi_alert"
                         android:text="@string/poi_layers_helplines"/>
 
                 <CheckBox

@@ -344,7 +344,7 @@ public class PointsOfInterestFragment
             return R.drawable.ic_poi_photosphere;
 
         } else if (poi instanceof Helpline) {
-            return R.drawable.ic_alert;
+            return R.drawable.ic_poi_alert;
 
         } else if (poi instanceof Library) {
             return R.drawable.ic_poi_library_badge;

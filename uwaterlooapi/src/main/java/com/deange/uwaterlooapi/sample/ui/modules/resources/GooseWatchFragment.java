@@ -101,7 +101,7 @@ public class GooseWatchFragment
         for (final GooseNest nest : mResponse) {
             map.addMarker(
                     new MarkerOptions().position(getLatLng(nest))
-                                       .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_alert))
+                                       .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_poi_alert))
                                        .title(nest.getLocationDescription())
                                        .snippet(getString(
                                                R.string.goosewatch_last_updated,
