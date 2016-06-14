@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -32,7 +34,7 @@ public class ListBuildingsFragment
         implements
         View.OnClickListener {
 
-    private List<Building> mResponse;
+    private final List<Building> mResponse = new ArrayList<>();
     private String[] mIndices;
 
     @Override
@@ -47,7 +49,15 @@ public class ListBuildingsFragment
 
     @Override
     public void onBindData(final Metadata metadata, final List<Building> data) {
-        mResponse = data;
+        mResponse.clear();
+        for (final Building building : data) {
+            // Unfortunately many buildings do not have location data
+            // We need to filter those ones out
+            if (building.hasLocation()) {
+                mResponse.add(building);
+            }
+        }
+
         Collections.sort(mResponse, new Comparator<Building>() {
             @Override
             public int compare(final Building lhs, final Building rhs) {
@@ -93,7 +103,7 @@ public class ListBuildingsFragment
 
         @Override
         public int getListItemLayoutId() {
-            return R.layout.list_item_condensed;
+            return R.layout.list_item_building;
         }
 
         @Override
@@ -102,8 +112,8 @@ public class ListBuildingsFragment
             view.setTag(position);
             view.setOnClickListener(ListBuildingsFragment.this);
 
-            final TextView header = (TextView) view.findViewById(R.id.header_view);
-            final TextView buildingName = (TextView) view.findViewById(android.R.id.text1);
+            final TextView header = (TextView) view.findViewById(R.id.building_abbreviation);
+            final TextView buildingName = (TextView) view.findViewById(R.id.building_name);
 
             final String firstLetter = getFirstCharOf(position);
             if (position == 0 || !firstLetter.equals(getFirstCharOf(position - 1))) {
@@ -120,9 +130,10 @@ public class ListBuildingsFragment
             return mResponse == null ? 0 : mResponse.size();
         }
 
+        @NonNull
         @Override
         public Building getItem(final int position) {
-            return mResponse == null ? null : mResponse.get(position);
+            return mResponse.get(position);
         }
 
         @Override

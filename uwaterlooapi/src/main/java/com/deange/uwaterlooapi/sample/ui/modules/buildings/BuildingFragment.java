@@ -27,7 +27,6 @@ public class BuildingFragment
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
 
-    private ViewGroup mRoot;
     @BindView(R.id.building_empty_view) View mEmptyView;
     @BindView(R.id.building_name) TextView mNameView;
 
@@ -35,11 +34,11 @@ public class BuildingFragment
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
-        mRoot = (ViewGroup) inflater.inflate(R.layout.fragment_building, parent, false);
+        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_building, parent, false);
 
-        ButterKnife.bind(this, mRoot);
+        ButterKnife.bind(this, root);
 
-        return mRoot;
+        return root;
     }
 
     @Override

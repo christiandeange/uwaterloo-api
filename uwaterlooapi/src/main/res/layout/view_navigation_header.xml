@@ -2,37 +2,30 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigation_header_clickable"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/uw_yellow"
+        android:background="?colorPrimary"
+        android:clickable="true"
+        android:foreground="?selectableItemBackground"
+        android:gravity="bottom"
         android:orientation="vertical"
+        android:padding="16dp"
         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
-    <LinearLayout
-            android:id="@+id/navigation_header_clickable"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            android:gravity="bottom"
-            android:clickable="true"
-            android:background="?selectableItemBackground"
-            android:orientation="vertical">
+    <TextView
+            style="@style/TextAppearance.UWaterloo.Title"
+            android:id="@+id/navigation_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            tools:text="Good morning!"/>
 
-        <TextView
-                style="@style/TextAppearance.UWaterloo.Title"
-                android:id="@+id/navigation_header_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                tools:text="Good morning!"/>
-
-        <TextView
-                style="@style/TextAppearance.UWaterloo.Subhead"
-                android:id="@+id/navigation_header_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="You're looking nice today."/>
-
-    </LinearLayout>
+    <TextView
+            style="@style/TextAppearance.UWaterloo.Subhead"
+            android:id="@+id/navigation_header_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="You're looking nice today."/>
 
 </LinearLayout>

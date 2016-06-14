@@ -65,7 +65,6 @@ public class LocationAdapter
         final View iconView = view.findViewById(R.id.list_location_timing_icon);
 
         final String[] split = location.getName().split(" - ");
-
         titleView.setText(split[0]);
         ViewUtils.setText(locationView, (split.length == 2) ? split[1] : null);
 

@@ -73,4 +73,11 @@ public class Building extends BaseModel {
     public List<BuildingSection> getBuildingSections() {
         return CollectionUtils.applyPolicy(mBuildingSections);
     }
+
+    /**
+     * Check to see if building coordinates are provided
+     */
+    public boolean hasLocation() {
+        return mLatitude != 0 && mLongitude != 0;
+    }
 }

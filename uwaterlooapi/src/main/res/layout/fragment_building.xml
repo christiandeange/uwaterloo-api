@@ -1,22 +1,21 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".ui.modules.buildings.BuildingFragment">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
+            style="@style/TextAppearance.UWaterloo.Headline"
             android:id="@+id/building_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorPrimary"
-            android:fontFamily="sans-serif-light"
+            android:elevation="8dp"
             android:gravity="end"
             android:paddingBottom="32dp"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:textSize="24sp"/>
+            fontPath="@string/font_light"/>
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -27,8 +26,8 @@
                 android:id="@+id/building_empty_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:layout_centerInParent="true"
+                android:layout_margin="16dp"
                 android:text="@string/building_no_location_data"/>
 
         <com.google.android.gms.maps.MapView

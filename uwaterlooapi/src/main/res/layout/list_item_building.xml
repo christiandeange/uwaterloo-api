@@ -6,7 +6,7 @@
         android:background="?selectableItemBackground">
 
     <TextView
-            android:id="@+id/header_view"
+            android:id="@+id/building_abbreviation"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -15,10 +15,10 @@
             android:textStyle="bold"/>
 
     <TextView
-            android:id="@android:id/text1"
+            android:id="@+id/building_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/header_view"
+            android:layout_toEndOf="@id/building_abbreviation"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
