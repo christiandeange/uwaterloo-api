@@ -27,7 +27,7 @@ public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseMode
         final View view = getView();
         if (view != null) {
             mMapView = (MapView) getView().findViewById(getMapViewId());
-            mMapView.onCreate(savedInstanceState);
+            mMapView.onCreate(null);
             mMapView.getMapAsync(this);
         }
     }

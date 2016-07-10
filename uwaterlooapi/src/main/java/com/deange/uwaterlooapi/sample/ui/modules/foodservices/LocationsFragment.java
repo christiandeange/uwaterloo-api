@@ -71,6 +71,11 @@ public class LocationsFragment
     }
 
     @Override
+    public float getToolbarElevationPx() {
+        return 0;
+    }
+
+    @Override
     public ModuleAdapter getAdapter() {
         return mAdapter;
     }

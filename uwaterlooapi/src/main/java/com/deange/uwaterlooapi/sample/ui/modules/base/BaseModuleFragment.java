@@ -352,6 +352,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         Toast.makeText(getActivity(), "Received no data", Toast.LENGTH_SHORT).show();
     }
 
+    protected void onNoDataReturned() {
+        Toast.makeText(getActivity(), "Site may be down, please check back later.", Toast.LENGTH_LONG).show();
+    }
+
     private void resolveNetworkLayoutVisibility() {
         final boolean connected = NetworkController.getInstance().isConnected();
 
@@ -384,11 +388,17 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         if (response == null || response.getData() == null) {
             onNullResponseReceived();
 
-        } else if (response instanceof SimpleListResponse) {
-            onBindData(response.getMetadata(), (List<V>) response.getData());
-
         } else {
-            onBindData(response.getMetadata(), (V) response.getData());
+            final Metadata metadata = response.getMetadata();
+            if (metadata != null && metadata.getStatus() == 204) {
+                onNoDataReturned();
+
+            } else if (response instanceof SimpleListResponse) {
+                onBindData(metadata, (List<V>) response.getData());
+
+            } else {
+                onBindData(metadata, (V) response.getData());
+            }
         }
 
         if (getActivity() != null) {
@@ -469,6 +479,10 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         @Override
         protected void onPostExecute(final T data) {
+            if (getActivity() == null) {
+                return;
+            }
+
             // Performed on the main thread, so view manipulation is performed here
             mLastResponse = data;
             onLoadFinished();

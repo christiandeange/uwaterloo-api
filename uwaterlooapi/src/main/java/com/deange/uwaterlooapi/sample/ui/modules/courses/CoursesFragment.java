@@ -122,34 +122,32 @@ public class CoursesFragment
     }
 
     @Override
+    protected void onNoDataReturned() {
+        final String courseSubject = mCoursePicker.getText().toString();
+        final String text = getString(R.string.course_no_info_available, courseSubject);
+        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onBindData(final Metadata metadata, final List<Course> data) {
         mResponse.clear();
         mResponse.addAll(data);
 
-        if (metadata.getStatus() == 204) {
-            if (getActivity() != null) {
-                final String courseSubject = mCoursePicker.getText().toString();
-                final String text = getString(R.string.course_no_info_available, courseSubject);
-                Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+        Collections.sort(mResponse, new Comparator<Course>() {
+            @Override
+            public int compare(final Course lhs, final Course rhs) {
+                final String firstStr = lhs.getCatalogNumber();
+                final String secondStr = rhs.getCatalogNumber();
+                final int first = extractNumbers(lhs.getCatalogNumber());
+                final int second = extractNumbers(rhs.getCatalogNumber());
+
+                final int catalogNumberComp = Double.compare(first, second);
+                return (catalogNumberComp != 0) ? catalogNumberComp : firstStr.compareTo(secondStr);
             }
+        });
 
-        } else {
-            Collections.sort(mResponse, new Comparator<Course>() {
-                @Override
-                public int compare(final Course lhs, final Course rhs) {
-                    final String firstStr = lhs.getCatalogNumber();
-                    final String secondStr = rhs.getCatalogNumber();
-                    final int first = extractNumbers(lhs.getCatalogNumber());
-                    final int second = extractNumbers(rhs.getCatalogNumber());
-
-                    final int catalogNumberComp = Double.compare(first, second);
-                    return (catalogNumberComp != 0) ? catalogNumberComp : firstStr.compareTo(secondStr);
-                }
-            });
-
-            mCoursePicker.clearFocus();
-            ViewUtils.hideKeyboard(getActivity());
-        }
+        mCoursePicker.clearFocus();
+        ViewUtils.hideKeyboard(getActivity());
 
         getListView().setFastScrollEnabled(true);
         getListView().setFastScrollAlwaysVisible(true);

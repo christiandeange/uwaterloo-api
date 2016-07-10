@@ -64,6 +64,7 @@
     <string name="nearby_locations_none">Nothing open near you</string>
     <string name="nearby_locations_waiting">Waiting…</string>
     <string name="nearby_locations_permission">Click here to grant permission to locate nearby food spots!</string>
+    <string name="nearby_locations_error_availability">Location is not available.</string>
 
     <string name="foodservices_announcements_none">No Announcements :(</string>
     <string name="foodservices_location_hours">Hours</string>

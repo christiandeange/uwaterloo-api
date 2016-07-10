@@ -32,6 +32,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,6 +57,9 @@ public class NearbyLocationsFragment
         GoogleApiClient.OnConnectionFailedListener,
         NetworkController.OnNetworkChangedListener {
 
+    private static final String KEY_ALL_LOCATIONS = "all_locations";
+    private static final String KEY_MY_LOCATION = "my_location";
+
     private static final long ERROR_ANIMATION_DURATION = 1000L;
     private static final int LOCATION_AMOUNT = 3;
     private static final LocationRequest LOCATION_REQUEST =
@@ -76,7 +81,7 @@ public class NearbyLocationsFragment
         public void run() {
             new LocationTask(mApiClient).execute();
 
-            // Repeat again in a minute
+            // Repeat again after a small delay
             mHandler.postDelayed(this, TimeUnit.SECONDS.toMillis(10));
         }
     };
@@ -92,6 +97,16 @@ public class NearbyLocationsFragment
                 .build();
 
         mApiClient.connect(GoogleApiClient.SIGN_IN_MODE_OPTIONAL);
+    }
+
+    @Override
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            mAllLocations = Parcels.unwrap(savedInstanceState.getParcelable(KEY_ALL_LOCATIONS));
+            mCurrentLocation = savedInstanceState.getParcelable(KEY_MY_LOCATION);
+        }
     }
 
     @Nullable
@@ -133,6 +148,14 @@ public class NearbyLocationsFragment
     }
 
     @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(KEY_ALL_LOCATIONS, Parcels.wrap(mAllLocations));
+        outState.putParcelable(KEY_MY_LOCATION, mCurrentLocation);
+    }
+
+    @Override
     public void onDestroyView() {
         NetworkController.getInstance().unregisterListener(this);
 
@@ -162,13 +185,13 @@ public class NearbyLocationsFragment
     }
 
     @NonNull
-    private List<Location> getClosest(final int takeCount, final android.location.Location currentLocation) {
-        if (mAllLocations == null || mAllLocations.isEmpty() || takeCount <= 0 || currentLocation == null) {
+    private List<Location> getClosest(final int takeCount) {
+        if (mAllLocations == null || mAllLocations.isEmpty() || takeCount <= 0 || mCurrentLocation == null) {
             return new ArrayList<>();
         }
 
-        final float latitude = (float) currentLocation.getLatitude();
-        final float longitude = (float) currentLocation.getLongitude();
+        final float latitude = (float) mCurrentLocation.getLatitude();
+        final float longitude = (float) mCurrentLocation.getLongitude();
 
         final List<Location> locations = new ArrayList<>();
         for (final Location location : mAllLocations) {
@@ -249,7 +272,7 @@ public class NearbyLocationsFragment
     }
 
     private void updateAdapter() {
-        final List<Location> closestLocations = getClosest(LOCATION_AMOUNT, mCurrentLocation);
+        final List<Location> closestLocations = getClosest(LOCATION_AMOUNT);
         mAdapter.updateLocations(closestLocations);
         mAdapter.updateCurrentLocation(mCurrentLocation);
 
@@ -273,6 +296,10 @@ public class NearbyLocationsFragment
     @Override
     public void onConnected(@Nullable final Bundle bundle) {
         startLocationUpdates();
+
+        if (mCurrentLocation != null && mAllLocations != null) {
+            updateAdapter();
+        }
     }
 
     @Override
@@ -343,6 +370,7 @@ public class NearbyLocationsFragment
                     onLocationChanged(mLocation);
                 }
 
+                showError(R.string.nearby_locations_error_availability, mLocation == null);
                 showError(R.string.error_no_network, !success);
             }
         }

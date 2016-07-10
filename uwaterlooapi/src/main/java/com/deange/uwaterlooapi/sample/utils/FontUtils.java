@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.support.annotation.IntDef;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -32,17 +33,14 @@ public final class FontUtils {
     public static final int DEFAULT = BOOK;
 
     private static AssetManager sAssets;
-    private static final Map<Integer, String> FONTS = new HashMap<>();
+    private static final SparseArray<String> FONTS = new SparseArray<>();
 
     private FontUtils() {
         throw new AssertionError();
     }
 
     public static void init(final Context context) {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Gotham-Book.otf")
-                .setFontAttrId(R.attr.fontPath)
-                .build());
+        sAssets = context.getResources().getAssets();
 
         FONTS.put(LIGHT, context.getString(R.string.font_light));
         FONTS.put(LIGHT_ITALIC, context.getString(R.string.font_light_italic));
@@ -54,7 +52,10 @@ public final class FontUtils {
         FONTS.put(BOLD_ITALIC, context.getString(R.string.font_bold_italic));
         FONTS.put(FANCY, context.getString(R.string.font_fancy));
 
-        sAssets = context.getResources().getAssets();
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(FONTS.get(DEFAULT))
+                .setFontAttrId(R.attr.fontPath)
+                .build());
     }
 
     public static void apply(final View view, final @Font int type) {

@@ -151,22 +151,20 @@ public class CourseFragment
     }
 
     @Override
+    protected void onNoDataReturned() {
+        final Pair<String, String> pair = getCourseSubject();
+        final String courseSubject = pair.first + " " + pair.second;
+        final String text = getString(R.string.course_no_info_available, courseSubject);
+        Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+
+        getActivity().finish();
+    }
+
+    @Override
     public void onBindData(final Metadata metadata, final CombinedCourseInfo data) {
-
-        if (data.getMetadata().getStatus() == 204) {
-            if (getActivity() != null) {
-                final Pair<String, String> pair = getCourseSubject();
-                final String courseSubject = pair.first + " " + pair.second;
-                final String text = getString(R.string.course_no_info_available, courseSubject);
-                Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-
-                getActivity().finish();
-            }
-            return;
-        }
-
         mCourseData = data;
         mAdapter = new CourseInfoAdapter(getActivity(), data);
+
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
