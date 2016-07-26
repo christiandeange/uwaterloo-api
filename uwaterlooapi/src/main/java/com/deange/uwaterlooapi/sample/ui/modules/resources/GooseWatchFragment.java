@@ -158,6 +158,9 @@ public class GooseWatchFragment
                     if (mInfoRoot != null) {
                         mInfoRoot.setVisibility(View.GONE);
                     }
+                    if (getHostActivity() != null) {
+                        getHostActivity().getToolbar().setElevation(getToolbarElevationPx());
+                    }
                 }
             });
             mInfoRoot.startAnimation(animOut);
@@ -183,9 +186,11 @@ public class GooseWatchFragment
         mMapView.getMap().animateCamera(CameraUpdateFactory.newLatLng(getLatLng(nest)));
 
         if (mInfoRoot.getVisibility() == View.GONE) {
-            final Animation bottomUp = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
-            mInfoRoot.startAnimation(bottomUp);
+            final Animation animIn = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
+            mInfoRoot.startAnimation(animIn);
             mInfoRoot.setVisibility(View.VISIBLE);
+
+            getHostActivity().getToolbar().setElevation(0);
         }
 
         String title = nest.getLocationDescription();

@@ -30,6 +30,8 @@ if (!propertiesFile.exists()) {
 }
 properties.load(new FileInputStream(propertiesFile))
 
+List<String> manifestProperties = [ 'FABRIC_API_KEY' ]
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -49,7 +51,9 @@ android {
                 buildConfigField 'String', it.key, '"' + it.value + '"'
             }
 
-            manifestPlaceholders = [ fabric_api_key: properties.getProperty('FABRIC_API_KEY') ]
+            manifestPlaceholders = manifestProperties.collectEntries {
+                [ (it.toLowerCase()): properties.getProperty(it) ]
+            }
         }
 
         debug {

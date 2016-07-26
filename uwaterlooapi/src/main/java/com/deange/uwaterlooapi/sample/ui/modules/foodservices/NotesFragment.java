@@ -84,6 +84,11 @@ public class NotesFragment
     }
 
     @Override
+    protected void onNoDataReturned() {
+        mEmptyView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onBindData(final Metadata metadata, final List<Note> data) {
         mResponse.clear();
         mResponse.addAll(data);

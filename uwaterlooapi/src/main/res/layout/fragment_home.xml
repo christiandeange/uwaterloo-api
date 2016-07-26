@@ -38,14 +38,15 @@
                     android:text="@string/app_title_1"
                     android:textColor="?android:textColorPrimary"/>
 
-            <com.deange.uwaterlooapi.sample.ui.view.LoopView
-                    android:layout_width="33sp"
+            <!-- Gross hardcoded dimensions... -->
+            <com.deange.uwaterlooapi.sample.ui.view.InfiniteLoopView
+                    android:layout_width="31sp"
                     android:layout_height="18sp"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="5dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginStart="2dp"
-                    app:strokeWidth="2.5sp"/>
+                    app:progressStrokeWidth="2.5sp"/>
 
             <TextView
                     style="@style/TextAppearance.UWaterloo.Display1"

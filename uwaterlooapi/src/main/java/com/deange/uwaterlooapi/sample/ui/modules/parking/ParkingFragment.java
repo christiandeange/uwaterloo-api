@@ -151,7 +151,6 @@ public class ParkingFragment
 
         mSelected = null;
         for (final ParkingLot parkingLot : mResponse) {
-            final GoogleMap map = mMapView.getMap();
             final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
             if (!found && ParkingLots.isInPoly(px, py, points)) {
                 mSelected = parkingLot;
@@ -185,6 +184,9 @@ public class ParkingFragment
                     if (mInfoRoot != null) {
                         mInfoRoot.setVisibility(View.GONE);
                     }
+                    if (getHostActivity() != null) {
+                        getHostActivity().getToolbar().setElevation(getToolbarElevationPx());
+                    }
                 }
             });
             mInfoRoot.startAnimation(animOut);
@@ -206,6 +208,8 @@ public class ParkingFragment
             final Animation animIn = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
             mInfoRoot.startAnimation(animIn);
             mInfoRoot.setVisibility(View.VISIBLE);
+
+            getHostActivity().getToolbar().setElevation(0);
         }
 
         final String lotName = getString(

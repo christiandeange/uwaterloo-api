@@ -353,7 +353,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     protected void onNoDataReturned() {
-        Toast.makeText(getActivity(), "Site may be down, please check back later.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Received no data", Toast.LENGTH_LONG).show();
     }
 
     private void resolveNetworkLayoutVisibility() {

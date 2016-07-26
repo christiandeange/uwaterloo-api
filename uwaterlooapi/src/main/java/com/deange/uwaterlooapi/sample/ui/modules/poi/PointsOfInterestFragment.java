@@ -279,6 +279,9 @@ public class PointsOfInterestFragment
                     if (mInfoRoot != null) {
                         mInfoRoot.setVisibility(View.GONE);
                     }
+                    if (getHostActivity() != null) {
+                        getHostActivity().getToolbar().setElevation(getToolbarElevationPx());
+                    }
                 }
             });
             mInfoRoot.startAnimation(animOut);
@@ -290,6 +293,8 @@ public class PointsOfInterestFragment
             final Animation animIn = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
             mInfoRoot.startAnimation(animIn);
             mInfoRoot.setVisibility(View.VISIBLE);
+
+            getHostActivity().getToolbar().setElevation(0);
         }
 
         final String title = poi.getName();
