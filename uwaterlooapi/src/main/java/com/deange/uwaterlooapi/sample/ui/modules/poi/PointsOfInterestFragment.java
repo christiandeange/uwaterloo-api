@@ -358,7 +358,7 @@ public class PointsOfInterestFragment
             return R.drawable.ic_poi_defibrillator;
 
         } else {
-            return R.drawable.ic_about;
+            return R.drawable.ic_exclamation;
         }
     }
 
