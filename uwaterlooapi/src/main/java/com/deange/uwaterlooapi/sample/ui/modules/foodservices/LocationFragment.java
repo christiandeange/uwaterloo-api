@@ -33,7 +33,9 @@ import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Date;
 import java.util.List;
@@ -189,6 +191,11 @@ public class LocationFragment
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
         map.getUiSettings().setAllGesturesEnabled(false);
+        map.getUiSettings().setMapToolbarEnabled(false);
+
+        map.addMarker(
+                new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                                   .position(latLng));
     }
 
     private void openLocationInMaps() {
