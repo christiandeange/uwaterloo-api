@@ -57,9 +57,7 @@ public class BuildingFragment
 
         mNameView.setText(data.getBuildingName());
 
-        if (mMapView.getMap() != null) {
-            showLocation();
-        }
+        mMapView.getMapAsync(this::showLocation);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class BuildingFragment
         return ModuleType.BUILDING;
     }
 
-    private void showLocation() {
+    private void showLocation(final GoogleMap map) {
         if (mBuilding == null) {
             return;
         }
@@ -83,7 +81,6 @@ public class BuildingFragment
             mEmptyView.setVisibility(View.GONE);
 
             final LatLng buildingLocation = new LatLng(location[0], location[1]);
-            final GoogleMap map = mMapView.getMap();
 
             map.clear();
             map.setIndoorEnabled(false);
@@ -98,11 +95,6 @@ public class BuildingFragment
     @Override
     public int getMapViewId() {
         return R.id.building_map;
-    }
-
-    @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        showLocation();
     }
 
     @Override

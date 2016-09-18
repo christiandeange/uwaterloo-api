@@ -72,9 +72,7 @@ public class GooseWatchFragment
     public void onBindData(final Metadata metadata, final List<GooseNest> data) {
         mResponse = data;
 
-        if (mMapView.getMap() != null) {
-            showNests();
-        }
+        mMapView.getMapAsync(this::showNests);
     }
 
     @Override
@@ -87,7 +85,7 @@ public class GooseWatchFragment
         return getString(R.string.title_resources_goosewatch);
     }
 
-    private void showNests() {
+    private void showNests(final GoogleMap map) {
         if (mResponse == null || mResponse.isEmpty()) {
             mEmptyView.setVisibility(View.VISIBLE);
             return;
@@ -95,7 +93,6 @@ public class GooseWatchFragment
             mEmptyView.setVisibility(View.GONE);
         }
 
-        final GoogleMap map = mMapView.getMap();
         map.clear();
 
         for (final GooseNest nest : mResponse) {
@@ -183,7 +180,7 @@ public class GooseWatchFragment
     }
 
     private void onNestDetailsRequested(final GooseNest nest) {
-        mMapView.getMap().animateCamera(CameraUpdateFactory.newLatLng(getLatLng(nest)));
+        mMapView.getMapAsync(map -> map.animateCamera(CameraUpdateFactory.newLatLng(getLatLng(nest))));
 
         if (mInfoRoot.getVisibility() == View.GONE) {
             final Animation animIn = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
@@ -208,12 +205,5 @@ public class GooseWatchFragment
     @Override
     public int getMapViewId() {
         return R.id.goosewatch_map;
-    }
-
-    @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        if (mResponse != null) {
-            showNests();
-        }
     }
 }

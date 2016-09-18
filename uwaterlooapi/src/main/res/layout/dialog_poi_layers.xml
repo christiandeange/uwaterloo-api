@@ -58,8 +58,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                    style="@style/LayerParent"
-                    android:visibility="gone">
+                    style="@style/LayerParent">
 
                 <CheckedTextView
                         style="@style/LayerLabel"

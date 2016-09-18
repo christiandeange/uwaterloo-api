@@ -68,7 +68,7 @@ public class MapActivity
 
         } else {
             // Add the building itself to the list
-            final List<Object> sections = new ArrayList<Object>(building.getBuildingSections());
+            final List<Object> sections = new ArrayList<>(building.getBuildingSections());
             sections.add(0, building.getBuildingName());
             final StringAdapter adapter = new StringAdapter(this, sections);
             adapter.setViewLayoutId(android.R.layout.simple_spinner_item);
@@ -126,16 +126,16 @@ public class MapActivity
 
     private void showLocation(final String buildingName, final float[] location) {
         final LatLng buildingLocation = new LatLng(location[0], location[1]);
-        final GoogleMap map = mMapView.getMap();
+        mMapView.getMapAsync(map -> {
+            map.clear();
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
+            map.addMarker(new MarkerOptions()
+                    .title(buildingName)
+                    .position(buildingLocation));
 
-        map.clear();
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(buildingLocation, 17));
-        map.addMarker(new MarkerOptions()
-                .title(buildingName)
-                .position(buildingLocation));
-
-        MapUtils.setLocationEnabled(this, map);
+            MapUtils.setLocationEnabled(MapActivity.this, map);
+        });
     }
 
     private Building getBuilding() {

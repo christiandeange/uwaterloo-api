@@ -30,8 +30,8 @@ import com.google.android.gms.maps.model.PolygonOptions;
 
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.BindColor;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 
@@ -77,15 +77,11 @@ public class ParkingFragment
             }
         }
 
-        if (mMapView.getMap() != null) {
-            showLotInfo();
-        }
+        mMapView.getMapAsync(this::showLotInfo);
     }
 
-    private void showLotInfo() {
-        final GoogleMap map = mMapView.getMap();
-
-        redrawPolygons();
+    private void showLotInfo(final GoogleMap map) {
+        redrawPolygons(map);
 
         final LatLngBounds.Builder builder = LatLngBounds.builder();
         for (final ParkingLot parkingLot : mResponse) {
@@ -108,8 +104,7 @@ public class ParkingFragment
         MapUtils.setLocationEnabled(getActivity(), map);
     }
 
-    private void redrawPolygons() {
-        final GoogleMap map = mMapView.getMap();
+    private void redrawPolygons(final GoogleMap map) {
         map.clear();
 
         for (final ParkingLot parkingLot : mResponse) {
@@ -159,7 +154,7 @@ public class ParkingFragment
             }
         }
 
-        redrawPolygons();
+        mMapView.getMapAsync(this::redrawPolygons);
 
         // No parking lot clicked on
         if (!found) {
@@ -202,7 +197,7 @@ public class ParkingFragment
 
         final LatLngBounds bounds = builder.build();
         final int padding = (getResources().getDisplayMetrics().widthPixels / 4);
-        mMapView.getMap().animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+        mMapView.getMapAsync(map -> map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding)));
 
         if (mInfoRoot.getVisibility() == View.GONE) {
             final Animation animIn = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
@@ -228,13 +223,6 @@ public class ParkingFragment
 
         ((TextView) mInfoRoot.findViewById(android.R.id.text1)).setText(title);
         ((TextView) mInfoRoot.findViewById(android.R.id.text2)).setText(date);
-    }
-
-    @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        if (mResponse != null) {
-            showLotInfo();
-        }
     }
 
     @Override

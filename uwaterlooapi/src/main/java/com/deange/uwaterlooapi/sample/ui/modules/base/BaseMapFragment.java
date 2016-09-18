@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.LatLng;
 public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseModel>
         extends BaseModuleFragment<T, V>
         implements
-        OnMapReadyCallback,
         GoogleMap.OnMapClickListener,
         GoogleMap.OnMapLongClickListener {
 
@@ -28,7 +27,6 @@ public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseMode
         if (view != null) {
             mMapView = (MapView) getView().findViewById(getMapViewId());
             mMapView.onCreate(null);
-            mMapView.getMapAsync(this);
         }
     }
 

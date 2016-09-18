@@ -1,7 +1,9 @@
 package com.deange.uwaterlooapi.sample.ui.modules.poi;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +38,7 @@ import com.deange.uwaterlooapi.sample.utils.Px;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -60,9 +63,10 @@ public class PointsOfInterestFragment
         extends BaseMapFragment<CombinedPointsOfInterestInfoResponse, CombinedPointsOfInterestInfo>
         implements
         GoogleMap.OnMarkerClickListener,
-        LayersDialog.OnLayersSelectedListener {
+        LayersDialog.OnLayersSelectedListener,
+        OnMapReadyCallback {
 
-    private static final String TAG = "PointsOfInterestFragment";
+    private static final String TAG = "PointsOfInterest";
 
     private static final int BEST_SIZE = Runtime.getRuntime().availableProcessors() * 2 - 1;
     private static final Executor EXECUTOR = Executors.newFixedThreadPool(BEST_SIZE);
@@ -89,6 +93,7 @@ public class PointsOfInterestFragment
         super.onActivityCreated(savedInstanceState);
 
         LayersDialog.showDialog(getContext(), mFlags, this);
+        mMapView.getMapAsync(this);
     }
 
     @Override
@@ -110,7 +115,8 @@ public class PointsOfInterestFragment
     @Override
     public void onLayersSelected(final int flags) {
         mFlags = flags;
-        showPointsOfInterestInfo();
+
+        mMapView.getMapAsync(this::showPointsOfInterestInfo);
     }
 
     @Override
@@ -140,7 +146,8 @@ public class PointsOfInterestFragment
             @Override
             public void fetch() {
                 // Disable Photospheres API due to bug
-                info.setPhotospheres(new ArrayList<Photosphere>() /*api.PointsOfInterest.getPhotospheres().getData()*/);
+                info.setPhotospheres(new ArrayList<>()
+                        /*Calls.unwrap(api.PointsOfInterest.getPhotospheres()).getData()*/);
             }
         });
 
@@ -182,24 +189,24 @@ public class PointsOfInterestFragment
     public void onBindData(final Metadata metadata, final CombinedPointsOfInterestInfo data) {
         mResponse = data;
 
-        if (mMapView.getMap() != null) {
-            showPointsOfInterestInfo();
-        }
+        mMapView.getMapAsync(this::showPointsOfInterestInfo);
     }
 
-    private void showPointsOfInterestInfo() {
-        mMapView.getMap().clear();
+    private void showPointsOfInterestInfo(final GoogleMap map) {
+        map.clear();
 
-        addMarkersIfEnabled(mResponse.getATMs(), LayersDialog.FLAG_ATM);
-        addMarkersIfEnabled(mResponse.getGreyhounds(), LayersDialog.FLAG_GREYHOUND);
-        addMarkersIfEnabled(mResponse.getPhotospheres(), LayersDialog.FLAG_PHOTOSPHERE);
-        addMarkersIfEnabled(mResponse.getHelplines(), LayersDialog.FLAG_HELPLINE);
-        addMarkersIfEnabled(mResponse.getLibraries(), LayersDialog.FLAG_LIBRARY);
-        addMarkersIfEnabled(mResponse.getDefibrillators(), LayersDialog.FLAG_DEFIBRILLATOR);
+        addMarkersIfEnabled(map, mResponse.getATMs(), LayersDialog.FLAG_ATM);
+        addMarkersIfEnabled(map, mResponse.getGreyhounds(), LayersDialog.FLAG_GREYHOUND);
+        addMarkersIfEnabled(map, mResponse.getPhotospheres(), LayersDialog.FLAG_PHOTOSPHERE);
+        addMarkersIfEnabled(map, mResponse.getHelplines(), LayersDialog.FLAG_HELPLINE);
+        addMarkersIfEnabled(map, mResponse.getLibraries(), LayersDialog.FLAG_LIBRARY);
+        addMarkersIfEnabled(map, mResponse.getDefibrillators(), LayersDialog.FLAG_DEFIBRILLATOR);
     }
 
-    private void addMarkersIfEnabled(final List<? extends BasicPointOfInterest> items, final int flag) {
-        final GoogleMap map = mMapView.getMap();
+    private void addMarkersIfEnabled(
+            final GoogleMap map,
+            final List<? extends BasicPointOfInterest> items,
+            final int flag) {
 
         if ((mFlags & flag) != 0) {
             for (final BasicPointOfInterest item : items) {
@@ -236,12 +243,7 @@ public class PointsOfInterestFragment
 
         if (url != null) {
             mViewInBrowserBton.setVisibility(View.VISIBLE);
-            mViewInBrowserBton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    IntentUtils.openBrowser(getContext(), url);
-                }
-            });
+            mViewInBrowserBton.setOnClickListener(v -> IntentUtils.openBrowser(getContext(), url));
 
         } else {
             mViewInBrowserBton.setVisibility(View.GONE);
@@ -311,14 +313,11 @@ public class PointsOfInterestFragment
             final Semaphore semaphore,
             final InfoFetcher fetcher) {
 
-        EXECUTOR.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    fetcher.fetch();
-                } finally {
-                    semaphore.release();
-                }
+        EXECUTOR.execute(() -> {
+            try {
+                fetcher.fetch();
+            } finally {
+                semaphore.release();
             }
         });
 
@@ -339,7 +338,7 @@ public class PointsOfInterestFragment
             } else if ("Scotiabank".equalsIgnoreCase(name)) {
                 return R.drawable.ic_bank_scotiabank;
             } else {
-                return R.drawable.ic_local_atm;
+                return R.drawable.ic_local_atm_png;
             }
 
         } else if (poi instanceof GreyhoundStop) {
@@ -358,7 +357,7 @@ public class PointsOfInterestFragment
             return R.drawable.ic_poi_defibrillator;
 
         } else {
-            return R.drawable.ic_exclamation;
+            throw new IllegalStateException("Unknown poi instance class: " + poi.getClass().getName());
         }
     }
 
@@ -395,7 +394,7 @@ public class PointsOfInterestFragment
         MapUtils.setLocationEnabled(getActivity(), map);
 
         if (mResponse != null) {
-            showPointsOfInterestInfo();
+            showPointsOfInterestInfo(map);
         }
     }
 
