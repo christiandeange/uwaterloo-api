@@ -128,6 +128,7 @@ public class LocationsFragment
                 LocationFragment.newBundle(mAdapter.getItem(position)));
     }
 
+    @SuppressWarnings({ "Convert2Lambda", "Anonymous2MethodRef" })
     private interface LocationFilter {
         boolean keep(final Location location);
 

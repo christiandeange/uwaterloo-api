@@ -37,13 +37,6 @@ public class NewsListFragment
     private final List<NewsDetails> mResponse = new ArrayList<>();
 
     @Override
-    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
-        final View view = super.getContentView(inflater, parent);
-        getListView().setStackFromBottom(true);
-        return view;
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.fragment_simple_listview;
     }
@@ -68,7 +61,7 @@ public class NewsListFragment
         mResponse.clear();
         mResponse.addAll(data);
 
-        Collections.sort(mResponse);
+        Collections.sort(mResponse, Collections.reverseOrder());
 
         notifyDataSetChanged();
     }
