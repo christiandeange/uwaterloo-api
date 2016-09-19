@@ -2,15 +2,15 @@ package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.foodservices.Location;
+import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
@@ -39,7 +40,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,9 +57,9 @@ public class LocationFragment
     @BindView(R.id.list_location_collapsing_toolbar) CollapsingToolbarLayout mToolbarLayout;
     @BindView(R.id.list_location_description) TextView mDescriptionView;
     @BindView(R.id.list_location_open_now) TextView mOpenNowView;
-    @BindView(R.id.list_location_hours) OperatingHoursView mHoursView;
+    @BindView(R.id.list_location_hours) OperatingHoursView mWeekHoursView;
     @BindView(R.id.list_location_closed_days) TextView mClosedDays;
-    @BindView(R.id.list_location_special_hours) TextView mSpecialDays;
+    @BindView(R.id.list_location_special_hours) OperatingHoursView mSpecialHoursView;
 
     @Override
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
@@ -107,50 +110,70 @@ public class LocationFragment
             mDescriptionView.setText(Html.fromHtml(description));
         }
 
-        final Resources res = getResources();
-        final Resources.Theme theme = getContext().getTheme();
+        final Context context = getContext();
         if (location.isOpenNow()) {
-            mOpenNowView.setTextColor(ResourcesCompat.getColor(res, R.color.foodservices_location_open, theme));
+            mOpenNowView.setTextColor(ContextCompat.getColor(context, R.color.foodservices_location_open));
             mOpenNowView.setText(R.string.foodservices_location_open_now);
         } else {
-            mOpenNowView.setTextColor(ResourcesCompat.getColor(res, R.color.foodservices_location_closed, theme));
+            mOpenNowView.setTextColor(ContextCompat.getColor(context, R.color.foodservices_location_closed));
             mOpenNowView.setText(R.string.foodservices_location_closed_now);
         }
 
-        mHoursView.setHours(location.getHours());
+        mWeekHoursView.setMode(OperatingHoursView.MODE_DAYS_OF_WEEK);
+        mWeekHoursView.setHours(location.getHours());
 
         final List<Location.Range> datesClosed = location.getDatesClosed();
         final List<Location.SpecialRange> specialHours = location.getSpecialOperatingHours();
 
         showSection(mClosedDays, !datesClosed.isEmpty());
-        showSection(mSpecialDays, !specialHours.isEmpty());
+        showSection(mSpecialHoursView, !specialHours.isEmpty());
         mClosedDays.setText(Joiner.on("\n").joinObjects(datesClosed));
-        mSpecialDays.setText(Joiner.on("\n").joinObjects(specialHours));
 
-        // Handle bolding of the current time range (if any)
-        mHoursView.unbold();
+        final Map<String, OperatingHours> hoursMap = new LinkedHashMap<>();
+        for (final Location.SpecialRange specialRange : specialHours) {
+            hoursMap.put(
+                    specialRange.formatDate(),
+                    OperatingHours.create(specialRange.getOpen(), specialRange.getClose(), false));
+        }
+        mSpecialHoursView.setMode(OperatingHoursView.MODE_MANUAL);
+        mSpecialHoursView.setHours(hoursMap);
 
-        final Date now = new Date();
-
-        for (int i = 0; i < datesClosed.size(); i++) {
-            if (datesClosed.get(i).contains(now)) {
-                boldField(mClosedDays, i);
-                return;
+        // Reset bold status of all fields
+        mWeekHoursView.unbold();
+        mSpecialHoursView.unbold();
+        final CharSequence text = mClosedDays.getText();
+        if (text instanceof Spannable) {
+            final Spannable spannable = ((Spannable) text);
+            for (final Object span : spannable.getSpans(0, spannable.length() - 1, CalligraphyTypefaceSpan.class)) {
+                spannable.removeSpan(span);
             }
         }
 
-        for (int i = 0; i < specialHours.size(); i++) {
-            if (specialHours.get(i).contains(now)) {
-                boldField(mSpecialDays, i);
-                return;
-            }
-        }
+        do {
+            // Handle bold status of the current time range (if any)
+            final Date now = new Date();
 
-        mHoursView.setTodayBold();
+            for (int i = 0; i < datesClosed.size(); i++) {
+                if (datesClosed.get(i).contains(now)) {
+                    boldClosedDay(i);
+                    break;
+                }
+            }
+
+            for (final Location.SpecialRange specialRange : specialHours) {
+                if (specialRange.contains(now)) {
+                    mSpecialHoursView.bold(specialRange.formatDate());
+                    break;
+                }
+            }
+
+            // Fallback to default bold if closed/special cases do not apply
+            mWeekHoursView.setTodayBold();
+        } while (false);
     }
 
-    private void boldField(final TextView textView, final int field) {
-        final String text = textView.getText().toString();
+    private void boldClosedDay(final int field) {
+        final String text = mClosedDays.getText().toString();
 
         int start = 0;
         for (int i = 0; i < field; i++) {
@@ -170,10 +193,10 @@ public class LocationFragment
 
         final SpannableString ss = new SpannableString(text);
         ss.setSpan(new CalligraphyTypefaceSpan(boldFont), start, end, 0);
-        textView.setText(ss);
+        mClosedDays.setText(ss);
     }
 
-    private void showSection(final TextView view, final boolean show) {
+    private void showSection(final View view, final boolean show) {
 
         final int visibility = show ? View.VISIBLE : View.GONE;
         final ViewGroup parent = (ViewGroup) view.getParent();

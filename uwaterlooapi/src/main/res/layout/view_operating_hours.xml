@@ -1,44 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<merge
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/view_location_hours"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-    <RelativeLayout style="@style/OperatingHoursLayout">
-        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_monday"/>
-        <TextView style="@style/OperatingHoursValue" />
-    </RelativeLayout>
+    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
+            style="@style/OperatingHoursRow"
+            app:rowText="@string/week_monday"/>
 
-    <RelativeLayout style="@style/OperatingHoursLayout">
-        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_tuesday"/>
-        <TextView style="@style/OperatingHoursValue" />
-    </RelativeLayout>
+    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
+            style="@style/OperatingHoursRow"
+            app:rowText="@string/week_tuesday"/>
 
-    <RelativeLayout style="@style/OperatingHoursLayout">
-        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_wednesday"/>
-        <TextView style="@style/OperatingHoursValue" />
-    </RelativeLayout>
+    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
+            style="@style/OperatingHoursRow"
+            app:rowText="@string/week_wednesday"/>
 
-    <RelativeLayout style="@style/OperatingHoursLayout">
-        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_thursday"/>
-        <TextView style="@style/OperatingHoursValue" />
-    </RelativeLayout>
+    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
+            style="@style/OperatingHoursRow"
+            app:rowText="@string/week_thursday"/>
 
-    <RelativeLayout style="@style/OperatingHoursLayout">
-        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_friday"/>
-        <TextView style="@style/OperatingHoursValue" />
-    </RelativeLayout>
+    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
+            style="@style/OperatingHoursRow"
+            app:rowText="@string/week_friday"/>
 
-    <RelativeLayout style="@style/OperatingHoursLayout">
-        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_saturday"/>
-        <TextView style="@style/OperatingHoursValue" />
-    </RelativeLayout>
+    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
+            style="@style/OperatingHoursRow"
+            app:rowText="@string/week_saturday"/>
 
-    <RelativeLayout style="@style/OperatingHoursLayout">
-        <TextView style="@style/OperatingHoursLabel" android:text="@string/week_sunday"/>
-        <TextView style="@style/OperatingHoursValue" />
-    </RelativeLayout>
+    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
+            style="@style/OperatingHoursRow"
+            app:rowText="@string/week_sunday"/>
 
-</LinearLayout>
+</merge>

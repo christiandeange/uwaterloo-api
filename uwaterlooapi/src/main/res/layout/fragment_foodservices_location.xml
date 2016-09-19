@@ -126,7 +126,7 @@
                         android:layout_height="wrap_content">
 
                     <TextView
-                            style="@style/OperatingHoursLabel"
+                            style="@style/OperatingHoursBase.Label"
                             android:id="@+id/list_location_closed_days_label"
                             android:text="@string/foodservices_location_hours_closed"
                             android:textAllCaps="true"
@@ -135,7 +135,7 @@
                             fontPath="@string/font_bold"/>
 
                     <TextView
-                            style="@style/LocationSpecialSection"
+                            style="@style/LocationClosedSection"
                             android:id="@+id/list_location_closed_days"
                             android:layout_below="@id/list_location_closed_days_label"/>
 
@@ -153,7 +153,7 @@
                         android:layout_height="wrap_content">
 
                     <TextView
-                            style="@style/OperatingHoursLabel"
+                            style="@style/OperatingHoursBase.Label"
                             android:id="@+id/list_location_special_hours_label"
                             android:text="@string/foodservices_location_special_hours"
                             android:textAllCaps="true"
@@ -161,9 +161,10 @@
                             android:textStyle="bold"
                             fontPath="@string/font_bold"/>
 
-                    <TextView
-                            style="@style/LocationSpecialSection"
+                    <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView
                             android:id="@+id/list_location_special_hours"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_below="@id/list_location_special_hours_label"/>
 
                 </RelativeLayout>

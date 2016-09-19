@@ -35,6 +35,17 @@ public class OperatingHours extends BaseModel {
     @SerializedName("is_closed")
     boolean mClosedAllDay;
 
+    public static OperatingHours create(
+            final String openingHour,
+            final String closingHour,
+            final boolean closedAllDay) {
+        final OperatingHours operatingHours = new OperatingHours();
+        operatingHours.mOpeningHour = openingHour;
+        operatingHours.mClosingHour = closingHour;
+        operatingHours.mClosedAllDay = closedAllDay;
+        return operatingHours;
+    }
+
     /**
      * Locations opening time {@link #TIME_FORMAT (H:i format)}
      */

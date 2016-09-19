@@ -360,8 +360,7 @@ public class Location extends BaseModel {
             return !date.before(first) && date.before(endForContains);
         }
 
-        @Override
-        public String toString() {
+        public String formatDate() {
             if (first.equals(second)) {
                 return Formatter.formatDate(first, DATE_FORMAT);
             } else {
@@ -369,11 +368,15 @@ public class Location extends BaseModel {
                         + " – " + Formatter.formatDate(second, DATE_FORMAT);
             }
         }
+
+        @Override
+        public String toString() {
+            return formatDate();
+        }
     }
 
     @Parcel
     public static class SpecialRange extends Range {
-
         final String open;
         final String close;
 
@@ -385,32 +388,21 @@ public class Location extends BaseModel {
             this.close = close;
         }
 
-        @Override
-        public boolean contains(final Date date) {
-            if (super.contains(date)) {
-                return true;
-            }
+        public String getOpen() {
+            return open;
+        }
 
-            if (close.compareTo(open) < 0) {
-                // If closes after midnight, then we need to advance the end date by 1
-                final String[] fields = close.split(":");
-                final Calendar calendar = Calendar.getInstance();
-                calendar.setTime(endForContains);
-                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(fields[0]));
-                calendar.set(Calendar.MINUTE, Integer.parseInt(fields[1]));
-                final Date tomorrowEnd = calendar.getTime();
+        public String getClose() {
+            return close;
+        }
 
-                return !date.before(first) && date.before(tomorrowEnd);
-            }
-
-            return false;
+        public String formatTime() {
+            return convert24To12(open) + " – " + convert24To12(close);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " ("
-                    + convert24To12(open) + " – "
-                    + convert24To12(close) + ")";
+            return super.toString() + " (" + formatTime() + ")";
         }
     }
 

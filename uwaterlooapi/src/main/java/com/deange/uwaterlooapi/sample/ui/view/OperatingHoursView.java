@@ -2,9 +2,10 @@ package com.deange.uwaterlooapi.sample.ui.view;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.model.foodservices.Location;
@@ -15,9 +16,13 @@ import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import java.util.Calendar;
 import java.util.Map;
 
-public class OperatingHoursView extends FrameLayout {
+public class OperatingHoursView
+        extends LinearLayout {
 
-    private static final String[] WEEK_MAP = new String[] {
+    public static final int MODE_DAYS_OF_WEEK = 1;
+    public static final int MODE_MANUAL = 2;
+
+    private static final String[] WEEK_MAP = new String[]{
             "",
             OperatingHours.SUNDAY,
             OperatingHours.MONDAY,
@@ -30,6 +35,7 @@ public class OperatingHoursView extends FrameLayout {
 
     private Map<String, OperatingHours> mHours;
     private boolean mInflated = false;
+    @Mode private int mMode;
 
     public OperatingHoursView(final Context context) {
         this(context, null);
@@ -41,8 +47,7 @@ public class OperatingHoursView extends FrameLayout {
 
     public OperatingHoursView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        inflate(context, R.layout.view_operating_hours, this);
+        setOrientation(VERTICAL);
     }
 
     @Override
@@ -52,9 +57,42 @@ public class OperatingHoursView extends FrameLayout {
         refresh();
     }
 
+    public void setMode(@Mode final int mode) {
+        if (mMode != mode) {
+            mMode = mode;
+
+            removeAllViews();
+            if (mode == MODE_DAYS_OF_WEEK) {
+                inflate(getContext(), R.layout.view_operating_hours, this);
+            }
+
+            refresh();
+        }
+    }
+
     public void setHours(final Map<String, OperatingHours> hours) {
         mHours = hours;
+
+        if (mMode == MODE_MANUAL) {
+            removeAllViews();
+
+            if (mHours != null) {
+                for (final Map.Entry<String, OperatingHours> entry : mHours.entrySet()) {
+                    final OperatingHoursRow row = new OperatingHoursRow(getContext());
+                    row.setDay(entry.getKey());
+                    row.setHours(formatHours(entry.getValue()));
+                    addView(row);
+                }
+            }
+        }
+
         refresh();
+    }
+
+    private String formatHours(final OperatingHours hours) {
+        final String start = Location.convert24To12(hours.getOpeningHour());
+        final String end = Location.convert24To12(hours.getClosingHour());
+        return start + " – " + end;
     }
 
     private void refresh() {
@@ -62,42 +100,44 @@ public class OperatingHoursView extends FrameLayout {
             return;
         }
 
-        final ViewGroup parentLayout = (ViewGroup) getChildAt(0);
-        for (int i = 0; i < parentLayout.getChildCount(); i++) {
-            final ViewGroup parent = (ViewGroup) parentLayout.getChildAt(i);
-            final TextView labelView = (TextView) parent.findViewById(R.id.view_location_hours_day);
-            final TextView hoursView = (TextView) parent.findViewById(R.id.view_location_hours_hours);
+        for (int i = 0; i < getChildCount(); i++) {
+            final OperatingHoursRow parent = (OperatingHoursRow) getChildAt(i);
 
-            final String dayOfWeek = labelView.getText().toString().toLowerCase();
-            final OperatingHours hours = mHours.get(dayOfWeek);
+            final String dayOfWeek = parent.getDayView().getText().toString();
+            OperatingHours hours = mHours.get(dayOfWeek);
+            if (hours == null) {
+                hours = mHours.get(dayOfWeek.toLowerCase());
+            }
+
+            final TextView hoursView = parent.getHoursView();
             if (hours.isClosedAllDay()) {
                 hoursView.setText(R.string.foodservices_location_hours_closed);
+
             } else {
-                final String start = Location.convert24To12(hours.getOpeningHour());
-                final String end = Location.convert24To12(hours.getClosingHour());
-                hoursView.setText(start + " – " + end);
+                hoursView.setText(formatHours(hours));
             }
         }
     }
 
     public void setTodayBold() {
+        final int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        bold(WEEK_MAP[day]);
+    }
+
+    public void bold(final String key) {
         if (!mInflated || mHours == null) {
             return;
         }
 
-        final ViewGroup parentLayout = (ViewGroup) getChildAt(0);
-        for (int i = 0; i < parentLayout.getChildCount(); i++) {
-            final ViewGroup parent = (ViewGroup) parentLayout.getChildAt(i);
-            final TextView labelView = (TextView) parent.findViewById(R.id.view_location_hours_day);
-            final TextView hoursView = (TextView) parent.findViewById(R.id.view_location_hours_hours);
+        final Typeface bold = FontUtils.getFont(FontUtils.MEDIUM);
+        final Typeface normal = FontUtils.getFont(FontUtils.BOOK);
 
-            final String dayOfWeek = labelView.getText().toString().toLowerCase();
-            final int day = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        for (int i = 0; i < getChildCount(); i++) {
+            final OperatingHoursRow parent = (OperatingHoursRow) getChildAt(i);
+            final TextView labelView = parent.getDayView();
+            final TextView hoursView = parent.getHoursView();
 
-            final Typeface bold = FontUtils.getFont(FontUtils.MEDIUM);
-            final Typeface normal = FontUtils.getFont(FontUtils.BOOK);
-
-            if (WEEK_MAP[day].equals(dayOfWeek)) {
+            if (labelView.getText().toString().equalsIgnoreCase(key)) {
                 labelView.setTypeface(bold, Typeface.BOLD);
                 hoursView.setTypeface(bold, Typeface.BOLD);
             } else {
@@ -112,16 +152,17 @@ public class OperatingHoursView extends FrameLayout {
             return;
         }
 
-        final ViewGroup parentLayout = (ViewGroup) getChildAt(0);
-        for (int i = 0; i < parentLayout.getChildCount(); i++) {
-            final ViewGroup parent = (ViewGroup) parentLayout.getChildAt(i);
-            final TextView labelView = (TextView) parent.findViewById(R.id.view_location_hours_day);
-            final TextView hoursView = (TextView) parent.findViewById(R.id.view_location_hours_hours);
+        final Typeface normal = FontUtils.getFont(FontUtils.DEFAULT);
 
-            final Typeface normal = FontUtils.getFont(FontUtils.DEFAULT);
-            labelView.setTypeface(normal, Typeface.NORMAL);
-            hoursView.setTypeface(normal, Typeface.NORMAL);
+        for (int i = 0; i < getChildCount(); i++) {
+            final OperatingHoursRow parent = (OperatingHoursRow) getChildAt(i);
+            parent.getDayView().setTypeface(normal, Typeface.NORMAL);
+            parent.getHoursView().setTypeface(normal, Typeface.NORMAL);
         }
+    }
+
+    @IntDef({ MODE_DAYS_OF_WEEK, MODE_MANUAL })
+    public @interface Mode {
     }
 
 }

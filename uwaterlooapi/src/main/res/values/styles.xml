@@ -95,36 +95,33 @@
         <item name="android:textColorSecondary">@android:color/black</item>
     </style>
 
-    <style name="OperatingHoursLayout">
+    <style name="OperatingHoursRow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="OperatingHoursLabel">
-        <item name="android:id">@id/view_location_hours_day</item>
+    <style name="OperatingHoursBase">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:textColor">@android:color/holo_blue_dark</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="OperatingHoursValue">
+    <style name="OperatingHoursBase.Label">
+        <item name="android:id">@id/view_location_hours_day</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="OperatingHoursBase.Value">
         <item name="android:id">@id/view_location_hours_hours</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentEnd">true</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
         <item name="android:gravity">end</item>
     </style>
 
-    <style name="LocationSpecialSection" parent="OperatingHoursValue">
+    <style name="LocationClosedSection" parent="OperatingHoursBase.Value">
         <item name="android:layout_alignParentEnd">false</item>
         <item name="android:gravity">start</item>
         <item name="android:textColor">@android:color/black</item>

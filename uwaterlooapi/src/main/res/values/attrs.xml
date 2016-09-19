@@ -23,6 +23,10 @@
         <attr name="endColour" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="OperatingHoursRow">
+        <attr name="rowText" format="string"/>
+    </declare-styleable>
+
     <declare-styleable name="FaqSection">
         <attr name="text1" format="string"/>
         <attr name="text2" format="string"/>
