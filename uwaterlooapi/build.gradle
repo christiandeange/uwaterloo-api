@@ -15,7 +15,7 @@ repositories {
         url 'https://maven.fabric.io/public'
     }
     maven {
-        url "https://jitpack.io"
+        url 'https://jitpack.io'
     }
 }
 
@@ -32,14 +32,14 @@ properties.load(new FileInputStream(propertiesFile))
 List<String> manifestProperties = [ 'FABRIC_API_KEY' ]
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion rootProject.targetSdk
+    buildToolsVersion '24.0.2'
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.minSdk
+        targetSdkVersion rootProject.targetSdk
+        versionName rootProject.appVersionName
+        versionCode rootProject.appVersionCode
 
         multiDexEnabled true
 
@@ -70,8 +70,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility rootProject.javaVersion
+        targetCompatibility rootProject.javaVersion
     }
 
     lintOptions {
@@ -87,7 +87,7 @@ dependencies {
     provided project(':uwaterlooapi-processor')
     compile project(':uwaterlooapi-annotations')
 
-    compile project(":uwapi-library")
+    compile project(':uwapi-library')
 
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:design:' + SUPPORT_VERSION
