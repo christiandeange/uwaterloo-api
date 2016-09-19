@@ -27,7 +27,7 @@
             <com.google.android.gms.maps.MapView
                     android:id="@+id/list_location_map_view"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="250dp"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="parallax"/>
 
@@ -35,7 +35,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="100sp"
                     android:layout_gravity="bottom"
+                    android:layout_marginBottom="25sp"
                     android:background="@drawable/location_title_gradient"
+                    android:fitsSystemWindows="true"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="25sp"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/white"
                     android:fitsSystemWindows="true"/>
 
             <android.support.v7.widget.Toolbar
