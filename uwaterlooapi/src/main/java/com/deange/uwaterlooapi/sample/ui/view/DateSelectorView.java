@@ -55,14 +55,11 @@ public class DateSelectorView
 
         onDateCleared();
 
-        post(new Runnable() {
-            @Override
-            public void run() {
-                final DatePickerDialog dialog =
-                        (DatePickerDialog) getFragmentManager().findFragmentByTag(TAG);
-                if (dialog != null) {
-                    dialog.setOnDateSetListener(DateSelectorView.this);
-                }
+        post(() -> {
+            final DatePickerDialog dialog =
+                    (DatePickerDialog) getFragmentManager().findFragmentByTag(TAG);
+            if (dialog != null) {
+                dialog.setOnDateSetListener(DateSelectorView.this);
             }
         });
     }

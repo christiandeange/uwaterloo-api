@@ -66,21 +66,18 @@ public class ExtrasActivity
         setContentView(R.layout.activity_extras);
 
         mImageView = (ImageView) findViewById(R.id.extras_image_view);
-        mImageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(final View v, final MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mMediaPlayer.setVolume(1f, 1f);
-                        break;
+        mImageView.setOnTouchListener((v, event) -> {
+            switch(event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mMediaPlayer.setVolume(1f, 1f);
+                    break;
 
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        mMediaPlayer.setVolume(0.5f, 0.5f);
-                        break;
-                }
-                return false;
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    mMediaPlayer.setVolume(0.5f, 0.5f);
+                    break;
             }
+            return false;
         });
         mHandler.postDelayed(mRumbleRunnable, 1000L);
     }
@@ -93,12 +90,9 @@ public class ExtrasActivity
             mMediaPlayer.setLooping(true);
             mMediaPlayer.start();
 
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mMediaPlayer.setVolume(0.5f, 0.5f);
-                    setView();
-                }
+            mHandler.postDelayed(() -> {
+                mMediaPlayer.setVolume(0.5f, 0.5f);
+                setView();
             }, 1500L);
         }
     }
@@ -114,12 +108,7 @@ public class ExtrasActivity
     protected void onResume() {
         super.onResume();
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                playSoundtrack();
-            }
-        }, 1000L);
+        mHandler.postDelayed(() -> playSoundtrack(), 1000L);
     }
 
     @Override

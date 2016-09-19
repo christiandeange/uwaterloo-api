@@ -10,7 +10,6 @@ import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,12 +32,7 @@ public class ExamInfoView extends BaseCourseView {
         final ExamInfo examInfo = info.getExams();
 
         final List<ExamSection> sections = new ArrayList<>(examInfo.getSections());
-        Collections.sort(sections, new Comparator<ExamSection>() {
-            @Override
-            public int compare(final ExamSection lhs, final ExamSection rhs) {
-                return lhs.getSection().compareToIgnoreCase(rhs.getSection());
-            }
-        });
+        Collections.sort(sections, (lhs, rhs) -> lhs.getSection().compareToIgnoreCase(rhs.getSection()));
 
         mListView.setAdapter(new ExamAdapter(getContext(), sections));
     }

@@ -1,16 +1,11 @@
 package com.deange.uwaterlooapi.sample.ui.modules.courses;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
-import android.widget.TextView;
 
-import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.ContainsFilter;
-import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
-import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 
 import java.util.Arrays;
 import java.util.Collections;

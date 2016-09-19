@@ -15,7 +15,6 @@ import com.deange.uwaterlooapi.sample.utils.MapUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -52,12 +51,9 @@ public class MapActivity
 
         mMapView = (MapView) findViewById(R.id.building_map);
         mMapView.onCreate(savedInstanceState);
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(final GoogleMap googleMap) {
-                final Building building = getBuilding();
-                showLocation(building.getBuildingName(), building.getLocation());
-            }
+        mMapView.getMapAsync(googleMap -> {
+            final Building building = getBuilding();
+            showLocation(building.getBuildingName(), building.getLocation());
         });
 
         final Spinner placesView = (Spinner) findViewById(R.id.building_marker_view);

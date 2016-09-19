@@ -18,7 +18,6 @@ import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -58,12 +57,7 @@ public class ListBuildingsFragment
             }
         }
 
-        Collections.sort(mResponse, new Comparator<Building>() {
-            @Override
-            public int compare(final Building lhs, final Building rhs) {
-                return lhs.getBuildingName().compareTo(rhs.getBuildingName());
-            }
-        });
+        Collections.sort(mResponse, (lhs, rhs) -> lhs.getBuildingName().compareTo(rhs.getBuildingName()));
 
         final Set<String> indices = new TreeSet<>();
         for (final Building building : mResponse) {

@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.sample.ui.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -73,12 +72,7 @@ public class ExpandablePanel extends RelativeLayout {
                     "The content attribute is must refer to an existing child.");
         }
 
-        mHandle.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                setExpanded(!mExpanded);
-            }
-        });
+        mHandle.setOnClickListener(v -> setExpanded(!mExpanded));
     }
 
     @Override

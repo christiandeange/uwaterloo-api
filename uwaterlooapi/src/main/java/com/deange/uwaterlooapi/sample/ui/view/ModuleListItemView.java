@@ -66,31 +66,28 @@ public class ModuleListItemView
             final MarginLayoutParams lp = (MarginLayoutParams) mIconView.getLayoutParams();
             final int margin = Px.fromDp(16);
 
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    final int position = ((ViewGroup) getParent()).indexOfChild(ModuleListItemView.this);
+            post(() -> {
+                final int position = ((ViewGroup) getParent()).indexOfChild(ModuleListItemView.this);
 
-                    if (position % 2 == 0) {
-                        mTitleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-                        mDescriptionView.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
+                if (position % 2 == 0) {
+                    mTitleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
+                    mDescriptionView.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
 
-                        imageViewParent.removeView(mIconView);
-                        imageViewParent.addView(mIconView, 0);
+                    imageViewParent.removeView(mIconView);
+                    imageViewParent.addView(mIconView, 0);
 
-                        lp.setMarginStart(0);
-                        lp.setMarginEnd(margin);
+                    lp.setMarginStart(0);
+                    lp.setMarginEnd(margin);
 
-                    } else {
-                        mTitleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
-                        mDescriptionView.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
+                } else {
+                    mTitleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
+                    mDescriptionView.setGravity(Gravity.CENTER_VERTICAL | Gravity.END);
 
-                        imageViewParent.removeView(mIconView);
-                        imageViewParent.addView(mIconView);
+                    imageViewParent.removeView(mIconView);
+                    imageViewParent.addView(mIconView);
 
-                        lp.setMarginStart(margin);
-                        lp.setMarginEnd(0);
-                    }
+                    lp.setMarginStart(margin);
+                    lp.setMarginEnd(0);
                 }
             });
         }

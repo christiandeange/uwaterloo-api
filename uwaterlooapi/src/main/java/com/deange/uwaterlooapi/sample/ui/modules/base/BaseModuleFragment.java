@@ -138,16 +138,13 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         // Deliver the response if we still have one, otherwise load the data
         // (usually from coming back from another activity or rotating)
         // post() so that the SwipeRefreshLayout draws the indicator correctly (http://stackoverflow.com/a/26860930)
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (mLastResponse != null) {
-                    onRefreshRequested();
-                    deliverResponse(mLastResponse);
+        mHandler.post(() -> {
+            if (mLastResponse != null) {
+                onRefreshRequested();
+                deliverResponse(mLastResponse);
 
-                } else if (mLastUpdate == 0) {
-                    doRefresh();
-                }
+            } else if (mLastUpdate == 0) {
+                doRefresh();
             }
         });
     }
@@ -228,12 +225,9 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         // Deliver it right away to the main thread!
         final V data = onLoadData();
         if (data != null) {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    deliverResponse(data);
-                    onLoadFinished();
-                }
+            mHandler.post(() -> {
+                deliverResponse(data);
+                onLoadFinished();
             });
 
         } else {
@@ -336,14 +330,11 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         }
 
         mTask = null;
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (getActivity() != null) {
-                    // Ensure we haven't been detached
-                    changeLoadingVisibilityInternal(false);
-                    onContentShown();
-                }
+        mHandler.postDelayed(() -> {
+            if (getActivity() != null) {
+                // Ensure we haven't been detached
+                changeLoadingVisibilityInternal(false);
+                onContentShown();
             }
         }, delay);
     }

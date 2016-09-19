@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.Analytics;
@@ -30,7 +29,6 @@ import com.deange.uwaterlooapi.sample.ui.modules.courses.CourseFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CoursesFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.SubjectAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.weather.WeatherFragment;
-import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.deange.uwaterlooapi.sample.utils.SimpleTextWatcher;
 
 import butterknife.BindView;

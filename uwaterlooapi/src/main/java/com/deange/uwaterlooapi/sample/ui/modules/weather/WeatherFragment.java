@@ -56,7 +56,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -140,32 +139,15 @@ public class WeatherFragment
         mBackground.setLayoutParams(
                 new FrameLayout.LayoutParams(metrics.widthPixels, metrics.heightPixels));
 
-        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                resizeTemperatureView();
-            }
-        });
+        root.getViewTreeObserver().addOnGlobalLayoutListener(() -> resizeTemperatureView());
 
-        mBackground.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(
-                    final View v,
-                    final int left,
-                    final int top,
-                    final int right,
-                    final int bottom,
-                    final int oldLeft,
-                    final int oldTop,
-                    final int oldRight,
-                    final int oldBottom) {
-                if (mSpacer.getLayoutParams() != null) {
-                    mSpacer.getLayoutParams().height =
-                            v.getMeasuredHeight()
-                                    - getHostActivity().getToolbar().getMeasuredHeight()
-                                    - getStatusBarHeight();
-                    mSpacer.requestLayout();
-                }
+        mBackground.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (mSpacer.getLayoutParams() != null) {
+                mSpacer.getLayoutParams().height =
+                        v.getMeasuredHeight()
+                                - getHostActivity().getToolbar().getMeasuredHeight()
+                                - getStatusBarHeight();
+                mSpacer.requestLayout();
             }
         });
 
@@ -338,15 +320,10 @@ public class WeatherFragment
         final boolean isHeightLarger = (h >= w);
 
         final List<PhotoSize> photos = new ArrayList<>(photoResponse.getSizes());
-        Collections.sort(photos, new Comparator<PhotoSize>() {
-            @Override
-            public int compare(final PhotoSize lhs, final PhotoSize rhs) {
-                return Double.compare(
-                        isHeightLarger ? lhs.getHeight() : lhs.getWidth(),
-                        isHeightLarger ? rhs.getHeight() : rhs.getWidth()
-                );
-            }
-        });
+        Collections.sort(photos, (lhs, rhs) -> Double.compare(
+                isHeightLarger ? lhs.getHeight() : lhs.getWidth(),
+                isHeightLarger ? rhs.getHeight() : rhs.getWidth()
+        ));
 
         PhotoSize photo = null;
 
@@ -384,15 +361,12 @@ public class WeatherFragment
         mWindTextAnimation.setInterpolator(new BounceInterpolator());
         mWindTextAnimation.setRepeatMode(ValueAnimator.REVERSE);
         mWindTextAnimation.setRepeatCount(ValueAnimator.INFINITE);
-        mWindTextAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator animation) {
-                final float value = (float) animation.getAnimatedValue();
-                if (mWindSpeedView != null) {
-                    mWindSpeedView.getPaint().setTextSkewX(value);
-                    mWindSpeedView.getPaint().setTextScaleX(1 + Math.abs(value));
-                    mWindSpeedView.invalidate();
-                }
+        mWindTextAnimation.addUpdateListener(animation -> {
+            final float value = (float) animation.getAnimatedValue();
+            if (mWindSpeedView != null) {
+                mWindSpeedView.getPaint().setTextSkewX(value);
+                mWindSpeedView.getPaint().setTextScaleX(1 + Math.abs(value));
+                mWindSpeedView.invalidate();
             }
         });
 
@@ -401,15 +375,12 @@ public class WeatherFragment
         mWindSpeedAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         mWindSpeedAnimation.setRepeatMode(ValueAnimator.REVERSE);
         mWindSpeedAnimation.setRepeatCount(ValueAnimator.INFINITE);
-        mWindSpeedAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator animation) {
-                final float value = (float) animation.getAnimatedValue();
-                if (mWindDirectionView != null) {
-                    mWindDirectionView.setPivotX(mWindDirectionView.getMeasuredWidth() / 2f);
-                    mWindDirectionView.setPivotY(mWindDirectionView.getMeasuredHeight() / 2f);
-                    mWindDirectionView.setRotation(value);
-                }
+        mWindSpeedAnimation.addUpdateListener(animation -> {
+            final float value = (float) animation.getAnimatedValue();
+            if (mWindDirectionView != null) {
+                mWindDirectionView.setPivotX(mWindDirectionView.getMeasuredWidth() / 2f);
+                mWindDirectionView.setPivotY(mWindDirectionView.getMeasuredHeight() / 2f);
+                mWindDirectionView.setRotation(value);
             }
         });
     }
@@ -443,16 +414,13 @@ public class WeatherFragment
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setDuration(1000);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator animation) {
-                final float translation = (float) animation.getAnimatedValue();
-                if (mPressureLayout != null) {
-                    mPressureLayout.getChildAt(0).setTranslationY(translation);
-                    mPressureLayout.getChildAt(1).setTranslationY(translation);
-                } else {
-                    animator.cancel();
-                }
+        animator.addUpdateListener(animation -> {
+            final float translation = (float) animation.getAnimatedValue();
+            if (mPressureLayout != null) {
+                mPressureLayout.getChildAt(0).setTranslationY(translation);
+                mPressureLayout.getChildAt(1).setTranslationY(translation);
+            } else {
+                animator.cancel();
             }
         });
 
@@ -486,26 +454,18 @@ public class WeatherFragment
 
         final ValueAnimator animator = ValueAnimator.ofFloat(min, endValue);
 
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator animation) {
-                sMainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mRangeView != null) {
-                            mRangeView.setAmplitude(animation.getAnimatedFraction());
-                            mRangeView.setValue((Float) animation.getAnimatedValue());
+        animator.addUpdateListener(animation -> sMainHandler.post(() -> {
+            if (mRangeView != null) {
+                mRangeView.setAmplitude(animation.getAnimatedFraction());
+                mRangeView.setValue((Float) animation.getAnimatedValue());
 
-                            mTemperatureBar.setBackgroundColor((int) sEvaluator.evaluate(
-                                    mRangeView.getNormalizedValue(),
-                                    mRangeView.getStartColour(),
-                                    mRangeView.getEndColour()
-                            ));
-                        }
-                    }
-                });
+                mTemperatureBar.setBackgroundColor((int) sEvaluator.evaluate(
+                        mRangeView.getNormalizedValue(),
+                        mRangeView.getStartColour(),
+                        mRangeView.getEndColour()
+                ));
             }
-        });
+        }));
 
         animator.setInterpolator(new FastOutSlowInInterpolator());
         animator.setStartDelay(500L);
@@ -608,12 +568,9 @@ public class WeatherFragment
 
     private void postSetSpacerVisible() {
         mPostVisible = false;
-        post(new Runnable() {
-            @Override
-            public void run() {
-                if (mSpacer != null) {
-                    mSpacer.setVisibility(View.VISIBLE);
-                }
+        post(() -> {
+            if (mSpacer != null) {
+                mSpacer.setVisibility(View.VISIBLE);
             }
         });
     }

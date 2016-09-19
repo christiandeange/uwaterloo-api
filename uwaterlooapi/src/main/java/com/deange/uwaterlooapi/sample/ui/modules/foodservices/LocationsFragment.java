@@ -36,12 +36,7 @@ public class LocationsFragment
         AdapterView.OnItemSelectedListener,
         ModuleListItemListener {
 
-    private static final Comparator<Location> sComparator = new Comparator<Location>() {
-        @Override
-        public int compare(final Location l1, final Location l2) {
-            return l1.getName() == null ? -1 : l1.getName().compareTo(l2.getName());
-        }
-    };
+    private static final Comparator<Location> sComparator = (l1, l2) -> l1.getName() == null ? -1 : l1.getName().compareTo(l2.getName());
 
     private LocationAdapter mAdapter;
     private List<Location> mAllLocations = Collections.unmodifiableList(new ArrayList<Location>());
@@ -140,7 +135,6 @@ public class LocationsFragment
             @Override
             public boolean keep(final Location location) {
                 return true;
-
             }
         };
 

@@ -8,7 +8,6 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
 public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseModel>

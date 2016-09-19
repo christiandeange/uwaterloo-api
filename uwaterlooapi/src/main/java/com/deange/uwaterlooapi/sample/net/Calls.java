@@ -48,12 +48,7 @@ public class Calls {
         @Override
         public void enqueue(final Callback<T> callback) {
             // Yield execution to caller before returning success
-            sHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onResponse(InternalCall.this, execute());
-                }
-            });
+            sHandler.post(() -> callback.onResponse(InternalCall.this, execute()));
         }
 
         @Override

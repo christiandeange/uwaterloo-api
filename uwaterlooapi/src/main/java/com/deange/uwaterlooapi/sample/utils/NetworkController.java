@@ -80,21 +80,18 @@ public class NetworkController {
     }
 
     private void broadcastConnectivityChanged(final boolean changed) {
-        sHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                final Iterator<WeakReference<OnNetworkChangedListener>> iterator = mListeners.iterator();
-                while (iterator.hasNext()) {
-                    final WeakReference<OnNetworkChangedListener> listenerRef = iterator.next();
-                    final OnNetworkChangedListener listener = listenerRef.get();
-                    if (listener == null) {
-                        iterator.remove();
-                    } else {
-                        listener.onNetworkChanged(changed);
-                    }
+        sHandler.post(() -> {
+            final Iterator<WeakReference<OnNetworkChangedListener>> iterator = mListeners.iterator();
+            while (iterator.hasNext()) {
+                final WeakReference<OnNetworkChangedListener> listenerRef = iterator.next();
+                final OnNetworkChangedListener listener = listenerRef.get();
+                if (listener == null) {
+                    iterator.remove();
+                } else {
+                    listener.onNetworkChanged(changed);
                 }
-
             }
+
         });
     }
 

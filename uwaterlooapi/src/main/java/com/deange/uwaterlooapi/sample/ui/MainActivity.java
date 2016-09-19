@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -63,11 +62,8 @@ public class MainActivity
 
         setSupportActionBar(mToolbar);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ApiRunner.runAll(new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY));
-            }
+        new Thread(() -> {
+            ApiRunner.runAll(new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY));
         }).start();
 
         if (savedInstanceState == null) {
@@ -98,12 +94,9 @@ public class MainActivity
 
         onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
 
-        mNavigationView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                fixForegrounds(mNavigationView);
-                return true;
-            }
+        mNavigationView.getViewTreeObserver().addOnPreDrawListener(() -> {
+            fixForegrounds(mNavigationView);
+            return true;
         });
     }
 

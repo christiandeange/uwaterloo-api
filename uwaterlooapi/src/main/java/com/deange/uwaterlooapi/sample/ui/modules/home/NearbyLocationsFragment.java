@@ -36,7 +36,6 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -202,39 +201,36 @@ public class NearbyLocationsFragment
 
         final Map<Location, Float> distances = new HashMap<>();
 
-        Collections.sort(locations, new Comparator<Location>() {
-            @Override
-            public int compare(final Location lhs, final Location rhs) {
+        Collections.sort(locations, (lhs, rhs) -> {
 
-                final float[] results = new float[1];
+            final float[] results = new float[1];
 
-                final float distance1;
-                if (distances.containsKey(lhs)) {
-                    distance1 = distances.get(lhs);
+            final float distance1;
+            if (distances.containsKey(lhs)) {
+                distance1 = distances.get(lhs);
 
-                } else {
-                    // Calculate distance from first location to user's location
-                    final float[] location1 = lhs.getLocation();
-                    android.location.Location.distanceBetween(latitude, longitude, location1[0], location1[1], results);
-                    distance1 = results[0];
-                    distances.put(lhs, distance1);
-                }
-
-                final float distance2;
-                if (distances.containsKey(rhs)) {
-                    distance2 = distances.get(rhs);
-
-                } else {
-                    // Calculate distance from second location to user's location
-                    final float[] location2 = rhs.getLocation();
-                    android.location.Location.distanceBetween(latitude, longitude, location2[0], location2[1], results);
-                    distance2 = results[0];
-                    distances.put(rhs, distance2);
-                }
-
-                // Put the closer of the two earlier in the list
-                return Float.compare(distance1, distance2);
+            } else {
+                // Calculate distance from first location to user's location
+                final float[] location1 = lhs.getLocation();
+                android.location.Location.distanceBetween(latitude, longitude, location1[0], location1[1], results);
+                distance1 = results[0];
+                distances.put(lhs, distance1);
             }
+
+            final float distance2;
+            if (distances.containsKey(rhs)) {
+                distance2 = distances.get(rhs);
+
+            } else {
+                // Calculate distance from second location to user's location
+                final float[] location2 = rhs.getLocation();
+                android.location.Location.distanceBetween(latitude, longitude, location2[0], location2[1], results);
+                distance2 = results[0];
+                distances.put(rhs, distance2);
+            }
+
+            // Put the closer of the two earlier in the list
+            return Float.compare(distance1, distance2);
         });
 
         return locations.subList(0, Math.min(takeCount, locations.size()));

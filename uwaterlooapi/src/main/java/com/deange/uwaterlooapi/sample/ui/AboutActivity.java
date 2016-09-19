@@ -1,18 +1,14 @@
 package com.deange.uwaterlooapi.sample.ui;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AboutActivity
         extends BaseActivity {

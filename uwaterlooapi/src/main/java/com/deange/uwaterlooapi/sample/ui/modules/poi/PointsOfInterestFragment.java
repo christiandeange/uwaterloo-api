@@ -1,9 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.poi;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -126,54 +124,26 @@ public class PointsOfInterestFragment
         final Semaphore semaphore = new Semaphore(1 - LayersDialog.LAYERS_COUNT);
 
         // ATMs
-        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setATMs(Calls.unwrap(api.PointsOfInterest.getATMs()).getData());
-            }
-        });
+        fetchPointOfInterestInfo(semaphore, () -> info.setATMs(Calls.unwrap(api.PointsOfInterest.getATMs()).getData()));
 
         // Greyhound stops
-        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setGreyhounds(Calls.unwrap(api.PointsOfInterest.getGreyhoundStops()).getData());
-            }
-        });
+        fetchPointOfInterestInfo(semaphore, () -> info.setGreyhounds(Calls.unwrap(api.PointsOfInterest.getGreyhoundStops()).getData()));
 
         // Photospheres
-        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                // Disable Photospheres API due to bug
-                info.setPhotospheres(new ArrayList<>()
-                        /*Calls.unwrap(api.PointsOfInterest.getPhotospheres()).getData()*/);
-            }
+        fetchPointOfInterestInfo(semaphore, () -> {
+            // Disable Photospheres API due to bug
+            info.setPhotospheres(new ArrayList<>()
+                    /*Calls.unwrap(api.PointsOfInterest.getPhotospheres()).getData()*/);
         });
 
         // Helplines
-        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setHelplines(Calls.unwrap(api.PointsOfInterest.getHelplines()).getData());
-            }
-        });
+        fetchPointOfInterestInfo(semaphore, () -> info.setHelplines(Calls.unwrap(api.PointsOfInterest.getHelplines()).getData()));
 
         // Libraries
-        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setLibraries(Calls.unwrap(api.PointsOfInterest.getLibraries()).getData());
-            }
-        });
+        fetchPointOfInterestInfo(semaphore, () -> info.setLibraries(Calls.unwrap(api.PointsOfInterest.getLibraries()).getData()));
 
         // Defibrillators
-        fetchPointOfInterestInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setDefibrillators(Calls.unwrap(api.PointsOfInterest.getDefibrillators()).getData());
-            }
-        });
+        fetchPointOfInterestInfo(semaphore, () -> info.setDefibrillators(Calls.unwrap(api.PointsOfInterest.getDefibrillators()).getData()));
 
         try {
             // Wait until all data is loaded

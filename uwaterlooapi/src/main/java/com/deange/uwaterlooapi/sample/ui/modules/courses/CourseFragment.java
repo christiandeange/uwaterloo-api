@@ -107,38 +107,23 @@ public class CourseFragment
         final Semaphore semaphore = new Semaphore(1 - 4);
 
         // General course info
-        fetchCourseInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                final Response.CoursesInfo response = Calls.unwrap(api.Courses.getCourseInfo(subject, code));
-                info.setMetadata(response.getMetadata());
-                info.setCourseInfo(response.getData());
-            }
+        fetchCourseInfo(semaphore, () -> {
+            final Response.CoursesInfo infoResponse = Calls.unwrap(api.Courses.getCourseInfo(subject, code));
+            info.setMetadata(infoResponse.getMetadata());
+            info.setCourseInfo(infoResponse.getData());
         });
 
         // Prerequisite info
-        fetchCourseInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setPrerequisites(Calls.unwrap(api.Courses.getPrerequisites(subject, code)).getData());
-            }
-        });
+        fetchCourseInfo(semaphore,
+                () -> info.setPrerequisites(Calls.unwrap(api.Courses.getPrerequisites(subject, code)).getData()));
 
         // Course scheduling info
-        fetchCourseInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setSchedules(Calls.unwrap(api.Courses.getCourseSchedule(subject, code)).getData());
-            }
-        });
+        fetchCourseInfo(semaphore,
+                () -> info.setSchedules(Calls.unwrap(api.Courses.getCourseSchedule(subject, code)).getData()));
 
         // Exam schedule info
-        fetchCourseInfo(semaphore, new InfoFetcher() {
-            @Override
-            public void fetch() {
-                info.setExams(Calls.unwrap(api.Courses.getExamSchedule(subject, code)).getData());
-            }
-        });
+        fetchCourseInfo(semaphore,
+                () -> info.setExams(Calls.unwrap(api.Courses.getExamSchedule(subject, code)).getData()));
 
         try {
             // Wait until all data is loaded
@@ -200,14 +185,11 @@ public class CourseFragment
             final Semaphore semaphore,
             final InfoFetcher fetcher) {
 
-        EXECUTOR.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    fetcher.fetch();
-                } finally {
-                    semaphore.release();
-                }
+        EXECUTOR.execute(() -> {
+            try {
+                fetcher.fetch();
+            } finally {
+                semaphore.release();
             }
         });
 

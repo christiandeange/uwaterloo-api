@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.courses.views;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;

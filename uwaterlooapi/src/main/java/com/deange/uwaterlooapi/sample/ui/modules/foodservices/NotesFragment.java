@@ -23,7 +23,6 @@ import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,12 +92,7 @@ public class NotesFragment
         mResponse.clear();
         mResponse.addAll(data);
 
-        Collections.sort(mResponse, new Comparator<Note>() {
-            @Override
-            public int compare(final Note lhs, final Note rhs) {
-                return lhs.getDate().compareTo(rhs.getDate());
-            }
-        });
+        Collections.sort(mResponse, (lhs, rhs) -> lhs.getDate().compareTo(rhs.getDate()));
 
         mEmptyView.setVisibility(mResponse.isEmpty() ? View.VISIBLE : View.GONE);
         notifyDataSetChanged();

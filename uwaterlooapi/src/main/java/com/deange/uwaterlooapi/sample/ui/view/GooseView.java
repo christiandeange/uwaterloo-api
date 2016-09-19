@@ -273,12 +273,7 @@ public class GooseView extends FrameLayout {
         mDroid.setY(mHeight / 2);
         addView(mDroid, new LayoutParams(PARAMS.PLAYER_SIZE, PARAMS.PLAYER_SIZE));
         mAnim = new TimeAnimator();
-        mAnim.setTimeListener(new TimeAnimator.TimeListener() {
-            @Override
-            public void onTimeUpdate(TimeAnimator timeAnimator, long t, long dt) {
-                step(t, dt);
-            }
-        });
+        mAnim.setTimeListener((timeAnimator, t1, dt) -> step(t1, dt));
     }
 
     private void setScore(int score) {
@@ -296,16 +291,11 @@ public class GooseView extends FrameLayout {
                        .scaleXBy(scale)
                        .scaleYBy(scale)
                        .setDuration(250)
-                       .withEndAction(new Runnable() {
-                           @Override
-                           public void run() {
-                               mScoreField.animate()
-                                          .scaleXBy(-scale)
-                                          .scaleYBy(-scale)
-                                          .setDuration(250)
-                                          .start();
-                           }
-                       })
+                       .withEndAction(() -> mScoreField.animate()
+                                               .scaleXBy(-scale)
+                                               .scaleYBy(-scale)
+                                               .setDuration(250)
+                                               .start())
                        .start();
         }
     }
@@ -347,12 +337,7 @@ public class GooseView extends FrameLayout {
             mScoreField.setBackgroundResource(R.drawable.scorecard_gameover);
             mTimeOfDay = irand(0, SKIES.length); // for next reset
             mFrozen = true;
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mFrozen = false;
-                }
-            }, 250);
+            postDelayed(() -> mFrozen = false, 250);
         }
     }
 

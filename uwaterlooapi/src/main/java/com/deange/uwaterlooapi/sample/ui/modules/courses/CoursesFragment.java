@@ -29,7 +29,6 @@ import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -133,17 +132,14 @@ public class CoursesFragment
         mResponse.clear();
         mResponse.addAll(data);
 
-        Collections.sort(mResponse, new Comparator<Course>() {
-            @Override
-            public int compare(final Course lhs, final Course rhs) {
-                final String firstStr = lhs.getCatalogNumber();
-                final String secondStr = rhs.getCatalogNumber();
-                final int first = extractNumbers(lhs.getCatalogNumber());
-                final int second = extractNumbers(rhs.getCatalogNumber());
+        Collections.sort(mResponse, (lhs, rhs) -> {
+            final String firstStr = lhs.getCatalogNumber();
+            final String secondStr = rhs.getCatalogNumber();
+            final int first = extractNumbers(lhs.getCatalogNumber());
+            final int second = extractNumbers(rhs.getCatalogNumber());
 
-                final int catalogNumberComp = Double.compare(first, second);
-                return (catalogNumberComp != 0) ? catalogNumberComp : firstStr.compareTo(secondStr);
-            }
+            final int catalogNumberComp = Double.compare(first, second);
+            return (catalogNumberComp != 0) ? catalogNumberComp : firstStr.compareTo(secondStr);
         });
 
         mCoursePicker.clearFocus();

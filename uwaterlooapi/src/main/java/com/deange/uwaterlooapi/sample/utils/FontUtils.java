@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.TypefaceUtils;
 

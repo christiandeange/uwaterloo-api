@@ -77,13 +77,10 @@ public class EventsFragment
                 if (Event.getNext(adapter.getItem(i).getTimes(), now).after(now)) {
 
                     getListView().setSelectionFromTop(i, offset);
-                    post(new Runnable() {
-                        @Override
-                        public void run() {
-                            final int currentFirst = getListView().getFirstVisiblePosition();
-                            final int nextFirst = Math.min(adapter.getCount() - 1, currentFirst + 1);
-                            getListView().setSelectionFromTop(nextFirst, 0);
-                        }
+                    post(() -> {
+                        final int currentFirst = getListView().getFirstVisiblePosition();
+                        final int nextFirst = Math.min(adapter.getCount() - 1, currentFirst + 1);
+                        getListView().setSelectionFromTop(nextFirst, 0);
                     });
 
                     break;

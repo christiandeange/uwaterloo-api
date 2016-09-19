@@ -1,33 +1,23 @@
 package com.deange.uwaterlooapi.sample.ui.modules.foodservices;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Response;
-import com.deange.uwaterlooapi.model.foodservices.Announcement;
-import com.deange.uwaterlooapi.model.foodservices.Note;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
-import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
-import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
-
-import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -66,12 +56,7 @@ public class WatcardFragment
         mResponse.clear();
         mResponse.addAll(data);
 
-        Collections.sort(mResponse, new Comparator<WatcardVendor>() {
-            @Override
-            public int compare(final WatcardVendor lhs, final WatcardVendor rhs) {
-                return lhs.getName().compareTo(rhs.getName());
-            }
-        });
+        Collections.sort(mResponse, (lhs, rhs) -> lhs.getName().compareTo(rhs.getName()));
 
         notifyDataSetChanged();
     }

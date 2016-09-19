@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.poi;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +44,10 @@ public class LayersDialog {
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(view)
                 .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        final int newFlags = holder.save();
-                        if (listener != null) {
-                            listener.onLayersSelected(newFlags);
-                        }
+                .setPositiveButton(android.R.string.ok, (dialog1, which) -> {
+                    final int newFlags = holder.save();
+                    if (listener != null) {
+                        listener.onLayersSelected(newFlags);
                     }
                 })
                 .create();

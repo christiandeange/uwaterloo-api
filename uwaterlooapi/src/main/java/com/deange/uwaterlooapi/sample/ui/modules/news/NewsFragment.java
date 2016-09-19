@@ -55,27 +55,12 @@ public class NewsFragment
 
         ButterKnife.bind(this, root);
 
-        mBannerRoot.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(
-                    final View v,
-                    final int left,
-                    final int top,
-                    final int right,
-                    final int bottom,
-                    final int oldLeft,
-                    final int oldTop,
-                    final int oldRight,
-                    final int oldBottom) {
-                mSpacer.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSpacer.getLayoutParams().height = v.getMeasuredHeight();
-                        mSpacer.requestLayout();
-                    }
-                });
-            }
-        });
+        mBannerRoot.addOnLayoutChangeListener(
+                (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom)
+                        -> mSpacer.post(() -> {
+                    mSpacer.getLayoutParams().height = v.getMeasuredHeight();
+                    mSpacer.requestLayout();
+                }));
 
         mDescriptionView.setMovementMethod(LinkMovementMethod.getInstance());
 

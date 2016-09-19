@@ -1,13 +1,10 @@
 package com.deange.uwaterlooapi.sample.ui.modules.resources;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -21,12 +18,9 @@ import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
-import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -71,12 +65,7 @@ public class SitesFragment
         mResponse.clear();
         mResponse.addAll(data);
 
-        Collections.sort(mResponse, new Comparator<Site>() {
-            @Override
-            public int compare(final Site lhs, final Site rhs) {
-                return lhs.getName().compareTo(rhs.getName());
-            }
-        });
+        Collections.sort(mResponse, (lhs, rhs) -> lhs.getName().compareTo(rhs.getName()));
 
         mSections.clear();
         for (int i = 0; i < mResponse.size(); i++) {

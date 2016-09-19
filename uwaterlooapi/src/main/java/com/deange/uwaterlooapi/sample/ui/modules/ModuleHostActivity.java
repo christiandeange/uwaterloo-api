@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,8 +18,6 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.BaseActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class ModuleHostActivity
