@@ -84,7 +84,7 @@ dependencies {
     provided project(':uwaterlooapi-processor')
     compile project(':uwaterlooapi-annotations')
 
-    compile project(':uwapi-library')
+    compile project(':uwaterlooapi-library')
 
     compile 'com.android.support:multidex:1.0.1'
     compile "com.android.support:design:${supportLibrary}"

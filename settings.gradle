@@ -1,1 +1,1 @@
-include ':uwapi-library', ':uwaterlooapi', ':uwaterlooapi-annotations', ':uwaterlooapi-processor'
+include ':sample', ':uwaterlooapi-library', ':uwaterlooapi-annotations', ':uwaterlooapi-processor'
