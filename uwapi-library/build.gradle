@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.targetSdk
-    buildToolsVersion '24.0.2'
+    buildToolsVersion rootProject.buildTools
 
     defaultConfig {
         minSdkVersion 5
@@ -23,12 +23,10 @@ android {
     }
 }
 
-def RETROFIT_VERSION = '2.0.2'
-
 dependencies {
-    compile 'com.squareup.retrofit2:retrofit:' + RETROFIT_VERSION
-    compile 'com.squareup.retrofit2:converter-gson:' + RETROFIT_VERSION
-    compile 'com.squareup.retrofit2:converter-simplexml:' + RETROFIT_VERSION
+    compile "com.squareup.retrofit2:retrofit:${retrofit}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofit}"
+    compile "com.squareup.retrofit2:converter-simplexml:${retrofit}"
     compile 'com.google.code.gson:gson:2.4'
 
     compile 'org.parceler:parceler-api:1.0.2'

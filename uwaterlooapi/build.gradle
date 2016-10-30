@@ -23,7 +23,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 Properties properties = new Properties()
-File propertiesFile = project.rootProject.file('developer.properties')
+File propertiesFile = rootProject.file('developer.properties')
 if (!propertiesFile.exists()) {
     throw new GradleException('developer.properties file cannot be found in root directory')
 }
@@ -33,7 +33,7 @@ List<String> manifestProperties = [ 'FABRIC_API_KEY' ]
 
 android {
     compileSdkVersion rootProject.targetSdk
-    buildToolsVersion '24.0.2'
+    buildToolsVersion rootProject.buildTools
 
     defaultConfig {
         minSdkVersion rootProject.minSdk
@@ -80,9 +80,6 @@ android {
 
 }
 
-def SUPPORT_VERSION = '24.2.0'
-def PLAY_VERSION = '9.4.0'
-
 dependencies {
     provided project(':uwaterlooapi-processor')
     compile project(':uwaterlooapi-annotations')
@@ -90,14 +87,14 @@ dependencies {
     compile project(':uwapi-library')
 
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:design:' + SUPPORT_VERSION
-    compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSION
-    compile 'com.android.support:cardview-v7:' + SUPPORT_VERSION
-    compile 'com.google.android.gms:play-services-maps:' + PLAY_VERSION
-    compile 'com.google.android.gms:play-services-location:' + PLAY_VERSION
+    compile "com.android.support:design:${supportLibrary}"
+    compile "com.android.support:appcompat-v7:${supportLibrary}"
+    compile "com.android.support:cardview-v7:${supportLibrary}"
+    compile "com.google.android.gms:play-services-maps:${playServices}"
+    compile "com.google.android.gms:play-services-location:${playServices}"
 
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile "com.jakewharton:butterknife:${butterknife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
 
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'net.danlew:android.joda:2.9.3'

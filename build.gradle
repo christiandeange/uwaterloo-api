@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-rc1'
+        classpath 'com.android.tools.build:gradle:2.2.1'
     }
 }
 
@@ -21,8 +21,14 @@ ext {
     appVersionName = appVersion.join('.')
     appVersionCode = appVersion.join().toInteger()
 
+    buildTools = '24.0.2'
     targetSdk = 24
     minSdk = 21
 
     javaVersion = JavaVersion.VERSION_1_8
+
+    supportLibrary = '24.2.0'
+    playServices = '9.4.0'
+    butterknife = '8.4.0'
+    retrofit = '2.0.2'
 }
