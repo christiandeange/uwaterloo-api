@@ -17,9 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.deange.uwaterlooapi.api.UWaterlooApi;
-import com.deange.uwaterlooapi.sample.ApiRunner;
-import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
@@ -61,10 +58,6 @@ public class MainActivity
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
-
-        new Thread(() -> {
-            ApiRunner.runAll(new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY));
-        }).start();
 
         if (savedInstanceState == null) {
             mNavItemId = R.id.menu_item_home;
