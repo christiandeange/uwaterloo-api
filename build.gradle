@@ -2,17 +2,17 @@
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.3.0-alpha1'
     }
 }
 
 allprojects {
     repositories {
-        mavenCentral()
+        jcenter()
     }
 }
 
@@ -21,14 +21,14 @@ ext {
     appVersionName = appVersion.join('.')
     appVersionCode = appVersion.join().toInteger()
 
-    buildTools = '24.0.2'
-    targetSdk = 24
+    buildTools = '25.0.0'
+    targetSdk = 25
     minSdk = 21
 
     javaVersion = JavaVersion.VERSION_1_8
 
-    supportLibrary = '24.2.0'
-    playServices = '9.4.0'
+    supportLibrary = '25.0.0'
+    playServices = '9.8.0'
     butterknife = '8.4.0'
     retrofit = '2.0.2'
 }
