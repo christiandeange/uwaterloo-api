@@ -28,7 +28,7 @@ public class PhotoUrl {
         List<PhotoUrl> mUrls;
 
         public List<PhotoUrl> getUrls() {
-            return (mUrls == null) ? new ArrayList<PhotoUrl>() : mUrls;
+            return (mUrls == null) ? new ArrayList<>() : mUrls;
         }
     }
 

@@ -286,7 +286,7 @@ public abstract class TouchExplorationHelper<T>
         final AccessibilityNodeInfoCompat info = AccessibilityNodeInfoCompat.obtain(mParentView);
         ViewCompat.onInitializeAccessibilityNodeInfo(mParentView, info);
 
-        final LinkedList<T> items = new LinkedList<T>();
+        final LinkedList<T> items = new LinkedList<>();
         getVisibleItems(items);
 
         for (T item : items) {

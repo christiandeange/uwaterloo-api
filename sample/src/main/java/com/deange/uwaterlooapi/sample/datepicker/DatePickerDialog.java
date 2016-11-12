@@ -86,7 +86,7 @@ public class DatePickerDialog
     private int mMinYear = DEFAULT_START_YEAR;
     private int mMaxYear = DEFAULT_END_YEAR;
     private OnDateSetListener mCallBack;
-    private HashSet<OnDateChangedListener> mListeners = new HashSet<OnDateChangedListener>();
+    private HashSet<OnDateChangedListener> mListeners = new HashSet<>();
     private AccessibleDateAnimator mAnimator;
     private LinearLayout mMonthAndDayView;
     private TextView mSelectedMonthTextView;

@@ -194,7 +194,7 @@ public class MainActivity
         public String[] getApiMethods(final @IdRes int menuItemId, final Resources res) {
             final String idName = res.getResourceEntryName(menuItemId);
             final String category = idName.substring("menu_item_".length());
-            final List<String> endpoints = containsKey(category) ? get(category) : new ArrayList<String>();
+            final List<String> endpoints = containsKey(category) ? get(category) : new ArrayList<>();
 
             return endpoints.toArray(new String[endpoints.size()]);
         }

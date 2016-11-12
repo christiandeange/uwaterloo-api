@@ -14,7 +14,7 @@ public interface Contract {
         SizeInfo mSize;
 
         public List<PhotoSize> getSizes() {
-            return (mSize == null) ? new ArrayList<PhotoSize>() : mSize.mSizes;
+            return (mSize == null) ? new ArrayList<>() : mSize.mSizes;
         }
     }
 
