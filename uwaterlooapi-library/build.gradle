@@ -5,7 +5,7 @@ android {
     buildToolsVersion rootProject.buildTools
 
     defaultConfig {
-        minSdkVersion 5
+        minSdkVersion 16
         targetSdkVersion rootProject.targetSdk
         versionName rootProject.appVersionName
         versionCode rootProject.appVersionCode
