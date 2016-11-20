@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.foodservices.WatcardVendor;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
@@ -27,7 +27,7 @@ import retrofit2.Call;
 //        layout = R.layout.module_foodservices_watcards
 //)
 public class WatcardFragment
-        extends BaseListModuleFragment<Response.Watcards, WatcardVendor> {
+        extends BaseListModuleFragment<Responses.Watcards, WatcardVendor> {
 
     private final List<WatcardVendor> mResponse = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class WatcardFragment
     }
 
     @Override
-    public Call<Response.Watcards> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Watcards> onLoadData(final UWaterlooApi api) {
         return api.FoodServices.getWatcardVendors();
     }
 

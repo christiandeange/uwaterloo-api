@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.parking.ParkingLot;
 import com.deange.uwaterlooapi.sample.CrashReporting;
 import com.deange.uwaterlooapi.sample.R;
@@ -40,7 +40,7 @@ import retrofit2.Call;
         layout = R.layout.module_parking
 )
 public class ParkingFragment
-        extends BaseMapFragment<Response.Parking, ParkingLot> {
+        extends BaseMapFragment<Responses.Parking, ParkingLot> {
 
     private static final String TAG = "ParkingFragment";
 
@@ -62,7 +62,7 @@ public class ParkingFragment
     }
 
     @Override
-    public Call<Response.Parking> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Parking> onLoadData(final UWaterlooApi api) {
         return api.Parking.getParkingInfo();
     }
 

@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,14 +13,14 @@ public interface TermsApi {
      * in the past year and the next year
      */
     @GET("terms/list.json")
-    Call<Response.Terms> getTermList();
+    Call<Responses.Terms> getTermList();
 
     /**
      * This method returns a given term's exam schedule
      * @param termId Numeric representation of the term
      */
     @GET("terms/{term}/examschedule.json")
-    Call<Response.TermExamSchedule> getExamSchedule(@Path("term") int termId);
+    Call<Responses.TermExamSchedule> getExamSchedule(@Path("term") int termId);
 
     /**
      * This method returns all class schedule for the given subject for a given term
@@ -28,7 +28,7 @@ public interface TermsApi {
      * @param subject Valid uWaterloo subject name, eg: MATH, CS, ENGL
      */
     @GET("terms/{term}/{subject}/schedule.json")
-    Call<Response.CoursesSchedule> getSchedule(@Path("term") int termId, @Path("subject") String subject);
+    Call<Responses.CoursesSchedule> getSchedule(@Path("term") int termId, @Path("subject") String subject);
 
     /**
      * This method returns the class schedule for the given course of a given term
@@ -37,13 +37,13 @@ public interface TermsApi {
      * @param catalog Course name, eg: 101, 108D, 412
      */
     @GET("terms/{term}/{subject}/{catalog_number}/schedule.json")
-    Call<Response.CoursesSchedule> getSchedule(@Path("term") int termId, @Path("subject") String subject, @Path("catalog_number") String catalog);
+    Call<Responses.CoursesSchedule> getSchedule(@Path("term") int termId, @Path("subject") String subject, @Path("catalog_number") String catalog);
 
     /**
      * This method returns the schedule for employer information sessions of a given term
      * @param termId Four digit term representation
      */
     @GET("terms/{term}/infosessions.json")
-    Call<Response.InfoSessions> getInfoSessions(@Path("term") int termId);
+    Call<Responses.InfoSessions> getInfoSessions(@Path("term") int termId);
 
 }

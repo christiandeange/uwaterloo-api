@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.resources.Site;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
@@ -32,7 +32,7 @@ import retrofit2.Call;
         layout = R.layout.module_resources_sites
 )
 public class SitesFragment
-        extends BaseListModuleFragment<Response.Sites, Site>
+        extends BaseListModuleFragment<Responses.Sites, Site>
         implements
         ModuleListItemListener {
 
@@ -56,7 +56,7 @@ public class SitesFragment
     }
 
     @Override
-    public Call<Response.Sites> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Sites> onLoadData(final UWaterlooApi api) {
         return api.Resources.getSites();
     }
 

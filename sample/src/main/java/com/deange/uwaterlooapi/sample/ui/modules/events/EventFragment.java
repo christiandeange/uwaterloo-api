@@ -18,7 +18,7 @@ import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Image;
 import com.deange.uwaterlooapi.model.common.MultidayDateRange;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.events.Event;
 import com.deange.uwaterlooapi.model.events.EventInfo;
 import com.deange.uwaterlooapi.model.events.EventLocation;
@@ -41,7 +41,7 @@ import retrofit2.Call;
 
 @ModuleFragment(path = "/events/*/*")
 public class EventFragment
-        extends BaseModuleFragment<Response.EventDetails, EventInfo> {
+        extends BaseModuleFragment<Responses.EventDetails, EventInfo> {
 
     private EventInfo mEventInfo;
     private View mRoot;
@@ -87,7 +87,7 @@ public class EventFragment
     }
 
     @Override
-    public Call<Response.EventDetails> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.EventDetails> onLoadData(final UWaterlooApi api) {
         final Event event = getModel();
 
         return api.Events.getEvent(event.getSite(), event.getId());

@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,14 +13,14 @@ public interface EventsApi {
      * all University WCMS sites listed at https://api.uwaterloo.ca/v2/resources/sites.json
      */
     @GET("events.json")
-    Call<Response.Events> getEvents();
+    Call<Responses.Events> getEvents();
 
     /**
      * This method returns a list of the upcoming site events given a site slug
      * @param site Valid site slug from /resources/sites
      */
     @GET("events/{site}.json")
-    Call<Response.Events> getEvents(@Path("site") String site);
+    Call<Responses.Events> getEvents(@Path("site") String site);
 
     /**
      * This method returns a specific event's information given a site slug and the unique id
@@ -28,6 +28,6 @@ public interface EventsApi {
      * @param id Valid event id
      */
     @GET("events/{site}/{id}.json")
-    Call<Response.EventDetails> getEvent(@Path("site") String site, @Path("id") int id);
+    Call<Responses.EventDetails> getEvent(@Path("site") String site, @Path("id") int id);
 
 }

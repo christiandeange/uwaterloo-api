@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.news.NewsArticle;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.sample.R;
@@ -32,7 +32,7 @@ import retrofit2.Call;
 
 @ModuleFragment(path = "/news/*/*")
 public class NewsFragment
-        extends BaseModuleFragment<Response.NewsEntity, NewsArticle> {
+        extends BaseModuleFragment<Responses.NewsEntity, NewsArticle> {
 
     private static final String TAG = "NewsFragment";
 
@@ -78,7 +78,7 @@ public class NewsFragment
     }
 
     @Override
-    public Call<Response.NewsEntity> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.NewsEntity> onLoadData(final UWaterlooApi api) {
         final NewsDetails news = getModel();
 
         return api.News.getNews(news.getSite(), news.getId());

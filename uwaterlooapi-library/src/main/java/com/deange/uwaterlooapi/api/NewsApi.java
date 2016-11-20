@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,14 +13,14 @@ public interface NewsApi {
      * University of Waterloo news items as crawled from all University WCMS sites
      */
     @GET("news.json")
-    Call<Response.News> getNews();
+    Call<Responses.News> getNews();
 
     /**
      * This method returns a list of the upcoming site's news given a site slug
      * @param site Valid site slug from /resources/sites
      */
     @GET("news/{site}.json")
-    Call<Response.News> getNews(@Path("site") String site);
+    Call<Responses.News> getNews(@Path("site") String site);
 
     /**
      * This method returns a specific news item's information given a site's slug and id
@@ -28,6 +28,6 @@ public interface NewsApi {
      * @param id Valid news id
      */
     @GET("news/{site}/{id}.json")
-    Call<Response.NewsEntity> getNews(@Path("site") String site, @Path("id") int id);
+    Call<Responses.NewsEntity> getNews(@Path("site") String site, @Path("id") int id);
 
 }

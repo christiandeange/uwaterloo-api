@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,7 +13,7 @@ public interface BuildingsApi {
      * lat/long coordinates.
      */
     @GET("buildings/list.json")
-    Call<Response.Buildings> getBuildings();
+    Call<Responses.Buildings> getBuildings();
 
     /**
      * This method returns the official building name, its unique number, and its
@@ -21,7 +21,7 @@ public interface BuildingsApi {
      * @param buildingCode Building code, eg: CPH, SLC, DC
      */
     @GET("buildings/{building_code}.json")
-    Call<Response.BuildingEntity> getBuilding(@Path("building_code") String buildingCode);
+    Call<Responses.BuildingEntity> getBuilding(@Path("building_code") String buildingCode);
 
     /**
      * This method gives out the all the courses offered in a given classroom.
@@ -29,6 +29,6 @@ public interface BuildingsApi {
      * @param room Room number
      */
     @GET("buildings/{building_code}/{room}/courses.json")
-    Call<Response.RoomCourses> getClassroomCourses(@Path("building_code") String buildingCode, @Path("room") String room);
+    Call<Responses.RoomCourses> getClassroomCourses(@Path("building_code") String buildingCode, @Path("room") String room);
 
 }

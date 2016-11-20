@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,21 +14,21 @@ public interface CoursesApi {
      * @param subject Valid uWaterloo subject name
      */
     @GET("courses/{subject}.json")
-    Call<Response.Courses> getCourseInfo(@Path("subject") String subject);
+    Call<Responses.Courses> getCourseInfo(@Path("subject") String subject);
 
     /**
      * This method returns all available information for a given course
      * @param courseId Valid uWaterloo course ID
      */
     @GET("courses/{course_id}.json")
-    Call<Response.CoursesInfo> getCourseInfo(@Path("course_id") int courseId);
+    Call<Responses.CoursesInfo> getCourseInfo(@Path("course_id") int courseId);
 
     /**
      * This method returns the class schedule for a given course and term
      * @param classNumber Valid uWaterloo course number
      */
     @GET("courses/{class_number}/schedule.json")
-    Call<Response.CoursesSchedule> getCourseSchedule(@Path("class_number") int classNumber);
+    Call<Responses.CoursesSchedule> getCourseSchedule(@Path("class_number") int classNumber);
 
     /**
      * This method returns the class schedule for a given course and term
@@ -36,7 +36,7 @@ public interface CoursesApi {
      * @param term Four digit term representation
      */
     @GET("courses/{class_number}/schedule.json")
-    Call<Response.CoursesSchedule> getCourseSchedule(@Path("class_number") int classNumber, @Query("term") int term);
+    Call<Responses.CoursesSchedule> getCourseSchedule(@Path("class_number") int classNumber, @Query("term") int term);
 
     /**
      * This method returns all available information for a given course
@@ -44,7 +44,7 @@ public interface CoursesApi {
      * @param courseCode Valid uWaterloo course number
      */
     @GET("courses/{subject}/{catalog_number}.json")
-    Call<Response.CoursesInfo> getCourseInfo(@Path("subject") String subject, @Path("catalog_number") String courseCode);
+    Call<Responses.CoursesInfo> getCourseInfo(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
     /**
      * This method returns the class schedule for a given course and term
@@ -52,7 +52,7 @@ public interface CoursesApi {
      * @param courseCode Valid uWaterloo course number
      */
     @GET("courses/{subject}/{catalog_number}/schedule.json")
-    Call<Response.CoursesSchedule> getCourseSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode);
+    Call<Responses.CoursesSchedule> getCourseSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
     /**
      * This method returns the class schedule for a given course and term
@@ -61,7 +61,7 @@ public interface CoursesApi {
      * @param term Four digit term representation
      */
     @GET("courses/{subject}/{catalog_number}/schedule.json")
-    Call<Response.CoursesSchedule> getCourseSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode, @Query("term") int term);
+    Call<Responses.CoursesSchedule> getCourseSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode, @Query("term") int term);
 
     /**
      * This method returns parsed and raw representation of prerequsites for a given course
@@ -69,7 +69,7 @@ public interface CoursesApi {
      * @param courseCode Valid uWaterloo course number
      */
     @GET("courses/{subject}/{catalog_number}/prerequisites.json")
-    Call<Response.Prerequisites> getPrerequisites(@Path("subject") String subject, @Path("catalog_number") String courseCode);
+    Call<Responses.Prerequisites> getPrerequisites(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
     /**
      * This method returns a given course's exam schedule
@@ -77,6 +77,6 @@ public interface CoursesApi {
      * @param courseCode Valid uWaterloo course number
      */
     @GET("courses/{subject}/{catalog_number}/examschedule.json")
-    Call<Response.ExamSchedule> getExamSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode);
+    Call<Responses.ExamSchedule> getExamSchedule(@Path("subject") String subject, @Path("catalog_number") String courseCode);
 
 }

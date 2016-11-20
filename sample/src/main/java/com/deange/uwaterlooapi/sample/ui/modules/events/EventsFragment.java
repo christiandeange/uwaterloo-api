@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.events.Event;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
@@ -31,7 +31,7 @@ import retrofit2.Call;
         layout = R.layout.module_events
 )
 public class EventsFragment
-        extends BaseListModuleFragment<Response.Events, Event>
+        extends BaseListModuleFragment<Responses.Events, Event>
         implements
         ModuleListItemListener {
 
@@ -53,7 +53,7 @@ public class EventsFragment
     }
 
     @Override
-    public Call<Response.Events> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Events> onLoadData(final UWaterlooApi api) {
         return api.Events.getEvents();
     }
 

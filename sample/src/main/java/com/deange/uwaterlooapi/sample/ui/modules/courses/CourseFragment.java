@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
@@ -108,7 +108,7 @@ public class CourseFragment
 
         // General course info
         fetchCourseInfo(semaphore, () -> {
-            final Response.CoursesInfo infoResponse = Calls.unwrap(api.Courses.getCourseInfo(subject, code));
+            final Responses.CoursesInfo infoResponse = Calls.unwrap(api.Courses.getCourseInfo(subject, code));
             info.setMetadata(infoResponse.getMetadata());
             info.setCourseInfo(infoResponse.getData());
         });

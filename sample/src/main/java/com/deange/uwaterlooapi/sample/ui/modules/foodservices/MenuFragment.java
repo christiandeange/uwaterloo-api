@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MenuFragment
-        extends BaseModuleFragment<Response.Outlets, Outlet> {
+        extends BaseModuleFragment<Responses.Outlets, Outlet> {
 
     private static final String KEY_DAY_OF_WEEK = "day_of_week";
 

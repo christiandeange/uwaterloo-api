@@ -9,7 +9,7 @@ import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
@@ -29,7 +29,7 @@ import retrofit2.Call;
         layout = R.layout.module_buildings
 )
 public class ListBuildingsFragment
-        extends BaseListModuleFragment<Response.Buildings, Building>
+        extends BaseListModuleFragment<Responses.Buildings, Building>
         implements
         View.OnClickListener {
 
@@ -42,7 +42,7 @@ public class ListBuildingsFragment
     }
 
     @Override
-    public Call<Response.Buildings> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Buildings> onLoadData(final UWaterlooApi api) {
         return api.Buildings.getBuildings();
     }
 

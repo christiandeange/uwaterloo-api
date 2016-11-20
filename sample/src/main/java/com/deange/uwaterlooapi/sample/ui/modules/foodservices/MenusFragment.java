@@ -8,7 +8,7 @@ import android.widget.ListView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.foodservices.MenuInfo;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
@@ -27,7 +27,7 @@ import retrofit2.Call;
         layout = R.layout.module_foodservices_menus
 )
 public class MenusFragment
-        extends BaseModuleFragment<Response.Menus, MenuInfo>
+        extends BaseModuleFragment<Responses.Menus, MenuInfo>
         implements
         ModuleListItemListener,
         DateSelectorView.OnDateChangedListener {
@@ -53,7 +53,7 @@ public class MenusFragment
     }
 
     @Override
-    public Call<Response.Menus> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Menus> onLoadData(final UWaterlooApi api) {
         final LocalDate date = mDateSelector.getDate();
         final int year = date.getYear();
         final int week = date.getWeekOfWeekyear();

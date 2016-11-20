@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.news.NewsDetails;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
@@ -30,7 +30,7 @@ import retrofit2.Call;
         layout = R.layout.module_news
 )
 public class NewsListFragment
-        extends BaseListModuleFragment<Response.News, NewsDetails>
+        extends BaseListModuleFragment<Responses.News, NewsDetails>
         implements
         ModuleListItemListener {
 
@@ -52,7 +52,7 @@ public class NewsListFragment
     }
 
     @Override
-    public Call<Response.News> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.News> onLoadData(final UWaterlooApi api) {
         return api.News.getNews();
     }
 

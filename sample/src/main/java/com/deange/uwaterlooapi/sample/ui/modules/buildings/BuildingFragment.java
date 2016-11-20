@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.MapActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 @ModuleFragment(path = "/buildings/*")
 public class BuildingFragment
-        extends BaseMapFragment<Response.BuildingEntity, Building> {
+        extends BaseMapFragment<Responses.BuildingEntity, Building> {
 
     public static final String TAG = BuildingFragment.class.getSimpleName();
 

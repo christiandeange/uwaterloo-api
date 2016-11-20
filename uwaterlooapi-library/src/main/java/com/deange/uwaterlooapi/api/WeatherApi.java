@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.api;
 
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -12,6 +12,6 @@ public interface WeatherApi {
      * Weather Station. Visit http://weather.uwaterloo.ca for more details
      */
     @GET("weather/current.json")
-    Call<Response.Weather> getWeather();
+    Call<Responses.Weather> getWeather();
 
 }

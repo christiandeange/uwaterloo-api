@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.resources.GooseNest;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
@@ -40,7 +40,7 @@ import retrofit2.Call;
         layout = R.layout.module_resources_goosewatch
 )
 public class GooseWatchFragment
-        extends BaseMapFragment<Response.GooseWatch, GooseNest>
+        extends BaseMapFragment<Responses.GooseWatch, GooseNest>
         implements
         GoogleMap.OnMarkerClickListener {
 
@@ -64,7 +64,7 @@ public class GooseWatchFragment
     }
 
     @Override
-    public Call<Response.GooseWatch> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.GooseWatch> onLoadData(final UWaterlooApi api) {
         return api.Resources.getGeeseNests();
     }
 

@@ -9,7 +9,7 @@ import android.widget.Spinner;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
@@ -31,7 +31,7 @@ import retrofit2.Call;
         layout = R.layout.module_foodservices_locations
 )
 public class LocationsFragment
-        extends BaseListModuleFragment<Response.Locations, Location>
+        extends BaseListModuleFragment<Responses.Locations, Location>
         implements
         AdapterView.OnItemSelectedListener,
         ModuleListItemListener {
@@ -81,7 +81,7 @@ public class LocationsFragment
     }
 
     @Override
-    public Call<Response.Locations> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Locations> onLoadData(final UWaterlooApi api) {
         return api.FoodServices.getLocations();
     }
 

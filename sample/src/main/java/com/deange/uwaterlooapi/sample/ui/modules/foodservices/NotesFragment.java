@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.foodservices.Note;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
@@ -34,7 +34,7 @@ import retrofit2.Call;
         layout = R.layout.module_foodservices_notes
 )
 public class NotesFragment
-        extends BaseListModuleFragment<Response.Notes, Note>
+        extends BaseListModuleFragment<Responses.Notes, Note>
         implements
         DateSelectorView.OnDateChangedListener {
 
@@ -74,7 +74,7 @@ public class NotesFragment
     }
 
     @Override
-    public Call<Response.Notes> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Notes> onLoadData(final UWaterlooApi api) {
         final LocalDate date = mDateSelectorView.getDate();
         final int year = date.getYear();
         final int week = date.getWeekOfWeekyear();

@@ -17,7 +17,7 @@ import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.api.UWaterlooApi;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.Response;
+import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
@@ -40,7 +40,7 @@ import retrofit2.Call;
         layout = R.layout.module_courses
 )
 public class CoursesFragment
-        extends BaseListModuleFragment<Response.Courses, Course>
+        extends BaseListModuleFragment<Responses.Courses, Course>
         implements
         ModuleListItemListener,
         AdapterView.OnItemClickListener,
@@ -102,7 +102,7 @@ public class CoursesFragment
     }
 
     @Override
-    public Call<Response.Courses> onLoadData(final UWaterlooApi api) {
+    public Call<Responses.Courses> onLoadData(final UWaterlooApi api) {
         final String course = mCoursePicker.getText().toString();
 
         postDelayed(mResetListViewRunnable, ANIMATION_DURATION);
