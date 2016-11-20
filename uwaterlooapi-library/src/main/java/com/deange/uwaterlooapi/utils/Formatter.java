@@ -37,8 +37,8 @@ public final class Formatter {
     public static final int DATE_LENGTH_MEDIUM = 1;
     public static final int DATE_LENGTH_LONG = 2;
 
-    private static final SimpleDateFormat sYMDFormat = new SimpleDateFormat(YMD);
-    private static final SimpleDateFormat sISO8601Format = new SimpleDateFormat(ISO8601);
+    private static final SimpleDateFormat sYMDFormat = new SimpleDateFormat(YMD, Locale.getDefault());
+    private static final SimpleDateFormat sISO8601Format = new SimpleDateFormat(ISO8601, Locale.getDefault());
 
     private Formatter() { }
 

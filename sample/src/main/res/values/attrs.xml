@@ -2,20 +2,20 @@
 <resources>
 
     <declare-styleable name="SliceView">
-        <attr name="sliceHeight" format="dimension" />
-        <attr name="sliceOffset" format="dimension" />
+        <attr name="sliceHeight" format="dimension"/>
+        <attr name="sliceOffset" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="AutoScaleTextView">
-        <attr name="scaleFactor" format="fraction" />
-        <attr name="minTextSize" format="dimension" />
-        <attr name="maxTextSize" format="dimension" />
+        <attr name="scaleFactor" format="fraction"/>
+        <attr name="minTextSize" format="dimension"/>
+        <attr name="maxTextSize" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="ExpandablePanel">
-        <attr name="handle" format="reference" />
-        <attr name="content" format="reference" />
-        <attr name="layout_collapsedHeight" format="dimension" />
+        <attr name="handle" format="reference"/>
+        <attr name="content" format="reference"/>
+        <attr name="layout_collapsedHeight" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="RangeView">
@@ -43,11 +43,11 @@
         <attr name="progressStrokeWidth" format="dimension"/>
     </declare-styleable>
 
-    <attr name="cardViewStyle" format="reference" />
+    <attr name="cardViewStyle" format="reference"/>
 
 
-    <item type="id" name="toolbar" />
-    <item type="id" name="view_location_hours_day" />
-    <item type="id" name="view_location_hours_hours" />
+    <item name="toolbar" type="id"/>
+    <item name="view_location_hours_day" type="id"/>
+    <item name="view_location_hours_hours" type="id"/>
 
 </resources>

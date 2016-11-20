@@ -8,6 +8,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -141,7 +142,7 @@ public class LegacyWeatherReading extends BaseModel {
             mLongitude = dmsToDecimal(mLongitudeRaw);
         }
 
-        return new float[] { mLatitude, mLongitude };
+        return new float[]{ mLatitude, mLongitude };
     }
 
     /**
@@ -168,21 +169,12 @@ public class LegacyWeatherReading extends BaseModel {
     public String getRawObservationTime() {
         if (mObservationTime == null) {
             // "yyyy-MM-ddThh:mm:ss-E[SD]T"
+            final Locale locale = Locale.getDefault();
             final TimeZone timezone = TimeZone.getTimeZone("America/New_York");
             final String timezoneId = timezone.getDisplayName(timezone.inDaylightTime(new Date()), TimeZone.SHORT);
-            mObservationTime =
-                    mObservationYear
-                    + "-"
-                    + String.format("%02d", Formatter.MONTHS.indexOf(mObservationMonth) + 1)
-                    + "-"
-                    + String.format("%02d", mObservationDay)
-                    + "T"
-                    + String.format("%02d", mObservationHour)
-                    + ":"
-                    + String.format("%02d", mObservationMinute)
-                    + ":"
-                    + String.format("%02d", 0) // no seconds
-                    + timezoneId;
+            mObservationTime = String.format(locale, "%d-%02d-%02dT%02d:%02d:%02d%s",
+                    mObservationYear, Formatter.MONTHS.indexOf(mObservationMonth) + 1, mObservationDay,
+                    mObservationHour, mObservationMinute, 0, timezoneId);
         }
         return mObservationTime;
     }

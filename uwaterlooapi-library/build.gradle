@@ -12,8 +12,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility rootProject.javaVersion
-        targetCompatibility rootProject.javaVersion
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     buildTypes {
@@ -21,19 +21,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
         }
     }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 }
 
 dependencies {
+    compile 'com.google.code.gson:gson:2.7'
+
     compile "com.squareup.retrofit2:retrofit:${retrofit}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit}"
-    compile "com.squareup.retrofit2:converter-simplexml:${retrofit}"
-    compile 'com.google.code.gson:gson:2.7'
+    compile ("com.squareup.retrofit2:converter-simplexml:${retrofit}") {
+        exclude group: 'xpp3'
+    }
 
     compile 'org.parceler:parceler-api:1.0.2'
     annotationProcessor 'org.parceler:parceler:1.0.2'
-}
-
-configurations {
-    compile.exclude group: 'stax'
-    compile.exclude group: 'xpp3'
 }

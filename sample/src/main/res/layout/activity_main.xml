@@ -42,6 +42,7 @@
                 app:itemTextColor="@android:color/black"
                 app:itemIconTint="@android:color/black"
                 app:itemTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:headerLayout="@layout/view_navigation_header"
                 app:menu="@menu/menu_modules"/>
 
     </android.support.v4.widget.DrawerLayout>

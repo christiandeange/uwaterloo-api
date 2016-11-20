@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.courses;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
@@ -28,6 +29,7 @@ public class SubjectAdapter
         return Collections.unmodifiableList(mSubjects);
     }
 
+    @NonNull
     @Override
     public Filter getFilter() {
         return mFilter;

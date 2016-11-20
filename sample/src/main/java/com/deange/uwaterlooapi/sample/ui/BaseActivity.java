@@ -16,7 +16,7 @@ import com.deange.uwaterlooapi.sample.R;
 import pl.tajchert.nammu.Nammu;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class BaseActivity
+public abstract class BaseActivity
         extends AppCompatActivity {
 
     @Override

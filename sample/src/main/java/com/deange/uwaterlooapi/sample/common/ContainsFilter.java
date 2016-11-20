@@ -9,10 +9,10 @@ import java.util.List;
 public class ContainsFilter
         extends Filter {
 
-    private final ArrayAdapter mAdapter;
+    private final ArrayAdapter<String> mAdapter;
     private List<String> mOriginalValues;
 
-    public ContainsFilter(final ArrayAdapter adapter, final List<String> values) {
+    public ContainsFilter(final ArrayAdapter<String> adapter, final List<String> values) {
         mAdapter = adapter;
         mOriginalValues = values;
     }

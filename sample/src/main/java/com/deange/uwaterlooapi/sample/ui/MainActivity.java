@@ -5,7 +5,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.internal.NavigationMenuItemView;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
@@ -69,12 +68,12 @@ public class MainActivity
         mNavigationView.getMenu().findItem(mNavItemId).setChecked(true);
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        final View headerView = mNavigationView.inflateHeaderView(R.layout.view_navigation_header);
+        final View headerView = mNavigationView.getHeaderView(0);
         final TextView titleView = (TextView) headerView.findViewById(R.id.navigation_header_title);
         final TextView subtitleView = (TextView) headerView.findViewById(R.id.navigation_header_subtitle);
         HeaderTitlePresenter.show(titleView, subtitleView);
 
-        // Can't use butterknife for this call, inflation happens in inflateHeaderView()
+        // Can't use butterknife for this call
         headerView.findViewById(R.id.navigation_header_clickable).setOnClickListener(this);
 
         // set up the hamburger icon to open and close the drawer
@@ -88,26 +87,9 @@ public class MainActivity
         onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
 
         mNavigationView.getViewTreeObserver().addOnPreDrawListener(() -> {
-            fixForegrounds(mNavigationView);
+            FontUtils.apply(mNavigationView, FontUtils.DEFAULT);
             return true;
         });
-    }
-
-    private void fixForegrounds(final View view) {
-        if (view instanceof NavigationMenuItemView) {
-            //noinspection RedundantCast
-            ((NavigationMenuItemView) view).setForeground(null);
-
-        } else if (view instanceof TextView) {
-            FontUtils.apply(view, FontUtils.DEFAULT);
-        }
-
-        if (view instanceof ViewGroup) {
-            final ViewGroup parent = ((ViewGroup) view);
-            for (int i = 0; i < parent.getChildCount(); ++i) {
-                fixForegrounds(parent.getChildAt(i));
-            }
-        }
     }
 
     @Override
@@ -140,7 +122,7 @@ public class MainActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(final MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         // update the main content by replacing fragments
 
         final int itemId = item.getItemId();

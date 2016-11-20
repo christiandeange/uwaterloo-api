@@ -75,13 +75,13 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+        disable 'MissingPrefix'
     }
 
 }
 
 dependencies {
-    provided project(':uwaterlooapi-processor')
+    annotationProcessor project(':uwaterlooapi-processor')
     compile project(':uwaterlooapi-annotations')
 
     compile project(':uwaterlooapi-library')
