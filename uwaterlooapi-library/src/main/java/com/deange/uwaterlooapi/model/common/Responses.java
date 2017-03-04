@@ -30,6 +30,7 @@ import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.model.resources.GooseNest;
 import com.deange.uwaterlooapi.model.resources.Printer;
 import com.deange.uwaterlooapi.model.resources.Site;
+import com.deange.uwaterlooapi.model.resources.Sunshiner;
 import com.deange.uwaterlooapi.model.resources.Tutor;
 import com.deange.uwaterlooapi.model.terms.InfoSession;
 import com.deange.uwaterlooapi.model.terms.TermInfo;
@@ -100,6 +101,8 @@ public interface Responses {
     class Printers extends SimpleListResponse<Printer> { }
 
     class GooseWatch extends SimpleListResponse<GooseNest> { }
+
+    class Sunshine extends SimpleListResponse<Sunshiner> { }
 
     // BUILDINGS
 

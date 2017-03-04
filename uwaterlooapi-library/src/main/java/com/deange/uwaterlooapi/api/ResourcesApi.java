@@ -37,4 +37,10 @@ public interface ResourcesApi {
     @GET("resources/goosewatch.json")
     Call<Responses.GooseWatch> getGeeseNests();
 
+    /**
+     * This method returns a list of all UW employees that earn more than $100k/yr
+     */
+    @GET("resources/sunshinelist.json")
+    Call<Responses.Sunshine> getSunshineList();
+
 }

@@ -156,6 +156,7 @@ for (GooseNest nest : nests) {
 | `getPrinters()` | List\<[Printer][]\> | [/resources/printers](https://github.com/uWaterloo/api-documentation/blob/master/v2/resources/printers.md) |
 | `getInfoSessions()` | List\<[InfoSession][]\> | [/resources/infosessions](https://github.com/uWaterloo/api-documentation/blob/master/v2/resources/infosessions.md) |
 | `getGeeseNests()` | List\<[GooseNest][]\> | [/resources/goosewatch](https://github.com/uWaterloo/api-documentation/blob/master/v2/resources/goosewatch.md) |
+| `getSunshineList()` | List\<[Sunshiner][]\> | [/resources/sunshinelist](https://github.com/uWaterloo/api-documentation/blob/master/v2/resources/sunshinelist.md) |
 
 #### Buildings
 | Method | Return Type | Endpoint |
@@ -245,6 +246,7 @@ THE SOFTWARE.
 [Tutor]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/Tutor.java
 [Printer]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/Printer.java
 [GooseNest]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/GooseNest.java
+[Sunshiner]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/Sunshiner.java
 [Building]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/buildings/Building.java
 [ClassroomCourses]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/buildings/ClassroomCourses.java
 [ParkingLot]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/parking/ParkingLot.java
