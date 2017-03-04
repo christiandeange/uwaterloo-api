@@ -187,7 +187,7 @@ Feel free to submit any pull requests or issues to this repository as you please
 ## License
 
 ```
-Copyright (c) 2016 Christian De Angelis
+Copyright (c) 2017 Christian De Angelis
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
