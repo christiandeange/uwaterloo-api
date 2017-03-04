@@ -8,10 +8,10 @@
     <string name="api_home">Home</string>
     <string name="api_foodservices">Food Services</string>
     <string name="api_courses">Courses</string>
+    <string name="api_maps">Maps</string>
     <string name="api_news">News</string>
     <string name="api_weather">Weather</string>
-    <string name="api_sites">Sites</string>
-    <string name="api_maps">Maps</string>
+    <string name="api_resources">Resources</string>
 
     <string name="weather_last_updated">Last updated at %1$s %2$s</string>
     <string name="weather_north_symbol">N</string>
@@ -32,6 +32,7 @@
     <string name="title_courses">Courses</string>
     <string name="title_resources_sites">Sites</string>
     <string name="title_resources_goosewatch">Goose Watch</string>
+    <string name="title_resources_sunshine">Sunshine List</string>
     <string name="title_events">Events</string>
     <string name="title_news">News</string>
     <string name="title_parking">Parking</string>
@@ -47,6 +48,7 @@
     <string name="description_courses">Information about courses offered, including general info, prerequisites, course schedules, enrollment info, and exam .schedules</string>
     <string name="description_resources_sites">A list of official websites affiliated with the University of Waterloo.</string>
     <string name="description_resources_goosewatch">A crowdsourced list of reported geese nests during their spring mating season.</string>
+    <string name="description_resources_sunshine">High-earning University of Waterloo public employees.</string>
     <string name="description_events">Information regarding events taking place around campus.</string>
     <string name="description_news">News curated by various sources affiliated with the University of Waterloo.</string>
     <string name="description_parking">Real-time parking counts in select parking lots across campus.</string>

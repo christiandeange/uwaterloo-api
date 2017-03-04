@@ -34,9 +34,9 @@
                 android:title="@string/api_weather"/>
 
         <item
-                android:id="@+id/menu_item_sites"
-                android:icon="@drawable/ic_sites"
-                android:title="@string/api_sites"/>
+                android:id="@+id/menu_item_resources"
+                android:icon="@drawable/ic_resources"
+                android:title="@string/api_resources"/>
 
     </group>
 

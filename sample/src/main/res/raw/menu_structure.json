@@ -20,7 +20,8 @@
     "/parking/watpark",
     "/resources/goosewatch"
   ],
-  "sites": [
-    "/resources/sites"
+  "resources": [
+    "/resources/sites",
+    "/resources/sunshinelist"
   ]
 }
