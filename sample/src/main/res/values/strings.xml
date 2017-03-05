@@ -127,6 +127,13 @@
     <string name="parking_lot_spots_filled">%1$d/%2$d spots filled</string>
     <string name="parking_last_updated">Last updated %1$s</string>
 
+    <string-array name="sunshine_list_sort">
+        <item>Salary: High to Low</item>
+        <item>Salary: Low to High</item>
+        <item>First Name</item>
+        <item>Last Name</item>
+    </string-array>
+
     <string name="building_no_location_data">No location data for this building</string>
 
     <string name="menu_poi_layers">Layers</string>

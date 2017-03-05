@@ -20,6 +20,7 @@ public interface ModuleType {
     String PARKING = "Parking";
     String POI = "Points Of Interest";
     String SITES = "Site List";
+    String SUNSHINE = "Sunshine";
     String WATCARD_VENDORS = "WatCard Vendor List";
     String WEATHER = "Weather";
 }
