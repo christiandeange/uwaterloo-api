@@ -89,13 +89,21 @@ public class NearbyLocationsFragment
     public void onAttach(final Context context) {
         super.onAttach(context);
 
-        mApiClient = new GoogleApiClient.Builder(context)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+        if (mApiClient == null) {
+            mApiClient = new GoogleApiClient.Builder(context)
+                    .addApi(LocationServices.API)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
+        }
 
         mApiClient.connect(GoogleApiClient.SIGN_IN_MODE_OPTIONAL);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mApiClient.disconnect();
     }
 
     @Override
@@ -120,7 +128,7 @@ public class NearbyLocationsFragment
 
         mRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
-        mAdapter = new NearbyLocationsAdapter(getContext(), new ArrayList<Location>(), null);
+        mAdapter = new NearbyLocationsAdapter(getContext(), new ArrayList<>(), null);
         mLocationsList.setAdapter(mAdapter);
 
         showError(R.string.error_no_network, !NetworkController.getInstance().isConnected());
@@ -143,6 +151,7 @@ public class NearbyLocationsFragment
     public void onPause() {
         super.onPause();
 
+        NetworkController.getInstance().unregisterListener(this);
         stopLocationUpdates();
     }
 
@@ -248,7 +257,7 @@ public class NearbyLocationsFragment
 
     @OnClick(R.id.nearby_locations_see_all)
     public void onSeeAllClicked() {
-        getContext().startActivity(ModuleHostActivity.getStartIntent(getContext(), LocationsFragment.class));
+        startActivity(ModuleHostActivity.getStartIntent(getContext(), LocationsFragment.class));
     }
 
     @OnClick(R.id.nearby_locations_enable_permission)
