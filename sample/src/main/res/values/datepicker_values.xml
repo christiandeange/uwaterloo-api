@@ -6,12 +6,12 @@
     <color name="datetimepicker_circle_background">@color/uw_yellow</color>
     <color name="datetimepicker_line_background">@color/divider</color>
 
-    <color name="datetimepicker_date_text_deactivated">#C0FFFFFF</color>
+    <color name="datetimepicker_date_text_selected">#FFFFFF</color>
     <color name="datetimepicker_date_text_normal">#000000</color>
     <color name="datetimepicker_date_text_today">@color/uw_accent</color>
-    <color name="datetimepicker_darker">@color/uw_accent</color>
+    <color name="datetimepicker_pressed">@color/uw_accent</color>
 
-    <color name="datetimepicker_default">#FFFFFF</color>
+    <color name="datetimepicker_default">#000000</color>
     <color name="datetimepicker_light_background">#F2F2F2</color>
     <color name="datetimepicker_background">@color/uw_yellow</color>
 

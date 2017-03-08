@@ -185,7 +185,7 @@ public class SimpleMonthView
         mDayOfWeekTypeface = "sans_serif_light";
         mMonthTitleTypeface = "sans_serif_light";
 
-        mSelectedDayTextColor = res.getColor(R.color.datetimepicker_default);
+        mSelectedDayTextColor = res.getColor(R.color.datetimepicker_date_text_selected);
         mDayTextColor = res.getColor(R.color.datetimepicker_date_text_normal);
         mTodayNumberColor = res.getColor(R.color.datetimepicker_date_text_today);
         mMonthTitleBGColor = res.getColor(R.color.datetimepicker_circle_background);

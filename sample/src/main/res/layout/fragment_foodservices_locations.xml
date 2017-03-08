@@ -15,7 +15,10 @@
                 android:id="@+id/locations_filter_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"/>
+                android:layout_marginStart="48dp"
+                android:entries="@array/foodservices_locations_array"
+                android:padding="16dp"
+                android:spinnerMode="dropdown"/>
 
     </FrameLayout>
 
@@ -28,6 +31,8 @@
                 android:id="@android:id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"/>
 

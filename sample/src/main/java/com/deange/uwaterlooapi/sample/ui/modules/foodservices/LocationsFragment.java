@@ -14,12 +14,10 @@ import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
-import com.deange.uwaterlooapi.sample.ui.StringAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -36,7 +34,8 @@ public class LocationsFragment
         AdapterView.OnItemSelectedListener,
         ModuleListItemListener {
 
-    private static final Comparator<Location> sComparator = (l1, l2) -> l1.getName() == null ? -1 : l1.getName().compareTo(l2.getName());
+    private static final Comparator<Location> COMPARATOR =
+            (l1, l2) -> String.CASE_INSENSITIVE_ORDER.compare(l1.getName(), l2.getName());
 
     private LocationAdapter mAdapter;
     private List<Location> mAllLocations = Collections.unmodifiableList(new ArrayList<Location>());
@@ -48,13 +47,7 @@ public class LocationsFragment
     protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
         final View root = super.getContentView(inflater, parent);
 
-        getListView().setDivider(null);
-        getListView().setDividerHeight(0);
-
-        final StringAdapter filterAdapter = new StringAdapter(getActivity(),
-                Arrays.asList(getResources().getStringArray(R.array.foodservices_locations_array)));
         final Spinner spinner = (Spinner) root.findViewById(R.id.locations_filter_spinner);
-        spinner.setAdapter(filterAdapter);
         spinner.setOnItemSelectedListener(this);
 
         return root;
@@ -104,7 +97,7 @@ public class LocationsFragment
             }
         }
 
-        Collections.sort(mDataLocations, sComparator);
+        Collections.sort(mDataLocations, COMPARATOR);
 
         mAdapter = new LocationAdapter(getActivity(), mDataLocations, this);
 
@@ -153,6 +146,6 @@ public class LocationsFragment
             }
         };
 
-        LocationFilter[] FILTERS = new LocationFilter[] { NONE, OPEN, TIM_HORTONS };
+        LocationFilter[] FILTERS = new LocationFilter[]{ NONE, OPEN, TIM_HORTONS };
     }
 }
