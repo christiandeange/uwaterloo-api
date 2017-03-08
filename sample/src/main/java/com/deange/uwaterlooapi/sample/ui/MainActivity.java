@@ -20,7 +20,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
-import com.deange.uwaterlooapi.utils.GsonController;
+import com.google.gson.Gson;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -39,6 +39,7 @@ public class MainActivity
 
     private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
     private static final String NAV_ITEM_ID = "nav_item_id";
+    private static final Gson GSON = new Gson();
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation) NavigationView mNavigationView;
@@ -82,7 +83,7 @@ public class MainActivity
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         final InputStreamReader reader = new InputStreamReader(getResources().openRawResource(R.raw.menu_structure));
-        mMenuStructure = GsonController.getInstance().fromJson(reader, ModuleCategories.class);
+        mMenuStructure = GSON.fromJson(reader, ModuleCategories.class);
 
         onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
 

@@ -2,10 +2,12 @@ package com.deange.uwaterlooapi.model;
 
 import android.text.TextUtils;
 
-import com.deange.uwaterlooapi.utils.GsonController;
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public abstract class BaseResponse {
+
+    private static final Gson GSON = new Gson();
 
     public BaseResponse() {
         super();
@@ -29,7 +31,7 @@ public abstract class BaseResponse {
         }
 
         final String clazz = obj.getClass().getName();
-        final String data = GsonController.getInstance().toJson(obj);
+        final String data = GSON.toJson(obj);
         return clazz + ";" + data;
     }
 
@@ -50,6 +52,6 @@ public abstract class BaseResponse {
         }
 
         final String data = obj.substring(semicolonPos + 1, obj.length());
-        return GsonController.getInstance().fromJson(data, clazz);
+        return GSON.fromJson(data, clazz);
     }
 }
