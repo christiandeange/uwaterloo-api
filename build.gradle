@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0-beta3'
+        classpath 'com.android.tools.build:gradle:2.3.0'
     }
 }
 
@@ -27,8 +27,8 @@ ext {
 
     javaVersion = JavaVersion.VERSION_1_8
 
-    supportLibrary = '25.0.0'
+    supportLibrary = '25.2.0'
     playServices = '9.8.0'
-    butterknife = '8.4.0'
-    retrofit = '2.0.2'
+    butterknife = '8.5.1'
+    retrofit = '2.2.0'
 }

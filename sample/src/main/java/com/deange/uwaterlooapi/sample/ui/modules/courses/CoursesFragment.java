@@ -48,12 +48,7 @@ public class CoursesFragment
 
     private static final String KEY_COURSE_SUBJECT = "subject";
 
-    private final Runnable mResetListViewRunnable = new Runnable() {
-        @Override
-        public void run() {
-            getListView().setSelectionFromTop(0, 0);
-        }
-    };
+    private final Runnable mResetListViewRunnable = () -> getListView().setSelectionFromTop(0, 0);
     private final List<Course> mResponse = new ArrayList<>();
 
     @BindView(R.id.course_picker_view) AutoCompleteTextView mCoursePicker;

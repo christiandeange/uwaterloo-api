@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
 import android.widget.Toast;
 
 import com.deange.uwaterlooapi.api.UWaterlooApi;
@@ -46,8 +48,9 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         View.OnTouchListener,
         SwipeRefreshLayout.OnRefreshListener {
 
-    public static final long MINIMUM_UPDATE_DURATION = 1000;
-    public static final long ANIMATION_DURATION = 300;
+    protected static final long MINIMUM_UPDATE_DURATION = 1000;
+    protected static final long ANIMATION_DURATION = 300;
+    protected static final Interpolator ANIMATION_INTERPOLATOR = new FastOutSlowInInterpolator();
 
     private static final String KEY_MODEL = "model";
     private static final String KEY_RESPONSE = "response";
@@ -137,8 +140,8 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         // Deliver the response if we still have one, otherwise load the data
         // (usually from coming back from another activity or rotating)
-        // post() so that the SwipeRefreshLayout draws the indicator correctly (http://stackoverflow.com/a/26860930)
-        mHandler.post(() -> {
+        // postDelayed() so that the SwipeRefreshLayout draws the indicator correctly (http://stackoverflow.com/a/26860930)
+        postDelayed(() -> {
             if (mLastResponse != null) {
                 onRefreshRequested();
                 deliverResponse(mLastResponse);
@@ -146,7 +149,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
             } else if (mLastUpdate == 0) {
                 doRefresh();
             }
-        });
+        }, 100);
     }
 
     @Override
@@ -257,7 +260,6 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         if (mSwipeLayout != null) {
             mSwipeLayout.setRefreshing(show);
             mSwipeLayout.setEnabled(!show);
-            return;
         }
 
         if (show) {
@@ -283,6 +285,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
             mLoadingAnimator.cancel();
         }
         mLoadingAnimator = getVisibilityAnimator(mLoadingLayout, show);
+        mLoadingAnimator.setInterpolator(ANIMATION_INTERPOLATOR);
         mLoadingAnimator.setDuration(ANIMATION_DURATION);
         mLoadingAnimator.addListener(listener);
         mLoadingAnimator.start();
