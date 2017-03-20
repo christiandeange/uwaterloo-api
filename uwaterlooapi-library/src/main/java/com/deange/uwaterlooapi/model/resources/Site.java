@@ -1,12 +1,15 @@
 package com.deange.uwaterlooapi.model.resources;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
-@Parcel
-public class Site extends BaseModel {
+public class Site
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("name")
     String mName;
@@ -28,6 +31,41 @@ public class Site extends BaseModel {
 
     @SerializedName("owner_type")
     String mOwnerType;
+
+    protected Site(final Parcel in) {
+        super(in);
+        mName = in.readString();
+        mSlug = in.readString();
+        mUrl = in.readString();
+        mGroupCode = in.readString();
+        mUnitCode = in.readString();
+        mUnitShortName = in.readString();
+        mOwnerType = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mName);
+        dest.writeString(mSlug);
+        dest.writeString(mUrl);
+        dest.writeString(mGroupCode);
+        dest.writeString(mUnitCode);
+        dest.writeString(mUnitShortName);
+        dest.writeString(mOwnerType);
+    }
+
+    public static final Creator<Site> CREATOR = new Creator<Site>() {
+        @Override
+        public Site createFromParcel(final Parcel in) {
+            return new Site(in);
+        }
+
+        @Override
+        public Site[] newArray(final int size) {
+            return new Site[size];
+        }
+    };
 
     /**
      * The name of the site

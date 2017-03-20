@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.weather;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 
-@Parcel
-public class WeatherReading extends BaseModel {
+public class WeatherReading
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("latitude")
     float mLatitude;
@@ -68,11 +71,70 @@ public class WeatherReading extends BaseModel {
     @SerializedName("incoming_shortwave_radiation_wm2")
     float mShortWaveRadiation;
 
+    protected WeatherReading(final Parcel in) {
+        super(in);
+        mLatitude = in.readFloat();
+        mLongitude = in.readFloat();
+        mElevation = in.readFloat();
+        mObservationTime = in.readString();
+        mTemperature = in.readFloat();
+        mHumidex = in.readFloat();
+        mWindchill = in.readFloat();
+        mTemperature24hMax = in.readFloat();
+        mTemperature24hMin = in.readFloat();
+        mPrecipitation15Min = in.readFloat();
+        mPrecipitation1Hr = in.readFloat();
+        mPrecipitation24Hr = in.readFloat();
+        mRelativeHumidity = in.readFloat();
+        mDewPoint = in.readFloat();
+        mWindSpeed = in.readFloat();
+        mWindDirection = in.readFloat();
+        mPressureKpa = in.readFloat();
+        mPressureTrend = in.readString();
+        mShortWaveRadiation = in.readFloat();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeFloat(mLatitude);
+        dest.writeFloat(mLongitude);
+        dest.writeFloat(mElevation);
+        dest.writeString(mObservationTime);
+        dest.writeFloat(mTemperature);
+        dest.writeFloat(mHumidex);
+        dest.writeFloat(mWindchill);
+        dest.writeFloat(mTemperature24hMax);
+        dest.writeFloat(mTemperature24hMin);
+        dest.writeFloat(mPrecipitation15Min);
+        dest.writeFloat(mPrecipitation1Hr);
+        dest.writeFloat(mPrecipitation24Hr);
+        dest.writeFloat(mRelativeHumidity);
+        dest.writeFloat(mDewPoint);
+        dest.writeFloat(mWindSpeed);
+        dest.writeFloat(mWindDirection);
+        dest.writeFloat(mPressureKpa);
+        dest.writeString(mPressureTrend);
+        dest.writeFloat(mShortWaveRadiation);
+    }
+
+    public static final Creator<WeatherReading> CREATOR = new Creator<WeatherReading>() {
+        @Override
+        public WeatherReading createFromParcel(final Parcel in) {
+            return new WeatherReading(in);
+        }
+
+        @Override
+        public WeatherReading[] newArray(final int size) {
+            return new WeatherReading[size];
+        }
+    };
+
     /**
      * Station's latitude + longitude
      */
     public float[] getLocation() {
-        return new float[] { mLatitude, mLongitude };
+        return new float[]{mLatitude, mLongitude};
     }
 
     /**

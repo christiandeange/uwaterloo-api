@@ -1,23 +1,26 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.MapUtils;
 import com.google.gson.annotations.SerializedName;
-
-import org.parceler.Parcel;
-import org.parceler.ParcelConstructor;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Parcel
-public class Location extends BaseModel {
+public class Location
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("outlet_id")
     int mId;
@@ -59,6 +62,55 @@ public class Location extends BaseModel {
 
     List<SpecialRange> mDatesSpecial;
 
+    protected Location(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mName = in.readString();
+        mBuilding = in.readString();
+        mLogoUrl = in.readString();
+        mLatitude = in.readFloat();
+        mLongitude = in.readFloat();
+        mDescription = in.readString();
+        mAnnouncements = in.readString();
+        mIsOpenNow = in.readByte() != 0;
+        mHours = MapUtils.readMap(in, new HashMap<String, OperatingHours>());
+        mSpecialOperatingHours = in.createTypedArrayList(SpecialOperatingHours.CREATOR);
+        mDatesClosedRaw = in.createStringArrayList();
+        mDatesClosed = in.createTypedArrayList(Range.CREATOR);
+        mDatesSpecial = in.createTypedArrayList(SpecialRange.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mName);
+        dest.writeString(mBuilding);
+        dest.writeString(mLogoUrl);
+        dest.writeFloat(mLatitude);
+        dest.writeFloat(mLongitude);
+        dest.writeString(mDescription);
+        dest.writeString(mAnnouncements);
+        dest.writeByte((byte) (mIsOpenNow ? 1 : 0));
+        MapUtils.writeMap(dest, mHours);
+        dest.writeTypedList(mSpecialOperatingHours);
+        dest.writeStringList(mDatesClosedRaw);
+        dest.writeTypedList(mDatesClosed);
+        dest.writeTypedList(mDatesSpecial);
+    }
+
+    public static final Creator<Location> CREATOR = new Creator<Location>() {
+        @Override
+        public Location createFromParcel(final Parcel in) {
+            return new Location(in);
+        }
+
+        @Override
+        public Location[] newArray(final int size) {
+            return new Location[size];
+        }
+    };
+
     /**
      * Outlet ID number (not always same as outlets.json method). Can be null
      */
@@ -91,7 +143,7 @@ public class Location extends BaseModel {
      * Location [latitude, longitude] coordinates
      */
     public float[] getLocation() {
-        return new float[] { mLatitude, mLongitude };
+        return new float[]{mLatitude, mLongitude};
     }
 
     /**
@@ -102,7 +154,7 @@ public class Location extends BaseModel {
     }
 
     /**
-     * Outlet specific anouncements
+     * Outlet specific announcements
      */
     public String getAnnouncements() {
         return mAnnouncements;
@@ -118,16 +170,16 @@ public class Location extends BaseModel {
     /**
      * Weekly operating hours data
      * </p >
+     *
      * @param dayOfWeek is one of the following:
-     *
-     * {@link OperatingHours#SUNDAY SUNDAY},
-     * {@link OperatingHours#MONDAY MONDAY},
-     * {@link OperatingHours#TUESDAY TUESDAY},
-     * {@link OperatingHours#WEDNESDAY WEDNESDAY},
-     * {@link OperatingHours#THURSDAY THURSDAY},
-     * {@link OperatingHours#FRIDAY FRIDAY},
-     * {@link OperatingHours#SATURDAY SATURDAY}.
-     *
+     *                  <p>
+     *                  {@link OperatingHours#SUNDAY SUNDAY},
+     *                  {@link OperatingHours#MONDAY MONDAY},
+     *                  {@link OperatingHours#TUESDAY TUESDAY},
+     *                  {@link OperatingHours#WEDNESDAY WEDNESDAY},
+     *                  {@link OperatingHours#THURSDAY THURSDAY},
+     *                  {@link OperatingHours#FRIDAY FRIDAY},
+     *                  {@link OperatingHours#SATURDAY SATURDAY}.
      */
     public OperatingHours getHours(final String dayOfWeek) {
         return mHours.get(dayOfWeek);
@@ -336,15 +388,16 @@ public class Location extends BaseModel {
         return hour + ":" + parts[1];
     }
 
-    @Parcel
-    public static class Range {
+    public static class Range
+            implements
+            Parcelable {
 
         private static final String DATE_FORMAT = "MMM d";
+
         final Date first;
         final Date second;
         Date endForContains;
 
-        @ParcelConstructor
         Range(final Date first, final Date second) {
             this.first = first;
             this.second = second;
@@ -354,6 +407,36 @@ public class Location extends BaseModel {
             calendar.add(Calendar.DATE, 1);
             endForContains = calendar.getTime();
         }
+
+        protected Range(final Parcel in) {
+            first = (Date) in.readSerializable();
+            second = (Date) in.readSerializable();
+            endForContains = (Date) in.readSerializable();
+        }
+
+        @Override
+        public void writeToParcel(final Parcel dest, final int flags) {
+            dest.writeSerializable(first);
+            dest.writeSerializable(second);
+            dest.writeSerializable(endForContains);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<Range> CREATOR = new Creator<Range>() {
+            @Override
+            public Range createFromParcel(final Parcel in) {
+                return new Range(in);
+            }
+
+            @Override
+            public Range[] newArray(final int size) {
+                return new Range[size];
+            }
+        };
 
         public boolean contains(final Date date) {
             // Days only, bounds are inclusive-exclusive
@@ -375,18 +458,45 @@ public class Location extends BaseModel {
         }
     }
 
-    @Parcel
-    public static class SpecialRange extends Range {
+    public static class SpecialRange
+            extends Range
+            implements
+            Parcelable {
+
         final String open;
         final String close;
 
-        @ParcelConstructor
         SpecialRange(final Date first, final Date second,
                      final String open, final String close) {
             super(first, second);
             this.open = open;
             this.close = close;
         }
+
+        protected SpecialRange(final Parcel in) {
+            super(in);
+            open = in.readString();
+            close = in.readString();
+        }
+
+        @Override
+        public void writeToParcel(final Parcel dest, final int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeString(open);
+            dest.writeString(close);
+        }
+
+        public static final Creator<SpecialRange> CREATOR = new Creator<SpecialRange>() {
+            @Override
+            public SpecialRange createFromParcel(final Parcel in) {
+                return new SpecialRange(in);
+            }
+
+            @Override
+            public SpecialRange[] newArray(final int size) {
+                return new SpecialRange[size];
+            }
+        };
 
         public String getOpen() {
             return open;

@@ -32,8 +32,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -111,7 +109,7 @@ public class NearbyLocationsFragment
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            mAllLocations = Parcels.unwrap(savedInstanceState.getParcelable(KEY_ALL_LOCATIONS));
+            mAllLocations = savedInstanceState.getParcelableArrayList(KEY_ALL_LOCATIONS);
             mCurrentLocation = savedInstanceState.getParcelable(KEY_MY_LOCATION);
         }
     }
@@ -159,7 +157,7 @@ public class NearbyLocationsFragment
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable(KEY_ALL_LOCATIONS, Parcels.wrap(mAllLocations));
+        outState.putParcelableArrayList(KEY_ALL_LOCATIONS, new ArrayList<>(mAllLocations));
         outState.putParcelable(KEY_MY_LOCATION, mCurrentLocation);
     }
 

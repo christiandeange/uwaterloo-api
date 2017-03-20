@@ -1,17 +1,20 @@
 package com.deange.uwaterlooapi.model.buildings;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 import java.util.List;
 
-@Parcel
-public class ClassroomCourses extends BaseModel {
+public class ClassroomCourses
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("class_number")
     int mClassNumber;
@@ -60,6 +63,59 @@ public class ClassroomCourses extends BaseModel {
 
     @SerializedName("last_updated")
     String mUpdated;
+
+    protected ClassroomCourses(final Parcel in) {
+        super(in);
+        mClassNumber = in.readInt();
+        mSubject = in.readString();
+        mCatalogNumber = in.readString();
+        mTitle = in.readString();
+        mSection = in.readString();
+        mWeekdays = in.readString();
+        mStartTime = in.readString();
+        mEndTime = in.readString();
+        mStartDate = in.readString();
+        mEndDate = in.readString();
+        mTotalEnrollment = in.readInt();
+        mInstructors = in.createStringArrayList();
+        mBuilding = in.readString();
+        mRoom = in.readString();
+        mTerm = in.readInt();
+        mUpdated = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mClassNumber);
+        dest.writeString(mSubject);
+        dest.writeString(mCatalogNumber);
+        dest.writeString(mTitle);
+        dest.writeString(mSection);
+        dest.writeString(mWeekdays);
+        dest.writeString(mStartTime);
+        dest.writeString(mEndTime);
+        dest.writeString(mStartDate);
+        dest.writeString(mEndDate);
+        dest.writeInt(mTotalEnrollment);
+        dest.writeStringList(mInstructors);
+        dest.writeString(mBuilding);
+        dest.writeString(mRoom);
+        dest.writeInt(mTerm);
+        dest.writeString(mUpdated);
+    }
+
+    public static final Creator<ClassroomCourses> CREATOR = new Creator<ClassroomCourses>() {
+        @Override
+        public ClassroomCourses createFromParcel(final Parcel in) {
+            return new ClassroomCourses(in);
+        }
+
+        @Override
+        public ClassroomCourses[] newArray(final int size) {
+            return new ClassroomCourses[size];
+        }
+    };
 
     /**
      * Class Number

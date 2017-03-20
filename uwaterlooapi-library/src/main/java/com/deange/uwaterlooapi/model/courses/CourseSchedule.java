@@ -1,17 +1,20 @@
 package com.deange.uwaterlooapi.model.courses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 import java.util.List;
 
-@Parcel
-public class CourseSchedule extends BaseModel {
+public class CourseSchedule
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("subject")
     String mSubject;
@@ -78,6 +81,71 @@ public class CourseSchedule extends BaseModel {
 
     @SerializedName("last_updated")
     String mLastUpdated;
+
+    protected CourseSchedule(final Parcel in) {
+        super(in);
+        mSubject = in.readString();
+        mCatalogNumber = in.readString();
+        mUnits = in.readFloat();
+        mTitle = in.readString();
+        mNotes = in.readString();
+        mClassNumber = in.readInt();
+        mSection = in.readString();
+        mCampus = in.readString();
+        mAssociatedClassId = in.readInt();
+        mRelatedComponent1 = in.readString();
+        mRelatedComponent2 = in.readString();
+        mEnrollmentCapacity = in.readInt();
+        mEnrollmentTotal = in.readInt();
+        mWaitingCapacity = in.readInt();
+        mWaitingTotal = in.readInt();
+        mTopic = in.readString();
+        mReserves = in.createTypedArrayList(Reserve.CREATOR);
+        mClasses = in.createTypedArrayList(Class.CREATOR);
+        mHeldWith = in.createStringArrayList();
+        mTerm = in.readInt();
+        mAcademicLevel = in.readString();
+        mLastUpdated = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mSubject);
+        dest.writeString(mCatalogNumber);
+        dest.writeFloat(mUnits);
+        dest.writeString(mTitle);
+        dest.writeString(mNotes);
+        dest.writeInt(mClassNumber);
+        dest.writeString(mSection);
+        dest.writeString(mCampus);
+        dest.writeInt(mAssociatedClassId);
+        dest.writeString(mRelatedComponent1);
+        dest.writeString(mRelatedComponent2);
+        dest.writeInt(mEnrollmentCapacity);
+        dest.writeInt(mEnrollmentTotal);
+        dest.writeInt(mWaitingCapacity);
+        dest.writeInt(mWaitingTotal);
+        dest.writeString(mTopic);
+        dest.writeTypedList(mReserves);
+        dest.writeTypedList(mClasses);
+        dest.writeStringList(mHeldWith);
+        dest.writeInt(mTerm);
+        dest.writeString(mAcademicLevel);
+        dest.writeString(mLastUpdated);
+    }
+
+    public static final Creator<CourseSchedule> CREATOR = new Creator<CourseSchedule>() {
+        @Override
+        public CourseSchedule createFromParcel(final Parcel in) {
+            return new CourseSchedule(in);
+        }
+
+        @Override
+        public CourseSchedule[] newArray(final int size) {
+            return new CourseSchedule[size];
+        }
+    };
 
     /**
      * Requested subject acronym

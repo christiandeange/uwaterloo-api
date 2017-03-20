@@ -26,8 +26,6 @@ import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 
-import org.parceler.Parcels;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -53,7 +51,7 @@ public class CourseFragment
 
     public static Bundle newBundle(final Course model) {
         final Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_COURSE_MODEL, Parcels.wrap(model));
+        bundle.putParcelable(KEY_COURSE_MODEL, model);
         return bundle;
     }
 
@@ -168,7 +166,7 @@ public class CourseFragment
     private
     @Nullable
     Course getCourse() {
-        return Parcels.unwrap(getArguments().getParcelable(KEY_COURSE_MODEL));
+        return getArguments().getParcelable(KEY_COURSE_MODEL);
     }
 
     private Pair<String, String> getCourseSubject() {

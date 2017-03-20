@@ -1,11 +1,14 @@
 package com.deange.uwaterlooapi.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
-@Parcel
-public class Metadata {
+public class Metadata
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("requests")
     int mRequests;
@@ -24,6 +27,39 @@ public class Metadata {
 
     @SerializedName("version")
     String mVersion;
+
+    protected Metadata(final Parcel in) {
+        super(in);
+        mRequests = in.readInt();
+        mTimestamp = in.readLong();
+        mStatus = in.readInt();
+        mMessage = in.readString();
+        mMethodId = in.readInt();
+        mVersion = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mRequests);
+        dest.writeLong(mTimestamp);
+        dest.writeInt(mStatus);
+        dest.writeString(mMessage);
+        dest.writeInt(mMethodId);
+        dest.writeString(mVersion);
+    }
+
+    public static final Creator<Metadata> CREATOR = new Creator<Metadata>() {
+        @Override
+        public Metadata createFromParcel(final Parcel in) {
+            return new Metadata(in);
+        }
+
+        @Override
+        public Metadata[] newArray(final int size) {
+            return new Metadata[size];
+        }
+    };
 
     /**
      * The number of times this method has been called from this API key

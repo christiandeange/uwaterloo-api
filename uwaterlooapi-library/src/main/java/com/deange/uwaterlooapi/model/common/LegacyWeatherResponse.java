@@ -1,18 +1,33 @@
 package com.deange.uwaterlooapi.model.common;
 
-import com.deange.uwaterlooapi.model.BaseResponse;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.weather.LegacyWeatherReading;
 
-public class LegacyWeatherResponse extends BaseResponse {
+public class LegacyWeatherResponse
+        extends SimpleResponse<LegacyWeatherReading>
+        implements
+        Parcelable {
 
-    private final LegacyWeatherReading mReading;
-
-    public LegacyWeatherResponse(final LegacyWeatherReading reading) {
-        mReading = reading;
+    public LegacyWeatherResponse(final LegacyWeatherReading data) {
+        super(data);
     }
 
-    @Override
-    public LegacyWeatherReading getData() {
-        return mReading;
+    protected LegacyWeatherResponse(final Parcel in) {
+        super(in);
     }
+
+    public static final Creator<LegacyWeatherResponse> CREATOR =
+            new Creator<LegacyWeatherResponse>() {
+                @Override
+                public LegacyWeatherResponse createFromParcel(final Parcel in) {
+                    return new LegacyWeatherResponse(in);
+                }
+
+                @Override
+                public LegacyWeatherResponse[] newArray(final int size) {
+                    return new LegacyWeatherResponse[size];
+                }
+            };
 }

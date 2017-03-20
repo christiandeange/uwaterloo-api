@@ -1,12 +1,15 @@
 package com.deange.uwaterlooapi.model.resources;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
-@Parcel
-public class Tutor extends BaseModel {
+public class Tutor
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("subject")
     String mSubject;
@@ -22,6 +25,37 @@ public class Tutor extends BaseModel {
 
     @SerializedName("contact_url")
     String mContactUrl;
+
+    protected Tutor(final Parcel in) {
+        super(in);
+        mSubject = in.readString();
+        mCatalogNumber = in.readString();
+        mTitle = in.readString();
+        mTutorsCount = in.readInt();
+        mContactUrl = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mSubject);
+        dest.writeString(mCatalogNumber);
+        dest.writeString(mTitle);
+        dest.writeInt(mTutorsCount);
+        dest.writeString(mContactUrl);
+    }
+
+    public static final Creator<Tutor> CREATOR = new Creator<Tutor>() {
+        @Override
+        public Tutor createFromParcel(final Parcel in) {
+            return new Tutor(in);
+        }
+
+        @Override
+        public Tutor[] newArray(final int size) {
+            return new Tutor[size];
+        }
+    };
 
     /**
      * Subject acronym

@@ -1,19 +1,22 @@
 package com.deange.uwaterlooapi.model.events;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.DateRange;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 import java.util.List;
 
-@Parcel
-public class Event extends BaseModel
-        implements Comparable<Event> {
+public class Event
+        extends BaseModel
+        implements
+        Parcelable,
+        Comparable<Event> {
 
     @SerializedName("id")
     int mId;
@@ -38,6 +41,43 @@ public class Event extends BaseModel
 
     @SerializedName("updated")
     String mUpdated;
+
+    protected Event(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mSite = in.readString();
+        mSiteName = in.readString();
+        mTitle = in.readString();
+        mTimes = in.createTypedArrayList(DateRange.CREATOR);
+        mTypes = in.createStringArrayList();
+        mUrl = in.readString();
+        mUpdated = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mSite);
+        dest.writeString(mSiteName);
+        dest.writeString(mTitle);
+        dest.writeTypedList(mTimes);
+        dest.writeStringList(mTypes);
+        dest.writeString(mUrl);
+        dest.writeString(mUpdated);
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        @Override
+        public Event createFromParcel(final Parcel in) {
+            return new Event(in);
+        }
+
+        @Override
+        public Event[] newArray(final int size) {
+            return new Event[size];
+        }
+    };
 
     /**
      * Unique event id

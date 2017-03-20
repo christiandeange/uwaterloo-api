@@ -1,5 +1,8 @@
 package com.deange.uwaterlooapi.model.events;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.Image;
 import com.deange.uwaterlooapi.model.common.MultidayDateRange;
@@ -7,13 +10,13 @@ import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 import java.util.List;
 
-@Parcel
-public class EventInfo extends BaseModel {
+public class EventInfo
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("id")
     int mId;
@@ -71,6 +74,65 @@ public class EventInfo extends BaseModel {
 
     @SerializedName("updated")
     String mUpdated;
+
+    protected EventInfo(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mDescriptionRaw = in.readString();
+        mTimes = in.createTypedArrayList(MultidayDateRange.CREATOR);
+        mCost = in.readString();
+        mAudience = in.createStringArrayList();
+        mTags = in.createStringArrayList();
+        mTypes = in.createStringArrayList();
+        mSite = in.readParcelable(Website.class.getClassLoader());
+        mHost = in.readParcelable(Website.class.getClassLoader());
+        mImage = in.readParcelable(Image.class.getClassLoader());
+        mLocation = in.readParcelable(EventLocation.class.getClassLoader());
+        mSiteName = in.readString();
+        mSiteId = in.readString();
+        mRevisionId = in.readInt();
+        mLink = in.readString();
+        mLinkCalendar = in.readString();
+        mUpdated = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mTitle);
+        dest.writeString(mDescription);
+        dest.writeString(mDescriptionRaw);
+        dest.writeTypedList(mTimes);
+        dest.writeString(mCost);
+        dest.writeStringList(mAudience);
+        dest.writeStringList(mTags);
+        dest.writeStringList(mTypes);
+        dest.writeParcelable(mSite, flags);
+        dest.writeParcelable(mHost, flags);
+        dest.writeParcelable(mImage, flags);
+        dest.writeParcelable(mLocation, flags);
+        dest.writeString(mSiteName);
+        dest.writeString(mSiteId);
+        dest.writeInt(mRevisionId);
+        dest.writeString(mLink);
+        dest.writeString(mLinkCalendar);
+        dest.writeString(mUpdated);
+    }
+
+    public static final Creator<EventInfo> CREATOR = new Creator<EventInfo>() {
+        @Override
+        public EventInfo createFromParcel(final Parcel in) {
+            return new EventInfo(in);
+        }
+
+        @Override
+        public EventInfo[] newArray(final int size) {
+            return new EventInfo[size];
+        }
+    };
 
     /**
      * Unique event id

@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.common;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 
-@Parcel
-public class MultidayDateRange extends BaseModel {
+public class MultidayDateRange
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("start")
     String mStart;
@@ -34,6 +37,43 @@ public class MultidayDateRange extends BaseModel {
 
     @SerializedName("end_date")
     String mEndDate;
+
+    protected MultidayDateRange(final Parcel in) {
+        super(in);
+        mStart = in.readString();
+        mEnd = in.readString();
+        mStartDay = in.readString();
+        mEndDay = in.readString();
+        mStartTime = in.readString();
+        mEndTime = in.readString();
+        mStartDate = in.readString();
+        mEndDate = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mStart);
+        dest.writeString(mEnd);
+        dest.writeString(mStartDay);
+        dest.writeString(mEndDay);
+        dest.writeString(mStartTime);
+        dest.writeString(mEndTime);
+        dest.writeString(mStartDate);
+        dest.writeString(mEndDate);
+    }
+
+    public static final Creator<MultidayDateRange> CREATOR = new Creator<MultidayDateRange>() {
+        @Override
+        public MultidayDateRange createFromParcel(final Parcel in) {
+            return new MultidayDateRange(in);
+        }
+
+        @Override
+        public MultidayDateRange[] newArray(final int size) {
+            return new MultidayDateRange[size];
+        }
+    };
 
     /**
      * ISO 8601 formatted start date

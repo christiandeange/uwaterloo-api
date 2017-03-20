@@ -1,17 +1,19 @@
 package com.deange.uwaterlooapi.model.courses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.List;
 
-@Parcel
-public class CourseInfo extends Course {
+public class CourseInfo
+        extends Course
+        implements
+        Parcelable {
 
     @SerializedName("instructions")
     List<String> mInstructions;
@@ -51,6 +53,53 @@ public class CourseInfo extends Course {
 
     @SerializedName("url")
     String mUrl;
+
+    protected CourseInfo(final Parcel in) {
+        super(in);
+        mInstructions = in.createStringArrayList();
+        mPrerequisites = in.readString();
+        mAntirequisites = in.readString();
+        mCorequisites = in.readString();
+        mCrosslistings = in.readString();
+        mTermsOffered = in.createStringArrayList();
+        mNotes = in.readString();
+        mCourseLocations = in.readParcelable(CourseLocations.class.getClassLoader());
+        mNeedsDepartmentConsent = in.readByte() != 0;
+        mNeedsInstructorConsent = in.readByte() != 0;
+        mExtraInfo = in.createStringArrayList();
+        mYear = in.readString();
+        mUrl = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeStringList(mInstructions);
+        dest.writeString(mPrerequisites);
+        dest.writeString(mAntirequisites);
+        dest.writeString(mCorequisites);
+        dest.writeString(mCrosslistings);
+        dest.writeStringList(mTermsOffered);
+        dest.writeString(mNotes);
+        dest.writeParcelable(mCourseLocations, flags);
+        dest.writeByte((byte) (mNeedsDepartmentConsent ? 1 : 0));
+        dest.writeByte((byte) (mNeedsInstructorConsent ? 1 : 0));
+        dest.writeStringList(mExtraInfo);
+        dest.writeString(mYear);
+        dest.writeString(mUrl);
+    }
+
+    public static final Creator<CourseInfo> CREATOR = new Creator<CourseInfo>() {
+        @Override
+        public CourseInfo createFromParcel(final Parcel in) {
+            return new CourseInfo(in);
+        }
+
+        @Override
+        public CourseInfo[] newArray(final int size) {
+            return new CourseInfo[size];
+        }
+    };
 
     /**
      * Instruction types for the course (LEC, TUT, LAB etc)
@@ -103,7 +152,7 @@ public class CourseInfo extends Course {
 
     /**
      * Test for where a course is offered.
-     * <p />
+     * <p/>
      * Must be one of the constants defined in {@link CourseLocations}.
      *
      * @see CourseLocations#ONLINE
@@ -114,7 +163,6 @@ public class CourseInfo extends Course {
      * @see CourseLocations#RENISON_ONLY
      * @see CourseLocations#CONGRAD_GREBEL
      * @see CourseLocations#CONGRAD_GREBEL_ONLY
-     *
      */
     public boolean isOfferedAt(final String offering) {
         return mCourseLocations.isOfferedAt(offering);
@@ -150,7 +198,7 @@ public class CourseInfo extends Course {
 
     /**
      * Last active year the course was offered
-     * <p />
+     * <p/>
      * NOTE: EXPERIMENTAL. NO GUARANTEES MADE ABOUT VALIDITY
      */
     public int[] getYearRange() {
@@ -160,11 +208,11 @@ public class CourseInfo extends Course {
             return null;
         }
 
-        final String first  = "20" + mYear.substring(0, 2);
+        final String first = "20" + mYear.substring(0, 2);
         final String second = "20" + mYear.substring(2, 4);
 
         try {
-            return new int[] {Integer.parseInt(first), Integer.parseInt(second)};
+            return new int[]{Integer.parseInt(first), Integer.parseInt(second)};
 
         } catch (final NumberFormatException e) {
             Log.w("CourseInfo", "Unexpected academic year: \'" + mYear + "\'", e);

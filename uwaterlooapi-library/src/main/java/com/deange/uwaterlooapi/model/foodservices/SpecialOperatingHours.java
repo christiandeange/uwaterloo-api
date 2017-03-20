@@ -1,17 +1,44 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 
-@Parcel
-public class SpecialOperatingHours extends OperatingHours {
+public class SpecialOperatingHours
+        extends OperatingHours
+        implements
+        Parcelable {
 
     @SerializedName("date")
     String mDate;
+
+    protected SpecialOperatingHours(final Parcel in) {
+        super(in);
+        mDate = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mDate);
+    }
+
+    public static final Creator<SpecialOperatingHours> CREATOR =
+            new Creator<SpecialOperatingHours>() {
+                @Override
+                public SpecialOperatingHours createFromParcel(final Parcel in) {
+                    return new SpecialOperatingHours(in);
+                }
+
+                @Override
+                public SpecialOperatingHours[] newArray(final int size) {
+                    return new SpecialOperatingHours[size];
+                }
+            };
 
     /**
      * Y-m-d format date for the special case

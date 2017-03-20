@@ -18,8 +18,6 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class MapActivity
 
     public static Intent getMapActivityIntent(final Context from, final Building building) {
         final Intent intent = new Intent(from, MapActivity.class);
-        intent.putExtra(KEY_BUILDING, Parcels.wrap(building));
+        intent.putExtra(KEY_BUILDING, building);
         return intent;
     }
 
@@ -135,6 +133,6 @@ public class MapActivity
     }
 
     private Building getBuilding() {
-        return Parcels.unwrap(getIntent().getParcelableExtra(KEY_BUILDING));
+        return getIntent().getParcelableExtra(KEY_BUILDING);
     }
 }

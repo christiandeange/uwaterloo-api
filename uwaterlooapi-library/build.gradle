@@ -35,7 +35,4 @@ dependencies {
     compile ("com.squareup.retrofit2:converter-simplexml:${retrofit}") {
         exclude group: 'xpp3'
     }
-
-    compile 'org.parceler:parceler-api:1.0.2'
-    annotationProcessor 'org.parceler:parceler:1.0.2'
 }

@@ -1,12 +1,15 @@
 package com.deange.uwaterlooapi.model.common;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
-@Parcel
-public class Image extends BaseModel {
+public class Image
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("id")
     int mId;
@@ -31,6 +34,43 @@ public class Image extends BaseModel {
 
     @SerializedName("url")
     String mUrl;
+
+    protected Image(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mFile = in.readString();
+        mAltText = in.readString();
+        mMimeType = in.readString();
+        mSizeBytes = in.readInt();
+        mWidth = in.readInt();
+        mHeight = in.readInt();
+        mUrl = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mFile);
+        dest.writeString(mAltText);
+        dest.writeString(mMimeType);
+        dest.writeInt(mSizeBytes);
+        dest.writeInt(mWidth);
+        dest.writeInt(mHeight);
+        dest.writeString(mUrl);
+    }
+
+    public static final Creator<Image> CREATOR = new Creator<Image>() {
+        @Override
+        public Image createFromParcel(final Parcel in) {
+            return new Image(in);
+        }
+
+        @Override
+        public Image[] newArray(final int size) {
+            return new Image[size];
+        }
+    };
 
     /**
      * Unique id of image

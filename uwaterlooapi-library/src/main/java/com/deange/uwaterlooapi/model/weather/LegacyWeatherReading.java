@@ -1,9 +1,11 @@
 package com.deange.uwaterlooapi.model.weather;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 
-import org.parceler.Parcel;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -13,9 +15,11 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Parcel
 @Root(name = "current_observation")
-public class LegacyWeatherReading extends BaseModel {
+public class LegacyWeatherReading
+        extends BaseModel
+        implements
+        Parcelable {
 
     public static final String PRESSURE_STEADY = "steady";
     public static final String PRESSURE_RISING = "rising";
@@ -112,6 +116,143 @@ public class LegacyWeatherReading extends BaseModel {
     Float mHumidex;
     Float mWindchill;
 
+    public LegacyWeatherReading() {
+    }
+
+    protected LegacyWeatherReading(final Parcel in) {
+        super(in);
+        mCredit = in.readString();
+        mUpdateTimes = in.readString();
+        mLocation = in.readString();
+        mLatitudeRaw = in.readString();
+        mLongitudeRaw = in.readString();
+        mElevationRaw = in.readString();
+        mObservationYear = in.readInt();
+        mObservationMonth = in.readString();
+        mObservationDay = in.readInt();
+        mObservationHour = in.readInt();
+        mObservationMinute = in.readInt();
+        mPrecipitation15Min = in.readFloat();
+        mPrecipitation1Hr = in.readFloat();
+        mPrecipitation24Hr = in.readFloat();
+        mTemperature = in.readFloat();
+        mTemperature24hMax = in.readFloat();
+        mTemperature24hMin = in.readFloat();
+        mIncomingShortWaveRadiation = in.readFloat();
+        mReflectedShortWaveRadiation = in.readFloat();
+        mWindSpeed = in.readFloat();
+        mWindGust = in.readFloat();
+        mWindDirection = in.readString();
+        mRelativeHumidity = in.readFloat();
+        mDewPoint = in.readFloat();
+        mPressureKpa = in.readFloat();
+        mPressureTrend = in.readString();
+        mHumidexRaw = in.readString();
+        mWindchillRaw = in.readString();
+        if (in.readByte() == 0) {
+            mLatitude = null;
+        } else {
+            mLatitude = in.readFloat();
+        }
+        if (in.readByte() == 0) {
+            mLongitude = null;
+        } else {
+            mLongitude = in.readFloat();
+        }
+        if (in.readByte() == 0) {
+            mElevation = null;
+        } else {
+            mElevation = in.readFloat();
+        }
+        mObservationTime = in.readString();
+        if (in.readByte() == 0) {
+            mHumidex = null;
+        } else {
+            mHumidex = in.readFloat();
+        }
+        if (in.readByte() == 0) {
+            mWindchill = null;
+        } else {
+            mWindchill = in.readFloat();
+        }
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mCredit);
+        dest.writeString(mUpdateTimes);
+        dest.writeString(mLocation);
+        dest.writeString(mLatitudeRaw);
+        dest.writeString(mLongitudeRaw);
+        dest.writeString(mElevationRaw);
+        dest.writeInt(mObservationYear);
+        dest.writeString(mObservationMonth);
+        dest.writeInt(mObservationDay);
+        dest.writeInt(mObservationHour);
+        dest.writeInt(mObservationMinute);
+        dest.writeFloat(mPrecipitation15Min);
+        dest.writeFloat(mPrecipitation1Hr);
+        dest.writeFloat(mPrecipitation24Hr);
+        dest.writeFloat(mTemperature);
+        dest.writeFloat(mTemperature24hMax);
+        dest.writeFloat(mTemperature24hMin);
+        dest.writeFloat(mIncomingShortWaveRadiation);
+        dest.writeFloat(mReflectedShortWaveRadiation);
+        dest.writeFloat(mWindSpeed);
+        dest.writeFloat(mWindGust);
+        dest.writeString(mWindDirection);
+        dest.writeFloat(mRelativeHumidity);
+        dest.writeFloat(mDewPoint);
+        dest.writeFloat(mPressureKpa);
+        dest.writeString(mPressureTrend);
+        dest.writeString(mHumidexRaw);
+        dest.writeString(mWindchillRaw);
+        if (mLatitude == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(mLatitude);
+        }
+        if (mLongitude == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(mLongitude);
+        }
+        if (mElevation == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(mElevation);
+        }
+        dest.writeString(mObservationTime);
+        if (mHumidex == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(mHumidex);
+        }
+        if (mWindchill == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(mWindchill);
+        }
+    }
+
+    public static final Creator<LegacyWeatherReading> CREATOR = new Creator<LegacyWeatherReading>() {
+        @Override
+        public LegacyWeatherReading createFromParcel(final Parcel in) {
+            return new LegacyWeatherReading(in);
+        }
+
+        @Override
+        public LegacyWeatherReading[] newArray(final int size) {
+            return new LegacyWeatherReading[size];
+        }
+    };
+
     /**
      * Attribution to original source provider
      */
@@ -142,7 +283,7 @@ public class LegacyWeatherReading extends BaseModel {
             mLongitude = dmsToDecimal(mLongitudeRaw);
         }
 
-        return new float[]{ mLatitude, mLongitude };
+        return new float[]{mLatitude, mLongitude};
     }
 
     /**

@@ -1,12 +1,15 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
-@Parcel
-public class Product extends BaseModel {
+public class Product
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("product_id")
     int mId;
@@ -97,6 +100,87 @@ public class Product extends BaseModel {
 
     @SerializedName("diet_type")
     String mDietType;
+
+    protected Product(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mName = in.readString();
+        mIngredients = in.readString();
+        mServingSize = in.readString();
+        mServingSizeMl = in.readInt();
+        mServingSizeG = in.readInt();
+        mCalories = in.readInt();
+        mTotalFatG = in.readInt();
+        mTotalFatPercent = in.readInt();
+        mFatSaturatedG = in.readInt();
+        mFatSaturatedPercent = in.readInt();
+        mFatTransG = in.readInt();
+        mFatTransPercent = in.readInt();
+        mCholesterol = in.readInt();
+        mSodiumMg = in.readInt();
+        mSodiumPercent = in.readInt();
+        mCarbohydratesG = in.readInt();
+        mCarbohydratesPercent = in.readInt();
+        mFibreG = in.readInt();
+        mFibrePercent = in.readInt();
+        mSugar = in.readInt();
+        mProtein = in.readInt();
+        mVitaminAPercent = in.readInt();
+        mVitaminCPercent = in.readInt();
+        mCalcium = in.readInt();
+        mIron = in.readInt();
+        mMicroNutrients = in.readString();
+        mTips = in.readString();
+        mDietId = in.readInt();
+        mDietType = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mName);
+        dest.writeString(mIngredients);
+        dest.writeString(mServingSize);
+        dest.writeInt(mServingSizeMl);
+        dest.writeInt(mServingSizeG);
+        dest.writeInt(mCalories);
+        dest.writeInt(mTotalFatG);
+        dest.writeInt(mTotalFatPercent);
+        dest.writeInt(mFatSaturatedG);
+        dest.writeInt(mFatSaturatedPercent);
+        dest.writeInt(mFatTransG);
+        dest.writeInt(mFatTransPercent);
+        dest.writeInt(mCholesterol);
+        dest.writeInt(mSodiumMg);
+        dest.writeInt(mSodiumPercent);
+        dest.writeInt(mCarbohydratesG);
+        dest.writeInt(mCarbohydratesPercent);
+        dest.writeInt(mFibreG);
+        dest.writeInt(mFibrePercent);
+        dest.writeInt(mSugar);
+        dest.writeInt(mProtein);
+        dest.writeInt(mVitaminAPercent);
+        dest.writeInt(mVitaminCPercent);
+        dest.writeInt(mCalcium);
+        dest.writeInt(mIron);
+        dest.writeString(mMicroNutrients);
+        dest.writeString(mTips);
+        dest.writeInt(mDietId);
+        dest.writeString(mDietType);
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(final Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(final int size) {
+            return new Product[size];
+        }
+    };
 
     /**
      * Food item's numeric id

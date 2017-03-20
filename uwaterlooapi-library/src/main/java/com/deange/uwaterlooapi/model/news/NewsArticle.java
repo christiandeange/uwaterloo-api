@@ -1,17 +1,20 @@
 package com.deange.uwaterlooapi.model.news;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.Image;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 import java.util.List;
 
-@Parcel
-public class NewsArticle extends BaseModel {
+public class NewsArticle
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("id")
     int mId;
@@ -48,6 +51,51 @@ public class NewsArticle extends BaseModel {
 
     @SerializedName("link")
     String mLink;
+
+    protected NewsArticle(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mHtmlDescription = in.readString();
+        mAudience = in.createStringArrayList();
+        mImage = in.readParcelable(Image.class.getClassLoader());
+        mSiteId = in.readString();
+        mSiteName = in.readString();
+        mRevision = in.readInt();
+        mPublished = in.readString();
+        mUpdated = in.readString();
+        mLink = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mTitle);
+        dest.writeString(mDescription);
+        dest.writeString(mHtmlDescription);
+        dest.writeStringList(mAudience);
+        dest.writeParcelable(mImage, flags);
+        dest.writeString(mSiteId);
+        dest.writeString(mSiteName);
+        dest.writeInt(mRevision);
+        dest.writeString(mPublished);
+        dest.writeString(mUpdated);
+        dest.writeString(mLink);
+    }
+
+    public static final Creator<NewsArticle> CREATOR = new Creator<NewsArticle>() {
+        @Override
+        public NewsArticle createFromParcel(final Parcel in) {
+            return new NewsArticle(in);
+        }
+
+        @Override
+        public NewsArticle[] newArray(final int size) {
+            return new NewsArticle[size];
+        }
+    };
 
     /**
      * Unique news id

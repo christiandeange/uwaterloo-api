@@ -36,8 +36,6 @@ import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.NetworkController;
 import com.deange.uwaterlooapi.sample.utils.Px;
 
-import org.parceler.Parcels;
-
 import java.util.List;
 
 import retrofit2.Call;
@@ -68,7 +66,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
     public static <V extends BaseModel> Bundle newBundle(final V model) {
         final Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_MODEL, Parcels.wrap(model));
+        bundle.putParcelable(KEY_MODEL, model);
         return bundle;
     }
 
@@ -135,7 +133,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
 
         if (savedInstanceState != null) {
             mLastUpdate = savedInstanceState.getLong(KEY_LAST_UPDATED);
-            mLastResponse = BaseResponse.deserialize(savedInstanceState.getString(KEY_RESPONSE));
+            mLastResponse = savedInstanceState.getParcelable(KEY_RESPONSE);
         }
 
         // Deliver the response if we still have one, otherwise load the data
@@ -184,7 +182,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(KEY_LAST_UPDATED, mLastUpdate);
-        outState.putString(KEY_RESPONSE, BaseResponse.serialize(mLastResponse));
+        outState.putParcelable(KEY_RESPONSE, mLastResponse);
     }
 
     @Override
@@ -211,7 +209,8 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     }
 
     public <M> M getModel() {
-        return Parcels.unwrap(getArguments().getParcelable(KEY_MODEL));
+        // noinspection unchecked
+        return (M) getArguments().getParcelable(KEY_MODEL);
     }
 
     @Override

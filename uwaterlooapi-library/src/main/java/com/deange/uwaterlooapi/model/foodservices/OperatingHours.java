@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
-
-import org.parceler.Parcel;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Parcel
-public class OperatingHours extends BaseModel {
+public class OperatingHours
+        extends BaseModel
+        implements
+        Parcelable {
 
     public static final String SUNDAY = "sunday";
     public static final String MONDAY = "monday";
@@ -34,6 +37,36 @@ public class OperatingHours extends BaseModel {
 
     @SerializedName("is_closed")
     boolean mClosedAllDay;
+
+    protected OperatingHours() {
+    }
+
+    protected OperatingHours(final Parcel in) {
+        super(in);
+        mOpeningHour = in.readString();
+        mClosingHour = in.readString();
+        mClosedAllDay = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mOpeningHour);
+        dest.writeString(mClosingHour);
+        dest.writeByte((byte) (mClosedAllDay ? 1 : 0));
+    }
+
+    public static final Creator<OperatingHours> CREATOR = new Creator<OperatingHours>() {
+        @Override
+        public OperatingHours createFromParcel(final Parcel in) {
+            return new OperatingHours(in);
+        }
+
+        @Override
+        public OperatingHours[] newArray(final int size) {
+            return new OperatingHours[size];
+        }
+    };
 
     public static OperatingHours create(
             final String openingHour,

@@ -1,8 +1,27 @@
 package com.deange.uwaterlooapi.model.poi;
 
-import org.parceler.Parcel;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-@Parcel
-public class GreyhoundStop extends BasicPointOfInterest {
+public class GreyhoundStop
+        extends BasicPointOfInterest
+        implements
+        Parcelable {
+
+    protected GreyhoundStop(final Parcel in) {
+        super(in);
+    }
+
+    public static final Creator<GreyhoundStop> CREATOR = new Creator<GreyhoundStop>() {
+        @Override
+        public GreyhoundStop createFromParcel(final Parcel in) {
+            return new GreyhoundStop(in);
+        }
+
+        @Override
+        public GreyhoundStop[] newArray(final int size) {
+            return new GreyhoundStop[size];
+        }
+    };
 
 }

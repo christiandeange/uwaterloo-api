@@ -1,17 +1,19 @@
 package com.deange.uwaterlooapi.model.resources;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
-
-import org.parceler.Parcel;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-@Parcel
-public class Sunshiner extends BaseModel
+public class Sunshiner
+        extends BaseModel
         implements
+        Parcelable,
         Comparable<Sunshiner> {
 
     private static final MathContext CURRENCY_CONTEXT = new MathContext(2, RoundingMode.HALF_EVEN);
@@ -36,6 +38,43 @@ public class Sunshiner extends BaseModel
 
     BigDecimal mSalary;
     BigDecimal mTaxableBenefits;
+
+    protected Sunshiner(final Parcel in) {
+        super(in);
+        mEmployer = in.readString();
+        mSurname = in.readString();
+        mGivenName = in.readString();
+        mPosition = in.readString();
+        mSalaryRaw = in.readString();
+        mTaxableBenefitsRaw = in.readString();
+        mSalary = (BigDecimal) in.readSerializable();
+        mTaxableBenefits = (BigDecimal) in.readSerializable();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mEmployer);
+        dest.writeString(mSurname);
+        dest.writeString(mGivenName);
+        dest.writeString(mPosition);
+        dest.writeString(mSalaryRaw);
+        dest.writeString(mTaxableBenefitsRaw);
+        dest.writeSerializable(mSalary);
+        dest.writeSerializable(mTaxableBenefits);
+    }
+
+    public static final Creator<Sunshiner> CREATOR = new Creator<Sunshiner>() {
+        @Override
+        public Sunshiner createFromParcel(final Parcel in) {
+            return new Sunshiner(in);
+        }
+
+        @Override
+        public Sunshiner[] newArray(final int size) {
+            return new Sunshiner[size];
+        }
+    };
 
     /**
      * Name of Employer (UW)

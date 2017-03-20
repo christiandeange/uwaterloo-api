@@ -1,17 +1,18 @@
 package com.deange.uwaterlooapi.model.news;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 
-@Parcel
 public class NewsDetails
         extends BaseModel
         implements
+        Parcelable,
         Comparable<NewsDetails> {
 
     @SerializedName("id")
@@ -31,6 +32,39 @@ public class NewsDetails
 
     @SerializedName("updated")
     String mUpdated;
+
+    protected NewsDetails(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mTitle = in.readString();
+        mSite = in.readString();
+        mLink = in.readString();
+        mPublished = in.readString();
+        mUpdated = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mTitle);
+        dest.writeString(mSite);
+        dest.writeString(mLink);
+        dest.writeString(mPublished);
+        dest.writeString(mUpdated);
+    }
+
+    public static final Creator<NewsDetails> CREATOR = new Creator<NewsDetails>() {
+        @Override
+        public NewsDetails createFromParcel(final Parcel in) {
+            return new NewsDetails(in);
+        }
+
+        @Override
+        public NewsDetails[] newArray(final int size) {
+            return new NewsDetails[size];
+        }
+    };
 
     /**
      * Unique news id

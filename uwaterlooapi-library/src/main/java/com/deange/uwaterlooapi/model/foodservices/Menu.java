@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 
-@Parcel
-public class Menu extends BaseModel {
+public class Menu
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("date")
     String mDate;
@@ -22,6 +25,35 @@ public class Menu extends BaseModel {
 
     @SerializedName("notes")
     String mNotes;
+
+    protected Menu(final Parcel in) {
+        super(in);
+        mDate = in.readString();
+        mDayOfWeek = in.readString();
+        mMeals = in.readParcelable(Meals.class.getClassLoader());
+        mNotes = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mDate);
+        dest.writeString(mDayOfWeek);
+        dest.writeParcelable(mMeals, flags);
+        dest.writeString(mNotes);
+    }
+
+    public static final Creator<Menu> CREATOR = new Creator<Menu>() {
+        @Override
+        public Menu createFromParcel(final Parcel in) {
+            return new Menu(in);
+        }
+
+        @Override
+        public Menu[] newArray(final int size) {
+            return new Menu[size];
+        }
+    };
 
     /**
      * Date of the menu (Y-m-d)

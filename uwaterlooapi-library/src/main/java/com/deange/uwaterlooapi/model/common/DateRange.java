@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.common;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 
-@Parcel
-public class DateRange extends BaseModel {
+public class DateRange
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("week")
     int mWeek;
@@ -22,6 +25,35 @@ public class DateRange extends BaseModel {
 
     @SerializedName("end")
     String mEnd;
+
+    protected DateRange(final Parcel in) {
+        super(in);
+        mWeek = in.readInt();
+        mYear = in.readInt();
+        mStart = in.readString();
+        mEnd = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mWeek);
+        dest.writeInt(mYear);
+        dest.writeString(mStart);
+        dest.writeString(mEnd);
+    }
+
+    public static final Creator<DateRange> CREATOR = new Creator<DateRange>() {
+        @Override
+        public DateRange createFromParcel(final Parcel in) {
+            return new DateRange(in);
+        }
+
+        @Override
+        public DateRange[] newArray(final int size) {
+            return new DateRange[size];
+        }
+    };
 
     /**
      * Requested week

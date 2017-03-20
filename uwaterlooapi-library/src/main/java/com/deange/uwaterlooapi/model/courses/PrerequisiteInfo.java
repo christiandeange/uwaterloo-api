@@ -1,5 +1,8 @@
 package com.deange.uwaterlooapi.model.courses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.JsonArray;
@@ -9,14 +12,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-@Parcel
-public class PrerequisiteInfo extends BaseModel {
+public class PrerequisiteInfo
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("subject")
     String mSubject;
@@ -32,6 +35,37 @@ public class PrerequisiteInfo extends BaseModel {
 
     @SerializedName("prerequisites_parsed")
     PrerequisiteGroup mPrerequisiteGroup;
+
+    protected PrerequisiteInfo(final Parcel in) {
+        super(in);
+        mSubject = in.readString();
+        mCatalogNumber = in.readString();
+        mTitle = in.readString();
+        mPrerequisites = in.readString();
+        mPrerequisiteGroup = in.readParcelable(PrerequisiteGroup.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mSubject);
+        dest.writeString(mCatalogNumber);
+        dest.writeString(mTitle);
+        dest.writeString(mPrerequisites);
+        dest.writeParcelable(mPrerequisiteGroup, flags);
+    }
+
+    public static final Creator<PrerequisiteInfo> CREATOR = new Creator<PrerequisiteInfo>() {
+        @Override
+        public PrerequisiteInfo createFromParcel(final Parcel in) {
+            return new PrerequisiteInfo(in);
+        }
+
+        @Override
+        public PrerequisiteInfo[] newArray(final int size) {
+            return new PrerequisiteInfo[size];
+        }
+    };
 
     /**
      * Requested subject acronym
@@ -75,7 +109,9 @@ public class PrerequisiteInfo extends BaseModel {
         return mPrerequisiteGroup.prerequisitesSatisfied(new ArrayList<>(courses));
     }
 
-    public static class Converter implements JsonDeserializer<PrerequisiteGroup> {
+    public static class Converter
+            implements
+            JsonDeserializer<PrerequisiteGroup> {
 
         @Override
         public PrerequisiteGroup deserialize(final JsonElement json, final Type typeOfT,
@@ -123,8 +159,9 @@ public class PrerequisiteInfo extends BaseModel {
 
     }
 
-    @Parcel
-    public static final class PrerequisiteGroup {
+    public static final class PrerequisiteGroup
+            implements
+            Parcelable {
 
         // Sometimes a number is not provided, so we assume it is 1
         int mTotal = 1;
@@ -132,6 +169,39 @@ public class PrerequisiteInfo extends BaseModel {
         List<String> mOptions = new ArrayList<>();
 
         List<PrerequisiteGroup> mSubOptions = new ArrayList<>();
+
+        protected PrerequisiteGroup() {
+        }
+
+        protected PrerequisiteGroup(final Parcel in) {
+            mTotal = in.readInt();
+            mOptions = in.createStringArrayList();
+            mSubOptions = in.createTypedArrayList(PrerequisiteGroup.CREATOR);
+        }
+
+        @Override
+        public void writeToParcel(final Parcel dest, final int flags) {
+            dest.writeInt(mTotal);
+            dest.writeStringList(mOptions);
+            dest.writeTypedList(mSubOptions);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<PrerequisiteGroup> CREATOR = new Creator<PrerequisiteGroup>() {
+            @Override
+            public PrerequisiteGroup createFromParcel(final Parcel in) {
+                return new PrerequisiteGroup(in);
+            }
+
+            @Override
+            public PrerequisiteGroup[] newArray(final int size) {
+                return new PrerequisiteGroup[size];
+            }
+        };
 
         /**
          * The number of courses required to satisfy this group

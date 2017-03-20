@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.buildings;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.List;
 
-@Parcel
-public class Building extends BaseModel {
+public class Building
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("building_id")
     String mBuildingId;
@@ -31,6 +34,41 @@ public class Building extends BaseModel {
 
     @SerializedName("building_sections")
     List<BuildingSection> mBuildingSections;
+
+    protected Building(final Parcel in) {
+        super(in);
+        mBuildingId = in.readString();
+        mBuildingCode = in.readString();
+        mBuildingName = in.readString();
+        mAlternateNames = in.createStringArrayList();
+        mLatitude = in.readFloat();
+        mLongitude = in.readFloat();
+        mBuildingSections = in.createTypedArrayList(BuildingSection.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mBuildingId);
+        dest.writeString(mBuildingCode);
+        dest.writeString(mBuildingName);
+        dest.writeStringList(mAlternateNames);
+        dest.writeFloat(mLatitude);
+        dest.writeFloat(mLongitude);
+        dest.writeTypedList(mBuildingSections);
+    }
+
+    public static final Creator<Building> CREATOR = new Creator<Building>() {
+        @Override
+        public Building createFromParcel(final Parcel in) {
+            return new Building(in);
+        }
+
+        @Override
+        public Building[] newArray(final int size) {
+            return new Building[size];
+        }
+    };
 
     /**
      * Official unique building number
@@ -64,7 +102,7 @@ public class Building extends BaseModel {
      * Latitude + longitude of building location
      */
     public float[] getLocation() {
-        return new float[] {mLatitude, mLongitude};
+        return new float[]{mLatitude, mLongitude};
     }
 
     /**

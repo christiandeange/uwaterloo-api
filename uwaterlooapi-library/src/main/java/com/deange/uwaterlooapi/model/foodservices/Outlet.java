@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.foodservices;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.List;
 
-@Parcel
-public class Outlet extends BaseModel {
+public class Outlet
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("outlet_id")
     int mId;
@@ -29,6 +32,39 @@ public class Outlet extends BaseModel {
     @SerializedName("has_dinner")
     int mDinner;
 
+    protected Outlet(final Parcel in) {
+        super(in);
+        mId = in.readInt();
+        mName = in.readString();
+        mMenu = in.createTypedArrayList(Menu.CREATOR);
+        mBreakfast = in.readInt();
+        mLunch = in.readInt();
+        mDinner = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeString(mName);
+        dest.writeTypedList(mMenu);
+        dest.writeInt(mBreakfast);
+        dest.writeInt(mLunch);
+        dest.writeInt(mDinner);
+    }
+
+    public static final Creator<Outlet> CREATOR = new Creator<Outlet>() {
+        @Override
+        public Outlet createFromParcel(final Parcel in) {
+            return new Outlet(in);
+        }
+
+        @Override
+        public Outlet[] newArray(final int size) {
+            return new Outlet[size];
+        }
+    };
+
     /**
      * Foodservices ID for the outlet
      */
@@ -45,7 +81,7 @@ public class Outlet extends BaseModel {
 
     /**
      * The outlet menu list
-     * <p />
+     * <p/>
      * This field is only set for getMenu() request
      */
     public List<Menu> getMenu() {
@@ -54,7 +90,7 @@ public class Outlet extends BaseModel {
 
     /**
      * If serves breakfast
-     * <p />
+     * <p/>
      * This field is only set for getOutlets() request
      */
     public boolean servesBreakfast() {
@@ -63,7 +99,7 @@ public class Outlet extends BaseModel {
 
     /**
      * If serves lunch
-     * <p />
+     * <p/>
      * This field is only set for getOutlets() request
      */
     public boolean servesLunch() {
@@ -72,7 +108,7 @@ public class Outlet extends BaseModel {
 
     /**
      * If serves dinner
-     * <p />
+     * <p/>
      * This field is only set for getOutlets() request
      */
     public boolean servesDinner() {

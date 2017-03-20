@@ -1,15 +1,18 @@
 package com.deange.uwaterlooapi.model.parking;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
-
 import java.util.Date;
 
-@Parcel
-public class ParkingLot extends BaseModel {
+public class ParkingLot
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("lot_name")
     String mLotName;
@@ -32,6 +35,41 @@ public class ParkingLot extends BaseModel {
     @SerializedName("last_updated")
     String mLastUpdated;
 
+    protected ParkingLot(final Parcel in) {
+        super(in);
+        mLotName = in.readString();
+        mLatitude = in.readFloat();
+        mLongitude = in.readFloat();
+        mCapacity = in.readInt();
+        mCurrentCount = in.readInt();
+        mPercentFilled = in.readInt();
+        mLastUpdated = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mLotName);
+        dest.writeFloat(mLatitude);
+        dest.writeFloat(mLongitude);
+        dest.writeInt(mCapacity);
+        dest.writeInt(mCurrentCount);
+        dest.writeInt(mPercentFilled);
+        dest.writeString(mLastUpdated);
+    }
+
+    public static final Creator<ParkingLot> CREATOR = new Creator<ParkingLot>() {
+        @Override
+        public ParkingLot createFromParcel(final Parcel in) {
+            return new ParkingLot(in);
+        }
+
+        @Override
+        public ParkingLot[] newArray(final int size) {
+            return new ParkingLot[size];
+        }
+    };
+
     /**
      * Name of the parking lot
      */
@@ -43,7 +81,7 @@ public class ParkingLot extends BaseModel {
      * Location [latitude, longitude] coordinates
      */
     public float[] getLocation() {
-        return new float[] { mLatitude, mLongitude };
+        return new float[]{mLatitude, mLongitude};
     }
 
     /**

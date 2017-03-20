@@ -1,16 +1,19 @@
 package com.deange.uwaterlooapi.model.courses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
-
-import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@Parcel
-public class ClassDate extends BaseModel {
+public class ClassDate
+        extends BaseModel
+        implements
+        Parcelable {
 
     @SerializedName("start_time")
     String mStartTime;
@@ -35,6 +38,43 @@ public class ClassDate extends BaseModel {
 
     @SerializedName("is_closed")
     boolean mIsClosed;
+
+    protected ClassDate(final Parcel in) {
+        super(in);
+        mStartTime = in.readString();
+        mEndTime = in.readString();
+        mWeekdays = in.readString();
+        mStartDate = in.readString();
+        mEndDate = in.readString();
+        mIsTBA = in.readByte() != 0;
+        mIsCancelled = in.readByte() != 0;
+        mIsClosed = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(mStartTime);
+        dest.writeString(mEndTime);
+        dest.writeString(mWeekdays);
+        dest.writeString(mStartDate);
+        dest.writeString(mEndDate);
+        dest.writeByte((byte) (mIsTBA ? 1 : 0));
+        dest.writeByte((byte) (mIsCancelled ? 1 : 0));
+        dest.writeByte((byte) (mIsClosed ? 1 : 0));
+    }
+
+    public static final Creator<ClassDate> CREATOR = new Creator<ClassDate>() {
+        @Override
+        public ClassDate createFromParcel(final Parcel in) {
+            return new ClassDate(in);
+        }
+
+        @Override
+        public ClassDate[] newArray(final int size) {
+            return new ClassDate[size];
+        }
+    };
 
     /**
      * 24 hour class starting time

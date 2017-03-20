@@ -1,11 +1,12 @@
 package com.deange.uwaterlooapi.model.courses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-
-import org.parceler.Parcel;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -13,8 +14,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@Parcel
-public class CourseLocations extends BaseModel {
+public class CourseLocations
+        extends BaseModel
+        implements
+        Parcelable {
 
     public static final String ONLINE = "online";
     public static final String ONLINE_ONLY = "online_only";
@@ -25,7 +28,8 @@ public class CourseLocations extends BaseModel {
     public static final String CONGRAD_GREBEL = "conrad_grebel";
     public static final String CONGRAD_GREBEL_ONLY = "conrad_grebel_only";
 
-    private static List<String> OFFERED_PLACES;
+    private static final List<String> OFFERED_PLACES;
+
     static {
         final List<String> places = new ArrayList<>();
         places.add(ONLINE);
@@ -45,9 +49,32 @@ public class CourseLocations extends BaseModel {
         mBitset = 0;
     }
 
+    protected CourseLocations(final Parcel in) {
+        super(in);
+        mBitset = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mBitset);
+    }
+
+    public static final Creator<CourseLocations> CREATOR = new Creator<CourseLocations>() {
+        @Override
+        public CourseLocations createFromParcel(final Parcel in) {
+            return new CourseLocations(in);
+        }
+
+        @Override
+        public CourseLocations[] newArray(final int size) {
+            return new CourseLocations[size];
+        }
+    };
+
     /**
      * Test for where a course is offered.
-     * <p />
+     * <p/>
      * Must be one of the constants defined in {@link CourseLocations}.
      *
      * @see #ONLINE
@@ -58,7 +85,6 @@ public class CourseLocations extends BaseModel {
      * @see #RENISON_ONLY
      * @see #CONGRAD_GREBEL
      * @see #CONGRAD_GREBEL_ONLY
-     *
      */
     /* package */ boolean isOfferedAt(final String offering) {
         if (!OFFERED_PLACES.contains(offering)) {
