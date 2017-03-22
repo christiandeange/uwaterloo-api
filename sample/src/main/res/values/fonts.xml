@@ -2,17 +2,23 @@
 <resources>
     <!-- Normal styles -->
     <eat-comment/>
-    <string name="font_light">fonts/Gotham-Light.otf</string>
-    <string name="font_book">fonts/Gotham-Book.otf</string>
-    <string name="font_medium">fonts/Gotham-Medium.otf</string>
-    <string name="font_bold">fonts/Gotham-Bold.otf</string>
+    <string name="font_thin">fonts/Gotham-Thin.ttf</string>
+    <string name="font_light">fonts/Gotham-Light.ttf</string>
+    <string name="font_book">fonts/Gotham-Book.ttf</string>
+    <string name="font_medium">fonts/Gotham-Medium.ttf</string>
+    <string name="font_bold">fonts/Gotham-Bold.ttf</string>
+    <string name="font_black">fonts/Gotham-Black.ttf</string>
+    <string name="font_ultra">fonts/Gotham-Ultra.ttf</string>
 
     <!-- Italic styles -->
     <eat-comment/>
-    <string name="font_light_italic">fonts/Gotham-LightItalic.otf</string>
-    <string name="font_book_italic">fonts/Gotham-BookItalic.otf</string>
-    <string name="font_medium_italic">fonts/Gotham-MediumItalic.otf</string>
-    <string name="font_bold_italic">fonts/Gotham-BoldItalic.otf</string>
+    <string name="font_thin_italic">fonts/Gotham-ThinItalic.ttf</string>
+    <string name="font_light_italic">fonts/Gotham-LightItalic.ttf</string>
+    <string name="font_book_italic">fonts/Gotham-BookItalic.ttf</string>
+    <string name="font_medium_italic">fonts/Gotham-MediumItalic.ttf</string>
+    <string name="font_bold_italic">fonts/Gotham-BoldItalic.ttf</string>
+    <string name="font_black_italic">fonts/Gotham-BlackItalic.ttf</string>
+    <string name="font_ultra_italic">fonts/Gotham-UltraItalic.ttf</string>
 
     <!-- Other fonts -->
     <eat-comment/>
