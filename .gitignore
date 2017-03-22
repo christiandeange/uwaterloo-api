@@ -12,3 +12,6 @@ captures/
 
 # Proprietary fonts
 Gotham*.[ot]tf
+
+# Design files
+graphics/
