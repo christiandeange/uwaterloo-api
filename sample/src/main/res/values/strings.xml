@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">UWaterloop</string>
-    <string name="app_title_1">UWaterl</string>
-    <string name="app_title_2">p</string>
+    <string name="app_name">Citrus</string>
 
     <string name="api_home">Home</string>
     <string name="api_foodservices">Food Services</string>

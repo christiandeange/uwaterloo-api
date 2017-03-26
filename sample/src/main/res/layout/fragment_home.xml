@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,47 +13,25 @@
 
         <ImageView
                 android:id="@+id/home_header_icon"
-                android:layout_width="85dp"
-                android:layout_height="110dp"
-                android:layout_gravity="end|top"
-                android:alpha="0.4"
-                android:background="@drawable/content_uwaterloo_crest"
-                android:scaleType="fitXY"
-                android:translationX="24dp"
-                tools:ignore="ContentDescription"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="16dp"
+                android:background="@drawable/ic_launcher"
+                android:rotation="22.5"
+                tools:ignore="ContentDescription" />
 
-        <LinearLayout
+        <com.deange.uwaterlooapi.sample.ui.view.AppTitleView
+                android:id="@+id/home_title_view"
+                style="@style/TextAppearance.UWaterloo.Display2"
+                fontPath="@string/font_ultra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
                 android:layout_margin="16dp"
-                android:orientation="horizontal">
-
-            <TextView
-                    style="@style/TextAppearance.UWaterloo.Display1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_title_1"
-                    android:textColor="?android:textColorPrimary"/>
-
-            <!-- Gross hardcoded dimensions... -->
-            <com.deange.uwaterlooapi.sample.ui.view.InfiniteLoopView
-                    android:layout_width="31sp"
-                    android:layout_height="18sp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginStart="2dp"
-                    app:progressStrokeWidth="2.5sp"/>
-
-            <TextView
-                    style="@style/TextAppearance.UWaterloo.Display1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_title_2"
-                    android:textColor="?android:textColorPrimary"/>
-
-        </LinearLayout>
+                android:ellipsize="none"
+                android:maxLines="1"
+                android:textColor="?android:textColorPrimary" />
 
     </FrameLayout>
 
@@ -77,10 +53,10 @@
 
             <fragment
                     android:id="@+id/home_nearby_locations_fragment"
+                    class="com.deange.uwaterlooapi.sample.ui.modules.home.NearbyLocationsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    class="com.deange.uwaterlooapi.sample.ui.modules.home.NearbyLocationsFragment"
-                    tools:layout="@layout/fragment_nearby_locations"/>
+                    tools:layout="@layout/fragment_nearby_locations" />
 
             <com.deange.uwaterlooapi.sample.ui.view.CardView
                     android:layout_width="match_parent"
@@ -88,14 +64,14 @@
                     android:layout_marginTop="16dp">
 
                 <TextView
-                        style="@style/TextAppearance.UWaterloo.Title"
                         android:id="@+id/home_weather_selectable"
+                        style="@style/TextAppearance.UWaterloo.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         android:gravity="center"
                         android:padding="32dp"
-                        android:text="@string/home_quick_weather"/>
+                        android:text="@string/home_quick_weather" />
 
             </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
@@ -112,13 +88,13 @@
                         android:orientation="vertical">
 
                     <TextView
-                            style="@style/TextAppearance.UWaterloo.Title"
                             android:id="@+id/home_course_title"
+                            style="@style/TextAppearance.UWaterloo.Title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_margin="16dp"
-                            android:text="@string/home_quick_course_lookup"/>
+                            android:text="@string/home_quick_course_lookup" />
 
                     <RelativeLayout
                             android:layout_width="wrap_content"
@@ -138,7 +114,7 @@
                                 android:minWidth="100dp"
                                 android:textAllCaps="true"
                                 android:textColor="@android:color/black"
-                                tools:ignore="RtlHardcoded"/>
+                                tools:ignore="RtlHardcoded" />
 
                         <EditText
                                 android:id="@+id/home_course_number"
@@ -152,7 +128,7 @@
                                 android:minWidth="100dp"
                                 android:textAllCaps="true"
                                 android:textColor="@android:color/black"
-                                tools:ignore="LabelFor,RtlHardcoded,TextFields"/>
+                                tools:ignore="LabelFor,RtlHardcoded,TextFields" />
 
                         <TextView
                                 style="@style/TextAppearance.UWaterloo.Caption"
@@ -163,7 +139,7 @@
                                 android:paddingLeft="4dp"
                                 android:paddingRight="4dp"
                                 android:text="@string/home_quick_course_hint_subject"
-                                tools:ignore="RtlHardcoded"/>
+                                tools:ignore="RtlHardcoded" />
 
                         <TextView
                                 style="@style/TextAppearance.UWaterloo.Caption"
@@ -174,7 +150,7 @@
                                 android:paddingLeft="4dp"
                                 android:paddingRight="4dp"
                                 android:text="@string/home_quick_course_hint_number"
-                                tools:ignore="RtlHardcoded"/>
+                                tools:ignore="RtlHardcoded" />
 
                     </RelativeLayout>
 
@@ -184,7 +160,7 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="16dp"
-                            android:background="@color/divider"/>
+                            android:background="@color/divider" />
 
                     <Button
                             android:id="@+id/home_course_search"
@@ -192,7 +168,7 @@
                             android:layout_height="wrap_content"
                             android:background="?selectableItemBackground"
                             android:enabled="false"
-                            android:text="@android:string/search_go"/>
+                            android:text="@android:string/search_go" />
 
                 </LinearLayout>
 

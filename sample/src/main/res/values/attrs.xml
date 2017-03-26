@@ -39,10 +39,6 @@
         <attr name="moduleIcon" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="InfiniteLoopView">
-        <attr name="progressStrokeWidth" format="dimension"/>
-    </declare-styleable>
-
     <attr name="cardViewStyle" format="reference"/>
 
 

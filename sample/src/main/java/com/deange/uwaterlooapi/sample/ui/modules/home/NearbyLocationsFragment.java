@@ -157,7 +157,9 @@ public class NearbyLocationsFragment
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelableArrayList(KEY_ALL_LOCATIONS, new ArrayList<>(mAllLocations));
+        if (mAllLocations != null) {
+            outState.putParcelableArrayList(KEY_ALL_LOCATIONS, new ArrayList<>(mAllLocations));
+        }
         outState.putParcelable(KEY_MY_LOCATION, mCurrentLocation);
     }
 
