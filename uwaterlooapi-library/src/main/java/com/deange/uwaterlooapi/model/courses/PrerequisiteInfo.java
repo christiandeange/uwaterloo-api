@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -214,14 +213,14 @@ public class PrerequisiteInfo
          * Prerequisite courses for this group
          */
         public List<String> getOptions() {
-            return CollectionUtils.applyPolicy(mOptions);
+            return mOptions;
         }
 
         /**
          * Other subgroups that can satisfy as a prerequisite for this group
          */
         public List<PrerequisiteGroup> getSubOptions() {
-            return CollectionUtils.applyPolicy(mSubOptions);
+            return mSubOptions;
         }
 
         /**

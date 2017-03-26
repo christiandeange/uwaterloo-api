@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.DateRange;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -57,7 +56,7 @@ public class MenuInfo
      * Available outlets
      */
     public List<Outlet> getOutlets() {
-        return CollectionUtils.applyPolicy(mOutlets);
+        return mOutlets;
     }
 
 }

@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
@@ -263,21 +262,21 @@ public class CourseSchedule
      * Course specific enrollment reservation data
      */
     public List<Reserve> getReserves() {
-        return CollectionUtils.applyPolicy(mReserves);
+        return mReserves;
     }
 
     /**
      * Schedule data
      */
     public List<Class> getClasses() {
-        return CollectionUtils.applyPolicy(mClasses);
+        return mClasses;
     }
 
     /**
      * A list of classes the course is held with
      */
     public List<String> getHeldWith() {
-        return CollectionUtils.applyPolicy(mHeldWith);
+        return mHeldWith;
     }
 
     /**

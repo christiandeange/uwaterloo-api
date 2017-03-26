@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.Image;
 import com.deange.uwaterlooapi.model.common.MultidayDateRange;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
@@ -166,7 +165,7 @@ public class EventInfo
      * The event's times
      */
     public List<MultidayDateRange> getTimes() {
-        return CollectionUtils.applyPolicy(mTimes);
+        return mTimes;
     }
 
     /**
@@ -180,21 +179,21 @@ public class EventInfo
      * Audience targeted by event
      */
     public List<String> getAudience() {
-        return CollectionUtils.applyPolicy(mAudience);
+        return mAudience;
     }
 
     /**
      * Tags related to event
      */
     public List<String> getTags() {
-        return CollectionUtils.applyPolicy(mTags);
+        return mTags;
     }
 
     /**
      * Type of event
      */
     public List<String> getTypes() {
-        return CollectionUtils.applyPolicy(mTypes);
+        return mTypes;
     }
 
     /**

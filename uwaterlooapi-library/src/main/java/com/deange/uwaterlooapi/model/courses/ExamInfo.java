@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -50,6 +49,6 @@ public class ExamInfo
     }
 
     public List<ExamSection> getSections() {
-        return CollectionUtils.applyPolicy(mSections);
+        return mSections;
     }
 }

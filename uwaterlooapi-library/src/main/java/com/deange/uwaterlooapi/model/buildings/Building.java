@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -95,7 +94,7 @@ public class Building
      * Alternate building names
      */
     public List<String> getAlternateNames() {
-        return CollectionUtils.applyPolicy(mAlternateNames);
+        return mAlternateNames;
     }
 
     /**
@@ -109,7 +108,7 @@ public class Building
      * List of building sections
      */
     public List<BuildingSection> getBuildingSections() {
-        return CollectionUtils.applyPolicy(mBuildingSections);
+        return mBuildingSections;
     }
 
     /**

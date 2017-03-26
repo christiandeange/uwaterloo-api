@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -138,7 +137,7 @@ public class InfoSession
      * List of intended programs for student audience
      */
     public List<String> getAudience() {
-        return CollectionUtils.applyPolicy(mAudience);
+        return mAudience;
     }
 
     /**

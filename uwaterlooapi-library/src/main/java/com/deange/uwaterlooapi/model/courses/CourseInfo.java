@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -105,7 +104,7 @@ public class CourseInfo
      * Instruction types for the course (LEC, TUT, LAB etc)
      */
     public List<String> getInstructions() {
-        return CollectionUtils.applyPolicy(mInstructions);
+        return mInstructions;
     }
 
     /**
@@ -140,7 +139,7 @@ public class CourseInfo
      * List of terms that the course is offered
      */
     public List<String> getTermsOffered() {
-        return CollectionUtils.applyPolicy(mTermsOffered);
+        return mTermsOffered;
     }
 
     /**
@@ -186,7 +185,7 @@ public class CourseInfo
      * Any additional information associated with the course
      */
     public List<String> getExtraInfo() {
-        return CollectionUtils.applyPolicy(mExtraInfo);
+        return mExtraInfo;
     }
 
     /**

@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.deange.uwaterlooapi.utils.MapUtils;
 import com.google.gson.annotations.SerializedName;
@@ -189,14 +188,14 @@ public class Location
      * Weekly operating hours data
      */
     public Map<String, OperatingHours> getHours() {
-        return CollectionUtils.applyPolicy(mHours);
+        return mHours;
     }
 
     /**
      * Special cases for operating hours
      */
     public List<SpecialOperatingHours> getSpecialOperatingHoursRaw() {
-        return CollectionUtils.applyPolicy(mSpecialOperatingHours);
+        return mSpecialOperatingHours;
     }
 
     /**
@@ -266,14 +265,14 @@ public class Location
             }
         }
 
-        return CollectionUtils.applyPolicy(mDatesSpecial);
+        return mDatesSpecial;
     }
 
     /**
      * Y-m-d format list of dates the outlet is closed as strings
      */
     public List<String> getRawDatesClosed() {
-        return CollectionUtils.applyPolicy(mDatesClosedRaw);
+        return mDatesClosedRaw;
     }
 
     /**
@@ -331,7 +330,7 @@ public class Location
             }
         }
 
-        return CollectionUtils.applyPolicy(mDatesClosed);
+        return mDatesClosed;
     }
 
     public static String sanitize(String time) {

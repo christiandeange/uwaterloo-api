@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -75,7 +74,7 @@ public class Class
      * Names of instructors teaching the course
      */
     public List<String> getInstructors() {
-        return CollectionUtils.applyPolicy(mInstructors);
+        return mInstructors;
     }
 
     public static final class Location

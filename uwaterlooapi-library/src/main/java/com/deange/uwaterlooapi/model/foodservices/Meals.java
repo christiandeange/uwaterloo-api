@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -49,13 +48,13 @@ public class Meals
      * Lunch menu items
      */
     public List<Meal> getLunch() {
-        return CollectionUtils.applyPolicy(mLunch);
+        return mLunch;
     }
 
     /**
      * Dinner menu items
      */
     public List<Meal> getDinner() {
-        return CollectionUtils.applyPolicy(mDinner);
+        return mDinner;
     }
 }

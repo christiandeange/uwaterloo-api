@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.DateRange;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
@@ -111,14 +110,14 @@ public class Event
      * The event's times
      */
     public List<DateRange> getTimes() {
-        return CollectionUtils.applyPolicy(mTimes);
+        return mTimes;
     }
 
     /**
      * Types of the event
      */
     public List<String> getTypes() {
-        return CollectionUtils.applyPolicy(mTypes);
+        return mTypes;
     }
 
     /**

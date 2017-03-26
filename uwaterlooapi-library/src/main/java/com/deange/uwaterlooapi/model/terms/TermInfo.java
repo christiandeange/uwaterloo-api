@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.MapUtils;
 import com.google.gson.annotations.SerializedName;
 
@@ -85,6 +84,6 @@ public class TermInfo
      * First item is previous year, second is current, last is next year
      */
     public Map<Integer, List<TermId>> getListings() {
-        return CollectionUtils.applyPolicy(mListings);
+        return mListings;
     }
 }

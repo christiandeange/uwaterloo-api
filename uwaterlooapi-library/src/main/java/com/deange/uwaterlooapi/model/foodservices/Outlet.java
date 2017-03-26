@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -85,7 +84,7 @@ public class Outlet
      * This field is only set for getMenu() request
      */
     public List<Menu> getMenu() {
-        return CollectionUtils.applyPolicy(mMenu);
+        return mMenu;
     }
 
     /**

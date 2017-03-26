@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.CollectionUtils;
 import com.deange.uwaterlooapi.utils.Formatter;
 import com.google.gson.annotations.SerializedName;
 
@@ -198,7 +197,7 @@ public class ClassroomCourses
      * List of instructors the individual meet
      */
     public List<String> getInstructors() {
-        return CollectionUtils.applyPolicy(mInstructors);
+        return mInstructors;
     }
 
     /**
