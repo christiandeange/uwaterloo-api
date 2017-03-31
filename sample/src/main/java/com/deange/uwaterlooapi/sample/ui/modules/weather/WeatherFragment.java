@@ -32,14 +32,13 @@ import android.widget.TextView;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
-import com.deange.uwaterlooapi.model.common.LegacyWeatherResponse;
-import com.deange.uwaterlooapi.model.weather.LegacyWeatherReading;
+import com.deange.uwaterlooapi.model.common.Responses;
+import com.deange.uwaterlooapi.model.weather.WeatherReading;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.Photo;
 import com.deange.uwaterlooapi.sample.model.PhotoDetails;
 import com.deange.uwaterlooapi.sample.model.PhotoSize;
 import com.deange.uwaterlooapi.sample.model.PhotoUrl;
-import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.deange.uwaterlooapi.sample.ui.CoverPhotoPresenter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
@@ -73,7 +72,7 @@ import retrofit2.Call;
         layout = R.layout.module_weather
 )
 public class WeatherFragment
-        extends BaseModuleFragment<LegacyWeatherResponse, LegacyWeatherReading>
+        extends BaseModuleFragment<Responses.Weather, WeatherReading>
         implements
         ViewTreeObserver.OnScrollChangedListener {
 
@@ -117,7 +116,7 @@ public class WeatherFragment
 
     @BindDrawable(R.drawable.ic_arrow_up) Drawable mArrowDrawable;
 
-    private LegacyWeatherReading mLastReading;
+    private WeatherReading mLastReading;
     private ValueAnimator mWindTextAnimation;
     private ValueAnimator mWindSpeedAnimation;
     private Photo mPhoto;
@@ -139,7 +138,7 @@ public class WeatherFragment
         mBackground.setLayoutParams(
                 new FrameLayout.LayoutParams(metrics.widthPixels, metrics.heightPixels));
 
-        root.getViewTreeObserver().addOnGlobalLayoutListener(() -> resizeTemperatureView());
+        root.getViewTreeObserver().addOnGlobalLayoutListener(this::resizeTemperatureView);
 
         mBackground.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
             if (mSpacer.getLayoutParams() != null) {
@@ -177,12 +176,12 @@ public class WeatherFragment
     }
 
     @Override
-    public Call<LegacyWeatherResponse> onLoadData(final UWaterlooApi api) {
-        return Calls.wrap(new LegacyWeatherResponse(Calls.unwrap(api.LegacyWeather.getWeather())));
+    public Call<Responses.Weather> onLoadData(final UWaterlooApi api) {
+        return api.Weather.getWeather();
     }
 
     @Override
-    public void onBindData(final Metadata metadata, final LegacyWeatherReading data) {
+    public void onBindData(final Metadata metadata, final WeatherReading data) {
         mLastReading = data;
 
         mTemperatureView.setText(formatTemperature(data.getTemperature(), 0));
@@ -247,10 +246,10 @@ public class WeatherFragment
 
         final String trend = mLastReading.getPressureTrend();
         mPressureTrend.setText(trend);
-        if (LegacyWeatherReading.PRESSURE_FALLING.equals(trend)) {
+        if (WeatherReading.PRESSURE_FALLING.equals(trend)) {
             mPressureLayout.setRotation(0f);
 
-        } else if (LegacyWeatherReading.PRESSURE_RISING.equals(trend)) {
+        } else if (WeatherReading.PRESSURE_RISING.equals(trend)) {
             mPressureLayout.setRotation(180f);
 
         } else {
@@ -499,7 +498,7 @@ public class WeatherFragment
         );
     }
 
-    public int getStatusBarHeight() {
+    private int getStatusBarHeight() {
         final Resources res = getResources();
         final int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
         return (resourceId > 0) ? getResources().getDimensionPixelSize(resourceId) : 0;

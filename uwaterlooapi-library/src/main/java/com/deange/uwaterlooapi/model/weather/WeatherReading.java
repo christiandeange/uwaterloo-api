@@ -14,6 +14,10 @@ public class WeatherReading
         implements
         Parcelable {
 
+    public static final String PRESSURE_STEADY = "steady";
+    public static final String PRESSURE_RISING = "rising";
+    public static final String PRESSURE_FALLING = "falling";
+
     @SerializedName("latitude")
     float mLatitude;
 
@@ -59,8 +63,8 @@ public class WeatherReading
     @SerializedName("wind_speed_kph")
     float mWindSpeed;
 
-    @SerializedName("wind_direction_degrees")
-    float mWindDirection;
+    @SerializedName("wind_direction")
+    String mWindDirection;
 
     @SerializedName("pressure_kpa")
     float mPressureKpa;
@@ -88,7 +92,7 @@ public class WeatherReading
         mRelativeHumidity = in.readFloat();
         mDewPoint = in.readFloat();
         mWindSpeed = in.readFloat();
-        mWindDirection = in.readFloat();
+        mWindDirection = in.readString();
         mPressureKpa = in.readFloat();
         mPressureTrend = in.readString();
         mShortWaveRadiation = in.readFloat();
@@ -112,7 +116,7 @@ public class WeatherReading
         dest.writeFloat(mRelativeHumidity);
         dest.writeFloat(mDewPoint);
         dest.writeFloat(mWindSpeed);
-        dest.writeFloat(mWindDirection);
+        dest.writeString(mWindDirection);
         dest.writeFloat(mPressureKpa);
         dest.writeString(mPressureTrend);
         dest.writeFloat(mShortWaveRadiation);
@@ -236,9 +240,9 @@ public class WeatherReading
     }
 
     /**
-     * Wind direction in degrees
+     * Wind direction
      */
-    public float getWindDirection() {
+    public String getWindDirection() {
         return mWindDirection;
     }
 
