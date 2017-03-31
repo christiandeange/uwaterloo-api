@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.api;
+package com.deange.uwaterlooapi;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import okhttp3.Response;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-public class ApiBuilder {
+/* package */ class ApiBuilder {
 
-    public static final int VERSION = 2;
-    public static final String BASE_URL = "https://api.uwaterloo.ca/v" + VERSION + "/";
-    public static final String API_KEY = "key";
+    static final int VERSION = 2;
+    static final String BASE_URL = "https://api.uwaterloo.ca/v" + VERSION + "/";
+    static final String API_KEY = "key";
 
-    /* package */ static Converter.Factory sJsonConverter = ApiModelConverter.newGsonInstance();
-    /* package */ static Converter.Factory sXmlConverter = ApiModelConverter.newXmlInstance();
+    private static Converter.Factory sJsonConverter = ApiModelConverter.newGsonInstance();
+    private static Converter.Factory sXmlConverter = ApiModelConverter.newXmlInstance();
 
-    public static <T> T buildJson(final UWaterlooApi api, final Class<T> clazz) {
+    static <T> T buildJson(final UWaterlooApi api, final Class<T> clazz) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(getClient(api))
@@ -28,7 +28,7 @@ public class ApiBuilder {
                 .create(clazz);
     }
 
-    public static <T> T buildXml(final String baseUrl, final Class<T> clazz) {
+    static <T> T buildXml(final String baseUrl, final Class<T> clazz) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(sXmlConverter)

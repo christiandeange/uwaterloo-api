@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -79,7 +79,7 @@ public class MultidayDateRange
      * ISO 8601 formatted start date
      */
     public Date getStart() {
-        return Formatter.parseDate(mStart);
+        return DateUtils.parseDate(mStart);
     }
 
     /**
@@ -93,7 +93,7 @@ public class MultidayDateRange
      * ISO 8601 formatted end date
      */
     public Date getEnd() {
-        return Formatter.parseDate(mEnd);
+        return DateUtils.parseDate(mEnd);
     }
 
     /**

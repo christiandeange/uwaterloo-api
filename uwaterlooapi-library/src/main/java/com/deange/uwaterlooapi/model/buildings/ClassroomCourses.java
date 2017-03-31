@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -225,7 +225,7 @@ public class ClassroomCourses
      * Server time at last update (in ISO 8601 format)
      */
     public Date getUpdated() {
-        return Formatter.parseDate(mUpdated);
+        return DateUtils.parseDate(mUpdated);
     }
 
     /**

@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -297,7 +297,7 @@ public class CourseSchedule
      * ISO8601 timestamp of when the data was last updated
      */
     public Date getLastUpdated() {
-        return Formatter.parseDate(mLastUpdated, Formatter.ISO8601);
+        return DateUtils.parseDate(mLastUpdated, DateUtils.ISO8601);
     }
 
     /**

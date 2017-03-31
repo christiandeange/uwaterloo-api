@@ -3,7 +3,7 @@ package com.deange.uwaterlooapi.model.foodservices;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -44,7 +44,7 @@ public class SpecialOperatingHours
      * Y-m-d format date for the special case
      */
     public Date getDate() {
-        return Formatter.parseDate(mDate, Formatter.YMD);
+        return DateUtils.parseDate(mDate, DateUtils.YMD);
     }
 
     /**

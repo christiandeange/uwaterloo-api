@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Toast;
 
-import com.deange.uwaterlooapi.api.UWaterlooApi;
+import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;

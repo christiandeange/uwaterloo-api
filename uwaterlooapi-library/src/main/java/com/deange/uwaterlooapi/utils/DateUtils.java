@@ -11,9 +11,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public final class Formatter {
+public final class DateUtils {
 
-    private static final String TAG = "Formatter";
+    private static final String TAG = "DateUtils";
 
     public static final List<String> MONTHS = Arrays.asList(
             "January",
@@ -40,7 +40,9 @@ public final class Formatter {
     private static final SimpleDateFormat sYMDFormat = new SimpleDateFormat(YMD, Locale.getDefault());
     private static final SimpleDateFormat sISO8601Format = new SimpleDateFormat(ISO8601, Locale.getDefault());
 
-    private Formatter() { }
+    private DateUtils() {
+        throw new AssertionError();
+    }
 
     public static Date parseDate(final String date, final String format) {
         try {
@@ -48,7 +50,7 @@ public final class Formatter {
             return dateFormat.parse(date);
 
         } catch (final ParseException e) {
-            Log.w(TAG, "Invalid date \"" + date + "\" for format \""+ format + "\"", e);
+            Log.w(TAG, "Invalid date \"" + date + "\" for format \"" + format + "\"", e);
             return null;
         }
     }

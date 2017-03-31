@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -85,7 +85,7 @@ public class GooseNest
      * ISO 8601 time-stamp of last update
      */
     public Date getUpdatedDate() {
-        return Formatter.parseDate(mUpdated);
+        return DateUtils.parseDate(mUpdated);
     }
 
     /**

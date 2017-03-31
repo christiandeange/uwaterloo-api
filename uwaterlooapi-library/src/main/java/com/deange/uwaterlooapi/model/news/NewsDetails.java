@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -98,7 +98,7 @@ public class NewsDetails
      * ISO 8601 formatted publish date
      */
     public Date getPublishedDate() {
-        return Formatter.parseDate(mPublished);
+        return DateUtils.parseDate(mPublished);
     }
 
     /**
@@ -112,7 +112,7 @@ public class NewsDetails
      * ISO 8601 formatted update date
      */
     public Date getUpdatedDate() {
-        return Formatter.parseDate(mUpdated);
+        return DateUtils.parseDate(mUpdated);
     }
 
     /**

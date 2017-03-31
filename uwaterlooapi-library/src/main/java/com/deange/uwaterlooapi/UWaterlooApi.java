@@ -1,4 +1,16 @@
-package com.deange.uwaterlooapi.api;
+package com.deange.uwaterlooapi;
+
+import com.deange.uwaterlooapi.api.BuildingsApi;
+import com.deange.uwaterlooapi.api.CoursesApi;
+import com.deange.uwaterlooapi.api.EventsApi;
+import com.deange.uwaterlooapi.api.FoodServicesApi;
+import com.deange.uwaterlooapi.api.LegacyWeatherApi;
+import com.deange.uwaterlooapi.api.NewsApi;
+import com.deange.uwaterlooapi.api.ParkingApi;
+import com.deange.uwaterlooapi.api.PointsOfInterestApi;
+import com.deange.uwaterlooapi.api.ResourcesApi;
+import com.deange.uwaterlooapi.api.TermsApi;
+import com.deange.uwaterlooapi.api.WeatherApi;
 
 public final class UWaterlooApi {
 

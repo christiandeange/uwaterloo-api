@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -301,7 +301,7 @@ public class LegacyWeatherReading
      * ISO 8601 timestamp of weather recordings
      */
     public Date getObservationTime() {
-        return Formatter.parseDate(getRawObservationTime());
+        return DateUtils.parseDate(getRawObservationTime());
     }
 
     /**
@@ -314,7 +314,7 @@ public class LegacyWeatherReading
             final TimeZone timezone = TimeZone.getTimeZone("America/New_York");
             final String timezoneId = timezone.getDisplayName(timezone.inDaylightTime(new Date()), TimeZone.SHORT);
             mObservationTime = String.format(locale, "%d-%02d-%02dT%02d:%02d:%02d%s",
-                    mObservationYear, Formatter.MONTHS.indexOf(mObservationMonth) + 1, mObservationDay,
+                    mObservationYear, DateUtils.MONTHS.indexOf(mObservationMonth) + 1, mObservationDay,
                     mObservationHour, mObservationMinute, 0, timezoneId);
         }
         return mObservationTime;

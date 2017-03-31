@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.api;
+package com.deange.uwaterlooapi;
 
 import com.deange.uwaterlooapi.model.courses.CourseLocations;
 import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
@@ -10,17 +10,17 @@ import retrofit2.Converter;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
-public class ApiModelConverter {
+/* package */ class ApiModelConverter {
 
-    public static Converter.Factory newGsonInstance() {
+    static Converter.Factory newGsonInstance() {
         return GsonConverterFactory.create(getGson());
     }
 
-    public static SimpleXmlConverterFactory newXmlInstance() {
+    static SimpleXmlConverterFactory newXmlInstance() {
         return SimpleXmlConverterFactory.create();
     }
 
-    public static Gson getGson() {
+    private static Gson getGson() {
         return new GsonBuilder()
                 .setVersion(ApiBuilder.VERSION)
                 .registerTypeAdapter(CourseLocations.class, new CourseLocations.Converter())

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.common.Image;
 import com.deange.uwaterlooapi.model.common.MultidayDateRange;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -263,7 +263,7 @@ public class EventInfo
      * ISO 8601 formatted updated date
      */
     public Date getLastUpdatedDate() {
-        return Formatter.parseDate(mUpdated);
+        return DateUtils.parseDate(mUpdated);
     }
 
     /**

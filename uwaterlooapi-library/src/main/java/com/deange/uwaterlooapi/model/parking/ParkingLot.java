@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -116,7 +116,7 @@ public class ParkingLot
      * Time which the `current_count` was last updated
      */
     public Date getLastUpdated() {
-        return Formatter.parseDate(mLastUpdated);
+        return DateUtils.parseDate(mLastUpdated);
     }
 
     /**

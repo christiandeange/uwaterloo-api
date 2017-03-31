@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -59,7 +59,7 @@ public class Menu
      * Date of the menu (Y-m-d)
      */
     public Date getDate() {
-        return Formatter.parseDate(mDate, Formatter.YMD);
+        return DateUtils.parseDate(mDate, DateUtils.YMD);
     }
 
     /**

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.deange.uwaterlooapi.utils.MapUtils;
 import com.google.gson.annotations.SerializedName;
 
@@ -293,7 +293,7 @@ public class Location
             final Calendar end = Calendar.getInstance();
 
             for (final String dateStr : mDatesClosedRaw) {
-                final Date date = Formatter.parseDate(dateStr, Formatter.YMD);
+                final Date date = DateUtils.parseDate(dateStr, DateUtils.YMD);
 
                 if (first) {
                     first = false;
@@ -444,10 +444,10 @@ public class Location
 
         public String formatDate() {
             if (first.equals(second)) {
-                return Formatter.formatDate(first, DATE_FORMAT);
+                return DateUtils.formatDate(first, DATE_FORMAT);
             } else {
-                return Formatter.formatDate(first, DATE_FORMAT)
-                        + " – " + Formatter.formatDate(second, DATE_FORMAT);
+                return DateUtils.formatDate(first, DATE_FORMAT)
+                        + " – " + DateUtils.formatDate(second, DATE_FORMAT);
             }
         }
 

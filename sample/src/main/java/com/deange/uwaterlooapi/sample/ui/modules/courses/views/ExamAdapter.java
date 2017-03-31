@@ -15,7 +15,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,7 +70,7 @@ public class ExamAdapter
         // Date & time
         final Date date = section.getDate();
         if (date != null) {
-            final String formattedDay = Formatter.formatDate(getContext(), section.getDate(), Formatter.DATE_LENGTH_LONG);
+            final String formattedDay = DateUtils.formatDate(getContext(), section.getDate(), DateUtils.DATE_LENGTH_LONG);
             final String fullDate = section.getDay() + ", " + formattedDay;
             holder.date.setText(fullDate);
         } else {

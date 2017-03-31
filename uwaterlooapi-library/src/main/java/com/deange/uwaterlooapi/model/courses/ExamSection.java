@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseModel;
-import com.deange.uwaterlooapi.utils.Formatter;
+import com.deange.uwaterlooapi.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -88,7 +88,7 @@ public class ExamSection
      * ISO8601 exam date representation
      */
     public Date getDate() {
-        return Formatter.parseDate(mDate, Formatter.YMD);
+        return DateUtils.parseDate(mDate, DateUtils.YMD);
     }
 
     /**
