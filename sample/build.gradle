@@ -22,14 +22,24 @@ repositories {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-Properties properties = new Properties()
-File propertiesFile = rootProject.file('developer.properties')
-if (!propertiesFile.exists()) {
-    throw new GradleException('developer.properties file cannot be found in root directory')
+def readProperties(fileName) {
+    Properties properties = null;
+    File file = rootProject.file(fileName)
+    if (file.exists()) {
+        properties = new Properties();
+        properties.load(new FileInputStream(file))
+    }
+    return properties
 }
-properties.load(new FileInputStream(propertiesFile))
 
-List<String> manifestProperties = [ 'FABRIC_API_KEY' ]
+Properties properties = readProperties('developer.properties')
+Properties signingProps = readProperties('signing.properties')
+
+if (!properties) {
+    throw new Exception('developer.properties file cannot be found in root directory!')
+}
+
+List<String> manifestProperties = ['FABRIC_API_KEY']
 
 android {
     compileSdkVersion rootProject.targetSdk
@@ -48,6 +58,17 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            if (signingProps != null) {
+                storeFile = file(signingProps['storeFile'])
+                storePassword = signingProps['storePassword']
+                keyAlias = signingProps['keyAlias']
+                keyPassword = signingProps['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         all {
             properties.entrySet().each {
@@ -55,7 +76,7 @@ android {
             }
 
             manifestPlaceholders = manifestProperties.collectEntries {
-                [ (it.toLowerCase()): properties.getProperty(it) ]
+                [(it.toLowerCase()): properties[it]]
             }
         }
 
@@ -66,6 +87,7 @@ android {
 
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
+            signingConfig signingConfigs.release
         }
     }
 
