@@ -1,3 +1,9 @@
+# Proguard
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+-keepattributes *Annotation*
+-keepattributes Signature
+
 # Butterknife
 -keep public class * implements butterknife.Unbinder { public <init>(...); }
 -keep class butterknife.*

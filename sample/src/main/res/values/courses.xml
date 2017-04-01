@@ -11,6 +11,7 @@
         <item>ARCH</item>
         <item>ARTS</item>
         <item>AVIA</item>
+        <item>BASE</item>
         <item>BET</item>
         <item>BIOL</item>
         <item>BME</item>
@@ -20,9 +21,11 @@
         <item>CHINA</item>
         <item>CIVE</item>
         <item>CLAS</item>
+        <item>CMW</item>
         <item>CO</item>
         <item>COGSCI</item>
         <item>COMM</item>
+        <item>COOP</item>
         <item>CROAT</item>
         <item>CS</item>
         <item>DAC</item>
@@ -32,6 +35,7 @@
         <item>EASIA</item>
         <item>ECE</item>
         <item>ECON</item>
+        <item>EFAS</item>
         <item>EMLS</item>
         <item>ENBUS</item>
         <item>ENGL</item>
@@ -54,6 +58,7 @@
         <item>INDEV</item>
         <item>INTEG</item>
         <item>INTST</item>
+        <item>IS</item>
         <item>ITAL</item>
         <item>ITALST</item>
         <item>JAPAN</item>
@@ -73,8 +78,11 @@
         <item>MUSIC</item>
         <item>NATST</item>
         <item>NE</item>
+        <item>OPTOM</item>
         <item>PACS</item>
         <item>PD</item>
+        <item>PDARCH</item>
+        <item>PDPHRM</item>
         <item>PHARM</item>
         <item>PHIL</item>
         <item>PHYS</item>
@@ -99,7 +107,11 @@
         <item>SPCOM</item>
         <item>STAT</item>
         <item>STV</item>
+        <item>SVENT</item>
+        <item>SWREN</item>
         <item>SYDE</item>
+        <item>UNIV</item>
+        <item>VCULT</item>
         <item>WKRPT</item>
         <item>WS</item>
     </string-array>

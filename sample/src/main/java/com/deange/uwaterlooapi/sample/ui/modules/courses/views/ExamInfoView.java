@@ -31,7 +31,10 @@ public class ExamInfoView extends BaseCourseView {
     public void bind(final CombinedCourseInfo info) {
         final ExamInfo examInfo = info.getExams();
 
-        final List<ExamSection> sections = new ArrayList<>(examInfo.getSections());
+        final List<ExamSection> sections = new ArrayList<>();
+        if (examInfo.getSections() != null) {
+            sections.addAll(examInfo.getSections());
+        }
         Collections.sort(sections, (lhs, rhs) -> lhs.getSection().compareToIgnoreCase(rhs.getSection()));
 
         mListView.setAdapter(new ExamAdapter(getContext(), sections));
