@@ -18,7 +18,6 @@
                 android:layout_gravity="end|bottom"
                 android:layout_margin="16dp"
                 android:background="@drawable/ic_launcher"
-                android:rotation="22.5"
                 tools:ignore="ContentDescription" />
 
         <com.deange.uwaterlooapi.sample.ui.view.AppTitleView
