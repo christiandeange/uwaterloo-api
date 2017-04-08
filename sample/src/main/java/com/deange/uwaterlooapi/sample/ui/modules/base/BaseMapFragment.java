@@ -16,6 +16,8 @@ public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseMode
         GoogleMap.OnMapClickListener,
         GoogleMap.OnMapLongClickListener {
 
+    private static final String KEY_MAP_BUNDLE = "map_state";
+
     protected MapView mMapView;
 
     @Override
@@ -24,9 +26,19 @@ public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseMode
 
         final View view = getView();
         if (view != null) {
+            final Bundle mapViewBundle = savedInstanceState != null
+                    ? savedInstanceState.getBundle(KEY_MAP_BUNDLE)
+                    : null;
+
             mMapView = (MapView) getView().findViewById(getMapViewId());
-            mMapView.onCreate(null);
+            mMapView.onCreate(mapViewBundle);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mMapView.onStart();
     }
 
     @Override
@@ -42,9 +54,18 @@ public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseMode
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mMapView.onStop();
+    }
+
+    @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
+
+        final Bundle mapViewBundle = new Bundle();
+        outState.putBundle(KEY_MAP_BUNDLE, mapViewBundle);
+        mMapView.onSaveInstanceState(mapViewBundle);
     }
 
     @Override
