@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.4.0-alpha3'
+        classpath 'com.android.tools.build:gradle:2.4.0-alpha5'
     }
 }
 
@@ -20,6 +20,7 @@ ext {
     appVersion = [ 1, 0, 0 ]
     appVersionName = appVersion.join('.')
     appVersionCode = appVersion.join().toInteger()
+    sampleAppVersion = [ 0, 0, 1 ].join().toInteger()
 
     buildTools = '25.0.0'
     targetSdk = 25

@@ -41,21 +41,24 @@ if (!properties) {
 
 List<String> manifestProperties = ['FABRIC_API_KEY']
 
+def appVersionName() {
+    return "${appVersionName}.${sampleAppVersion}"
+}
+def appVersionCode() {
+    return appVersionCode * 1000 + sampleAppVersion
+}
+
 android {
-    compileSdkVersion rootProject.targetSdk
-    buildToolsVersion rootProject.buildTools
+    compileSdkVersion targetSdk
+    buildToolsVersion buildTools
 
     defaultConfig {
-        minSdkVersion rootProject.minSdk
-        targetSdkVersion rootProject.targetSdk
-        versionName rootProject.appVersionName
-        versionCode rootProject.appVersionCode
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionName appVersionName()
+        versionCode appVersionCode()
 
         multiDexEnabled true
-
-        jackOptions {
-            enabled true
-        }
     }
 
     signingConfigs {
@@ -92,8 +95,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility rootProject.javaVersion
-        targetCompatibility rootProject.javaVersion
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
     }
 
     lintOptions {
