@@ -73,6 +73,16 @@
                     android:layout_height="wrap_content"
                     android:entries="@array/question7"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"/>
+
+            <com.deange.uwaterlooapi.sample.ui.view.FaqSection
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/question8"/>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

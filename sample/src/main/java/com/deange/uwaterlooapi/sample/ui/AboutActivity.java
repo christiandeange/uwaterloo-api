@@ -2,32 +2,42 @@ package com.deange.uwaterlooapi.sample.ui;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.ui.view.ElevationOffsetListener;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
+import com.deange.uwaterlooapi.sample.utils.Px;
+
+import butterknife.BindString;
+import butterknife.BindView;
 
 public class AboutActivity
         extends BaseActivity {
+
+    @BindView(R.id.appbar) AppBarLayout mAppBarLayout;
+    @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout mCollapsingLayout;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+
+    @BindString(R.string.menu_about) String mAboutString;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Do this so Calligraphy has a chance to apply font details
-        setContentView(View.inflate(this, R.layout.activity_about, null));
+        setContentView(R.layout.activity_about);
 
-        final CollapsingToolbarLayout collapsingView = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mAppBarLayout.addOnOffsetChangedListener(new ElevationOffsetListener(Px.fromDpF(8)));
+
         final Typeface typeface = FontUtils.getFont(FontUtils.BOOK);
-        collapsingView.setCollapsedTitleTypeface(typeface);
-        collapsingView.setExpandedTitleTypeface(typeface);
-        collapsingView.setTitle(getString(R.string.menu_about));
+        mCollapsingLayout.setCollapsedTitleTypeface(typeface);
+        mCollapsingLayout.setExpandedTitleTypeface(typeface);
+        mCollapsingLayout.setTitle(mAboutString);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

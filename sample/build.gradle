@@ -81,6 +81,8 @@ android {
             manifestPlaceholders = manifestProperties.collectEntries {
                 [(it.toLowerCase()): properties[it]]
             }
+
+            resValue 'string', 'app_version_name', appVersionName()
         }
 
         debug {
