@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi.model.converter;
 
+import com.deange.uwaterlooapi.model.watcard.Transactions;
 import com.deange.uwaterlooapi.model.watcard.Watcard;
 
 import java.lang.annotation.Annotation;
@@ -27,6 +28,8 @@ public class CustomConverterFactory
 
         if (type == Watcard.class) {
             return new WatcardConverter(retrofit.baseUrl());
+        } else if (type == Transactions.class) {
+            return new TransactionsConverter(retrofit.baseUrl());
         } else {
             return null;
         }

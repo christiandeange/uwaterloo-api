@@ -6,11 +6,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import okhttp3.HttpUrl;
 
@@ -23,7 +21,11 @@ public class WatcardConverter
 
     @Override
     public Watcard parse(final Document document) {
-        final Elements rows = document.select("#main .ow-content-wrapper table tr");
+        final Elements rows = document.select("#main .ow-content-wrapper table tbody tr");
+        if (rows.isEmpty()) {
+            // No Watcard information found
+            return null;
+        }
 
         final Watcard.Builder builder = Watcard.builder();
 
@@ -36,8 +38,8 @@ public class WatcardConverter
             }
 
             final String account = cells.get(1).text();
-            final Number limit = parseAmount(cells.get(2).text());
-            final Number amount = parseAmount(cells.get(3).text());
+            final BigDecimal limit = parseAmount(cells.get(2).text());
+            final BigDecimal amount = parseAmount(cells.get(3).text());
 
             rowList.add(Watcard.Row.create(account, limit, amount));
         }
@@ -45,21 +47,16 @@ public class WatcardConverter
         builder.setAccounts(rowList);
 
         final Element totalElement = document.select("#main .ow-summary-panel span").first();
-        String total = (totalElement != null) ? totalElement.text() : "$0.00";
-        total = total.substring(total.indexOf('$'));
+        final String total;
+        if (totalElement != null) {
+            total = totalElement.text().replaceAll("Total: ", "");
+        } else {
+            total = "$0.00";
+        }
 
         builder.setTotal(parseAmount(total));
 
         return builder.build();
-    }
-
-    private static Number parseAmount(final String amount) {
-        try {
-            return NumberFormat.getCurrencyInstance(Locale.CANADA).parse(amount);
-        } catch (final ParseException e) {
-            e.printStackTrace();
-            return 0L;
-        }
     }
 
 }
