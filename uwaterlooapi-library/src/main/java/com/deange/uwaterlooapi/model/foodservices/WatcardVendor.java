@@ -7,9 +7,7 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
 public class WatcardVendor
-        extends BaseModel
-        implements
-        Parcelable {
+        extends BaseModel {
 
     @SerializedName("vendor_id")
     int mId;

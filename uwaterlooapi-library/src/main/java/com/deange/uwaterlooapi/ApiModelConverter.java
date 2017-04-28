@@ -1,5 +1,6 @@
 package com.deange.uwaterlooapi;
 
+import com.deange.uwaterlooapi.model.converter.CustomConverterFactory;
 import com.deange.uwaterlooapi.model.courses.CourseLocations;
 import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
 import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo.PrerequisiteGroup;
@@ -12,11 +13,15 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /* package */ class ApiModelConverter {
 
+    static Converter.Factory newCustomInstance() {
+        return CustomConverterFactory.create();
+    }
+
     static Converter.Factory newGsonInstance() {
         return GsonConverterFactory.create(getGson());
     }
 
-    static SimpleXmlConverterFactory newXmlInstance() {
+    static Converter.Factory newXmlInstance() {
         return SimpleXmlConverterFactory.create();
     }
 
