@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,7 +26,7 @@ import android.view.animation.Interpolator;
 import android.widget.Toast;
 
 import com.deange.uwaterlooapi.UWaterlooApi;
-import com.deange.uwaterlooapi.model.BaseModel;
+import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleListResponse;
@@ -40,7 +41,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseModel>
+public abstract class BaseModuleFragment<T extends Parcelable, V extends AbstractModel>
         extends Fragment
         implements
         View.OnTouchListener,
@@ -64,7 +65,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
     private LoadModuleDataTask mTask;
     private SwipeRefreshLayout mSwipeLayout;
 
-    public static <V extends BaseModel> Bundle newBundle(final V model) {
+    public static <V extends AbstractModel> Bundle newBundle(final V model) {
         final Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_MODEL, model);
         return bundle;
@@ -228,7 +229,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         final V data = onLoadData();
         if (data != null) {
             mHandler.post(() -> {
-                deliverResponse(data);
+                deliverData(data);
                 onLoadFinished();
             });
 
@@ -236,10 +237,13 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
             changeLoadingVisibilityInternal(true);
             mLastUpdate = System.currentTimeMillis();
 
-            final UWaterlooApi api = ((ModuleHostActivity) getActivity()).getApi();
             mTask = new LoadModuleDataTask();
-            mTask.execute(api);
+            mTask.execute(getApi());
         }
+    }
+
+    public UWaterlooApi getApi() {
+        return ((ModuleHostActivity) getActivity()).getApi();
     }
 
     protected void onRefreshRequested() {
@@ -375,15 +379,20 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         }
     }
 
-    private void deliverResponse(final T response) {
+    protected void deliverResponse(final T data) {
         resolveNetworkLayoutVisibility();
 
-        if (response == null || response.getData() == null) {
+        if (data == null) {
             onNullResponseReceived();
 
-        } else {
+        } else if (data instanceof BaseResponse) {
+            final BaseResponse response = (BaseResponse) data;
             final Metadata metadata = response.getMetadata();
-            if (metadata != null && metadata.getStatus() == 204) {
+
+            if (response.getData() == null) {
+                onNullResponseReceived();
+
+            } else if (metadata != null && metadata.getStatus() == 204) {
                 onNoDataReturned();
 
             } else if (response instanceof SimpleListResponse) {
@@ -399,7 +408,7 @@ public abstract class BaseModuleFragment<T extends BaseResponse, V extends BaseM
         }
     }
 
-    private void deliverResponse(final V data) {
+    protected void deliverData(final V data) {
         if (data == null) {
             onNullResponseReceived();
         } else {

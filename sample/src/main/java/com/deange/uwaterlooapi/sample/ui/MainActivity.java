@@ -17,18 +17,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.controller.GsonController;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
-import com.google.gson.Gson;
 
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class MainActivity
@@ -39,7 +39,6 @@ public class MainActivity
 
     private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
     private static final String NAV_ITEM_ID = "nav_item_id";
-    private static final Gson GSON = new Gson();
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation) NavigationView mNavigationView;
@@ -80,8 +79,9 @@ public class MainActivity
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        final InputStreamReader reader = new InputStreamReader(getResources().openRawResource(R.raw.menu_structure));
-        mMenuStructure = GSON.fromJson(reader, ModuleCategories.class);
+        final InputStream inputStream = getResources().openRawResource(R.raw.menu_structure);
+        final InputStreamReader reader = new InputStreamReader(inputStream);
+        mMenuStructure = GsonController.getInstance().fromJson(reader, ModuleCategories.class);
 
         onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
 
@@ -172,7 +172,9 @@ public class MainActivity
 
     static final class ModuleCategories extends HashMap<String, List<String>> {
 
-        public String[] getApiMethods(final @IdRes int menuItemId, final Resources res) {
+        public String[] getApiMethods(
+                final @IdRes int menuItemId,
+                final Resources res) {
             final String idName = res.getResourceEntryName(menuItemId);
             final String category = idName.substring("menu_item_".length());
             final List<String> endpoints = containsKey(category) ? get(category) : new ArrayList<>();

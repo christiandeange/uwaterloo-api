@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public abstract class BaseModel
+        extends AbstractModel
         implements
         Parcelable {
 

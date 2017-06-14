@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+    <TextView
+            android:id="@android:id/text1"
+            style="@style/TextAppearance.UWaterloo.Subhead"
+            fontPath="@string/font_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            tools:text="FOOD PLAN" />
+
+    <TextView
+            android:id="@android:id/text2"
+            style="@style/TextAppearance.UWaterloo.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@android:id/text1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@android:id/text1"
+            android:gravity="end"
+            tools:text="$38.50" />
+
+</RelativeLayout>

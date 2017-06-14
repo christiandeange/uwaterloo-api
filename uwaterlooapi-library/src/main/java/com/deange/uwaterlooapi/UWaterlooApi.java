@@ -35,7 +35,7 @@ public final class UWaterlooApi {
         }
     }
 
-    /* package */ WatcardCredentials getWatcardCredentials() {
+    public WatcardCredentials getWatcardCredentials() {
         return mWatcardCredentials;
     }
 

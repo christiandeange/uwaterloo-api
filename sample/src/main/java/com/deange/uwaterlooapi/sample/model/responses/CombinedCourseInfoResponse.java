@@ -1,9 +1,10 @@
-package com.deange.uwaterlooapi.sample.model;
+package com.deange.uwaterlooapi.sample.model.responses;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.BaseResponse;
+import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 
 public class CombinedCourseInfoResponse
         extends BaseResponse

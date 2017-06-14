@@ -36,4 +36,8 @@ ext {
     playServices = '9.8.0'
     butterknife = '8.5.1'
     retrofit = '2.2.0'
+
+    autoValue = '1.4.1'
+    autoValueGson = '0.4.6'
+    autoValueParcel = '0.2.5'
 }

@@ -32,10 +32,9 @@ import okhttp3.ResponseBody;
         }
 
         final HttpUrl responseUrl = response.networkResponse().request().url();
-        if (responseUrl.queryParameterNames().contains("ReturnUrl")) {
+        final WatcardCredentials credentials = mApi.getWatcardCredentials();
 
-            final WatcardCredentials credentials = mApi.getWatcardCredentials();
-
+        if (responseUrl.queryParameterNames().contains("ReturnUrl") && credentials != null) {
             // Login required
             final ResponseBody homepageBody = mApi.Watcard.homepage().execute().body();
             final Document doc = Jsoup.parse(homepageBody.byteStream(), "UTF-8", WatcardApi.URL);

@@ -5,6 +5,7 @@
 
     <string name="api_home">Home</string>
     <string name="api_foodservices">Food Services</string>
+    <string name="api_watcard">WatCard</string>
     <string name="api_courses">Courses</string>
     <string name="api_maps">Maps</string>
     <string name="api_news">News</string>
@@ -25,6 +26,7 @@
     <string name="title_foodservices_menus">Menus</string>
     <string name="title_foodservices_notes">Notes</string>
     <string name="title_foodservices_watcard">WatCard Vendors</string>
+    <string name="title_watcard_balance">WatCard Balance</string>
     <string name="title_weather">Weather</string>
     <string name="title_buildings">Buildings</string>
     <string name="title_courses">Courses</string>
@@ -41,6 +43,7 @@
     <string name="description_foodservices_menus">Lunch and dinner menus of places serving food on campus for each day of the week.</string>
     <string name="description_foodservices_notes">Additional notes regarding food being served at various places on campus.</string>
     <string name="description_foodservices_watcard">Places on and off campus that accept WatCard as a form of payment.</string>
+    <string name="description_watcard_balance">Check your WatCard balances for meal plans, Flex dollars, and more.</string>
     <string name="description_weather">Current weather details from the University of Waterloo Weather Station.</string>
     <string name="description_buildings">A list of official buildings affiliated with the University of Waterloo.</string>
     <string name="description_courses">Information about courses offered, including general info, prerequisites, course schedules, enrollment info, and exam schedules</string>
@@ -98,6 +101,11 @@
 
     <string name="date_picker_week_label">Week of</string>
     <string name="date_picker_year_label">for year</string>
+
+    <string name="menu_watcard_edit_credentials">Add WatCard</string>
+    <string name="watcard_editor_title">Edit WatCard Info</string>
+    <string name="watcard_editor_student_number">Student Number</string>
+    <string name="watcard_editor_pin">PIN</string>
 
     <string name="course_no_info_available">No course information available for %1$s</string>
     <string name="course_picker_label">Course Subject:</string>

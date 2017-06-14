@@ -3,11 +3,12 @@ package com.deange.uwaterlooapi.model.common;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.google.gson.annotations.SerializedName;
 
-public class SimpleResponse<T extends BaseModel>
+public class SimpleResponse<T extends AbstractModel>
         extends BaseResponse
         implements
         Parcelable {
@@ -39,6 +40,11 @@ public class SimpleResponse<T extends BaseModel>
         dest.writeParcelable(mData, flags);
     }
 
+    @Override
+    public T getData() {
+        return mData;
+    }
+
     public static final Creator<SimpleResponse> CREATOR = new Creator<SimpleResponse>() {
         @Override
         public SimpleResponse createFromParcel(final Parcel in) {
@@ -50,10 +56,5 @@ public class SimpleResponse<T extends BaseModel>
             return new SimpleResponse[size];
         }
     };
-
-    @Override
-    public T getData() {
-        return mData;
-    }
 
 }

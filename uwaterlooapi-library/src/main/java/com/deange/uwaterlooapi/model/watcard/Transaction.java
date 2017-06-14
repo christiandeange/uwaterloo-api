@@ -1,13 +1,13 @@
 package com.deange.uwaterlooapi.model.watcard;
 
-import com.deange.uwaterlooapi.model.AutoBaseModel;
+import com.deange.uwaterlooapi.model.AbstractModel;
 import com.google.auto.value.AutoValue;
 
 import java.math.BigDecimal;
 
 @AutoValue
 public abstract class Transaction
-        extends AutoBaseModel {
+        extends AbstractModel {
 
     public abstract TransactionDate date();
     public abstract BigDecimal amount();
@@ -29,7 +29,7 @@ public abstract class Transaction
 
     @AutoValue
     public static abstract class Type
-            extends AutoBaseModel {
+            extends AbstractModel {
         public abstract int code();
         public abstract String category();
 
@@ -40,7 +40,7 @@ public abstract class Transaction
 
     @AutoValue
     public static abstract class Vendor
-            extends AutoBaseModel {
+            extends AbstractModel {
         public abstract int code();
         public abstract String category();
 

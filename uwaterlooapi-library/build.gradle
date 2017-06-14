@@ -9,6 +9,13 @@ android {
         targetSdkVersion targetSdk
         versionName appVersionName
         versionCode appVersionCode
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+                arguments = ['autovaluegson.defaultCollectionsToEmpty': 'true']
+            }
+        }
     }
 
     compileOptions {
@@ -39,12 +46,12 @@ dependencies {
         exclude group: 'xpp3'
     }
 
-    provided 'com.google.auto.value:auto-value:1.4.1'
-    provided 'com.ryanharter.auto.value:auto-value-gson:0.4.6'
-    provided 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
-    annotationProcessor 'com.google.auto.value:auto-value:1.4.1'
-    annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.4.6'
-    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
+    provided "com.google.auto.value:auto-value:${autoValue}"
+    provided "com.ryanharter.auto.value:auto-value-gson:${autoValueGson}"
+    provided "com.ryanharter.auto.value:auto-value-parcel:${autoValueParcel}"
+    annotationProcessor "com.google.auto.value:auto-value:${autoValue}"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autoValueGson}"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autoValueParcel}"
 
     compile 'org.jsoup:jsoup:1.10.2'
 }

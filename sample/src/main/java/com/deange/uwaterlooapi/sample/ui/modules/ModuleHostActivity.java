@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.controller.WatcardManager;
 import com.deange.uwaterlooapi.sample.ui.BaseActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
@@ -28,7 +29,7 @@ public class ModuleHostActivity
     private static final String TAG = "module_fragment";
     private static final String ARG_FRAGMENT_CLASS = "fragment_class";
 
-    private final UWaterlooApi mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
+    private UWaterlooApi mApi;
     private BaseModuleFragment mChildFragment;
     private Toolbar mToolbar;
 
@@ -38,8 +39,8 @@ public class ModuleHostActivity
     }
 
     public static <T extends BaseModuleFragment> Intent getStartIntent(final Context context,
-                                        final Class<T> fragment,
-                                        final Bundle args) {
+                                                                       final Class<T> fragment,
+                                                                       final Bundle args) {
         final Intent intent = new Intent(context, ModuleHostActivity.class);
 
         intent.putExtra(ARG_FRAGMENT_CLASS, fragment.getCanonicalName());
@@ -64,6 +65,9 @@ public class ModuleHostActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_module_host_simple);
+
+        mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
+        mApi.setWatcardCredentials(WatcardManager.getInstance().getCredentials());
 
         mToolbar = getToolbar();
         setSupportActionBar(mToolbar);

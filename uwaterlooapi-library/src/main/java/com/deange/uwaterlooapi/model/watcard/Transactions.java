@@ -1,6 +1,6 @@
 package com.deange.uwaterlooapi.model.watcard;
 
-import com.deange.uwaterlooapi.model.AutoBaseModel;
+import com.deange.uwaterlooapi.model.AbstractModel;
 import com.google.auto.value.AutoValue;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @AutoValue
 public abstract class Transactions
-        extends AutoBaseModel {
+        extends AbstractModel {
 
     public abstract List<Transaction> transactions();
 
