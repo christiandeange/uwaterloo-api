@@ -28,11 +28,11 @@ android {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.7'
+    api 'com.google.code.gson:gson:2.8.1'
 
-    compile "com.squareup.retrofit2:retrofit:${retrofit}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofit}"
-    compile ("com.squareup.retrofit2:converter-simplexml:${retrofit}") {
+    api "com.squareup.retrofit2:retrofit:$retrofit"
+    api "com.squareup.retrofit2:converter-gson:$retrofit"
+    api ("com.squareup.retrofit2:converter-simplexml:$retrofit") {
         exclude module: 'stax-api'
         exclude group: 'xpp3'
     }

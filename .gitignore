@@ -1,6 +1,7 @@
-# Android Studio files
-*.properties
+# Configuration files
+/*.properties
 
+# Android Studio files
 *.iml
 *.ipr
 *.iws
