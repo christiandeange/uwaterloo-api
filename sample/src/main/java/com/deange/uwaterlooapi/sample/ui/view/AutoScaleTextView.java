@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.sample.ui.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -9,12 +10,12 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
 
 
-public class AutoScaleTextView extends TextView {
+public class AutoScaleTextView
+        extends AppCompatTextView {
 
     private float mScaleFactor;
     private int mMinTextSize;

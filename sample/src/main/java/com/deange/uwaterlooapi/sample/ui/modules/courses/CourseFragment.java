@@ -21,7 +21,7 @@ import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.courses.Course;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
-import com.deange.uwaterlooapi.sample.model.CombinedCourseInfoResponse;
+import com.deange.uwaterlooapi.sample.model.responses.CombinedCourseInfoResponse;
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;

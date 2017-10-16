@@ -3,6 +3,8 @@ package com.deange.uwaterlooapi.sample;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.deange.uwaterlooapi.sample.controller.EncryptionController;
+import com.deange.uwaterlooapi.sample.controller.WatcardManager;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.NetworkController;
 import com.deange.uwaterlooapi.sample.utils.Px;
@@ -40,5 +42,11 @@ public class MainApplication
 
         // Joda Time config
         JodaTimeAndroid.init(this);
+
+        // KeyStore loader
+        EncryptionController.init(this);
+
+        // Watcard manager
+        WatcardManager.init(this);
     }
 }

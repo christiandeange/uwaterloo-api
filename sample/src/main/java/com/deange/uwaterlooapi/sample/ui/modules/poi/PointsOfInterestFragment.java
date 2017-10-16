@@ -25,7 +25,7 @@ import com.deange.uwaterlooapi.model.poi.Library;
 import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfo;
-import com.deange.uwaterlooapi.sample.model.CombinedPointsOfInterestInfoResponse;
+import com.deange.uwaterlooapi.sample.model.responses.CombinedPointsOfInterestInfoResponse;
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;

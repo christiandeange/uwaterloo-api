@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
+import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Responses;
@@ -53,7 +54,7 @@ public class CoursesFragment
 
     @BindView(R.id.course_picker_view) AutoCompleteTextView mCoursePicker;
 
-    public static <V extends BaseModel> Bundle newBundle(final String subject) {
+    public static <V extends AbstractModel> Bundle newBundle(final String subject) {
         final Bundle bundle = new Bundle();
         bundle.putString(KEY_COURSE_SUBJECT, subject);
         return bundle;

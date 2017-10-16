@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.View;
 
+import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
 
-public abstract class BaseMapFragment<T extends BaseResponse, V extends BaseModel>
+public abstract class BaseMapFragment<T extends BaseResponse, V extends AbstractModel>
         extends BaseModuleFragment<T, V>
         implements
         GoogleMap.OnMapClickListener,

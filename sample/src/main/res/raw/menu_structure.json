@@ -4,6 +4,9 @@
     "/foodservices/notes",
     "/foodservices/locations"
   ],
+  "watcard": [
+    "/watcard/balance"
+  ],
   "courses": [
     "/courses/*"
   ],

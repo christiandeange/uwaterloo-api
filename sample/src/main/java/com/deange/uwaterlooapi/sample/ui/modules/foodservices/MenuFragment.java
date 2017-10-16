@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Responses;
@@ -29,7 +30,7 @@ public class MenuFragment
     @BindView(R.id.tab_content) ViewPager mViewPager;
     private MenuDayAdapter mAdapter;
 
-    public static <V extends BaseModel> Bundle newBundle(final V model, final int dayOfWeek) {
+    public static <V extends AbstractModel> Bundle newBundle(final V model, final int dayOfWeek) {
         final Bundle bundle = newBundle(model);
         bundle.putInt(KEY_DAY_OF_WEEK, dayOfWeek);
         return bundle;
