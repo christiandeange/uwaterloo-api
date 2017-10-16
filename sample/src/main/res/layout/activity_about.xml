@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -20,8 +19,7 @@
                 app:expandedTitleMarginEnd="16dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <android.support.v7.widget.Toolbar
-                    style="@style/ToolbarStyle"/>
+            <android.support.v7.widget.Toolbar style="@style/ToolbarStyle" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -41,47 +39,47 @@
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question1"/>
+                    android:entries="@array/question1" />
 
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question2"/>
+                    android:entries="@array/question2" />
 
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question3"/>
+                    android:entries="@array/question3" />
 
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question4"/>
+                    android:entries="@array/question4" />
 
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question5"/>
+                    android:entries="@array/question5" />
 
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question6"/>
+                    android:entries="@array/question6" />
 
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question7"/>
+                    android:entries="@array/question7" />
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider" />
 
             <com.deange.uwaterlooapi.sample.ui.view.FaqSection
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/question8"/>
+                    android:entries="@array/question8" />
 
         </LinearLayout>
 

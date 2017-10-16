@@ -22,135 +22,141 @@ import com.deange.uwaterlooapi.sample.utils.FontUtils;
 
 
 public class ModuleHostActivity
-        extends BaseActivity
-        implements
-        FragmentManager.OnBackStackChangedListener {
+    extends BaseActivity
+    implements
+    FragmentManager.OnBackStackChangedListener {
 
-    private static final String TAG = "module_fragment";
-    private static final String ARG_FRAGMENT_CLASS = "fragment_class";
+  private static final String TAG = "module_fragment";
+  private static final String ARG_FRAGMENT_CLASS = "fragment_class";
 
-    private UWaterlooApi mApi;
-    private BaseModuleFragment mChildFragment;
-    private Toolbar mToolbar;
+  private UWaterlooApi mApi;
+  private BaseModuleFragment mChildFragment;
+  private Toolbar mToolbar;
 
-    public static <T extends BaseModuleFragment> Intent getStartIntent(final Context context,
-                                                                       final Class<T> fragment) {
-        return getStartIntent(context, fragment, new Bundle());
+  public static <T extends BaseModuleFragment> Intent getStartIntent(
+      final Context context,
+      final Class<T> fragment) {
+    return getStartIntent(context, fragment, new Bundle());
+  }
+
+  public static <T extends BaseModuleFragment> Intent getStartIntent(
+      final Context context,
+      final Class<T> fragment,
+      final Bundle args) {
+    final Intent intent = new Intent(context, ModuleHostActivity.class);
+
+    intent.putExtra(ARG_FRAGMENT_CLASS, fragment.getCanonicalName());
+    if (args != null) {
+      intent.putExtras(args);
     }
 
-    public static <T extends BaseModuleFragment> Intent getStartIntent(final Context context,
-                                                                       final Class<T> fragment,
-                                                                       final Bundle args) {
-        final Intent intent = new Intent(context, ModuleHostActivity.class);
+    return intent;
+  }
 
-        intent.putExtra(ARG_FRAGMENT_CLASS, fragment.getCanonicalName());
-        if (args != null) {
-            intent.putExtras(args);
-        }
+  @Override
+  public void startActivityForResult(
+      final Intent intent,
+      final int requestCode,
+      final Bundle options) {
+    try {
+      super.startActivityForResult(intent, requestCode, options);
+    } catch (final ActivityNotFoundException e) {
+      Log.e(TAG, "No Activity found to handle Intent", e);
+    }
+  }
 
-        return intent;
+  @Override
+  protected void onCreate(final Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    setContentView(R.layout.activity_module_host_simple);
+
+    mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
+    mApi.setWatcardCredentials(WatcardManager.getInstance().getCredentials());
+
+    mToolbar = getToolbar();
+    setSupportActionBar(mToolbar);
+    getSupportFragmentManager().addOnBackStackChangedListener(this);
+
+    mChildFragment = findContentFragment();
+    if (mChildFragment == null) {
+      final String fragmentName = getIntent().getStringExtra(ARG_FRAGMENT_CLASS);
+      showFragment((BaseModuleFragment) Fragment.instantiate(this, fragmentName), false,
+                   getIntent().getExtras());
+    }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    refreshActionBar();
+  }
+
+  public Toolbar getToolbar() {
+    return (Toolbar) findViewById(R.id.host_toolbar);
+  }
+
+  private BaseModuleFragment findContentFragment() {
+    return (BaseModuleFragment) getSupportFragmentManager().findFragmentById(R.id.content);
+  }
+
+  public void showFragment(
+      final BaseModuleFragment fragment, final boolean addToBackStack,
+      final Bundle arguments) {
+    mChildFragment = fragment;
+    mChildFragment.setArguments(arguments);
+
+    final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    if (addToBackStack) {
+      transaction.addToBackStack(mChildFragment.getClass().getCanonicalName());
+    }
+    transaction.replace(R.id.content, mChildFragment, TAG).commit();
+  }
+
+  public void refreshActionBar() {
+    final ActionBar actionBar = getSupportActionBar();
+
+    if (actionBar == null || mChildFragment == null || !mChildFragment.isAdded()) {
+      return;
     }
 
-    @Override
-    public void startActivityForResult(final Intent intent, final int requestCode, final Bundle options) {
-        try {
-            super.startActivityForResult(intent, requestCode, options);
-        } catch (final ActivityNotFoundException e) {
-            Log.e(TAG, "No Activity found to handle Intent", e);
-        }
+    actionBar.setDisplayHomeAsUpEnabled(true);
+    actionBar.setTitle(mChildFragment.getToolbarTitle());
+    actionBar.setElevation(mChildFragment.getToolbarElevationPx());
+
+    FontUtils.apply(getToolbar(), FontUtils.DEFAULT);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(final MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      onBackPressed();
+      return true;
     }
+    return super.onOptionsItemSelected(item);
+  }
 
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  public void onAttachFragment(final Fragment fragment) {
+    onBackStackChanged();
+  }
 
-        setContentView(R.layout.activity_module_host_simple);
-
-        mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
-        mApi.setWatcardCredentials(WatcardManager.getInstance().getCredentials());
-
-        mToolbar = getToolbar();
-        setSupportActionBar(mToolbar);
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
-
-        mChildFragment = findContentFragment();
-        if (mChildFragment == null) {
-            final String fragmentName = getIntent().getStringExtra(ARG_FRAGMENT_CLASS);
-            showFragment((BaseModuleFragment) Fragment.instantiate(this, fragmentName), false,
-                    getIntent().getExtras());
-        }
+  @Override
+  public void onBackPressed() {
+    if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+      getSupportFragmentManager().popBackStack();
+    } else {
+      super.onBackPressed();
     }
+  }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshActionBar();
-    }
+  public UWaterlooApi getApi() {
+    return mApi;
+  }
 
-    public Toolbar getToolbar() {
-        return (Toolbar) findViewById(R.id.host_toolbar);
-    }
-
-    private BaseModuleFragment findContentFragment() {
-        return (BaseModuleFragment) getSupportFragmentManager().findFragmentById(R.id.content);
-    }
-
-    public void showFragment(final BaseModuleFragment fragment, final boolean addToBackStack,
-                             final Bundle arguments) {
-        mChildFragment = fragment;
-        mChildFragment.setArguments(arguments);
-
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (addToBackStack) {
-            transaction.addToBackStack(mChildFragment.getClass().getCanonicalName());
-        }
-        transaction.replace(R.id.content, mChildFragment, TAG).commit();
-    }
-
-    public void refreshActionBar() {
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar == null || mChildFragment == null || !mChildFragment.isAdded()) {
-            return;
-        }
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(mChildFragment.getToolbarTitle());
-        actionBar.setElevation(mChildFragment.getToolbarElevationPx());
-
-        FontUtils.apply(getToolbar(), FontUtils.DEFAULT);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onAttachFragment(final Fragment fragment) {
-        onBackStackChanged();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    public UWaterlooApi getApi() {
-        return mApi;
-    }
-
-    @Override
-    public void onBackStackChanged() {
-        mChildFragment = findContentFragment();
-        refreshActionBar();
-    }
+  @Override
+  public void onBackStackChanged() {
+    mChildFragment = findContentFragment();
+    refreshActionBar();
+  }
 }

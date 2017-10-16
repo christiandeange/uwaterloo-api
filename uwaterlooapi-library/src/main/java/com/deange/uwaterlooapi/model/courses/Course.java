@@ -7,113 +7,113 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
 public class Course
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("course_id")
-    String mCourseId;
+  @SerializedName("course_id")
+  String mCourseId;
 
-    @SerializedName("subject")
-    String mSubject;
+  @SerializedName("subject")
+  String mSubject;
 
-    @SerializedName("catalog_number")
-    String mCatalogNumber;
+  @SerializedName("catalog_number")
+  String mCatalogNumber;
 
-    @SerializedName("title")
-    String mTitle;
+  @SerializedName("title")
+  String mTitle;
 
-    @SerializedName("units")
-    float mUnits;
+  @SerializedName("units")
+  float mUnits;
 
-    @SerializedName("description")
-    String mDescription;
+  @SerializedName("description")
+  String mDescription;
 
-    @SerializedName("academic_level")
-    String mAcademicLevel;
+  @SerializedName("academic_level")
+  String mAcademicLevel;
 
-    protected Course(final Parcel in) {
-        super(in);
-        mCourseId = in.readString();
-        mSubject = in.readString();
-        mCatalogNumber = in.readString();
-        mTitle = in.readString();
-        mUnits = in.readFloat();
-        mDescription = in.readString();
-        mAcademicLevel = in.readString();
+  protected Course(final Parcel in) {
+    super(in);
+    mCourseId = in.readString();
+    mSubject = in.readString();
+    mCatalogNumber = in.readString();
+    mTitle = in.readString();
+    mUnits = in.readFloat();
+    mDescription = in.readString();
+    mAcademicLevel = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeString(mCourseId);
+    dest.writeString(mSubject);
+    dest.writeString(mCatalogNumber);
+    dest.writeString(mTitle);
+    dest.writeFloat(mUnits);
+    dest.writeString(mDescription);
+    dest.writeString(mAcademicLevel);
+  }
+
+  public static final Creator<Course> CREATOR = new Creator<Course>() {
+    @Override
+    public Course createFromParcel(final Parcel in) {
+      return new Course(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(mCourseId);
-        dest.writeString(mSubject);
-        dest.writeString(mCatalogNumber);
-        dest.writeString(mTitle);
-        dest.writeFloat(mUnits);
-        dest.writeString(mDescription);
-        dest.writeString(mAcademicLevel);
+    public Course[] newArray(final int size) {
+      return new Course[size];
     }
+  };
 
-    public static final Creator<Course> CREATOR = new Creator<Course>() {
-        @Override
-        public Course createFromParcel(final Parcel in) {
-            return new Course(in);
-        }
+  /**
+   * Registrar assigned course ID
+   */
+  public int getCourseId() {
+    // Ensure it is not interpreted as octal
+    return Integer.parseInt(mCourseId, 10);
+  }
 
-        @Override
-        public Course[] newArray(final int size) {
-            return new Course[size];
-        }
-    };
+  /**
+   * Requested subject acronym
+   */
+  public String getSubject() {
+    return mSubject;
+  }
 
-    /**
-     * Registrar assigned course ID
-     */
-    public int getCourseId() {
-        // Ensure it is not interpreted as octal
-        return Integer.parseInt(mCourseId, 10);
-    }
+  /**
+   * Registrar assigned class number
+   */
+  public String getCatalogNumber() {
+    return mCatalogNumber;
+  }
 
-    /**
-     * Requested subject acronym
-     */
-    public String getSubject() {
-        return mSubject;
-    }
+  /**
+   * Class name and title
+   */
+  public String getTitle() {
+    return mTitle;
+  }
 
-    /**
-     * Registrar assigned class number
-     */
-    public String getCatalogNumber() {
-        return mCatalogNumber;
-    }
+  /**
+   * Brief course description
+   */
+  public String getDescription() {
+    return mDescription;
+  }
 
-    /**
-     * Class name and title
-     */
-    public String getTitle() {
-        return mTitle;
-    }
+  /**
+   * Credit count for the mentioned course
+   */
+  public float getUnits() {
+    return mUnits;
+  }
 
-    /**
-     * Brief course description
-     */
-    public String getDescription() {
-        return mDescription;
-    }
-
-    /**
-     * Credit count for the mentioned course
-     */
-    public float getUnits() {
-        return mUnits;
-    }
-
-    /**
-     * Undergraduate or graduate course classification
-     */
-    public String getAcademicLevel() {
-        return mAcademicLevel;
-    }
+  /**
+   * Undergraduate or graduate course classification
+   */
+  public String getAcademicLevel() {
+    return mAcademicLevel;
+  }
 }

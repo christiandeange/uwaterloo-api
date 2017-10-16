@@ -2,48 +2,48 @@
 <resources>
 
     <declare-styleable name="SliceView">
-        <attr name="sliceHeight" format="dimension"/>
-        <attr name="sliceOffset" format="dimension"/>
+        <attr name="sliceHeight" format="dimension" />
+        <attr name="sliceOffset" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="AutoScaleTextView">
-        <attr name="scaleFactor" format="fraction"/>
-        <attr name="minTextSize" format="dimension"/>
-        <attr name="maxTextSize" format="dimension"/>
+        <attr name="scaleFactor" format="fraction" />
+        <attr name="minTextSize" format="dimension" />
+        <attr name="maxTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="ExpandablePanel">
-        <attr name="handle" format="reference"/>
-        <attr name="content" format="reference"/>
-        <attr name="layout_collapsedHeight" format="dimension"/>
+        <attr name="handle" format="reference" />
+        <attr name="content" format="reference" />
+        <attr name="layout_collapsedHeight" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="RangeView">
-        <attr name="startColour" format="color"/>
-        <attr name="endColour" format="color"/>
+        <attr name="startColour" format="color" />
+        <attr name="endColour" format="color" />
     </declare-styleable>
 
     <declare-styleable name="OperatingHoursRow">
-        <attr name="rowText" format="string"/>
+        <attr name="rowText" format="string" />
     </declare-styleable>
 
     <declare-styleable name="FaqSection">
-        <attr name="text1" format="string"/>
-        <attr name="text2" format="string"/>
-        <attr name="android:entries"/>
+        <attr name="text1" format="string" />
+        <attr name="text2" format="string" />
+        <attr name="android:entries" />
     </declare-styleable>
 
     <declare-styleable name="ModuleListItemView">
-        <attr name="moduleTitle" format="string"/>
-        <attr name="moduleDescription" format="string"/>
-        <attr name="moduleIcon" format="reference"/>
+        <attr name="moduleTitle" format="string" />
+        <attr name="moduleDescription" format="string" />
+        <attr name="moduleIcon" format="reference" />
     </declare-styleable>
 
-    <attr name="cardViewStyle" format="reference"/>
+    <attr name="cardViewStyle" format="reference" />
 
 
-    <item name="toolbar" type="id"/>
-    <item name="view_location_hours_day" type="id"/>
-    <item name="view_location_hours_hours" type="id"/>
+    <item name="toolbar" type="id" />
+    <item name="view_location_hours_day" type="id" />
+    <item name="view_location_hours_hours" type="id" />
 
 </resources>

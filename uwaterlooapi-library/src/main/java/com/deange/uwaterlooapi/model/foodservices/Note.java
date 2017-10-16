@@ -10,83 +10,83 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class Note
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("date")
-    String mDate;
+  @SerializedName("date")
+  String mDate;
 
-    @SerializedName("outlet_id")
-    int mOutletId;
+  @SerializedName("outlet_id")
+  int mOutletId;
 
-    @SerializedName("outlet_name")
-    String mOutletName;
+  @SerializedName("outlet_name")
+  String mOutletName;
 
-    @SerializedName("note")
-    String mNote;
+  @SerializedName("note")
+  String mNote;
 
-    protected Note(final Parcel in) {
-        super(in);
-        mDate = in.readString();
-        mOutletId = in.readInt();
-        mOutletName = in.readString();
-        mNote = in.readString();
+  protected Note(final Parcel in) {
+    super(in);
+    mDate = in.readString();
+    mOutletId = in.readInt();
+    mOutletName = in.readString();
+    mNote = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeString(mDate);
+    dest.writeInt(mOutletId);
+    dest.writeString(mOutletName);
+    dest.writeString(mNote);
+  }
+
+  public static final Creator<Note> CREATOR = new Creator<Note>() {
+    @Override
+    public Note createFromParcel(final Parcel in) {
+      return new Note(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(mDate);
-        dest.writeInt(mOutletId);
-        dest.writeString(mOutletName);
-        dest.writeString(mNote);
+    public Note[] newArray(final int size) {
+      return new Note[size];
     }
+  };
 
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(final Parcel in) {
-            return new Note(in);
-        }
+  /**
+   * Outlet ID as per /foodservices/outlets
+   */
+  public int getOutletId() {
+    return mOutletId;
+  }
 
-        @Override
-        public Note[] newArray(final int size) {
-            return new Note[size];
-        }
-    };
+  /**
+   * Outlet name as per /foodservices/outlets
+   */
+  public String getOutletName() {
+    return mOutletName;
+  }
 
-    /**
-     * Outlet ID as per /foodservices/outlets
-     */
-    public int getOutletId() {
-        return mOutletId;
-    }
+  /**
+   * Note
+   */
+  public String getNote() {
+    return mNote;
+  }
 
-    /**
-     * Outlet name as per /foodservices/outlets
-     */
-    public String getOutletName() {
-        return mOutletName;
-    }
+  /**
+   * Menu date object
+   */
+  public Date getDate() {
+    return DateUtils.parseDate(mDate, DateUtils.YMD);
+  }
 
-    /**
-     * Note
-     */
-    public String getNote() {
-        return mNote;
-    }
-
-    /**
-     * Menu date object
-     */
-    public Date getDate() {
-        return DateUtils.parseDate(mDate, DateUtils.YMD);
-    }
-
-    /**
-     * Menu date object as a string
-     */
-    public String getRawDate() {
-        return mDate;
-    }
+  /**
+   * Menu date object as a string
+   */
+  public String getRawDate() {
+    return mDate;
+  }
 }

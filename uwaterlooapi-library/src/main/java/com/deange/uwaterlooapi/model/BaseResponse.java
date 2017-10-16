@@ -6,33 +6,33 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public abstract class BaseResponse
-        implements
-        Parcelable {
+    implements
+    Parcelable {
 
-    public BaseResponse() {
-    }
+  public BaseResponse() {
+  }
 
-    @SerializedName("meta")
-    Metadata mMetadata;
+  @SerializedName("meta")
+  Metadata mMetadata;
 
-    protected BaseResponse(final Parcel in) {
-        mMetadata = in.readParcelable(Metadata.class.getClassLoader());
-    }
+  protected BaseResponse(final Parcel in) {
+    mMetadata = in.readParcelable(Metadata.class.getClassLoader());
+  }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+  @Override
+  public int describeContents() {
+    return 0;
+  }
 
-    @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        dest.writeParcelable(mMetadata, flags);
-    }
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeParcelable(mMetadata, flags);
+  }
 
-    public Metadata getMetadata() {
-        return mMetadata;
-    }
+  public Metadata getMetadata() {
+    return mMetadata;
+  }
 
-    public abstract Object getData();
+  public abstract Object getData();
 
 }

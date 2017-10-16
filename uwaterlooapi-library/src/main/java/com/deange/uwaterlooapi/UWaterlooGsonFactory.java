@@ -5,10 +5,10 @@ import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
 @GsonTypeAdapterFactory
 public abstract class UWaterlooGsonFactory
-        implements
-        TypeAdapterFactory {
+    implements
+    TypeAdapterFactory {
 
-    public static TypeAdapterFactory create() {
-        return new AutoValueGson_UWaterlooGsonFactory();
-    }
+  public static TypeAdapterFactory create() {
+    return new AutoValueGson_UWaterlooGsonFactory();
+  }
 }

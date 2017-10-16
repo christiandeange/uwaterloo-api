@@ -44,6 +44,7 @@ List<String> manifestProperties = ['FABRIC_API_KEY']
 def appVersionName() {
     return "${appVersionName}.${sampleAppVersion}"
 }
+
 def appVersionCode() {
     return appVersionCode * 1000 + sampleAppVersion
 }

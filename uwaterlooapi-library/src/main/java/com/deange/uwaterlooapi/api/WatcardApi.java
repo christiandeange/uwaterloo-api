@@ -16,27 +16,27 @@ import retrofit2.http.Query;
 
 public interface WatcardApi {
 
-    String URL = "https://watcard.uwaterloo.ca/";
+  String URL = "https://watcard.uwaterloo.ca/";
 
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @GET("OneWeb/Account/LogOn")
-    Call<ResponseBody> homepage();
+  @RestrictTo(RestrictTo.Scope.LIBRARY)
+  @GET("OneWeb/Account/LogOn")
+  Call<ResponseBody> homepage();
 
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    @FormUrlEncoded
-    @POST("OneWeb/Account/LogOn")
-    Call<ResponseBody> login(
-            @Field("Account") String studentNumber,
-            @Field("Password") String pin,
-            @Field("__RequestVerificationToken") String token);
+  @RestrictTo(RestrictTo.Scope.LIBRARY)
+  @FormUrlEncoded
+  @POST("OneWeb/Account/LogOn")
+  Call<ResponseBody> login(
+      @Field("Account") String studentNumber,
+      @Field("Password") String pin,
+      @Field("__RequestVerificationToken") String token);
 
-    @GET("OneWeb/Financial/Balances")
-    Call<Watcard> balances();
+  @GET("OneWeb/Financial/Balances")
+  Call<Watcard> balances();
 
-    @GET("OneWeb/Financial/TransactionsPass")
-    Call<Transactions> transactions(
-            @Query("dateFrom") TransactionDate dateFrom,
-            @Query("dateTo") TransactionDate dateTo,
-            @Query("returnRows") int limit);
+  @GET("OneWeb/Financial/TransactionsPass")
+  Call<Transactions> transactions(
+      @Query("dateFrom") TransactionDate dateFrom,
+      @Query("dateTo") TransactionDate dateTo,
+      @Query("returnRows") int limit);
 
 }

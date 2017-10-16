@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -17,7 +16,7 @@
             android:fontFamily="sans-serif-light"
             android:textSize="36sp"
             android:textAllCaps="true"
-            fontPath="@string/font_fancy"/>
+            fontPath="@string/font_fancy" />
 
     <ScrollView
             android:layout_width="match_parent"
@@ -43,14 +42,14 @@
 
                     <TextView
                             style="@style/MenuTitleStyle"
-                            android:text="@string/foodservices_menu_lunch"/>
+                            android:text="@string/foodservices_menu_lunch" />
 
                     <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
                             android:id="@+id/menu_lunch_items"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:divider="@null"
-                            android:dividerHeight="0dp"/>
+                            android:dividerHeight="0dp" />
 
                 </LinearLayout>
 
@@ -71,14 +70,14 @@
 
                     <TextView
                             style="@style/MenuTitleStyle"
-                            android:text="@string/foodservices_menu_dinner"/>
+                            android:text="@string/foodservices_menu_dinner" />
 
                     <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
                             android:id="@+id/menu_dinner_items"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:divider="@null"
-                            android:dividerHeight="0dp"/>
+                            android:dividerHeight="0dp" />
 
                 </LinearLayout>
 

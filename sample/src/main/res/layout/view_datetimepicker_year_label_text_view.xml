@@ -22,4 +22,4 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/datetimepicker_year_selector"
-        android:textSize="@dimen/year_label_text_size"/>
+        android:textSize="@dimen/year_label_text_size" />

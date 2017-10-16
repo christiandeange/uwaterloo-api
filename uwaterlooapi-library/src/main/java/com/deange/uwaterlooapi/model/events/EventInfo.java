@@ -13,263 +13,263 @@ import java.util.Date;
 import java.util.List;
 
 public class EventInfo
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("id")
-    int mId;
+  @SerializedName("id")
+  int mId;
 
-    @SerializedName("title")
-    String mTitle;
+  @SerializedName("title")
+  String mTitle;
 
-    @SerializedName("description")
-    String mDescription;
+  @SerializedName("description")
+  String mDescription;
 
-    @SerializedName("description_raw")
-    String mDescriptionRaw;
+  @SerializedName("description_raw")
+  String mDescriptionRaw;
 
-    @SerializedName("times")
-    List<MultidayDateRange> mTimes;
+  @SerializedName("times")
+  List<MultidayDateRange> mTimes;
 
-    @SerializedName("cost")
-    String mCost;
+  @SerializedName("cost")
+  String mCost;
 
-    @SerializedName("audience")
-    List<String> mAudience;
+  @SerializedName("audience")
+  List<String> mAudience;
 
-    @SerializedName("tags")
-    List<String> mTags;
+  @SerializedName("tags")
+  List<String> mTags;
 
-    @SerializedName("type")
-    List<String> mTypes;
+  @SerializedName("type")
+  List<String> mTypes;
 
-    @SerializedName("website")
-    Website mSite;
+  @SerializedName("website")
+  Website mSite;
 
-    @SerializedName("host")
-    Website mHost;
+  @SerializedName("host")
+  Website mHost;
 
-    @SerializedName("image")
-    Image mImage;
+  @SerializedName("image")
+  Image mImage;
 
-    @SerializedName("location")
-    EventLocation mLocation;
+  @SerializedName("location")
+  EventLocation mLocation;
 
-    @SerializedName("site_name")
-    String mSiteName;
+  @SerializedName("site_name")
+  String mSiteName;
 
-    @SerializedName("site_id")
-    String mSiteId;
+  @SerializedName("site_id")
+  String mSiteId;
 
-    @SerializedName("revision_id")
-    int mRevisionId;
+  @SerializedName("revision_id")
+  int mRevisionId;
 
-    @SerializedName("link")
-    String mLink;
+  @SerializedName("link")
+  String mLink;
 
-    @SerializedName("link_calendar")
-    String mLinkCalendar;
+  @SerializedName("link_calendar")
+  String mLinkCalendar;
 
-    @SerializedName("updated")
-    String mUpdated;
+  @SerializedName("updated")
+  String mUpdated;
 
-    protected EventInfo(final Parcel in) {
-        super(in);
-        mId = in.readInt();
-        mTitle = in.readString();
-        mDescription = in.readString();
-        mDescriptionRaw = in.readString();
-        mTimes = in.createTypedArrayList(MultidayDateRange.CREATOR);
-        mCost = in.readString();
-        mAudience = in.createStringArrayList();
-        mTags = in.createStringArrayList();
-        mTypes = in.createStringArrayList();
-        mSite = in.readParcelable(Website.class.getClassLoader());
-        mHost = in.readParcelable(Website.class.getClassLoader());
-        mImage = in.readParcelable(Image.class.getClassLoader());
-        mLocation = in.readParcelable(EventLocation.class.getClassLoader());
-        mSiteName = in.readString();
-        mSiteId = in.readString();
-        mRevisionId = in.readInt();
-        mLink = in.readString();
-        mLinkCalendar = in.readString();
-        mUpdated = in.readString();
+  protected EventInfo(final Parcel in) {
+    super(in);
+    mId = in.readInt();
+    mTitle = in.readString();
+    mDescription = in.readString();
+    mDescriptionRaw = in.readString();
+    mTimes = in.createTypedArrayList(MultidayDateRange.CREATOR);
+    mCost = in.readString();
+    mAudience = in.createStringArrayList();
+    mTags = in.createStringArrayList();
+    mTypes = in.createStringArrayList();
+    mSite = in.readParcelable(Website.class.getClassLoader());
+    mHost = in.readParcelable(Website.class.getClassLoader());
+    mImage = in.readParcelable(Image.class.getClassLoader());
+    mLocation = in.readParcelable(EventLocation.class.getClassLoader());
+    mSiteName = in.readString();
+    mSiteId = in.readString();
+    mRevisionId = in.readInt();
+    mLink = in.readString();
+    mLinkCalendar = in.readString();
+    mUpdated = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeInt(mId);
+    dest.writeString(mTitle);
+    dest.writeString(mDescription);
+    dest.writeString(mDescriptionRaw);
+    dest.writeTypedList(mTimes);
+    dest.writeString(mCost);
+    dest.writeStringList(mAudience);
+    dest.writeStringList(mTags);
+    dest.writeStringList(mTypes);
+    dest.writeParcelable(mSite, flags);
+    dest.writeParcelable(mHost, flags);
+    dest.writeParcelable(mImage, flags);
+    dest.writeParcelable(mLocation, flags);
+    dest.writeString(mSiteName);
+    dest.writeString(mSiteId);
+    dest.writeInt(mRevisionId);
+    dest.writeString(mLink);
+    dest.writeString(mLinkCalendar);
+    dest.writeString(mUpdated);
+  }
+
+  public static final Creator<EventInfo> CREATOR = new Creator<EventInfo>() {
+    @Override
+    public EventInfo createFromParcel(final Parcel in) {
+      return new EventInfo(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(mId);
-        dest.writeString(mTitle);
-        dest.writeString(mDescription);
-        dest.writeString(mDescriptionRaw);
-        dest.writeTypedList(mTimes);
-        dest.writeString(mCost);
-        dest.writeStringList(mAudience);
-        dest.writeStringList(mTags);
-        dest.writeStringList(mTypes);
-        dest.writeParcelable(mSite, flags);
-        dest.writeParcelable(mHost, flags);
-        dest.writeParcelable(mImage, flags);
-        dest.writeParcelable(mLocation, flags);
-        dest.writeString(mSiteName);
-        dest.writeString(mSiteId);
-        dest.writeInt(mRevisionId);
-        dest.writeString(mLink);
-        dest.writeString(mLinkCalendar);
-        dest.writeString(mUpdated);
+    public EventInfo[] newArray(final int size) {
+      return new EventInfo[size];
     }
+  };
 
-    public static final Creator<EventInfo> CREATOR = new Creator<EventInfo>() {
-        @Override
-        public EventInfo createFromParcel(final Parcel in) {
-            return new EventInfo(in);
-        }
+  /**
+   * Unique event id
+   */
+  public int getId() {
+    return mId;
+  }
 
-        @Override
-        public EventInfo[] newArray(final int size) {
-            return new EventInfo[size];
-        }
-    };
+  /**
+   * Event title
+   */
+  public String getTitle() {
+    return mTitle;
+  }
 
-    /**
-     * Unique event id
-     */
-    public int getId() {
-        return mId;
-    }
+  /**
+   * Event description
+   */
+  public String getDescription() {
+    return mDescription;
+  }
 
-    /**
-     * Event title
-     */
-    public String getTitle() {
-        return mTitle;
-    }
+  /**
+   * Raw event description (includes HTML markup)
+   */
+  public String getDescriptionRaw() {
+    return mDescriptionRaw;
+  }
 
-    /**
-     * Event description
-     */
-    public String getDescription() {
-        return mDescription;
-    }
+  /**
+   * The event's times
+   */
+  public List<MultidayDateRange> getTimes() {
+    return mTimes;
+  }
 
-    /**
-     * Raw event description (includes HTML markup)
-     */
-    public String getDescriptionRaw() {
-        return mDescriptionRaw;
-    }
+  /**
+   * Cost of event
+   */
+  public String getCost() {
+    return mCost;
+  }
 
-    /**
-     * The event's times
-     */
-    public List<MultidayDateRange> getTimes() {
-        return mTimes;
-    }
+  /**
+   * Audience targeted by event
+   */
+  public List<String> getAudience() {
+    return mAudience;
+  }
 
-    /**
-     * Cost of event
-     */
-    public String getCost() {
-        return mCost;
-    }
+  /**
+   * Tags related to event
+   */
+  public List<String> getTags() {
+    return mTags;
+  }
 
-    /**
-     * Audience targeted by event
-     */
-    public List<String> getAudience() {
-        return mAudience;
-    }
+  /**
+   * Type of event
+   */
+  public List<String> getTypes() {
+    return mTypes;
+  }
 
-    /**
-     * Tags related to event
-     */
-    public List<String> getTags() {
-        return mTags;
-    }
+  /**
+   * The event's website for more information
+   */
+  public Website getSite() {
+    return mSite;
+  }
 
-    /**
-     * Type of event
-     */
-    public List<String> getTypes() {
-        return mTypes;
-    }
+  /**
+   * The event's host's website for more information
+   */
+  public Website getHost() {
+    return mHost;
+  }
 
-    /**
-     * The event's website for more information
-     */
-    public Website getSite() {
-        return mSite;
-    }
+  /**
+   * Image representing the event
+   */
+  public Image getImage() {
+    return mImage;
+  }
 
-    /**
-     * The event's host's website for more information
-     */
-    public Website getHost() {
-        return mHost;
-    }
+  /**
+   * Location of the event
+   */
+  public EventLocation getLocation() {
+    return mLocation;
+  }
 
-    /**
-     * Image representing the event
-     */
-    public Image getImage() {
-        return mImage;
-    }
+  /**
+   * Full site name as from https://api.uwaterloo.ca/v2/resources/sites.json
+   */
+  public String getSiteName() {
+    return mSiteName;
+  }
 
-    /**
-     * Location of the event
-     */
-    public EventLocation getLocation() {
-        return mLocation;
-    }
+  /**
+   * Site slug as from https://api.uwaterloo.ca/v2/resources/sites.json
+   */
+  public String getSiteId() {
+    return mSiteId;
+  }
 
-    /**
-     * Full site name as from https://api.uwaterloo.ca/v2/resources/sites.json
-     */
-    public String getSiteName() {
-        return mSiteName;
-    }
+  /**
+   * Unique id of revision of event
+   */
+  public int getRevisionId() {
+    return mRevisionId;
+  }
 
-    /**
-     * Site slug as from https://api.uwaterloo.ca/v2/resources/sites.json
-     */
-    public String getSiteId() {
-        return mSiteId;
-    }
+  /**
+   * URL of event link
+   */
+  public String getLink() {
+    return mLink;
+  }
 
-    /**
-     * Unique id of revision of event
-     */
-    public int getRevisionId() {
-        return mRevisionId;
-    }
+  /**
+   * iCal feed of event
+   */
+  public String getLinkCalendar() {
+    return mLinkCalendar;
+  }
 
-    /**
-     * URL of event link
-     */
-    public String getLink() {
-        return mLink;
-    }
+  /**
+   * ISO 8601 formatted updated date
+   */
+  public Date getLastUpdatedDate() {
+    return DateUtils.parseDate(mUpdated);
+  }
 
-    /**
-     * iCal feed of event
-     */
-    public String getLinkCalendar() {
-        return mLinkCalendar;
-    }
-
-    /**
-     * ISO 8601 formatted updated date
-     */
-    public Date getLastUpdatedDate() {
-        return DateUtils.parseDate(mUpdated);
-    }
-
-    /**
-     * ISO 8601 formatted updated date as a string
-     */
-    public String getRawLastUpdatedDate() {
-        return mUpdated;
-    }
+  /**
+   * ISO 8601 formatted updated date as a string
+   */
+  public String getRawLastUpdatedDate() {
+    return mUpdated;
+  }
 }

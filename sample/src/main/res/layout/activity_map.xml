@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false">
@@ -10,7 +9,7 @@
             android:id="@+id/building_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="false"/>
+            android:fitsSystemWindows="false" />
 
     <com.deange.uwaterlooapi.sample.ui.view.CardView
             android:layout_width="match_parent"
@@ -23,7 +22,7 @@
         <Spinner
                 android:id="@+id/building_marker_view"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"/>
+                android:layout_width="match_parent" />
 
     </com.deange.uwaterlooapi.sample.ui.view.CardView>
 

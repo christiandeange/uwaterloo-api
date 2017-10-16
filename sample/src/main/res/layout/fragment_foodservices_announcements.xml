@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -8,7 +7,7 @@
     <com.deange.uwaterlooapi.sample.ui.view.DateSelectorView
             android:id="@+id/fragment_date_selector"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     <FrameLayout
             android:layout_width="match_parent"
@@ -28,7 +27,7 @@
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="@string/foodservices_announcements_none"
-                    android:fontFamily="sans-serif-condensed"/>
+                    android:fontFamily="sans-serif-condensed" />
 
         </RelativeLayout>
 
@@ -44,7 +43,7 @@
                     android:divider="@null"
                     android:dividerHeight="0dp"
                     android:paddingTop="4dp"
-                    android:paddingBottom="4dp"/>
+                    android:paddingBottom="4dp" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

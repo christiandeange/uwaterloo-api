@@ -36,202 +36,205 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 
 @ModuleFragment(
-        path = "/parking/watpark",
-        layout = R.layout.module_parking
+    path = "/parking/watpark",
+    layout = R.layout.module_parking
 )
 public class ParkingFragment
-        extends BaseMapFragment<Responses.Parking, ParkingLot> {
+    extends BaseMapFragment<Responses.Parking, ParkingLot> {
 
-    private static final String TAG = "ParkingFragment";
+  private static final String TAG = "ParkingFragment";
 
-    @BindView(R.id.parking_lot_info) ViewGroup mInfoRoot;
-    @BindColor(R.color.uw_yellow) int mPrimaryColor;
+  @BindView(R.id.parking_lot_info) ViewGroup mInfoRoot;
+  @BindColor(R.color.uw_yellow) int mPrimaryColor;
 
-    private List<ParkingLot> mResponse;
-    private ParkingLot mSelected;
+  private List<ParkingLot> mResponse;
+  private ParkingLot mSelected;
 
-    @Override
-    protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
-        final View view = inflater.inflate(R.layout.fragment_parking, parent, false);
+  @Override
+  protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
+    final View view = inflater.inflate(R.layout.fragment_parking, parent, false);
 
-        ButterKnife.bind(this, view);
+    ButterKnife.bind(this, view);
 
-        mInfoRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+    mInfoRoot.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
-        return view;
+    return view;
+  }
+
+  @Override
+  public Call<Responses.Parking> onLoadData(final UWaterlooApi api) {
+    return api.Parking.getParkingInfo();
+  }
+
+  @Override
+  public void onBindData(final Metadata metadata, final List<ParkingLot> data) {
+    mResponse = data;
+
+    for (final ParkingLot parkingLot : mResponse) {
+      final String lotName = parkingLot.getLotName();
+      if (!ParkingLots.isSupported(lotName)) {
+        CrashReporting.report(
+            new IllegalArgumentException("Unknown parking lot '" + lotName + "'"));
+      }
     }
 
-    @Override
-    public Call<Responses.Parking> onLoadData(final UWaterlooApi api) {
-        return api.Parking.getParkingInfo();
+    mMapView.getMapAsync(this::showLotInfo);
+  }
+
+  private void showLotInfo(final GoogleMap map) {
+    redrawPolygons(map);
+
+    final LatLngBounds.Builder builder = LatLngBounds.builder();
+    for (final ParkingLot parkingLot : mResponse) {
+      final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
+      for (final LatLng point : points) {
+        builder.include(point);
+      }
+    }
+    final LatLngBounds bounds = builder.build();
+    final int padding = Px.fromDp(16);
+
+    map.setIndoorEnabled(false);
+    map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+    map.setOnMapClickListener(this);
+    map.setOnMapLongClickListener(this);
+    map.getUiSettings().setAllGesturesEnabled(true);
+    map.getUiSettings().setZoomControlsEnabled(true);
+    map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+
+    MapUtils.setLocationEnabled(getActivity(), map);
+  }
+
+  private void redrawPolygons(final GoogleMap map) {
+    map.clear();
+
+    for (final ParkingLot parkingLot : mResponse) {
+      final PolygonOptions polygon = ParkingLots.getShape(parkingLot.getLotName());
+
+      final float taken = parkingLot.getPercentFilled();
+      if (taken < 0.75f) {
+        polygon.fillColor(Colors.mask(0x80, Colors.GREEN_500));
+      } else if (taken < 0.90f) {
+        polygon.fillColor(Colors.mask(0x80, Colors.YELLOW_500));
+      } else {
+        polygon.fillColor(Colors.mask(0x80, Colors.RED_500));
+      }
+
+      polygon.strokeColor(parkingLot == mSelected
+                              ? Colors.mask(0xFF, mPrimaryColor)
+                              : Colors.mask(0xFF, Color.BLACK)
+      );
+
+      map.addPolygon(polygon);
+    }
+  }
+
+  @Override
+  protected void onRefreshRequested() {
+    hideInfoView();
+  }
+
+  @Override
+  public void onMapLongClick(final LatLng latLng) {
+    onMapClick(latLng);
+  }
+
+  @Override
+  public void onMapClick(final LatLng latLng) {
+    boolean found = false;
+    final float py = (float) latLng.latitude;
+    final float px = (float) latLng.longitude;
+
+    mSelected = null;
+    for (final ParkingLot parkingLot : mResponse) {
+      final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
+      if (!found && ParkingLots.isInPoly(px, py, points)) {
+        mSelected = parkingLot;
+        onParkingLotInfoRequested(parkingLot);
+        found = true;
+      }
     }
 
-    @Override
-    public void onBindData(final Metadata metadata, final List<ParkingLot> data) {
-        mResponse = data;
+    mMapView.getMapAsync(this::redrawPolygons);
 
-        for (final ParkingLot parkingLot : mResponse) {
-            final String lotName = parkingLot.getLotName();
-            if (!ParkingLots.isSupported(lotName)) {
-                CrashReporting.report(new IllegalArgumentException("Unknown parking lot '" + lotName + "'"));
-            }
+    // No parking lot clicked on
+    if (!found) {
+      hideInfoView();
+    }
+  }
+
+  private void hideInfoView() {
+    if (mInfoRoot.getVisibility() == View.VISIBLE) {
+      final Animation animOut = AnimationUtils.loadAnimation(getContext(), R.anim.top_out);
+      animOut.setAnimationListener(new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(final Animation animation) {
         }
 
-        mMapView.getMapAsync(this::showLotInfo);
-    }
-
-    private void showLotInfo(final GoogleMap map) {
-        redrawPolygons(map);
-
-        final LatLngBounds.Builder builder = LatLngBounds.builder();
-        for (final ParkingLot parkingLot : mResponse) {
-            final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
-            for (final LatLng point : points) {
-                builder.include(point);
-            }
-        }
-        final LatLngBounds bounds = builder.build();
-        final int padding = Px.fromDp(16);
-
-        map.setIndoorEnabled(false);
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        map.setOnMapClickListener(this);
-        map.setOnMapLongClickListener(this);
-        map.getUiSettings().setAllGesturesEnabled(true);
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
-
-        MapUtils.setLocationEnabled(getActivity(), map);
-    }
-
-    private void redrawPolygons(final GoogleMap map) {
-        map.clear();
-
-        for (final ParkingLot parkingLot : mResponse) {
-            final PolygonOptions polygon = ParkingLots.getShape(parkingLot.getLotName());
-
-            final float taken = parkingLot.getPercentFilled();
-            if (taken < 0.75f) {
-                polygon.fillColor(Colors.mask(0x80, Colors.GREEN_500));
-            } else if (taken < 0.90f) {
-                polygon.fillColor(Colors.mask(0x80, Colors.YELLOW_500));
-            } else {
-                polygon.fillColor(Colors.mask(0x80, Colors.RED_500));
-            }
-
-            polygon.strokeColor(parkingLot == mSelected
-                    ? Colors.mask(0xFF, mPrimaryColor)
-                    : Colors.mask(0xFF, Color.BLACK)
-            );
-
-            map.addPolygon(polygon);
-        }
-    }
-
-    @Override
-    protected void onRefreshRequested() {
-        hideInfoView();
-    }
-
-    @Override
-    public void onMapLongClick(final LatLng latLng) {
-        onMapClick(latLng);
-    }
-
-    @Override
-    public void onMapClick(final LatLng latLng) {
-        boolean found = false;
-        final float py = (float) latLng.latitude;
-        final float px = (float) latLng.longitude;
-
-        mSelected = null;
-        for (final ParkingLot parkingLot : mResponse) {
-            final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
-            if (!found && ParkingLots.isInPoly(px, py, points)) {
-                mSelected = parkingLot;
-                onParkingLotInfoRequested(parkingLot);
-                found = true;
-            }
+        @Override
+        public void onAnimationRepeat(final Animation animation) {
         }
 
-        mMapView.getMapAsync(this::redrawPolygons);
-
-        // No parking lot clicked on
-        if (!found) {
-            hideInfoView();
+        @Override
+        public void onAnimationEnd(final Animation animation) {
+          if (mInfoRoot != null) {
+            mInfoRoot.setVisibility(View.GONE);
+          }
+          if (getHostActivity() != null) {
+            getHostActivity().getToolbar().setElevation(getToolbarElevationPx());
+          }
         }
+      });
+      mInfoRoot.startAnimation(animOut);
+    }
+  }
+
+  private void onParkingLotInfoRequested(final ParkingLot parkingLot) {
+    final LatLngBounds.Builder builder = LatLngBounds.builder();
+    final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
+    for (final LatLng point : points) {
+      builder.include(point);
     }
 
-    private void hideInfoView() {
-        if (mInfoRoot.getVisibility() == View.VISIBLE) {
-            final Animation animOut = AnimationUtils.loadAnimation(getContext(), R.anim.top_out);
-            animOut.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(final Animation animation) {
-                }
+    final LatLngBounds bounds = builder.build();
+    final int padding = (getResources().getDisplayMetrics().widthPixels / 4);
+    mMapView.getMapAsync(
+        map -> map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding)));
 
-                @Override
-                public void onAnimationRepeat(final Animation animation) {
-                }
+    if (mInfoRoot.getVisibility() == View.GONE) {
+      final Animation animIn = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
+      mInfoRoot.startAnimation(animIn);
+      mInfoRoot.setVisibility(View.VISIBLE);
 
-                @Override
-                public void onAnimationEnd(final Animation animation) {
-                    if (mInfoRoot != null) {
-                        mInfoRoot.setVisibility(View.GONE);
-                    }
-                    if (getHostActivity() != null) {
-                        getHostActivity().getToolbar().setElevation(getToolbarElevationPx());
-                    }
-                }
-            });
-            mInfoRoot.startAnimation(animOut);
-        }
+      getHostActivity().getToolbar().setElevation(0);
     }
 
-    private void onParkingLotInfoRequested(final ParkingLot parkingLot) {
-        final LatLngBounds.Builder builder = LatLngBounds.builder();
-        final List<LatLng> points = ParkingLots.getPoints(parkingLot.getLotName());
-        for (final LatLng point : points) {
-            builder.include(point);
-        }
+    final String lotName = getString(
+        R.string.parking_lot_name,
+        parkingLot.getLotName());
 
-        final LatLngBounds bounds = builder.build();
-        final int padding = (getResources().getDisplayMetrics().widthPixels / 4);
-        mMapView.getMapAsync(map -> map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding)));
+    final String filledSpots = getString(
+        R.string.parking_lot_spots_filled,
+        parkingLot.getCurrentCount(),
+        parkingLot.getCapacity());
 
-        if (mInfoRoot.getVisibility() == View.GONE) {
-            final Animation animIn = AnimationUtils.loadAnimation(getContext(), R.anim.top_in);
-            mInfoRoot.startAnimation(animIn);
-            mInfoRoot.setVisibility(View.VISIBLE);
+    final String title = lotName + " (" + filledSpots + ")";
+    final String date = getString(
+        R.string.parking_last_updated,
+        DateUtils.getTimeDifference(getResources(),
+                                    parkingLot.getLastUpdated().getTime()).toLowerCase());
 
-            getHostActivity().getToolbar().setElevation(0);
-        }
+    ((TextView) mInfoRoot.findViewById(android.R.id.text1)).setText(title);
+    ((TextView) mInfoRoot.findViewById(android.R.id.text2)).setText(date);
+  }
 
-        final String lotName = getString(
-                R.string.parking_lot_name,
-                parkingLot.getLotName());
+  @Override
+  public String getContentType() {
+    return ModuleType.PARKING;
+  }
 
-        final String filledSpots = getString(
-                R.string.parking_lot_spots_filled,
-                parkingLot.getCurrentCount(),
-                parkingLot.getCapacity());
-
-        final String title = lotName + " (" + filledSpots + ")";
-        final String date = getString(
-                R.string.parking_last_updated,
-                DateUtils.getTimeDifference(getResources(), parkingLot.getLastUpdated().getTime()).toLowerCase());
-
-        ((TextView) mInfoRoot.findViewById(android.R.id.text1)).setText(title);
-        ((TextView) mInfoRoot.findViewById(android.R.id.text2)).setText(date);
-    }
-
-    @Override
-    public String getContentType() {
-        return ModuleType.PARKING;
-    }
-
-    @Override
-    public int getMapViewId() {
-        return R.id.parking_map;
-    }
+  @Override
+  public int getMapViewId() {
+    return R.id.parking_map;
+  }
 }

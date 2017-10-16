@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/view_location_hours"
         android:layout_width="match_parent"
@@ -8,30 +7,30 @@
 
     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
             style="@style/OperatingHoursRow"
-            app:rowText="@string/week_monday"/>
+            app:rowText="@string/week_monday" />
 
     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
             style="@style/OperatingHoursRow"
-            app:rowText="@string/week_tuesday"/>
+            app:rowText="@string/week_tuesday" />
 
     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
             style="@style/OperatingHoursRow"
-            app:rowText="@string/week_wednesday"/>
+            app:rowText="@string/week_wednesday" />
 
     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
             style="@style/OperatingHoursRow"
-            app:rowText="@string/week_thursday"/>
+            app:rowText="@string/week_thursday" />
 
     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
             style="@style/OperatingHoursRow"
-            app:rowText="@string/week_friday"/>
+            app:rowText="@string/week_friday" />
 
     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
             style="@style/OperatingHoursRow"
-            app:rowText="@string/week_saturday"/>
+            app:rowText="@string/week_saturday" />
 
     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursRow
             style="@style/OperatingHoursRow"
-            app:rowText="@string/week_sunday"/>
+            app:rowText="@string/week_sunday" />
 
 </merge>

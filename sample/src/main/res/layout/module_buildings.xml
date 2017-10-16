@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.deange.uwaterlooapi.sample.ui.view.ModuleListItemView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<com.deange.uwaterlooapi.sample.ui.view.ModuleListItemView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:moduleDescription="@string/description_buildings"
         app:moduleIcon="@drawable/ic_buildings"
-        app:moduleTitle="@string/title_buildings"/>
+        app:moduleTitle="@string/title_buildings" />

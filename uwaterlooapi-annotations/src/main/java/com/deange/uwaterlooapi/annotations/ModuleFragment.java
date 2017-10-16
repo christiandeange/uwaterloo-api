@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.TYPE)
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface ModuleFragment {
-    String path();
+  String path();
 
-    int layout() default 0;
+  int layout() default 0;
 }

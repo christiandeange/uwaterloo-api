@@ -16,27 +16,28 @@ import butterknife.BindView;
 
 public class ExamInfoView extends BaseCourseView {
 
-    @BindView(R.id.exam_list_view) ListView mListView;
+  @BindView(R.id.exam_list_view) ListView mListView;
 
-    public ExamInfoView(final Context context) {
-        super(context);
+  public ExamInfoView(final Context context) {
+    super(context);
+  }
+
+  @Override
+  protected int getLayoutId() {
+    return R.layout.view_exam_info;
+  }
+
+  @Override
+  public void bind(final CombinedCourseInfo info) {
+    final ExamInfo examInfo = info.getExams();
+
+    final List<ExamSection> sections = new ArrayList<>();
+    if (examInfo.getSections() != null) {
+      sections.addAll(examInfo.getSections());
     }
+    Collections.sort(sections,
+                     (lhs, rhs) -> lhs.getSection().compareToIgnoreCase(rhs.getSection()));
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.view_exam_info;
-    }
-
-    @Override
-    public void bind(final CombinedCourseInfo info) {
-        final ExamInfo examInfo = info.getExams();
-
-        final List<ExamSection> sections = new ArrayList<>();
-        if (examInfo.getSections() != null) {
-            sections.addAll(examInfo.getSections());
-        }
-        Collections.sort(sections, (lhs, rhs) -> lhs.getSection().compareToIgnoreCase(rhs.getSection()));
-
-        mListView.setAdapter(new ExamAdapter(getContext(), sections));
-    }
+    mListView.setAdapter(new ExamAdapter(getContext(), sections));
+  }
 }

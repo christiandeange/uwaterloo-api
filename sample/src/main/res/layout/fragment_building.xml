@@ -1,5 +1,4 @@
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,7 +14,7 @@
             android:paddingBottom="32dp"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            fontPath="@string/font_light"/>
+            fontPath="@string/font_light" />
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -28,12 +27,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_margin="16dp"
-                android:text="@string/building_no_location_data"/>
+                android:text="@string/building_no_location_data" />
 
         <com.google.android.gms.maps.MapView
                 android:id="@+id/building_map"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
     </RelativeLayout>
 

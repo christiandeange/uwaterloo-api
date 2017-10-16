@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.deange.uwaterlooapi.sample.ui.view.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<com.deange.uwaterlooapi.sample.ui.view.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 fontPath="@string/font_medium"
-                tools:text="Introduction to Programming"/>
+                tools:text="Introduction to Programming" />
 
         <TextView
                 style="@style/TextAppearance.UWaterloo.Subhead"
@@ -28,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="true"
-                tools:text="Description of course"/>
+                tools:text="Description of course" />
 
     </LinearLayout>
 

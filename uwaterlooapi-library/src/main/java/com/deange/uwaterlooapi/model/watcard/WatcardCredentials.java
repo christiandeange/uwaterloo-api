@@ -8,18 +8,19 @@ import com.google.gson.TypeAdapter;
 
 @AutoValue
 public abstract class WatcardCredentials
-        implements
-        Parcelable {
+    implements
+    Parcelable {
 
-    public static WatcardCredentials create(final String studentNumber, final String pin) {
-        return new AutoValue_WatcardCredentials(studentNumber, pin);
-    }
+  public static WatcardCredentials create(final String studentNumber, final String pin) {
+    return new AutoValue_WatcardCredentials(studentNumber, pin);
+  }
 
-    public abstract String studentNumber();
-    public abstract String pin();
+  public abstract String studentNumber();
 
-    public static TypeAdapter<WatcardCredentials> typeAdapter(final Gson gson) {
-        return new AutoValue_WatcardCredentials.GsonTypeAdapter(gson);
-    }
+  public abstract String pin();
+
+  public static TypeAdapter<WatcardCredentials> typeAdapter(final Gson gson) {
+    return new AutoValue_WatcardCredentials.GsonTypeAdapter(gson);
+  }
 
 }

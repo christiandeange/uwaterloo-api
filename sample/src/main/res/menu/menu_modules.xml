@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:id="@+id/menu_group_modules" android:checkableBehavior="single">
+    <group
+            android:id="@+id/menu_group_modules"
+            android:checkableBehavior="single">
 
         <item
                 android:id="@+id/menu_item_home"
                 android:icon="@drawable/ic_home"
-                android:title="@string/api_home"/>
+                android:title="@string/api_home" />
 
         <item
                 android:id="@+id/menu_item_foodservices"
                 android:icon="@drawable/ic_foodservices"
-                android:title="@string/api_foodservices"/>
+                android:title="@string/api_foodservices" />
 
         <item
                 android:id="@+id/menu_item_watcard"
                 android:icon="@drawable/ic_watcard"
-                android:title="@string/api_watcard"/>
+                android:title="@string/api_watcard" />
 
         <item
                 android:id="@+id/menu_item_courses"
                 android:icon="@drawable/ic_courses"
-                android:title="@string/api_courses"/>
+                android:title="@string/api_courses" />
 
         <item
                 android:id="@+id/menu_item_maps"
                 android:icon="@drawable/ic_maps"
-                android:title="@string/api_maps"/>
+                android:title="@string/api_maps" />
 
         <item
                 android:id="@+id/menu_item_news"
                 android:icon="@drawable/ic_news"
-                android:title="@string/api_news"/>
+                android:title="@string/api_news" />
 
         <item
                 android:id="@+id/menu_item_weather"
                 android:icon="@drawable/ic_weather"
-                android:title="@string/api_weather"/>
+                android:title="@string/api_weather" />
 
         <item
                 android:id="@+id/menu_item_resources"
                 android:icon="@drawable/ic_resources"
-                android:title="@string/api_resources"/>
+                android:title="@string/api_resources" />
 
     </group>
 
-    <group android:id="@+id/menu_group_about" android:checkableBehavior="single">
+    <group
+            android:id="@+id/menu_group_about"
+            android:checkableBehavior="single">
 
         <item
                 android:id="@+id/menu_item_about"
                 android:icon="@drawable/ic_info_outline"
-                android:title="@string/menu_about"/>
+                android:title="@string/menu_about" />
 
     </group>
 

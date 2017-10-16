@@ -21,10 +21,10 @@ allprojects {
 }
 
 ext {
-    appVersion = [ 1, 0, 0 ]
+    appVersion = [1, 0, 0]
     appVersionName = appVersion.join('.')
     appVersionCode = appVersion.join().toInteger()
-    sampleAppVersion = [ 0, 0, 1 ].join().toInteger()
+    sampleAppVersion = [0, 0, 1].join().toInteger()
 
     buildTools = '25.0.0'
     targetSdk = 25

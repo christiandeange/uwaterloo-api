@@ -6,14 +6,14 @@ import com.google.gson.GsonBuilder;
 
 public class GsonController {
 
-    private static Gson sDefaultGson;
+  private static Gson sDefaultGson;
 
-    public static synchronized Gson getInstance() {
-        if (sDefaultGson == null) {
-            sDefaultGson = new GsonBuilder()
-                    .registerTypeAdapterFactory(UWaterlooGsonFactory.create())
-                    .create();
-        }
-        return sDefaultGson;
+  public static synchronized Gson getInstance() {
+    if (sDefaultGson == null) {
+      sDefaultGson = new GsonBuilder()
+          .registerTypeAdapterFactory(UWaterlooGsonFactory.create())
+          .create();
     }
+    return sDefaultGson;
+  }
 }

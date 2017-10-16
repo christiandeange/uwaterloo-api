@@ -21,26 +21,26 @@ package com.deange.uwaterlooapi.sample.datepicker;
  */
 interface DatePickerController {
 
-    void onYearSelected(int year);
+  void onYearSelected(int year);
 
-    void onDayOfMonthSelected(
-            int year,
-            int month,
-            int day);
+  void onDayOfMonthSelected(
+      int year,
+      int month,
+      int day);
 
-    void registerOnDateChangedListener(DatePickerDialog.OnDateChangedListener listener);
+  void registerOnDateChangedListener(DatePickerDialog.OnDateChangedListener listener);
 
-    void unregisterOnDateChangedListener(DatePickerDialog.OnDateChangedListener listener);
+  void unregisterOnDateChangedListener(DatePickerDialog.OnDateChangedListener listener);
 
-    CalendarDay getSelectedDay();
+  CalendarDay getSelectedDay();
 
-    int getFirstDayOfWeek();
+  int getFirstDayOfWeek();
 
-    int getMinYear();
+  int getMinYear();
 
-    int getMaxYear();
+  int getMaxYear();
 
-    void tryVibrate();
+  void tryVibrate();
 
-    boolean isHighlightWeeksEnabled();
+  boolean isHighlightWeeksEnabled();
 }

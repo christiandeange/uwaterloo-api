@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -13,13 +12,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="48dp"/>
+            android:layout_marginTop="48dp" />
 
     <ImageView
             android:id="@+id/weather_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no" />
 
     <ScrollView
             android:id="@+id/weather_scrollview"
@@ -56,7 +55,7 @@
                             android:includeFontPadding="true"
                             app:maxTextSize="200sp"
                             app:scaleFactor="50%"
-                            fontPath="@string/font_light"/>
+                            fontPath="@string/font_light" />
 
                     <RelativeLayout
                             android:layout_width="match_parent"
@@ -68,7 +67,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
                                 android:layout_centerVertical="true"
-                                android:background="@android:color/black"/>
+                                android:background="@android:color/black" />
 
                         <TextView
                                 android:id="@+id/weather_min_temp"
@@ -79,7 +78,7 @@
                                 android:layout_marginLeft="8dp"
                                 android:paddingTop="20sp"
                                 android:textSize="14sp"
-                                tools:ignore="RtlHardcoded"/>
+                                tools:ignore="RtlHardcoded" />
 
                         <TextView
                                 android:id="@+id/weather_max_temp"
@@ -90,7 +89,7 @@
                                 android:layout_marginRight="8dp"
                                 android:paddingBottom="20sp"
                                 android:textSize="14sp"
-                                tools:ignore="RtlHardcoded"/>
+                                tools:ignore="RtlHardcoded" />
 
                         <com.deange.uwaterlooapi.sample.ui.view.RangeView
                                 android:id="@+id/weather_temperature_range"
@@ -100,7 +99,7 @@
                                 android:layout_marginTop="4dp"
                                 android:layout_toLeftOf="@id/weather_max_temp"
                                 android:layout_toRightOf="@id/weather_min_temp"
-                                tools:ignore="RtlHardcoded"/>
+                                tools:ignore="RtlHardcoded" />
 
                     </RelativeLayout>
 
@@ -123,7 +122,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_margin="8dp"
-                                    android:src="@drawable/ic_arrow_up"/>
+                                    android:src="@drawable/ic_arrow_up" />
 
                             <TextView
                                     android:layout_width="wrap_content"
@@ -136,7 +135,7 @@
                                     android:text="@string/weather_north_symbol"
                                     android:textColor="@android:color/black"
                                     android:textSize="10sp"
-                                    tools:ignore="SmallSp"/>
+                                    tools:ignore="SmallSp" />
 
                         </RelativeLayout>
 
@@ -149,7 +148,7 @@
                                 android:layout_marginStart="16dp"
                                 android:layout_toEndOf="@id/weather_wind_direction_root"
                                 android:paddingTop="6sp"
-                                tools:text="8.4 kph NW"/>
+                                tools:text="8.4 kph NW" />
 
                     </RelativeLayout>
 
@@ -161,7 +160,7 @@
                         <com.deange.uwaterlooapi.sample.ui.view.WaveView
                                 android:id="@+id/weather_waveview"
                                 android:layout_width="40dp"
-                                android:layout_height="40dp"/>
+                                android:layout_height="40dp" />
 
                         <LinearLayout
                                 android:layout_width="wrap_content"
@@ -177,7 +176,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
-                                    tools:text="1.6mm"/>
+                                    tools:text="1.6mm" />
 
                             <TextView
                                     style="@style/TextAppearance.UWaterloo.Small"
@@ -185,7 +184,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:text="@string/weather_precipitation_period"/>
+                                    android:text="@string/weather_precipitation_period" />
 
                         </LinearLayout>
 
@@ -217,7 +216,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_horizontal"
                                         android:background="@drawable/ic_arrow_up"
-                                        android:importantForAccessibility="no"/>
+                                        android:importantForAccessibility="no" />
 
                                 <ImageView
                                         android:layout_width="wrap_content"
@@ -225,7 +224,7 @@
                                         android:layout_gravity="center_horizontal"
                                         android:background="@drawable/ic_arrow_up"
                                         android:importantForAccessibility="no"
-                                        tools:visibility="gone"/>
+                                        tools:visibility="gone" />
 
                             </LinearLayout>
 
@@ -245,7 +244,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
-                                    tools:text="101.3 kPa"/>
+                                    tools:text="101.3 kPa" />
 
                             <TextView
                                     style="@style/TextAppearance.UWaterloo.Small"
@@ -253,7 +252,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    tools:text="rising"/>
+                                    tools:text="rising" />
 
                         </LinearLayout>
 
@@ -271,7 +270,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/white"
                                 android:gravity="center_vertical|center_horizontal"
-                                android:padding="8dp"/>
+                                android:padding="8dp" />
 
                     </com.deange.uwaterlooapi.sample.ui.view.CardView>
 
@@ -300,7 +299,7 @@
                             android:layout_weight="1"
                             android:gravity="end"
                             android:padding="8dp"
-                            tools:text="Title\nPhoto taken by Author"/>
+                            tools:text="Title\nPhoto taken by Author" />
 
                     <ImageView
                             android:id="@+id/weather_author_source_link"
@@ -309,7 +308,7 @@
                             android:background="?selectableItemBackgroundBorderless"
                             android:contentDescription="@string/open_in_browser"
                             android:padding="8dp"
-                            android:src="@drawable/ic_action_open_in_browser"/>
+                            android:src="@drawable/ic_action_open_in_browser" />
 
                 </LinearLayout>
 

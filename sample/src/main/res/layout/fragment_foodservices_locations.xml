@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -18,7 +17,7 @@
                 android:layout_marginStart="48dp"
                 android:entries="@array/foodservices_locations_array"
                 android:padding="16dp"
-                android:spinnerMode="dropdown"/>
+                android:spinnerMode="dropdown" />
 
     </FrameLayout>
 
@@ -34,7 +33,7 @@
                 android:divider="@null"
                 android:dividerHeight="0dp"
                 android:paddingBottom="4dp"
-                android:paddingTop="4dp"/>
+                android:paddingTop="4dp" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

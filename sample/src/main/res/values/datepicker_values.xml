@@ -2,7 +2,7 @@
 <resources>
 
     <!-- color -->
-    <eat-comment/>
+    <eat-comment />
     <color name="datetimepicker_circle_background">@color/uw_yellow</color>
     <color name="datetimepicker_line_background">@color/divider</color>
 
@@ -16,7 +16,7 @@
     <color name="datetimepicker_background">@color/uw_yellow</color>
 
     <!-- dimens -->
-    <eat-comment/>
+    <eat-comment />
     <dimen name="date_picker_component_width">270dp</dimen>
     <dimen name="date_picker_header_height">30dp</dimen>
     <dimen name="selected_calendar_layout_height">155dp</dimen>
@@ -37,7 +37,7 @@
     <dimen name="year_label_text_size">22sp</dimen>
 
     <!-- string -->
-    <eat-comment/>
+    <eat-comment />
     <string name="datetimepicker_done_label">Done</string>
     <string name="datetimepicker_clear_label">Clear</string>
     <string name="datetimepicker_day_description">Month grid of days</string>

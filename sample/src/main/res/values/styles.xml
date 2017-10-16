@@ -17,8 +17,7 @@
         <item name="colorControlActivated">@color/uw_accent</item>
     </style>
 
-    <style name="AppTheme" parent="AppCommon">
-    </style>
+    <style name="AppTheme" parent="AppCommon"></style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -28,34 +27,33 @@
 
     <!-- TextAppearances -->
 
-    <style name="TextAppearance.UWaterloo.Display1" parent="@style/TextAppearance.AppCompat.Display1"/>
+    <style name="TextAppearance.UWaterloo.Display1" parent="@style/TextAppearance.AppCompat.Display1" />
 
-    <style name="TextAppearance.UWaterloo.Display2" parent="@style/TextAppearance.AppCompat.Display2"/>
+    <style name="TextAppearance.UWaterloo.Display2" parent="@style/TextAppearance.AppCompat.Display2" />
 
-    <style name="TextAppearance.UWaterloo.Display3" parent="@style/TextAppearance.AppCompat.Display3"/>
+    <style name="TextAppearance.UWaterloo.Display3" parent="@style/TextAppearance.AppCompat.Display3" />
 
-    <style name="TextAppearance.UWaterloo.Display4" parent="@style/TextAppearance.AppCompat.Display4"/>
+    <style name="TextAppearance.UWaterloo.Display4" parent="@style/TextAppearance.AppCompat.Display4" />
 
-    <style name="TextAppearance.UWaterloo.Headline" parent="@style/TextAppearance.AppCompat.Headline"/>
+    <style name="TextAppearance.UWaterloo.Headline" parent="@style/TextAppearance.AppCompat.Headline" />
 
-    <style name="TextAppearance.UWaterloo.Subhead" parent="@style/TextAppearance.AppCompat.Subhead"/>
+    <style name="TextAppearance.UWaterloo.Subhead" parent="@style/TextAppearance.AppCompat.Subhead" />
 
-    <style name="TextAppearance.UWaterloo.Title" parent="@style/TextAppearance.AppCompat.Title"/>
+    <style name="TextAppearance.UWaterloo.Title" parent="@style/TextAppearance.AppCompat.Title" />
 
-    <style name="TextAppearance.UWaterloo.Body1" parent="@style/TextAppearance.AppCompat.Body1"/>
+    <style name="TextAppearance.UWaterloo.Body1" parent="@style/TextAppearance.AppCompat.Body1" />
 
-    <style name="TextAppearance.UWaterloo.Body2" parent="@style/TextAppearance.AppCompat.Body2"/>
+    <style name="TextAppearance.UWaterloo.Body2" parent="@style/TextAppearance.AppCompat.Body2" />
 
-    <style name="TextAppearance.UWaterloo.Caption" parent="@style/TextAppearance.AppCompat.Caption"/>
+    <style name="TextAppearance.UWaterloo.Caption" parent="@style/TextAppearance.AppCompat.Caption" />
 
-    <style name="TextAppearance.UWaterloo.Large" parent="@style/TextAppearance.AppCompat.Large"/>
+    <style name="TextAppearance.UWaterloo.Large" parent="@style/TextAppearance.AppCompat.Large" />
 
-    <style name="TextAppearance.UWaterloo.Small" parent="@style/TextAppearance.AppCompat.Small"/>
+    <style name="TextAppearance.UWaterloo.Small" parent="@style/TextAppearance.AppCompat.Small" />
 
     <!-- Widget Styles -->
 
-    <style name="AppTheme.Widget" parent="@android:style/Widget">
-    </style>
+    <style name="AppTheme.Widget" parent="@android:style/Widget"></style>
 
     <style name="AppTheme.Widget.TextView" parent="android:Widget.DeviceDefault.Light.TextView">
         <item name="fontPath">@string/font_book</item>
@@ -80,7 +78,7 @@
         <item name="android:layout_marginBottom">4dp</item>
     </style>
 
-    <style name="CardViewStyle" parent="@style/CardView.Light"/>
+    <style name="CardViewStyle" parent="@style/CardView.Light" />
 
     <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:id">@id/toolbar</item>

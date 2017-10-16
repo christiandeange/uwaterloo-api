@@ -38,96 +38,133 @@ import com.deange.uwaterlooapi.model.weather.WeatherReading;
 
 public interface Responses {
 
-    class Empty extends SimpleResponse<BaseModel> { }
+  class Empty extends SimpleResponse<BaseModel> {
+  }
 
-    // FOOD SERVICES
+  // FOOD SERVICES
 
-    class Menus extends SimpleResponse<MenuInfo> { }
+  class Menus extends SimpleResponse<MenuInfo> {
+  }
 
-    class Announcements extends SimpleListResponse<Announcement> { }
+  class Announcements extends SimpleListResponse<Announcement> {
+  }
 
-    class Locations extends SimpleListResponse<Location> { }
+  class Locations extends SimpleListResponse<Location> {
+  }
 
-    class Diets extends SimpleListResponse<Diet> { }
+  class Diets extends SimpleListResponse<Diet> {
+  }
 
-    class Notes extends SimpleListResponse<Note> { }
+  class Notes extends SimpleListResponse<Note> {
+  }
 
-    class Outlets extends SimpleListResponse<Outlet> { }
+  class Outlets extends SimpleListResponse<Outlet> {
+  }
 
-    class Watcards extends SimpleListResponse<WatcardVendor> { }
+  class Watcards extends SimpleListResponse<WatcardVendor> {
+  }
 
-    class Products extends SimpleResponse<Product> { }
+  class Products extends SimpleResponse<Product> {
+  }
 
-    // COURSES
+  // COURSES
 
-    class Courses extends SimpleListResponse<Course> { }
+  class Courses extends SimpleListResponse<Course> {
+  }
 
-    class CoursesInfo extends SimpleResponse<CourseInfo> { }
+  class CoursesInfo extends SimpleResponse<CourseInfo> {
+  }
 
-    class CoursesSchedule extends SimpleListResponse<CourseSchedule> { }
+  class CoursesSchedule extends SimpleListResponse<CourseSchedule> {
+  }
 
-    class Prerequisites extends SimpleResponse<PrerequisiteInfo> { }
+  class Prerequisites extends SimpleResponse<PrerequisiteInfo> {
+  }
 
-    class ExamSchedule extends SimpleResponse<ExamInfo> { }
+  class ExamSchedule extends SimpleResponse<ExamInfo> {
+  }
 
-    // EVENTS
+  // EVENTS
 
-    class Events extends SimpleListResponse<Event> { }
+  class Events extends SimpleListResponse<Event> {
+  }
 
-    class EventDetails extends SimpleResponse<EventInfo> { }
+  class EventDetails extends SimpleResponse<EventInfo> {
+  }
 
-    class News extends SimpleListResponse<NewsDetails> { }
+  class News extends SimpleListResponse<NewsDetails> {
+  }
 
-    class NewsEntity extends SimpleResponse<NewsArticle> { }
+  class NewsEntity extends SimpleResponse<NewsArticle> {
+  }
 
-    // WEATHER
+  // WEATHER
 
-    class Weather extends SimpleResponse<WeatherReading> { }
+  class Weather extends SimpleResponse<WeatherReading> {
+  }
 
-    // TERMS
+  // TERMS
 
-    class Terms extends SimpleResponse<TermInfo> { }
+  class Terms extends SimpleResponse<TermInfo> {
+  }
 
-    class TermExamSchedule extends SimpleListResponse<ExamInfo> { }
+  class TermExamSchedule extends SimpleListResponse<ExamInfo> {
+  }
 
-    class InfoSessions extends SimpleListResponse<InfoSession> { }
+  class InfoSessions extends SimpleListResponse<InfoSession> {
+  }
 
-    // RESOURCES
+  // RESOURCES
 
-    class Sites extends SimpleListResponse<Site> { }
+  class Sites extends SimpleListResponse<Site> {
+  }
 
-    class Tutors extends SimpleListResponse<Tutor> { }
+  class Tutors extends SimpleListResponse<Tutor> {
+  }
 
-    class Printers extends SimpleListResponse<Printer> { }
+  class Printers extends SimpleListResponse<Printer> {
+  }
 
-    class GooseWatch extends SimpleListResponse<GooseNest> { }
+  class GooseWatch extends SimpleListResponse<GooseNest> {
+  }
 
-    class Sunshine extends SimpleListResponse<Sunshiner> { }
+  class Sunshine extends SimpleListResponse<Sunshiner> {
+  }
 
-    // BUILDINGS
+  // BUILDINGS
 
-    class Buildings extends SimpleListResponse<Building> { }
+  class Buildings extends SimpleListResponse<Building> {
+  }
 
-    class BuildingEntity extends SimpleResponse<Building> { }
+  class BuildingEntity extends SimpleResponse<Building> {
+  }
 
-    class RoomCourses extends SimpleListResponse<ClassroomCourses> { }
+  class RoomCourses extends SimpleListResponse<ClassroomCourses> {
+  }
 
-    // PARKING
+  // PARKING
 
-    class Parking extends SimpleListResponse<ParkingLot> { }
+  class Parking extends SimpleListResponse<ParkingLot> {
+  }
 
-    // POINTS OF INTEREST
+  // POINTS OF INTEREST
 
-    class ATMs extends SimpleListResponse<ATM> { }
+  class ATMs extends SimpleListResponse<ATM> {
+  }
 
-    class Greyhound extends SimpleListResponse<GreyhoundStop> { }
+  class Greyhound extends SimpleListResponse<GreyhoundStop> {
+  }
 
-    class Photospheres extends SimpleListResponse<Photosphere> { }
+  class Photospheres extends SimpleListResponse<Photosphere> {
+  }
 
-    class Helplines extends SimpleListResponse<Helpline> { }
+  class Helplines extends SimpleListResponse<Helpline> {
+  }
 
-    class Libraries extends SimpleListResponse<Library> { }
+  class Libraries extends SimpleListResponse<Library> {
+  }
 
-    class Defibrillators extends SimpleListResponse<Defibrillator> { }
+  class Defibrillators extends SimpleListResponse<Defibrillator> {
+  }
 
 }

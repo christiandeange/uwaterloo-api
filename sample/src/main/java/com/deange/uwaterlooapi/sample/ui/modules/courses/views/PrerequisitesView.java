@@ -25,70 +25,70 @@ import butterknife.BindView;
 
 public class PrerequisitesView extends BaseCourseView {
 
-    @BindView(R.id.prerequisite_info_description) TextView mDescription;
-    @BindView(R.id.prerequisite_info_courses) TextView mCourses;
+  @BindView(R.id.prerequisite_info_description) TextView mDescription;
+  @BindView(R.id.prerequisite_info_courses) TextView mCourses;
 
-    public PrerequisitesView(final Context context) {
-        super(context);
+  public PrerequisitesView(final Context context) {
+    super(context);
+  }
+
+  @Override
+  protected int getLayoutId() {
+    return R.layout.view_prerequisite_info;
+  }
+
+  @Override
+  public void bind(final CombinedCourseInfo info) {
+    final PrerequisiteInfo prerequisiteInfo = info.getPrerequisites();
+
+    final String prerequisites = prerequisiteInfo.getPrerequisites();
+    if (TextUtils.isEmpty(prerequisites)) {
+      mDescription.setText(R.string.course_prerequisites_none);
+    } else {
+      mDescription.setText(prerequisites);
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.view_prerequisite_info;
+    final List<String> allCourses = getAllCourses(prerequisiteInfo);
+    mCourses.setVisibility(allCourses.isEmpty() ? View.GONE : View.VISIBLE);
+
+    final String courseList = Joiner.on("    \t").join(allCourses);
+
+    final Spannable spannable = Spannable.Factory.getInstance().newSpannable(courseList);
+    for (final String course : allCourses) {
+      int end = 0;
+      while (end < course.length() && Character.isAlphabetic(course.charAt(end))) {
+        end++;
+      }
+
+      final String subject = course.substring(0, end);
+      final String code = course.substring(end);
+
+      final int start = courseList.indexOf(course);
+      spannable.setSpan(new CourseSpan(subject, code), start, start + course.length(), 0);
     }
 
-    @Override
-    public void bind(final CombinedCourseInfo info) {
-        final PrerequisiteInfo prerequisiteInfo = info.getPrerequisites();
+    mCourses.setMovementMethod(LinkMovementMethod.getInstance());
+    mCourses.setText(spannable);
+  }
 
-        final String prerequisites = prerequisiteInfo.getPrerequisites();
-        if (TextUtils.isEmpty(prerequisites)) {
-            mDescription.setText(R.string.course_prerequisites_none);
-        } else {
-            mDescription.setText(prerequisites);
-        }
+  private List<String> getAllCourses(final PrerequisiteInfo info) {
+    final Set<String> courses = new HashSet<>();
+    final Queue<PrerequisiteInfo.PrerequisiteGroup> groups = new ArrayDeque<>();
+    final PrerequisiteInfo.PrerequisiteGroup initialGroup = info.getPrerequisiteGroup();
 
-        final List<String> allCourses = getAllCourses(prerequisiteInfo);
-        mCourses.setVisibility(allCourses.isEmpty() ? View.GONE : View.VISIBLE);
+    if (initialGroup != null) {
+      groups.add(initialGroup);
+      while (!groups.isEmpty()) {
+        final PrerequisiteInfo.PrerequisiteGroup group = groups.poll();
 
-        final String courseList = Joiner.on("    \t").join(allCourses);
-
-        final Spannable spannable = Spannable.Factory.getInstance().newSpannable(courseList);
-        for (final String course : allCourses) {
-            int end = 0;
-            while (end < course.length() && Character.isAlphabetic(course.charAt(end))) {
-                end++;
-            }
-
-            final String subject = course.substring(0, end);
-            final String code = course.substring(end);
-
-            final int start = courseList.indexOf(course);
-            spannable.setSpan(new CourseSpan(subject, code), start, start + course.length(), 0);
-        }
-
-        mCourses.setMovementMethod(LinkMovementMethod.getInstance());
-        mCourses.setText(spannable);
+        courses.addAll(group.getOptions());
+        groups.addAll(group.getSubOptions());
+      }
     }
 
-    private List<String> getAllCourses(final PrerequisiteInfo info) {
-        final Set<String> courses = new HashSet<>();
-        final Queue<PrerequisiteInfo.PrerequisiteGroup> groups = new ArrayDeque<>();
-        final PrerequisiteInfo.PrerequisiteGroup initialGroup = info.getPrerequisiteGroup();
-
-        if (initialGroup != null) {
-            groups.add(initialGroup);
-            while (!groups.isEmpty()) {
-                final PrerequisiteInfo.PrerequisiteGroup group = groups.poll();
-
-                courses.addAll(group.getOptions());
-                groups.addAll(group.getSubOptions());
-            }
-        }
-
-        final ArrayList<String> courseList = new ArrayList<>(courses);
-        Collections.sort(courseList);
-        return courseList;
-    }
+    final ArrayList<String> courseList = new ArrayList<>(courses);
+    Collections.sort(courseList);
+    return courseList;
+  }
 
 }

@@ -11,50 +11,50 @@ import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.utils.Px;
 
 public class ApiMethodsFragment extends ListFragment
-        implements
-        ModuleListItemListener {
+    implements
+    ModuleListItemListener {
 
-    private static final String ARG_METHODS = "methods";
+  private static final String ARG_METHODS = "methods";
 
-    public static ApiMethodsFragment newInstance(final String[] endpoints) {
-        final ApiMethodsFragment fragment = new ApiMethodsFragment();
+  public static ApiMethodsFragment newInstance(final String[] endpoints) {
+    final ApiMethodsFragment fragment = new ApiMethodsFragment();
 
-        final Bundle args = new Bundle();
-        args.putStringArray(ARG_METHODS, endpoints);
-        fragment.setArguments(args);
+    final Bundle args = new Bundle();
+    args.putStringArray(ARG_METHODS, endpoints);
+    fragment.setArguments(args);
 
-        return fragment;
+    return fragment;
+  }
+
+  public static void openModule(final Context context, final String endpoint) {
+    final ModuleInfo fragmentInfo = ModuleMap.getFragmentInfo(endpoint);
+    context.startActivity(ModuleHostActivity.getStartIntent(context, fragmentInfo.fragment));
+  }
+
+  public ApiMethodsFragment() {
+    // Required empty public constructor
+  }
+
+  @Override
+  public void onActivityCreated(final Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+
+    final int padding = Px.fromDp(4);
+    getListView().setPadding(0, padding, 0, padding);
+    getListView().setDivider(null);
+    getListView().setDividerHeight(0);
+
+    final String[] methods = getArguments().getStringArray(ARG_METHODS);
+    if (methods != null) {
+      setListAdapter(new ApiMethodsAdapter(getActivity(), methods, ApiMethodsFragment.this));
     }
+  }
 
-    public static void openModule(final Context context, final String endpoint) {
-        final ModuleInfo fragmentInfo = ModuleMap.getFragmentInfo(endpoint);
-        context.startActivity(ModuleHostActivity.getStartIntent(context, fragmentInfo.fragment));
+  @Override
+  public void onItemClicked(final int position) {
+    final String[] methods = getArguments().getStringArray(ARG_METHODS);
+    if (methods != null) {
+      openModule(getActivity(), methods[position]);
     }
-
-    public ApiMethodsFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onActivityCreated(final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        final int padding = Px.fromDp(4);
-        getListView().setPadding(0, padding, 0, padding);
-        getListView().setDivider(null);
-        getListView().setDividerHeight(0);
-
-        final String[] methods = getArguments().getStringArray(ARG_METHODS);
-        if (methods != null) {
-            setListAdapter(new ApiMethodsAdapter(getActivity(), methods, ApiMethodsFragment.this));
-        }
-    }
-
-    @Override
-    public void onItemClicked(final int position) {
-        final String[] methods = getArguments().getStringArray(ARG_METHODS);
-        if (methods != null) {
-            openModule(getActivity(), methods[position]);
-        }
-    }
+  }
 }

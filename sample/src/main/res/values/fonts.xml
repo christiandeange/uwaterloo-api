@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Normal styles -->
-    <eat-comment/>
+    <eat-comment />
     <string name="font_thin">fonts/Gotham-Thin.ttf</string>
     <string name="font_light">fonts/Gotham-Light.ttf</string>
     <string name="font_book">fonts/Gotham-Book.ttf</string>
@@ -11,7 +11,7 @@
     <string name="font_ultra">fonts/Gotham-Ultra.ttf</string>
 
     <!-- Italic styles -->
-    <eat-comment/>
+    <eat-comment />
     <string name="font_thin_italic">fonts/Gotham-ThinItalic.ttf</string>
     <string name="font_light_italic">fonts/Gotham-LightItalic.ttf</string>
     <string name="font_book_italic">fonts/Gotham-BookItalic.ttf</string>
@@ -21,7 +21,7 @@
     <string name="font_ultra_italic">fonts/Gotham-UltraItalic.ttf</string>
 
     <!-- Other fonts -->
-    <eat-comment/>
+    <eat-comment />
     <string name="font_fancy">fonts/PeasCarrots.ttf</string>
 
 </resources>

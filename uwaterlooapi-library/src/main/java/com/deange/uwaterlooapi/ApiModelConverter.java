@@ -13,24 +13,24 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /* package */ class ApiModelConverter {
 
-    static Converter.Factory newCustomInstance() {
-        return CustomConverterFactory.create();
-    }
+  static Converter.Factory newCustomInstance() {
+    return CustomConverterFactory.create();
+  }
 
-    static Converter.Factory newGsonInstance() {
-        return GsonConverterFactory.create(getGson());
-    }
+  static Converter.Factory newGsonInstance() {
+    return GsonConverterFactory.create(getGson());
+  }
 
-    static Converter.Factory newXmlInstance() {
-        return SimpleXmlConverterFactory.create();
-    }
+  static Converter.Factory newXmlInstance() {
+    return SimpleXmlConverterFactory.create();
+  }
 
-    private static Gson getGson() {
-        return new GsonBuilder()
-                .setVersion(ApiBuilder.VERSION)
-                .registerTypeAdapter(CourseLocations.class, new CourseLocations.Converter())
-                .registerTypeAdapter(PrerequisiteGroup.class, new PrerequisiteInfo.Converter())
-                .create();
-    }
+  private static Gson getGson() {
+    return new GsonBuilder()
+        .setVersion(ApiBuilder.VERSION)
+        .registerTypeAdapter(CourseLocations.class, new CourseLocations.Converter())
+        .registerTypeAdapter(PrerequisiteGroup.class, new PrerequisiteInfo.Converter())
+        .create();
+  }
 
 }

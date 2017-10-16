@@ -10,88 +10,88 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class GooseNest
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("id")
-    String mId;
+  @SerializedName("id")
+  String mId;
 
-    @SerializedName("location")
-    String mLocationDescription;
+  @SerializedName("location")
+  String mLocationDescription;
 
-    @SerializedName("latitude")
-    float mLatitude;
+  @SerializedName("latitude")
+  float mLatitude;
 
-    @SerializedName("longitude")
-    float mLongitude;
+  @SerializedName("longitude")
+  float mLongitude;
 
-    @SerializedName("updated")
-    String mUpdated;
+  @SerializedName("updated")
+  String mUpdated;
 
-    protected GooseNest(final Parcel in) {
-        super(in);
-        mId = in.readString();
-        mLocationDescription = in.readString();
-        mLatitude = in.readFloat();
-        mLongitude = in.readFloat();
-        mUpdated = in.readString();
+  protected GooseNest(final Parcel in) {
+    super(in);
+    mId = in.readString();
+    mLocationDescription = in.readString();
+    mLatitude = in.readFloat();
+    mLongitude = in.readFloat();
+    mUpdated = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeString(mId);
+    dest.writeString(mLocationDescription);
+    dest.writeFloat(mLatitude);
+    dest.writeFloat(mLongitude);
+    dest.writeString(mUpdated);
+  }
+
+  public static final Creator<GooseNest> CREATOR = new Creator<GooseNest>() {
+    @Override
+    public GooseNest createFromParcel(final Parcel in) {
+      return new GooseNest(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(mId);
-        dest.writeString(mLocationDescription);
-        dest.writeFloat(mLatitude);
-        dest.writeFloat(mLongitude);
-        dest.writeString(mUpdated);
+    public GooseNest[] newArray(final int size) {
+      return new GooseNest[size];
     }
+  };
 
-    public static final Creator<GooseNest> CREATOR = new Creator<GooseNest>() {
-        @Override
-        public GooseNest createFromParcel(final Parcel in) {
-            return new GooseNest(in);
-        }
+  /**
+   * Goose Nest ID
+   */
+  public String getId() {
+    return mId;
+  }
 
-        @Override
-        public GooseNest[] newArray(final int size) {
-            return new GooseNest[size];
-        }
-    };
+  /**
+   * Human-readable description of goose nest location
+   */
+  public String getLocationDescription() {
+    return mLocationDescription;
+  }
 
-    /**
-     * Goose Nest ID
-     */
-    public String getId() {
-        return mId;
-    }
+  /**
+   * Latitude + longitude of goose nest location
+   */
+  public float[] getLocation() {
+    return new float[]{mLatitude, mLongitude};
+  }
 
-    /**
-     * Human-readable description of goose nest location
-     */
-    public String getLocationDescription() {
-        return mLocationDescription;
-    }
+  /**
+   * ISO 8601 time-stamp of last update
+   */
+  public Date getUpdatedDate() {
+    return DateUtils.parseDate(mUpdated);
+  }
 
-    /**
-     * Latitude + longitude of goose nest location
-     */
-    public float[] getLocation() {
-        return new float[]{mLatitude, mLongitude};
-    }
-
-    /**
-     * ISO 8601 time-stamp of last update
-     */
-    public Date getUpdatedDate() {
-        return DateUtils.parseDate(mUpdated);
-    }
-
-    /**
-     * ISO 8601 time-stamp of last update as a string
-     */
-    public String getRawUpdatedDate() {
-        return mUpdated;
-    }
+  /**
+   * ISO 8601 time-stamp of last update as a string
+   */
+  public String getRawUpdatedDate() {
+    return mUpdated;
+  }
 }

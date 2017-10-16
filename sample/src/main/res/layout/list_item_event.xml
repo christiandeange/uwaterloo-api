@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,7 +24,7 @@
                     android:fontFamily="sans-serif-light"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    tools:text="Smokehouse Week"/>
+                    tools:text="Smokehouse Week" />
 
             <TextView
                     android:id="@android:id/text2"
@@ -33,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textAppearance="?android:textAppearanceSmall"
-                    tools:text="UW Food Services"/>
+                    tools:text="UW Food Services" />
 
             <TextView
                     style="@style/TextAppearance.UWaterloo.Body1"
@@ -44,7 +43,7 @@
                     android:drawableEnd="@drawable/ic_clock"
                     android:drawablePadding="8dp"
                     android:gravity="end"
-                    tools:text="In 1 hour"/>
+                    tools:text="In 1 hour" />
 
         </LinearLayout>
 

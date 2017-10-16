@@ -6,21 +6,21 @@ import com.google.gson.annotations.SerializedName;
 
 public class Author {
 
-    @SerializedName("username")
-    String mUsername;
+  @SerializedName("username")
+  String mUsername;
 
-    @SerializedName("realname")
-    String mRealname;
+  @SerializedName("realname")
+  String mRealname;
 
-    public String getUsername() {
-        return mUsername;
-    }
+  public String getUsername() {
+    return mUsername;
+  }
 
-    public String getRealname() {
-        return mRealname;
-    }
+  public String getRealname() {
+    return mRealname;
+  }
 
-    public String getPreferredName() {
-        return !TextUtils.isEmpty(mRealname) ? mRealname : mUsername;
-    }
+  public String getPreferredName() {
+    return !TextUtils.isEmpty(mRealname) ? mRealname : mUsername;
+  }
 }

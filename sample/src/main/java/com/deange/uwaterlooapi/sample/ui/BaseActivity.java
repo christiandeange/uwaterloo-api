@@ -21,62 +21,62 @@ import pl.tajchert.nammu.Nammu;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseActivity
-        extends AppCompatActivity {
+    extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        final String title = getTaskBarTitle();
-        final Bitmap icon = getTaskBarIcon();
-        final int color = getTaskBarColor();
+    final String title = getTaskBarTitle();
+    final Bitmap icon = getTaskBarIcon();
+    final int color = getTaskBarColor();
 
-        getWindow().setStatusBarColor(color);
-        setTaskDescription(new ActivityManager.TaskDescription(title, icon, color));
-    }
+    getWindow().setStatusBarColor(color);
+    setTaskDescription(new ActivityManager.TaskDescription(title, icon, color));
+  }
 
-    @Override
-    public void setContentView(@LayoutRes final int layoutResID) {
-        // Do this so Calligraphy has a chance to apply font details
-        setContentView(View.inflate(this, layoutResID, null));
-    }
+  @Override
+  public void setContentView(@LayoutRes final int layoutResID) {
+    // Do this so Calligraphy has a chance to apply font details
+    setContentView(View.inflate(this, layoutResID, null));
+  }
 
-    @Override
-    public void setContentView(final View view) {
-        super.setContentView(view);
-        ButterKnife.bind(this);
-    }
+  @Override
+  public void setContentView(final View view) {
+    super.setContentView(view);
+    ButterKnife.bind(this);
+  }
 
-    @Override
-    public void setContentView(final View view, final ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
-        ButterKnife.bind(this);
-    }
+  @Override
+  public void setContentView(final View view, final ViewGroup.LayoutParams params) {
+    super.setContentView(view, params);
+    ButterKnife.bind(this);
+  }
 
-    @Override
-    protected void attachBaseContext(final Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
+  @Override
+  protected void attachBaseContext(final Context newBase) {
+    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+  }
 
-    @Override
-    public void onRequestPermissionsResult(
-            final int requestCode,
-            @NonNull final String[] permissions,
-            @NonNull final int[] grantResults) {
-        Nammu.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+  @Override
+  public void onRequestPermissionsResult(
+      final int requestCode,
+      @NonNull final String[] permissions,
+      @NonNull final int[] grantResults) {
+    Nammu.onRequestPermissionsResult(requestCode, permissions, grantResults);
+  }
 
-    protected String getTaskBarTitle() {
-        return getString(R.string.app_name);
-    }
+  protected String getTaskBarTitle() {
+    return getString(R.string.app_name);
+  }
 
-    protected Bitmap getTaskBarIcon() {
-        return BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-    }
+  protected Bitmap getTaskBarIcon() {
+    return BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+  }
 
-    @ColorInt
-    protected int getTaskBarColor() {
-        return ResourcesCompat.getColor(getResources(), R.color.uw_yellow, getTheme());
-    }
+  @ColorInt
+  protected int getTaskBarColor() {
+    return ResourcesCompat.getColor(getResources(), R.color.uw_yellow, getTheme());
+  }
 
 }

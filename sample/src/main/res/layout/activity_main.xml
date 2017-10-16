@@ -1,6 +1,5 @@
 <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -22,13 +21,13 @@
 
             <android.support.v7.widget.Toolbar
                     style="@style/ToolbarStyle"
-                    android:elevation="8dp"/>
+                    android:elevation="8dp" />
 
             <FrameLayout
                     android:id="@+id/container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/background"/>
+                    android:background="@color/background" />
 
         </LinearLayout>
 
@@ -43,7 +42,7 @@
                 app:itemIconTint="@android:color/black"
                 app:itemTextAppearance="@style/TextAppearance.AppCompat.Subhead"
                 app:headerLayout="@layout/view_navigation_header"
-                app:menu="@menu/menu_modules"/>
+                app:menu="@menu/menu_modules" />
 
     </android.support.v4.widget.DrawerLayout>
 

@@ -1,5 +1,4 @@
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -25,12 +24,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:fontFamily="sans-serif-light"/>
+                    android:fontFamily="sans-serif-light" />
 
             <TextView
                     style="@style/EventProperty"
                     android:id="@+id/news_audience"
-                    android:drawableStart="@drawable/ic_people"/>
+                    android:drawableStart="@drawable/ic_people" />
 
         </LinearLayout>
 
@@ -49,7 +48,7 @@
             <Space
                     android:id="@+id/news_spacer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             <LinearLayout
                     android:id="@+id/news_scrollable_content"
@@ -67,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
-                        android:gravity="center_vertical|end"/>
+                        android:gravity="center_vertical|end" />
 
                 <TextView
                         style="@style/TextAppearance.UWaterloo.Body1"
@@ -76,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:fontFamily="sans-serif-light"
-                        android:textIsSelectable="true"/>
+                        android:textIsSelectable="true" />
 
                 <LinearLayout
                         android:id="@+id/news_open_in_browser_root"
@@ -91,7 +90,7 @@
                             android:layout_height="1dp"
                             android:layout_marginEnd="16dp"
                             android:layout_marginStart="16dp"
-                            android:background="@color/divider"/>
+                            android:background="@color/divider" />
 
                     <Button
                             style="@style/Widget.AppCompat.Button.Borderless"
@@ -100,7 +99,7 @@
                             android:layout_height="wrap_content"
                             android:background="?selectableItemBackground"
                             android:text="@string/open_in_browser"
-                            android:textAllCaps="true"/>
+                            android:textAllCaps="true" />
 
                 </LinearLayout>
 

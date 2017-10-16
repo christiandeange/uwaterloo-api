@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -14,7 +13,7 @@
             android:layout_marginEnd="16dp"
             android:layout_gravity="end"
             android:text="@string/poi_layers_select_all"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     <ScrollView
             android:layout_width="match_parent"
@@ -35,11 +34,11 @@
                         style="@style/LayerLabel"
                         android:id="@+id/poi_layers_atm_label"
                         android:drawableStart="@drawable/ic_local_atm"
-                        android:text="@string/poi_layers_atms"/>
+                        android:text="@string/poi_layers_atms" />
 
                 <CheckBox
                         style="@style/LayerCheckBox"
-                        android:id="@+id/poi_layers_atm_check"/>
+                        android:id="@+id/poi_layers_atm_check" />
 
             </RelativeLayout>
 
@@ -49,11 +48,11 @@
                         style="@style/LayerLabel"
                         android:id="@+id/poi_layers_greyhound_label"
                         android:drawableStart="@drawable/ic_directions_bus"
-                        android:text="@string/poi_layers_greyhound"/>
+                        android:text="@string/poi_layers_greyhound" />
 
                 <CheckBox
                         style="@style/LayerCheckBox"
-                        android:id="@+id/poi_layers_greyhound_check"/>
+                        android:id="@+id/poi_layers_greyhound_check" />
 
             </RelativeLayout>
 
@@ -65,11 +64,11 @@
                         style="@style/LayerLabel"
                         android:id="@+id/poi_layers_photosphere_label"
                         android:drawableStart="@drawable/ic_poi_photosphere"
-                        android:text="@string/poi_layers_photospheres"/>
+                        android:text="@string/poi_layers_photospheres" />
 
                 <CheckBox
                         style="@style/LayerCheckBox"
-                        android:id="@+id/poi_layers_photosphere_check"/>
+                        android:id="@+id/poi_layers_photosphere_check" />
 
             </RelativeLayout>
 
@@ -79,11 +78,11 @@
                         style="@style/LayerLabel"
                         android:id="@+id/poi_layers_helplines_label"
                         android:drawableStart="@drawable/ic_poi_alert"
-                        android:text="@string/poi_layers_helplines"/>
+                        android:text="@string/poi_layers_helplines" />
 
                 <CheckBox
                         style="@style/LayerCheckBox"
-                        android:id="@+id/poi_layers_helplines_check"/>
+                        android:id="@+id/poi_layers_helplines_check" />
 
             </RelativeLayout>
 
@@ -93,11 +92,11 @@
                         style="@style/LayerLabel"
                         android:id="@+id/poi_layers_libraries_label"
                         android:drawableStart="@drawable/ic_poi_library"
-                        android:text="@string/poi_layers_libraries"/>
+                        android:text="@string/poi_layers_libraries" />
 
                 <CheckBox
                         style="@style/LayerCheckBox"
-                        android:id="@+id/poi_layers_libraries_check"/>
+                        android:id="@+id/poi_layers_libraries_check" />
 
             </RelativeLayout>
 
@@ -107,11 +106,11 @@
                         style="@style/LayerLabel"
                         android:id="@+id/poi_layers_defibrillators_label"
                         android:drawableStart="@drawable/ic_poi_defibrillator"
-                        android:text="@string/poi_layers_defibrillators"/>
+                        android:text="@string/poi_layers_defibrillators" />
 
                 <CheckBox
                         style="@style/LayerCheckBox"
-                        android:id="@+id/poi_layers_defibrillators_check"/>
+                        android:id="@+id/poi_layers_defibrillators_check" />
 
             </RelativeLayout>
 

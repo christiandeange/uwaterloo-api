@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -9,7 +8,7 @@
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/divider"/>
+            android:background="@color/divider" />
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -23,7 +22,7 @@
                 android:layout_alignParentEnd="true"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@android:color/black"
-                tools:text="9:00AM – 10:30AM"/>
+                tools:text="9:00AM – 10:30AM" />
 
         <TextView
                 android:id="@+id/class_date"
@@ -33,7 +32,7 @@
                 android:layout_below="@id/class_time"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@android:color/black"
-                tools:text="MWF"/>
+                tools:text="MWF" />
 
         <TextView
                 android:id="@+id/class_location"
@@ -43,7 +42,7 @@
                 android:layout_toStartOf="@id/class_date"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black"
-                tools:text="MC 4063"/>
+                tools:text="MC 4063" />
 
         <TextView
                 android:id="@+id/class_instructors"
@@ -54,7 +53,7 @@
                 android:layout_toStartOf="@id/class_time"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textStyle="bold"
-                tools:text="Instructed by Martin Pei"/>
+                tools:text="Instructed by Martin Pei" />
 
     </RelativeLayout>
 

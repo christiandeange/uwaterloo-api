@@ -12,187 +12,187 @@ import java.util.Date;
 import java.util.List;
 
 public class NewsArticle
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("id")
-    int mId;
+  @SerializedName("id")
+  int mId;
 
-    @SerializedName("title")
-    String mTitle;
+  @SerializedName("title")
+  String mTitle;
 
-    @SerializedName("description")
-    String mDescription;
+  @SerializedName("description")
+  String mDescription;
 
-    @SerializedName("description_raw")
-    String mHtmlDescription;
+  @SerializedName("description_raw")
+  String mHtmlDescription;
 
-    @SerializedName("audience")
-    List<String> mAudience;
+  @SerializedName("audience")
+  List<String> mAudience;
 
-    @SerializedName("image")
-    Image mImage;
+  @SerializedName("image")
+  Image mImage;
 
-    @SerializedName("site_id")
-    String mSiteId;
+  @SerializedName("site_id")
+  String mSiteId;
 
-    @SerializedName("site_name")
-    String mSiteName;
+  @SerializedName("site_name")
+  String mSiteName;
 
-    @SerializedName("revision_id")
-    int mRevision;
+  @SerializedName("revision_id")
+  int mRevision;
 
-    @SerializedName("published")
-    String mPublished;
+  @SerializedName("published")
+  String mPublished;
 
-    @SerializedName("updated")
-    String mUpdated;
+  @SerializedName("updated")
+  String mUpdated;
 
-    @SerializedName("link")
-    String mLink;
+  @SerializedName("link")
+  String mLink;
 
-    protected NewsArticle(final Parcel in) {
-        super(in);
-        mId = in.readInt();
-        mTitle = in.readString();
-        mDescription = in.readString();
-        mHtmlDescription = in.readString();
-        mAudience = in.createStringArrayList();
-        mImage = in.readParcelable(Image.class.getClassLoader());
-        mSiteId = in.readString();
-        mSiteName = in.readString();
-        mRevision = in.readInt();
-        mPublished = in.readString();
-        mUpdated = in.readString();
-        mLink = in.readString();
+  protected NewsArticle(final Parcel in) {
+    super(in);
+    mId = in.readInt();
+    mTitle = in.readString();
+    mDescription = in.readString();
+    mHtmlDescription = in.readString();
+    mAudience = in.createStringArrayList();
+    mImage = in.readParcelable(Image.class.getClassLoader());
+    mSiteId = in.readString();
+    mSiteName = in.readString();
+    mRevision = in.readInt();
+    mPublished = in.readString();
+    mUpdated = in.readString();
+    mLink = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeInt(mId);
+    dest.writeString(mTitle);
+    dest.writeString(mDescription);
+    dest.writeString(mHtmlDescription);
+    dest.writeStringList(mAudience);
+    dest.writeParcelable(mImage, flags);
+    dest.writeString(mSiteId);
+    dest.writeString(mSiteName);
+    dest.writeInt(mRevision);
+    dest.writeString(mPublished);
+    dest.writeString(mUpdated);
+    dest.writeString(mLink);
+  }
+
+  public static final Creator<NewsArticle> CREATOR = new Creator<NewsArticle>() {
+    @Override
+    public NewsArticle createFromParcel(final Parcel in) {
+      return new NewsArticle(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(mId);
-        dest.writeString(mTitle);
-        dest.writeString(mDescription);
-        dest.writeString(mHtmlDescription);
-        dest.writeStringList(mAudience);
-        dest.writeParcelable(mImage, flags);
-        dest.writeString(mSiteId);
-        dest.writeString(mSiteName);
-        dest.writeInt(mRevision);
-        dest.writeString(mPublished);
-        dest.writeString(mUpdated);
-        dest.writeString(mLink);
+    public NewsArticle[] newArray(final int size) {
+      return new NewsArticle[size];
     }
+  };
 
-    public static final Creator<NewsArticle> CREATOR = new Creator<NewsArticle>() {
-        @Override
-        public NewsArticle createFromParcel(final Parcel in) {
-            return new NewsArticle(in);
-        }
+  /**
+   * Unique news id
+   */
+  public int getId() {
+    return mId;
+  }
 
-        @Override
-        public NewsArticle[] newArray(final int size) {
-            return new NewsArticle[size];
-        }
-    };
+  /**
+   * News title
+   */
+  public String getTitle() {
+    return mTitle;
+  }
 
-    /**
-     * Unique news id
-     */
-    public int getId() {
-        return mId;
-    }
+  /**
+   * News body
+   */
+  public String getDescription() {
+    return mDescription;
+  }
 
-    /**
-     * News title
-     */
-    public String getTitle() {
-        return mTitle;
-    }
+  /**
+   * Raw news body (includes HTML markup)
+   */
+  public String getHtmlDescription() {
+    return mHtmlDescription;
+  }
 
-    /**
-     * News body
-     */
-    public String getDescription() {
-        return mDescription;
-    }
+  /**
+   * Audience targeted by news item
+   */
+  public List<String> getAudience() {
+    return mAudience;
+  }
 
-    /**
-     * Raw news body (includes HTML markup)
-     */
-    public String getHtmlDescription() {
-        return mHtmlDescription;
-    }
+  /**
+   * Image representing the news item
+   */
+  public Image getImage() {
+    return mImage;
+  }
 
-    /**
-     * Audience targeted by news item
-     */
-    public List<String> getAudience() {
-        return mAudience;
-    }
+  /**
+   * Site slug as from https://api.uwaterloo.ca/v2/resources/sites.json
+   */
+  public String getSiteId() {
+    return mSiteId;
+  }
 
-    /**
-     * Image representing the news item
-     */
-    public Image getImage() {
-        return mImage;
-    }
+  /**
+   * Full site name as from https://api.uwaterloo.ca/v2/resources/sites.json
+   */
+  public String getSiteName() {
+    return mSiteName;
+  }
 
-    /**
-     * Site slug as from https://api.uwaterloo.ca/v2/resources/sites.json
-     */
-    public String getSiteId() {
-        return mSiteId;
-    }
+  /**
+   * Unique id of revision of news item
+   */
+  public int getRevision() {
+    return mRevision;
+  }
 
-    /**
-     * Full site name as from https://api.uwaterloo.ca/v2/resources/sites.json
-     */
-    public String getSiteName() {
-        return mSiteName;
-    }
+  /**
+   * URL of news link
+   */
+  public String getLink() {
+    return mLink;
+  }
 
-    /**
-     * Unique id of revision of news item
-     */
-    public int getRevision() {
-        return mRevision;
-    }
+  /**
+   * ISO 8601 formatted publish date
+   */
+  public Date getPublishedDate() {
+    return DateUtils.parseDate(mPublished);
+  }
 
-    /**
-     * URL of news link
-     */
-    public String getLink() {
-        return mLink;
-    }
+  /**
+   * ISO 8601 formatted publish date as a string
+   */
+  public String getRawPublishedDate() {
+    return mPublished;
+  }
 
-    /**
-     * ISO 8601 formatted publish date
-     */
-    public Date getPublishedDate() {
-        return DateUtils.parseDate(mPublished);
-    }
+  /**
+   * ISO 8601 formatted update date
+   */
+  public Date getUpdatedDate() {
+    return DateUtils.parseDate(mUpdated);
+  }
 
-    /**
-     * ISO 8601 formatted publish date as a string
-     */
-    public String getRawPublishedDate() {
-        return mPublished;
-    }
-
-    /**
-     * ISO 8601 formatted update date
-     */
-    public Date getUpdatedDate() {
-        return DateUtils.parseDate(mUpdated);
-    }
-
-    /**
-     * ISO 8601 formatted update date as a string
-     */
-    public String getRawUpdatedDate() {
-        return mUpdated;
-    }
+  /**
+   * ISO 8601 formatted update date as a string
+   */
+  public String getRawUpdatedDate() {
+    return mUpdated;
+  }
 
 }

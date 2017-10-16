@@ -10,90 +10,90 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class DateRange
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("week")
-    int mWeek;
+  @SerializedName("week")
+  int mWeek;
 
-    @SerializedName("year")
-    int mYear;
+  @SerializedName("year")
+  int mYear;
 
-    @SerializedName("start")
-    String mStart;
+  @SerializedName("start")
+  String mStart;
 
-    @SerializedName("end")
-    String mEnd;
+  @SerializedName("end")
+  String mEnd;
 
-    protected DateRange(final Parcel in) {
-        super(in);
-        mWeek = in.readInt();
-        mYear = in.readInt();
-        mStart = in.readString();
-        mEnd = in.readString();
+  protected DateRange(final Parcel in) {
+    super(in);
+    mWeek = in.readInt();
+    mYear = in.readInt();
+    mStart = in.readString();
+    mEnd = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeInt(mWeek);
+    dest.writeInt(mYear);
+    dest.writeString(mStart);
+    dest.writeString(mEnd);
+  }
+
+  public static final Creator<DateRange> CREATOR = new Creator<DateRange>() {
+    @Override
+    public DateRange createFromParcel(final Parcel in) {
+      return new DateRange(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(mWeek);
-        dest.writeInt(mYear);
-        dest.writeString(mStart);
-        dest.writeString(mEnd);
+    public DateRange[] newArray(final int size) {
+      return new DateRange[size];
     }
+  };
 
-    public static final Creator<DateRange> CREATOR = new Creator<DateRange>() {
-        @Override
-        public DateRange createFromParcel(final Parcel in) {
-            return new DateRange(in);
-        }
+  /**
+   * Requested week
+   */
+  public int getWeek() {
+    return mWeek;
+  }
 
-        @Override
-        public DateRange[] newArray(final int size) {
-            return new DateRange[size];
-        }
-    };
+  /**
+   * Requested year
+   */
+  public int getYear() {
+    return mYear;
+  }
 
-    /**
-     * Requested week
-     */
-    public int getWeek() {
-        return mWeek;
-    }
+  /**
+   * Starting day of the menu (Y-m-d)
+   */
+  public Date getStart() {
+    return DateUtils.parseDate(mStart);
+  }
 
-    /**
-     * Requested year
-     */
-    public int getYear() {
-        return mYear;
-    }
+  /**
+   * Ending day of the menu (Y-m-d)
+   */
+  public Date getEnd() {
+    return DateUtils.parseDate(mEnd);
+  }
 
-    /**
-     * Starting day of the menu (Y-m-d)
-     */
-    public Date getStart() {
-        return DateUtils.parseDate(mStart);
-    }
+  /**
+   * Starting day of the menu (Y-m-d) as a string
+   */
+  public String getRawStartDate() {
+    return mStart;
+  }
 
-    /**
-     * Ending day of the menu (Y-m-d)
-     */
-    public Date getEnd() {
-        return DateUtils.parseDate(mEnd);
-    }
-
-    /**
-     * Starting day of the menu (Y-m-d) as a string
-     */
-    public String getRawStartDate() {
-        return mStart;
-    }
-
-    /**
-     * Ending day of the menu (Y-m-d) as a string
-     */
-    public String getRawEndDate() {
-        return mEnd;
-    }
+  /**
+   * Ending day of the menu (Y-m-d) as a string
+   */
+  public String getRawEndDate() {
+    return mEnd;
+  }
 }

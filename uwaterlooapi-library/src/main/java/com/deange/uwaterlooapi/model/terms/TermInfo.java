@@ -12,78 +12,78 @@ import java.util.List;
 import java.util.Map;
 
 public class TermInfo
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("current_term")
-    int mCurrentTerm;
+  @SerializedName("current_term")
+  int mCurrentTerm;
 
-    @SerializedName("previous_term")
-    int mPreviousTerm;
+  @SerializedName("previous_term")
+  int mPreviousTerm;
 
-    @SerializedName("next_term")
-    int mNextTerm;
+  @SerializedName("next_term")
+  int mNextTerm;
 
-    @SerializedName("listings")
-    Map<Integer, List<TermId>> mListings;
+  @SerializedName("listings")
+  Map<Integer, List<TermId>> mListings;
 
-    protected TermInfo(final Parcel in) {
-        super(in);
-        mCurrentTerm = in.readInt();
-        mPreviousTerm = in.readInt();
-        mNextTerm = in.readInt();
-        mListings = MapUtils.readMap(in, new HashMap<Integer, List<TermId>>());
+  protected TermInfo(final Parcel in) {
+    super(in);
+    mCurrentTerm = in.readInt();
+    mPreviousTerm = in.readInt();
+    mNextTerm = in.readInt();
+    mListings = MapUtils.readMap(in, new HashMap<Integer, List<TermId>>());
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeInt(mCurrentTerm);
+    dest.writeInt(mPreviousTerm);
+    dest.writeInt(mNextTerm);
+    MapUtils.writeMap(dest, mListings);
+  }
+
+  public static final Creator<TermInfo> CREATOR = new Creator<TermInfo>() {
+    @Override
+    public TermInfo createFromParcel(final Parcel in) {
+      return new TermInfo(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(mCurrentTerm);
-        dest.writeInt(mPreviousTerm);
-        dest.writeInt(mNextTerm);
-        MapUtils.writeMap(dest, mListings);
+    public TermInfo[] newArray(final int size) {
+      return new TermInfo[size];
     }
+  };
 
-    public static final Creator<TermInfo> CREATOR = new Creator<TermInfo>() {
-        @Override
-        public TermInfo createFromParcel(final Parcel in) {
-            return new TermInfo(in);
-        }
+  /**
+   * Current Term's numerical value
+   */
+  public int getCurrentTerm() {
+    return mCurrentTerm;
+  }
 
-        @Override
-        public TermInfo[] newArray(final int size) {
-            return new TermInfo[size];
-        }
-    };
+  /**
+   * Previous term's numerical value
+   */
+  public int getPreviousTerm() {
+    return mPreviousTerm;
+  }
 
-    /**
-     * Current Term's numerical value
-     */
-    public int getCurrentTerm() {
-        return mCurrentTerm;
-    }
+  /**
+   * Upcoming term's numerical value
+   */
+  public int getNextTerm() {
+    return mNextTerm;
+  }
 
-    /**
-     * Previous term's numerical value
-     */
-    public int getPreviousTerm() {
-        return mPreviousTerm;
-    }
-
-    /**
-     * Upcoming term's numerical value
-     */
-    public int getNextTerm() {
-        return mNextTerm;
-    }
-
-    /**
-     * Term listings by year
-     * <p/>
-     * First item is previous year, second is current, last is next year
-     */
-    public Map<Integer, List<TermId>> getListings() {
-        return mListings;
-    }
+  /**
+   * Term listings by year
+   * <p/>
+   * First item is previous year, second is current, last is next year
+   */
+  public Map<Integer, List<TermId>> getListings() {
+    return mListings;
+  }
 }

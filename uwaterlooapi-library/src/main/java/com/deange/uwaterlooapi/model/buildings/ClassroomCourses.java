@@ -11,227 +11,227 @@ import java.util.Date;
 import java.util.List;
 
 public class ClassroomCourses
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("class_number")
-    int mClassNumber;
+  @SerializedName("class_number")
+  int mClassNumber;
 
-    @SerializedName("subject")
-    String mSubject;
+  @SerializedName("subject")
+  String mSubject;
 
-    @SerializedName("catalog_number")
-    String mCatalogNumber;
+  @SerializedName("catalog_number")
+  String mCatalogNumber;
 
-    @SerializedName("title")
-    String mTitle;
+  @SerializedName("title")
+  String mTitle;
 
-    @SerializedName("section")
-    String mSection;
+  @SerializedName("section")
+  String mSection;
 
-    @SerializedName("weekdays")
-    String mWeekdays;
+  @SerializedName("weekdays")
+  String mWeekdays;
 
-    @SerializedName("start_time")
-    String mStartTime;
+  @SerializedName("start_time")
+  String mStartTime;
 
-    @SerializedName("end_time")
-    String mEndTime;
+  @SerializedName("end_time")
+  String mEndTime;
 
-    @SerializedName("start_date")
-    String mStartDate;
+  @SerializedName("start_date")
+  String mStartDate;
 
-    @SerializedName("end_date")
-    String mEndDate;
+  @SerializedName("end_date")
+  String mEndDate;
 
-    @SerializedName("enrollment_total")
-    int mTotalEnrollment;
+  @SerializedName("enrollment_total")
+  int mTotalEnrollment;
 
-    @SerializedName("instructors")
-    List<String> mInstructors;
+  @SerializedName("instructors")
+  List<String> mInstructors;
 
-    @SerializedName("building")
-    String mBuilding;
+  @SerializedName("building")
+  String mBuilding;
 
-    @SerializedName("room")
-    String mRoom;
+  @SerializedName("room")
+  String mRoom;
 
-    @SerializedName("term")
-    int mTerm;
+  @SerializedName("term")
+  int mTerm;
 
-    @SerializedName("last_updated")
-    String mUpdated;
+  @SerializedName("last_updated")
+  String mUpdated;
 
-    protected ClassroomCourses(final Parcel in) {
-        super(in);
-        mClassNumber = in.readInt();
-        mSubject = in.readString();
-        mCatalogNumber = in.readString();
-        mTitle = in.readString();
-        mSection = in.readString();
-        mWeekdays = in.readString();
-        mStartTime = in.readString();
-        mEndTime = in.readString();
-        mStartDate = in.readString();
-        mEndDate = in.readString();
-        mTotalEnrollment = in.readInt();
-        mInstructors = in.createStringArrayList();
-        mBuilding = in.readString();
-        mRoom = in.readString();
-        mTerm = in.readInt();
-        mUpdated = in.readString();
+  protected ClassroomCourses(final Parcel in) {
+    super(in);
+    mClassNumber = in.readInt();
+    mSubject = in.readString();
+    mCatalogNumber = in.readString();
+    mTitle = in.readString();
+    mSection = in.readString();
+    mWeekdays = in.readString();
+    mStartTime = in.readString();
+    mEndTime = in.readString();
+    mStartDate = in.readString();
+    mEndDate = in.readString();
+    mTotalEnrollment = in.readInt();
+    mInstructors = in.createStringArrayList();
+    mBuilding = in.readString();
+    mRoom = in.readString();
+    mTerm = in.readInt();
+    mUpdated = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeInt(mClassNumber);
+    dest.writeString(mSubject);
+    dest.writeString(mCatalogNumber);
+    dest.writeString(mTitle);
+    dest.writeString(mSection);
+    dest.writeString(mWeekdays);
+    dest.writeString(mStartTime);
+    dest.writeString(mEndTime);
+    dest.writeString(mStartDate);
+    dest.writeString(mEndDate);
+    dest.writeInt(mTotalEnrollment);
+    dest.writeStringList(mInstructors);
+    dest.writeString(mBuilding);
+    dest.writeString(mRoom);
+    dest.writeInt(mTerm);
+    dest.writeString(mUpdated);
+  }
+
+  public static final Creator<ClassroomCourses> CREATOR = new Creator<ClassroomCourses>() {
+    @Override
+    public ClassroomCourses createFromParcel(final Parcel in) {
+      return new ClassroomCourses(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(mClassNumber);
-        dest.writeString(mSubject);
-        dest.writeString(mCatalogNumber);
-        dest.writeString(mTitle);
-        dest.writeString(mSection);
-        dest.writeString(mWeekdays);
-        dest.writeString(mStartTime);
-        dest.writeString(mEndTime);
-        dest.writeString(mStartDate);
-        dest.writeString(mEndDate);
-        dest.writeInt(mTotalEnrollment);
-        dest.writeStringList(mInstructors);
-        dest.writeString(mBuilding);
-        dest.writeString(mRoom);
-        dest.writeInt(mTerm);
-        dest.writeString(mUpdated);
+    public ClassroomCourses[] newArray(final int size) {
+      return new ClassroomCourses[size];
     }
+  };
 
-    public static final Creator<ClassroomCourses> CREATOR = new Creator<ClassroomCourses>() {
-        @Override
-        public ClassroomCourses createFromParcel(final Parcel in) {
-            return new ClassroomCourses(in);
-        }
+  /**
+   * Class Number
+   */
+  public int getClassNumber() {
+    return mClassNumber;
+  }
 
-        @Override
-        public ClassroomCourses[] newArray(final int size) {
-            return new ClassroomCourses[size];
-        }
-    };
+  /**
+   * Course subject code
+   */
+  public String getSubject() {
+    return mSubject;
+  }
 
-    /**
-     * Class Number
-     */
-    public int getClassNumber() {
-        return mClassNumber;
-    }
+  /**
+   * Catalog number
+   */
+  public String getCatalogNumber() {
+    return mCatalogNumber;
+  }
 
-    /**
-     * Course subject code
-     */
-    public String getSubject() {
-        return mSubject;
-    }
+  /**
+   * Course title
+   */
+  public String getTitle() {
+    return mTitle;
+  }
 
-    /**
-     * Catalog number
-     */
-    public String getCatalogNumber() {
-        return mCatalogNumber;
-    }
+  /**
+   * Course section number
+   */
+  public String getSection() {
+    return mSection;
+  }
 
-    /**
-     * Course title
-     */
-    public String getTitle() {
-        return mTitle;
-    }
+  /**
+   * Course class days
+   */
+  public String getWeekdays() {
+    return mWeekdays;
+  }
 
-    /**
-     * Course section number
-     */
-    public String getSection() {
-        return mSection;
-    }
+  /**
+   * Start time
+   */
+  public String getStartTime() {
+    return mStartTime;
+  }
 
-    /**
-     * Course class days
-     */
-    public String getWeekdays() {
-        return mWeekdays;
-    }
+  /**
+   * End time
+   */
+  public String getEndTime() {
+    return mEndTime;
+  }
 
-    /**
-     * Start time
-     */
-    public String getStartTime() {
-        return mStartTime;
-    }
+  /**
+   * Start date
+   */
+  public String getStartDate() {
+    return mStartDate;
+  }
 
-    /**
-     * End time
-     */
-    public String getEndTime() {
-        return mEndTime;
-    }
+  /**
+   * End date
+   */
+  public String getEndDate() {
+    return mEndDate;
+  }
 
-    /**
-     * Start date
-     */
-    public String getStartDate() {
-        return mStartDate;
-    }
+  /**
+   * Number of students currently enrolled in the section
+   */
+  public int getTotalEnrollment() {
+    return mTotalEnrollment;
+  }
 
-    /**
-     * End date
-     */
-    public String getEndDate() {
-        return mEndDate;
-    }
+  /**
+   * List of instructors the individual meet
+   */
+  public List<String> getInstructors() {
+    return mInstructors;
+  }
 
-    /**
-     * Number of students currently enrolled in the section
-     */
-    public int getTotalEnrollment() {
-        return mTotalEnrollment;
-    }
+  /**
+   * Building code of building where the individual meet is held
+   */
+  public String getBuilding() {
+    return mBuilding;
+  }
 
-    /**
-     * List of instructors the individual meet
-     */
-    public List<String> getInstructors() {
-        return mInstructors;
-    }
+  /**
+   * Room where the individual meet is held
+   */
+  public String getRoom() {
+    return mRoom;
+  }
 
-    /**
-     * Building code of building where the individual meet is held
-     */
-    public String getBuilding() {
-        return mBuilding;
-    }
+  /**
+   * Particular 4-month period within which sessions are defined
+   */
+  public int getTerm() {
+    return mTerm;
+  }
 
-    /**
-     * Room where the individual meet is held
-     */
-    public String getRoom() {
-        return mRoom;
-    }
+  /**
+   * Server time at last update (in ISO 8601 format)
+   */
+  public Date getUpdated() {
+    return DateUtils.parseDate(mUpdated);
+  }
 
-    /**
-     * Particular 4-month period within which sessions are defined
-     */
-    public int getTerm() {
-        return mTerm;
-    }
-
-    /**
-     * Server time at last update (in ISO 8601 format)
-     */
-    public Date getUpdated() {
-        return DateUtils.parseDate(mUpdated);
-    }
-
-    /**
-     * Server time at last update (in ISO 8601 format) as a string
-     */
-    public String getRawUpdated() {
-        return mUpdated;
-    }
+  /**
+   * Server time at last update (in ISO 8601 format) as a string
+   */
+  public String getRawUpdated() {
+    return mUpdated;
+  }
 }

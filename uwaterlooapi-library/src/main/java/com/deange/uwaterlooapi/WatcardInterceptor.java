@@ -14,38 +14,38 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /* package */ class WatcardInterceptor
-        implements
-        Interceptor {
+    implements
+    Interceptor {
 
-    private final UWaterlooApi mApi;
+  private final UWaterlooApi mApi;
 
-    public WatcardInterceptor(final UWaterlooApi api) {
-        mApi = api;
+  public WatcardInterceptor(final UWaterlooApi api) {
+    mApi = api;
+  }
+
+  @Override
+  public Response intercept(final Chain chain) throws IOException {
+    Response response = chain.proceed(chain.request());
+
+    if (!chain.request().url().toString().contains(WatcardApi.URL)) {
+      return response;
     }
 
-    @Override
-    public Response intercept(final Chain chain) throws IOException {
-        Response response = chain.proceed(chain.request());
+    final HttpUrl responseUrl = response.networkResponse().request().url();
+    final WatcardCredentials credentials = mApi.getWatcardCredentials();
 
-        if (!chain.request().url().toString().contains(WatcardApi.URL)) {
-            return response;
-        }
+    if (responseUrl.queryParameterNames().contains("ReturnUrl") && credentials != null) {
+      // Login required
+      final ResponseBody homepageBody = mApi.Watcard.homepage().execute().body();
+      final Document doc = Jsoup.parse(homepageBody.byteStream(), "UTF-8", WatcardApi.URL);
+      final String token = doc.select("input[name=__RequestVerificationToken]").first().val();
+      mApi.Watcard.login(credentials.studentNumber(), credentials.pin(), token).execute();
 
-        final HttpUrl responseUrl = response.networkResponse().request().url();
-        final WatcardCredentials credentials = mApi.getWatcardCredentials();
-
-        if (responseUrl.queryParameterNames().contains("ReturnUrl") && credentials != null) {
-            // Login required
-            final ResponseBody homepageBody = mApi.Watcard.homepage().execute().body();
-            final Document doc = Jsoup.parse(homepageBody.byteStream(), "UTF-8", WatcardApi.URL);
-            final String token = doc.select("input[name=__RequestVerificationToken]").first().val();
-            mApi.Watcard.login(credentials.studentNumber(), credentials.pin(), token).execute();
-
-            // Retry original request
-            response = chain.proceed(chain.request());
-        }
-
-        return response;
+      // Retry original request
+      response = chain.proceed(chain.request());
     }
+
+    return response;
+  }
 
 }

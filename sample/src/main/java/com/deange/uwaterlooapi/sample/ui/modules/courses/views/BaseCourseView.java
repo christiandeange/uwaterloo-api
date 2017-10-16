@@ -9,25 +9,26 @@ import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 import butterknife.ButterKnife;
 
 public abstract class BaseCourseView extends FrameLayout {
-    public BaseCourseView(final Context context) {
-        super(context);
+  public BaseCourseView(final Context context) {
+    super(context);
 
-        init();
+    init();
+  }
+
+  private void init() {
+    setLayoutParams(generateDefaultLayoutParams());
+
+    final int layoutId = getLayoutId();
+    if (layoutId != 0) {
+      inflate(getContext(), layoutId, this);
     }
 
-    private void init() {
-        setLayoutParams(generateDefaultLayoutParams());
+    ButterKnife.bind(this);
+  }
 
-        final int layoutId = getLayoutId();
-        if (layoutId != 0) {
-            inflate(getContext(), layoutId, this);
-        }
+  protected abstract @LayoutRes
+  int getLayoutId();
 
-        ButterKnife.bind(this);
-    }
-
-    protected abstract @LayoutRes int getLayoutId();
-
-    public abstract void bind(final CombinedCourseInfo info);
+  public abstract void bind(final CombinedCourseInfo info);
 
 }

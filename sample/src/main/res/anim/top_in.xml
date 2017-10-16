@@ -4,5 +4,5 @@
             android:duration="@android:integer/config_longAnimTime"
             android:fillAfter="true"
             android:fromYDelta="-100%p"
-            android:toYDelta="0%p"/>
+            android:toYDelta="0%p" />
 </set>

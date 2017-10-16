@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/nearby_locations_root"
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
             android:backgroundTint="?colorPrimary"
             android:foregroundTint="?colorPrimaryDark"
             android:text="@string/nearby_locations_see_all"
-            android:textColor="?android:textColorPrimary"/>
+            android:textColor="?android:textColorPrimary" />
 
     <TextView
             style="@style/TextAppearance.UWaterloo.Title"
@@ -26,14 +25,14 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:layout_toStartOf="@id/nearby_locations_see_all"
-            android:text="@string/nearby_locations_title"/>
+            android:text="@string/nearby_locations_title" />
 
     <com.deange.uwaterlooapi.sample.ui.view.WrapContentListView
             android:id="@+id/nearby_locations_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nearby_locations_title"
-            android:scrollbars="none"/>
+            android:scrollbars="none" />
 
     <LinearLayout
             android:id="@+id/nearby_locations_enable_permission"
@@ -49,13 +48,13 @@
                 android:layout_height="24dp"
                 android:layout_margin="8dp"
                 android:src="@drawable/ic_my_location"
-                tools:ignore="ContentDescription"/>
+                tools:ignore="ContentDescription" />
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/nearby_locations_permission"/>
+                android:text="@string/nearby_locations_permission" />
 
     </LinearLayout>
 
@@ -68,6 +67,6 @@
             android:alpha="0"
             android:background="@color/background"
             android:gravity="center"
-            android:minHeight="32sp"/>
+            android:minHeight="32sp" />
 
 </RelativeLayout>

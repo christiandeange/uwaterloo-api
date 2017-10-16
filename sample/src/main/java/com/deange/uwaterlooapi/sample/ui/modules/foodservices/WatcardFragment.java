@@ -27,86 +27,87 @@ import retrofit2.Call;
 //        layout = R.layout.module_foodservices_watcards
 //)
 public class WatcardFragment
-        extends BaseListModuleFragment<Responses.Watcards, WatcardVendor> {
+    extends BaseListModuleFragment<Responses.Watcards, WatcardVendor> {
 
-    private final List<WatcardVendor> mResponse = new ArrayList<>();
+  private final List<WatcardVendor> mResponse = new ArrayList<>();
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_simple_listview;
+  @Override
+  protected int getLayoutId() {
+    return R.layout.fragment_simple_listview;
+  }
+
+  @Override
+  public String getToolbarTitle() {
+    return getString(R.string.title_foodservices_watcard);
+  }
+
+  @Override
+  public ModuleAdapter getAdapter() {
+    return new WatcardVendorAdapter(getActivity());
+  }
+
+  @Override
+  public Call<Responses.Watcards> onLoadData(final UWaterlooApi api) {
+    return api.FoodServices.getWatcardVendors();
+  }
+
+  @Override
+  public void onBindData(final Metadata metadata, final List<WatcardVendor> data) {
+    mResponse.clear();
+    mResponse.addAll(data);
+
+    Collections.sort(mResponse, (lhs, rhs) -> lhs.getName().compareTo(rhs.getName()));
+
+    notifyDataSetChanged();
+  }
+
+  @Override
+  public String getContentType() {
+    return ModuleType.WATCARD_VENDORS;
+  }
+
+  private class WatcardVendorAdapter
+      extends ModuleAdapter
+      implements
+      View.OnLongClickListener {
+
+    public WatcardVendorAdapter(final Context context) {
+      super(context);
     }
 
     @Override
-    public String getToolbarTitle() {
-        return getString(R.string.title_foodservices_watcard);
+    public View newView(final Context context, final int position, final ViewGroup parent) {
+      return LayoutInflater.from(context).inflate(R.layout.simple_one_line_card_item, parent,
+                                                  false);
     }
 
     @Override
-    public ModuleAdapter getAdapter() {
-        return new WatcardVendorAdapter(getActivity());
+    public void bindView(final Context context, final int position, final View view) {
+      final WatcardVendor vendor = getItem(position);
+      ((TextView) view.findViewById(android.R.id.text1)).setText(vendor.getName());
+
+      final View selectableView = view.findViewById(R.id.selectable);
+      selectableView.setTag(position);
+      selectableView.setLongClickable(true);
+      selectableView.setOnLongClickListener(this);
     }
 
     @Override
-    public Call<Responses.Watcards> onLoadData(final UWaterlooApi api) {
-        return api.FoodServices.getWatcardVendors();
+    public int getCount() {
+      return mResponse.size();
     }
 
     @Override
-    public void onBindData(final Metadata metadata, final List<WatcardVendor> data) {
-        mResponse.clear();
-        mResponse.addAll(data);
-
-        Collections.sort(mResponse, (lhs, rhs) -> lhs.getName().compareTo(rhs.getName()));
-
-        notifyDataSetChanged();
+    public WatcardVendor getItem(final int position) {
+      return mResponse.get(position);
     }
 
     @Override
-    public String getContentType() {
-        return ModuleType.WATCARD_VENDORS;
+    public boolean onLongClick(final View v) {
+      final int position = (int) v.getTag();
+      PlatformUtils.copyToClipboard(getActivity(), getItem(position).getName());
+      return true;
     }
-
-    private class WatcardVendorAdapter
-            extends ModuleAdapter
-            implements
-            View.OnLongClickListener {
-
-        public WatcardVendorAdapter(final Context context) {
-            super(context);
-        }
-
-        @Override
-        public View newView(final Context context, final int position, final ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.simple_one_line_card_item, parent, false);
-        }
-
-        @Override
-        public void bindView(final Context context, final int position, final View view) {
-            final WatcardVendor vendor = getItem(position);
-            ((TextView) view.findViewById(android.R.id.text1)).setText(vendor.getName());
-
-            final View selectableView = view.findViewById(R.id.selectable);
-            selectableView.setTag(position);
-            selectableView.setLongClickable(true);
-            selectableView.setOnLongClickListener(this);
-        }
-
-        @Override
-        public int getCount() {
-            return mResponse.size();
-        }
-
-        @Override
-        public WatcardVendor getItem(final int position) {
-            return mResponse.get(position);
-        }
-
-        @Override
-        public boolean onLongClick(final View v) {
-            final int position = (int) v.getTag();
-            PlatformUtils.copyToClipboard(getActivity(), getItem(position).getName());
-            return true;
-        }
-    }
+  }
 
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax"/>
+                    app:layout_collapseMode="parallax" />
 
             <View
                     android:layout_width="match_parent"
@@ -37,18 +36,18 @@
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="25sp"
                     android:background="@drawable/location_title_gradient"
-                    android:fitsSystemWindows="true"/>
+                    android:fitsSystemWindows="true" />
 
             <View
                     android:layout_width="match_parent"
                     android:layout_height="25sp"
                     android:layout_gravity="bottom"
                     android:background="@android:color/white"
-                    android:fitsSystemWindows="true"/>
+                    android:fitsSystemWindows="true" />
 
             <android.support.v7.widget.Toolbar
                     style="@style/ToolbarStyle"
-                    android:background="@null"/>
+                    android:background="@null" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -74,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif-light"/>
+                    android:fontFamily="sans-serif-light" />
 
             <RelativeLayout
                     android:id="@+id/list_location_handle_viewgroup"
@@ -87,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_centerVertical="true"
-                        android:background="@color/divider"/>
+                        android:background="@color/divider" />
 
                 <TextView
                         style="@style/TextAppearance.UWaterloo.Subhead"
@@ -98,7 +97,7 @@
                         android:background="@android:color/white"
                         android:padding="8dp"
                         android:textAllCaps="true"
-                        fontPath="@string/font_bold"/>
+                        fontPath="@string/font_bold" />
 
             </RelativeLayout>
 
@@ -112,14 +111,14 @@
                 <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView
                         android:id="@+id/list_location_hours"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                 <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:background="@color/divider"/>
+                        android:background="@color/divider" />
 
                 <RelativeLayout
                         android:layout_width="match_parent"
@@ -132,12 +131,12 @@
                             android:textAllCaps="true"
                             android:textColor="@android:color/black"
                             android:textStyle="bold"
-                            fontPath="@string/font_bold"/>
+                            fontPath="@string/font_bold" />
 
                     <TextView
                             style="@style/LocationClosedSection"
                             android:id="@+id/list_location_closed_days"
-                            android:layout_below="@id/list_location_closed_days_label"/>
+                            android:layout_below="@id/list_location_closed_days_label" />
 
                 </RelativeLayout>
 
@@ -146,7 +145,7 @@
                         android:layout_height="1dp"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
-                        android:background="@color/divider"/>
+                        android:background="@color/divider" />
 
                 <RelativeLayout
                         android:layout_width="match_parent"
@@ -159,13 +158,13 @@
                             android:textAllCaps="true"
                             android:textColor="@android:color/black"
                             android:textStyle="bold"
-                            fontPath="@string/font_bold"/>
+                            fontPath="@string/font_bold" />
 
                     <com.deange.uwaterlooapi.sample.ui.view.OperatingHoursView
                             android:id="@+id/list_location_special_hours"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/list_location_special_hours_label"/>
+                            android:layout_below="@id/list_location_special_hours_label" />
 
                 </RelativeLayout>
 

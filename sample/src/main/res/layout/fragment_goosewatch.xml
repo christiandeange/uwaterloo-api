@@ -1,12 +1,11 @@
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     <com.google.android.gms.maps.MapView
             android:id="@+id/goosewatch_map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     <TextView
             style="@style/TextAppearance.UWaterloo.Subhead"
@@ -16,7 +15,7 @@
             android:layout_margin="16dp"
             android:layout_centerInParent="true"
             android:visibility="gone"
-            android:text="@string/goosewatch_no_nests"/>
+            android:text="@string/goosewatch_no_nests" />
 
     <FrameLayout
             android:id="@+id/goosewatch_nest_info"
@@ -28,7 +27,7 @@
             android:animateLayoutChanges="true"
             android:visibility="gone">
 
-        <include layout="@layout/simple_two_line_item"/>
+        <include layout="@layout/simple_two_line_item" />
 
     </FrameLayout>
 

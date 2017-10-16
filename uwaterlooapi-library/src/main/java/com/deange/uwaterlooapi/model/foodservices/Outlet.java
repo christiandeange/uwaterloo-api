@@ -9,112 +9,112 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Outlet
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("outlet_id")
-    int mId;
+  @SerializedName("outlet_id")
+  int mId;
 
-    @SerializedName("outlet_name")
-    String mName;
+  @SerializedName("outlet_name")
+  String mName;
 
-    @SerializedName("menu")
-    List<Menu> mMenu;
+  @SerializedName("menu")
+  List<Menu> mMenu;
 
-    @SerializedName("has_breakfast")
-    int mBreakfast;
+  @SerializedName("has_breakfast")
+  int mBreakfast;
 
-    @SerializedName("has_lunch")
-    int mLunch;
+  @SerializedName("has_lunch")
+  int mLunch;
 
-    @SerializedName("has_dinner")
-    int mDinner;
+  @SerializedName("has_dinner")
+  int mDinner;
 
-    protected Outlet(final Parcel in) {
-        super(in);
-        mId = in.readInt();
-        mName = in.readString();
-        mMenu = in.createTypedArrayList(Menu.CREATOR);
-        mBreakfast = in.readInt();
-        mLunch = in.readInt();
-        mDinner = in.readInt();
+  protected Outlet(final Parcel in) {
+    super(in);
+    mId = in.readInt();
+    mName = in.readString();
+    mMenu = in.createTypedArrayList(Menu.CREATOR);
+    mBreakfast = in.readInt();
+    mLunch = in.readInt();
+    mDinner = in.readInt();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeInt(mId);
+    dest.writeString(mName);
+    dest.writeTypedList(mMenu);
+    dest.writeInt(mBreakfast);
+    dest.writeInt(mLunch);
+    dest.writeInt(mDinner);
+  }
+
+  public static final Creator<Outlet> CREATOR = new Creator<Outlet>() {
+    @Override
+    public Outlet createFromParcel(final Parcel in) {
+      return new Outlet(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeInt(mId);
-        dest.writeString(mName);
-        dest.writeTypedList(mMenu);
-        dest.writeInt(mBreakfast);
-        dest.writeInt(mLunch);
-        dest.writeInt(mDinner);
+    public Outlet[] newArray(final int size) {
+      return new Outlet[size];
     }
+  };
 
-    public static final Creator<Outlet> CREATOR = new Creator<Outlet>() {
-        @Override
-        public Outlet createFromParcel(final Parcel in) {
-            return new Outlet(in);
-        }
+  /**
+   * Foodservices ID for the outlet
+   */
+  public int getId() {
+    return mId;
+  }
 
-        @Override
-        public Outlet[] newArray(final int size) {
-            return new Outlet[size];
-        }
-    };
+  /**
+   * Name of the outlet
+   */
+  public String getName() {
+    return mName;
+  }
 
-    /**
-     * Foodservices ID for the outlet
-     */
-    public int getId() {
-        return mId;
-    }
+  /**
+   * The outlet menu list
+   * <p/>
+   * This field is only set for getMenu() request
+   */
+  public List<Menu> getMenu() {
+    return mMenu;
+  }
 
-    /**
-     * Name of the outlet
-     */
-    public String getName() {
-        return mName;
-    }
+  /**
+   * If serves breakfast
+   * <p/>
+   * This field is only set for getOutlets() request
+   */
+  public boolean servesBreakfast() {
+    return convertBool(mBreakfast);
+  }
 
-    /**
-     * The outlet menu list
-     * <p/>
-     * This field is only set for getMenu() request
-     */
-    public List<Menu> getMenu() {
-        return mMenu;
-    }
+  /**
+   * If serves lunch
+   * <p/>
+   * This field is only set for getOutlets() request
+   */
+  public boolean servesLunch() {
+    return convertBool(mLunch);
+  }
 
-    /**
-     * If serves breakfast
-     * <p/>
-     * This field is only set for getOutlets() request
-     */
-    public boolean servesBreakfast() {
-        return convertBool(mBreakfast);
-    }
+  /**
+   * If serves dinner
+   * <p/>
+   * This field is only set for getOutlets() request
+   */
+  public boolean servesDinner() {
+    return convertBool(mDinner);
+  }
 
-    /**
-     * If serves lunch
-     * <p/>
-     * This field is only set for getOutlets() request
-     */
-    public boolean servesLunch() {
-        return convertBool(mLunch);
-    }
-
-    /**
-     * If serves dinner
-     * <p/>
-     * This field is only set for getOutlets() request
-     */
-    public boolean servesDinner() {
-        return convertBool(mDinner);
-    }
-
-    private static boolean convertBool(final int i) {
-        return i != 0;
-    }
+  private static boolean convertBool(final int i) {
+    return i != 0;
+  }
 }

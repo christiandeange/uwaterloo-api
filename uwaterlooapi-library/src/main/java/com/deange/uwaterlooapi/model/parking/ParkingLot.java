@@ -10,119 +10,119 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class ParkingLot
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("lot_name")
-    String mLotName;
+  @SerializedName("lot_name")
+  String mLotName;
 
-    @SerializedName("latitude")
-    float mLatitude;
+  @SerializedName("latitude")
+  float mLatitude;
 
-    @SerializedName("longitude")
-    float mLongitude;
+  @SerializedName("longitude")
+  float mLongitude;
 
-    @SerializedName("capacity")
-    int mCapacity;
+  @SerializedName("capacity")
+  int mCapacity;
 
-    @SerializedName("current_count")
-    int mCurrentCount;
+  @SerializedName("current_count")
+  int mCurrentCount;
 
-    @SerializedName("percent_filled")
-    int mPercentFilled;
+  @SerializedName("percent_filled")
+  int mPercentFilled;
 
-    @SerializedName("last_updated")
-    String mLastUpdated;
+  @SerializedName("last_updated")
+  String mLastUpdated;
 
-    protected ParkingLot(final Parcel in) {
-        super(in);
-        mLotName = in.readString();
-        mLatitude = in.readFloat();
-        mLongitude = in.readFloat();
-        mCapacity = in.readInt();
-        mCurrentCount = in.readInt();
-        mPercentFilled = in.readInt();
-        mLastUpdated = in.readString();
+  protected ParkingLot(final Parcel in) {
+    super(in);
+    mLotName = in.readString();
+    mLatitude = in.readFloat();
+    mLongitude = in.readFloat();
+    mCapacity = in.readInt();
+    mCurrentCount = in.readInt();
+    mPercentFilled = in.readInt();
+    mLastUpdated = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeString(mLotName);
+    dest.writeFloat(mLatitude);
+    dest.writeFloat(mLongitude);
+    dest.writeInt(mCapacity);
+    dest.writeInt(mCurrentCount);
+    dest.writeInt(mPercentFilled);
+    dest.writeString(mLastUpdated);
+  }
+
+  public static final Creator<ParkingLot> CREATOR = new Creator<ParkingLot>() {
+    @Override
+    public ParkingLot createFromParcel(final Parcel in) {
+      return new ParkingLot(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(mLotName);
-        dest.writeFloat(mLatitude);
-        dest.writeFloat(mLongitude);
-        dest.writeInt(mCapacity);
-        dest.writeInt(mCurrentCount);
-        dest.writeInt(mPercentFilled);
-        dest.writeString(mLastUpdated);
+    public ParkingLot[] newArray(final int size) {
+      return new ParkingLot[size];
     }
+  };
 
-    public static final Creator<ParkingLot> CREATOR = new Creator<ParkingLot>() {
-        @Override
-        public ParkingLot createFromParcel(final Parcel in) {
-            return new ParkingLot(in);
-        }
+  /**
+   * Name of the parking lot
+   */
+  public String getLotName() {
+    return mLotName;
+  }
 
-        @Override
-        public ParkingLot[] newArray(final int size) {
-            return new ParkingLot[size];
-        }
-    };
+  /**
+   * Location [latitude, longitude] coordinates
+   */
+  public float[] getLocation() {
+    return new float[]{mLatitude, mLongitude};
+  }
 
-    /**
-     * Name of the parking lot
-     */
-    public String getLotName() {
-        return mLotName;
-    }
+  /**
+   * Capacity of the parking lot
+   */
+  public int getCapacity() {
+    return mCapacity;
+  }
 
-    /**
-     * Location [latitude, longitude] coordinates
-     */
-    public float[] getLocation() {
-        return new float[]{mLatitude, mLongitude};
-    }
+  /**
+   * Current count of the number of cars in the parking lot
+   */
+  public int getCurrentCount() {
+    return mCurrentCount;
+  }
 
-    /**
-     * Capacity of the parking lot
-     */
-    public int getCapacity() {
-        return mCapacity;
-    }
+  /**
+   * Percentage of which the parking lot is filled, rounded to the nearest integer
+   */
+  public int getPercentFilledRounded() {
+    return mPercentFilled;
+  }
 
-    /**
-     * Current count of the number of cars in the parking lot
-     */
-    public int getCurrentCount() {
-        return mCurrentCount;
-    }
+  /**
+   * Percentage of which the parking lot is filled
+   */
+  public float getPercentFilled() {
+    return (float) mCurrentCount / (float) mCapacity;
+  }
 
-    /**
-     * Percentage of which the parking lot is filled, rounded to the nearest integer
-     */
-    public int getPercentFilledRounded() {
-        return mPercentFilled;
-    }
+  /**
+   * Time which the `current_count` was last updated
+   */
+  public Date getLastUpdated() {
+    return DateUtils.parseDate(mLastUpdated);
+  }
 
-    /**
-     * Percentage of which the parking lot is filled
-     */
-    public float getPercentFilled() {
-        return (float) mCurrentCount / (float) mCapacity;
-    }
-
-    /**
-     * Time which the `current_count` was last updated
-     */
-    public Date getLastUpdated() {
-        return DateUtils.parseDate(mLastUpdated);
-    }
-
-    /**
-     * Time which the `current_count` was last updated as a string
-     */
-    public String getLastUpdatedRaw() {
-        return mLastUpdated;
-    }
+  /**
+   * Time which the `current_count` was last updated as a string
+   */
+  public String getLastUpdatedRaw() {
+    return mLastUpdated;
+  }
 }

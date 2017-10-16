@@ -32,17 +32,17 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-            <include layout="@layout/view_datetimepicker_date_selected_date"/>
+            <include layout="@layout/view_datetimepicker_date_selected_date" />
         </LinearLayout>
 
-        <include layout="@layout/view_datetimepicker_date_done_button"/>
+        <include layout="@layout/view_datetimepicker_date_done_button" />
     </LinearLayout>
 
     <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/datetimepicker_line_background"/>
+            android:background="@color/datetimepicker_line_background" />
 
-    <include layout="@layout/view_datetimepicker_date_view_animator"/>
+    <include layout="@layout/view_datetimepicker_date_view_animator" />
 
 </LinearLayout>

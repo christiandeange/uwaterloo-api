@@ -18,56 +18,59 @@ import static com.deange.uwaterlooapi.ApiBuilder.BASE_URL;
 
 public final class UWaterlooApi {
 
-    private final String mApiKey;
-    private WatcardCredentials mWatcardCredentials;
+  private final String mApiKey;
+  private WatcardCredentials mWatcardCredentials;
 
-    public UWaterlooApi(final String apiKey) {
-        mApiKey = apiKey;
+  public UWaterlooApi(final String apiKey) {
+    mApiKey = apiKey;
+  }
+
+  /* package */ String getApiKey() {
+    return mApiKey;
+  }
+
+  public void checkAccess() {
+    if (mApiKey == null) {
+      throw new IllegalStateException("API key is null!");
     }
+  }
 
-    /* package */ String getApiKey() {
-        return mApiKey;
-    }
+  public WatcardCredentials getWatcardCredentials() {
+    return mWatcardCredentials;
+  }
 
-    public void checkAccess() {
-        if (mApiKey == null) {
-            throw new IllegalStateException("API key is null!");
-        }
-    }
+  public void setWatcardCredentials(final WatcardCredentials watcardCredentials) {
+    mWatcardCredentials = watcardCredentials;
+  }
 
-    public WatcardCredentials getWatcardCredentials() {
-        return mWatcardCredentials;
-    }
+  /**
+   * APIs DEFINED BELOW
+   */
 
-    public void setWatcardCredentials(final WatcardCredentials watcardCredentials) {
-        mWatcardCredentials = watcardCredentials;
-    }
+  public final FoodServicesApi FoodServices = ApiBuilder.buildJson(
+      this, BASE_URL, FoodServicesApi.class);
 
-    /**
-     * APIs DEFINED BELOW
-     */
+  public final CoursesApi Courses = ApiBuilder.buildJson(this, BASE_URL, CoursesApi.class);
 
-    public final FoodServicesApi FoodServices = ApiBuilder.buildJson(this, BASE_URL, FoodServicesApi.class);
+  public final EventsApi Events = ApiBuilder.buildJson(this, BASE_URL, EventsApi.class);
 
-    public final CoursesApi Courses = ApiBuilder.buildJson(this, BASE_URL, CoursesApi.class);
+  public final NewsApi News = ApiBuilder.buildJson(this, BASE_URL, NewsApi.class);
 
-    public final EventsApi Events = ApiBuilder.buildJson(this, BASE_URL, EventsApi.class);
+  public final WeatherApi Weather = ApiBuilder.buildJson(this, BASE_URL, WeatherApi.class);
 
-    public final NewsApi News = ApiBuilder.buildJson(this, BASE_URL, NewsApi.class);
+  public final TermsApi Terms = ApiBuilder.buildJson(this, BASE_URL, TermsApi.class);
 
-    public final WeatherApi Weather = ApiBuilder.buildJson(this, BASE_URL, WeatherApi.class);
+  public final ResourcesApi Resources = ApiBuilder.buildJson(this, BASE_URL, ResourcesApi.class);
 
-    public final TermsApi Terms = ApiBuilder.buildJson(this, BASE_URL, TermsApi.class);
+  public final BuildingsApi Buildings = ApiBuilder.buildJson(this, BASE_URL, BuildingsApi.class);
 
-    public final ResourcesApi Resources = ApiBuilder.buildJson(this, BASE_URL, ResourcesApi.class);
+  public final ParkingApi Parking = ApiBuilder.buildJson(this, BASE_URL, ParkingApi.class);
 
-    public final BuildingsApi Buildings = ApiBuilder.buildJson(this, BASE_URL, BuildingsApi.class);
+  public final PointsOfInterestApi PointsOfInterest = ApiBuilder.buildJson(
+      this, BASE_URL, PointsOfInterestApi.class);
 
-    public final ParkingApi Parking = ApiBuilder.buildJson(this, BASE_URL, ParkingApi.class);
+  public final LegacyWeatherApi LegacyWeather = ApiBuilder.buildXml(
+      this, LegacyWeatherApi.URL, LegacyWeatherApi.class);
 
-    public final PointsOfInterestApi PointsOfInterest = ApiBuilder.buildJson(this, BASE_URL, PointsOfInterestApi.class);
-
-    public final LegacyWeatherApi LegacyWeather = ApiBuilder.buildXml(this, LegacyWeatherApi.URL, LegacyWeatherApi.class);
-
-    public final WatcardApi Watcard = ApiBuilder.buildCustom(this, WatcardApi.URL, WatcardApi.class);
+  public final WatcardApi Watcard = ApiBuilder.buildCustom(this, WatcardApi.URL, WatcardApi.class);
 }

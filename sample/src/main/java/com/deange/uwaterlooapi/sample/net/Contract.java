@@ -9,27 +9,27 @@ import java.util.List;
 
 public interface Contract {
 
-    class Size {
-        @SerializedName("sizes")
-        SizeInfo mSize;
+  class Size {
+    @SerializedName("sizes")
+    SizeInfo mSize;
 
-        public List<PhotoSize> getSizes() {
-            return (mSize == null) ? new ArrayList<>() : mSize.mSizes;
-        }
+    public List<PhotoSize> getSizes() {
+      return (mSize == null) ? new ArrayList<>() : mSize.mSizes;
     }
+  }
 
-    class SizeInfo {
-        @SerializedName("size")
-        List<PhotoSize> mSizes;
+  class SizeInfo {
+    @SerializedName("size")
+    List<PhotoSize> mSizes;
+  }
+
+  class Photo {
+    @SerializedName("photo")
+    PhotoDetails mPhoto;
+
+    public PhotoDetails getDetails() {
+      return mPhoto;
     }
-
-    class Photo {
-        @SerializedName("photo")
-        PhotoDetails mPhoto;
-
-        public PhotoDetails getDetails() {
-            return mPhoto;
-        }
-    }
+  }
 
 }

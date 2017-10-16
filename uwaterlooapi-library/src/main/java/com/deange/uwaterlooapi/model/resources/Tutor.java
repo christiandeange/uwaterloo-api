@@ -7,88 +7,88 @@ import com.deange.uwaterlooapi.model.BaseModel;
 import com.google.gson.annotations.SerializedName;
 
 public class Tutor
-        extends BaseModel
-        implements
-        Parcelable {
+    extends BaseModel
+    implements
+    Parcelable {
 
-    @SerializedName("subject")
-    String mSubject;
+  @SerializedName("subject")
+  String mSubject;
 
-    @SerializedName("catalog_number")
-    String mCatalogNumber;
+  @SerializedName("catalog_number")
+  String mCatalogNumber;
 
-    @SerializedName("title")
-    String mTitle;
+  @SerializedName("title")
+  String mTitle;
 
-    @SerializedName("tutors_count")
-    int mTutorsCount;
+  @SerializedName("tutors_count")
+  int mTutorsCount;
 
-    @SerializedName("contact_url")
-    String mContactUrl;
+  @SerializedName("contact_url")
+  String mContactUrl;
 
-    protected Tutor(final Parcel in) {
-        super(in);
-        mSubject = in.readString();
-        mCatalogNumber = in.readString();
-        mTitle = in.readString();
-        mTutorsCount = in.readInt();
-        mContactUrl = in.readString();
+  protected Tutor(final Parcel in) {
+    super(in);
+    mSubject = in.readString();
+    mCatalogNumber = in.readString();
+    mTitle = in.readString();
+    mTutorsCount = in.readInt();
+    mContactUrl = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeString(mSubject);
+    dest.writeString(mCatalogNumber);
+    dest.writeString(mTitle);
+    dest.writeInt(mTutorsCount);
+    dest.writeString(mContactUrl);
+  }
+
+  public static final Creator<Tutor> CREATOR = new Creator<Tutor>() {
+    @Override
+    public Tutor createFromParcel(final Parcel in) {
+      return new Tutor(in);
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(mSubject);
-        dest.writeString(mCatalogNumber);
-        dest.writeString(mTitle);
-        dest.writeInt(mTutorsCount);
-        dest.writeString(mContactUrl);
+    public Tutor[] newArray(final int size) {
+      return new Tutor[size];
     }
+  };
 
-    public static final Creator<Tutor> CREATOR = new Creator<Tutor>() {
-        @Override
-        public Tutor createFromParcel(final Parcel in) {
-            return new Tutor(in);
-        }
+  /**
+   * Subject acronym
+   */
+  public String getSubject() {
+    return mSubject;
+  }
 
-        @Override
-        public Tutor[] newArray(final int size) {
-            return new Tutor[size];
-        }
-    };
+  /**
+   * Course catalog number
+   */
+  public String getCatalogNumber() {
+    return mCatalogNumber;
+  }
 
-    /**
-     * Subject acronym
-     */
-    public String getSubject() {
-        return mSubject;
-    }
+  /**
+   * Course title
+   */
+  public String getTitle() {
+    return mTitle;
+  }
 
-    /**
-     * Course catalog number
-     */
-    public String getCatalogNumber() {
-        return mCatalogNumber;
-    }
+  /**
+   * Total number of tutors available for that course
+   */
+  public int getTutorsCount() {
+    return mTutorsCount;
+  }
 
-    /**
-     * Course title
-     */
-    public String getTitle() {
-        return mTitle;
-    }
-
-    /**
-     * Total number of tutors available for that course
-     */
-    public int getTutorsCount() {
-        return mTutorsCount;
-    }
-
-    /**
-     * Link to get tutor contact details
-     */
-    public String getContactUrl() {
-        return mContactUrl;
-    }
+  /**
+   * Link to get tutor contact details
+   */
+  public String getContactUrl() {
+    return mContactUrl;
+  }
 }
