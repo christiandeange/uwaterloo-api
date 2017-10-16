@@ -38,6 +38,7 @@ dependencies {
     api "com.android.support:support-annotations:${supportLibrary}"
 
     api 'com.google.code.gson:gson:2.8.1'
+    api 'org.jsoup:jsoup:1.10.2'
 
     api "com.squareup.retrofit2:retrofit:$retrofit"
     api "com.squareup.retrofit2:converter-gson:$retrofit"
@@ -52,6 +53,4 @@ dependencies {
     annotationProcessor "com.google.auto.value:auto-value:${autoValue}"
     annotationProcessor "com.ryanharter.auto.value:auto-value-gson:${autoValueGson}"
     annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:${autoValueParcel}"
-
-    compile 'org.jsoup:jsoup:1.10.2'
 }
