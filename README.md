@@ -46,6 +46,7 @@ Each API is accessible via one of the members of a `UWaterlooApi`.
  - [Buildings][]
  - [Parking][]
  - [PointsOfInterest][]
+ - [Watcard][WatcardApi]
  - [LegacyWeather][]
 
 Each API method will return a Retrofit `Call` object. Calls may be executed synchronously with `call.execute()`, or asynchronously with `call.enqueue()`. For more information on how to interact with Calls, refer to the Retrofit reference [here](https://square.github.io/retrofit/2.x/retrofit/retrofit2/Call.html).
@@ -180,6 +181,12 @@ for (GooseNest nest : nests) {
 | `getLibraries()` | List\<[Library][]\> | [/poi/libraries](https://github.com/uWaterloo/api-documentation/blob/master/v2/poi/libraries.md) |
 | `getDefibrillators()` | List\<[Defibrillator][]\> | [/poi/defibrillators](https://github.com/uWaterloo/api-documentation/blob/master/v2/poi/defibrillators.md) |
 
+#### Watcard
+| Method | Return Type | Endpoint |
+|--------|-------------|----------|
+| `balances()` | [Watcard][] | (external) |
+| `transactions()` | [Transactions][] | (external) |
+
 ## Contributing
 
 Feel free to submit any pull requests or issues to this repository as you please. However, please keep it limited to things that directly address something directly provided by either the uwaterloo-api library or the sample app. If there is an issue with the actual data being returned by the API, please refer to the lovely maintainers over at the [Open Data API documentation](https://github.com/uWaterloo/api-documentation).
@@ -219,6 +226,7 @@ THE SOFTWARE.
 [Buildings]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/BuildingsApi.java
 [Parking]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/ParkingApi.java
 [PointsOfInterest]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/PointsOfInterestApi.java
+[WatcardApi]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/WatcardApi.java
 [LegacyWeather]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/LegacyWeatherApi.java
 
 [MenuInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/MenuInfo.java
@@ -256,3 +264,5 @@ THE SOFTWARE.
 [Helpline]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/Helpline.java
 [Library]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/Library.java
 [Defibrillator]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/Defibrillator.java
+[Watcard]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/watcard/Watcard.java
+[Transactions]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/watcard/Transactions.java
