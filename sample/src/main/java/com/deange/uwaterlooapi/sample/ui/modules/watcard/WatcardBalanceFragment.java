@@ -74,6 +74,14 @@ public class WatcardBalanceFragment
         final EditText studentNumberText = (EditText) view.findViewById(R.id.dialog_watcard_student_number);
         final EditText pinText = (EditText) view.findViewById(R.id.dialog_watcard_pin);
 
+        final WatcardCredentials credentials = getApi().getWatcardCredentials();
+        if (credentials != null) {
+            studentNumberText.setText(credentials.studentNumber());
+            pinText.setText(credentials.pin());
+            pinText.requestFocus();
+            pinText.setSelection(pinText.getText().length());
+        }
+
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.ic_watcard)
                 .setTitle(R.string.watcard_editor_title)
