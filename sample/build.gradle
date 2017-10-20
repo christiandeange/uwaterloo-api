@@ -124,6 +124,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterknife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
 
+    implementation 'com.squareup.flow:flow:1.0.0-alpha3'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'net.danlew:android.joda:2.9.3'
     implementation 'com.github.tajchert:nammu:1.1.1'
@@ -132,4 +133,11 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
+
+    provided "com.google.auto.value:auto-value:$autoValue"
+    provided "com.ryanharter.auto.value:auto-value-gson:$autoValueGson"
+    provided "com.ryanharter.auto.value:auto-value-parcel:$autoValueParcel"
+    annotationProcessor "com.google.auto.value:auto-value:$autoValue"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-gson:$autoValueGson"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:$autoValueParcel"
 }

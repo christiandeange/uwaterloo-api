@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.sample.BuildConfig;
@@ -148,6 +149,11 @@ public class ModuleHostActivity
     } else {
       super.onBackPressed();
     }
+  }
+
+  @Override
+  protected ViewGroup getContentRoot() {
+    return (ViewGroup) findViewById(R.id.content);
   }
 
   public UWaterlooApi getApi() {

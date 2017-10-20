@@ -41,7 +41,7 @@
 
     <attr name="cardViewStyle" format="reference" />
 
-
+    <item name="screen" type="id" />
     <item name="toolbar" type="id" />
     <item name="view_location_hours_day" type="id" />
     <item name="view_location_hours_hours" type="id" />

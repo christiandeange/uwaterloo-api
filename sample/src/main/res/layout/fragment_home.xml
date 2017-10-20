@@ -28,8 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
                 android:layout_margin="16dp"
-                android:ellipsize="none"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="?android:textColorPrimary" />
 
     </FrameLayout>
@@ -50,12 +49,12 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-            <fragment
-                    android:id="@+id/home_nearby_locations_fragment"
-                    class="com.deange.uwaterlooapi.sample.ui.modules.home.NearbyLocationsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:layout="@layout/fragment_nearby_locations" />
+            <!--<fragment-->
+                    <!--android:id="@+id/home_nearby_locations_fragment"-->
+                    <!--class="com.deange.uwaterlooapi.sample.ui.modules.home.NearbyLocationsFragment"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--tools:layout="@layout/fragment_nearby_locations" />-->
 
             <com.deange.uwaterlooapi.sample.ui.view.CardView
                     android:layout_width="match_parent"

@@ -4,21 +4,25 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.controller.GsonController;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
+import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsKey;
+import com.deange.uwaterlooapi.sample.ui.modules.baseflow.ModuleKey;
 import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 
@@ -30,6 +34,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static flow.Direction.REPLACE;
+
 
 public class MainActivity
     extends BaseActivity
@@ -37,7 +43,6 @@ public class MainActivity
     NavigationView.OnNavigationItemSelectedListener,
     View.OnClickListener {
 
-  private static final String FRAGMENT_TAG = ApiMethodsFragment.class.getSimpleName();
   private static final String NAV_ITEM_ID = "nav_item_id";
 
   @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -84,12 +89,19 @@ public class MainActivity
     final InputStreamReader reader = new InputStreamReader(inputStream);
     mMenuStructure = GsonController.getInstance().fromJson(reader, ModuleCategories.class);
 
-    onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
-
     mNavigationView.getViewTreeObserver().addOnPreDrawListener(() -> {
       FontUtils.apply(mNavigationView, FontUtils.DEFAULT);
       return true;
     });
+  }
+
+  @Override
+  public void onPostCreate(
+      @Nullable final Bundle savedInstanceState,
+      @Nullable final PersistableBundle persistentState) {
+    super.onPostCreate(savedInstanceState, persistentState);
+
+    onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
   }
 
   @Override
@@ -116,6 +128,16 @@ public class MainActivity
   }
 
   @Override
+  protected Object getDefaultKey() {
+    return HomeFragment.Key.create();
+  }
+
+  @Override
+  protected ViewGroup getContentRoot() {
+    return (ViewGroup) findViewById(R.id.container);
+  }
+
+  @Override
   protected void onSaveInstanceState(final Bundle outState) {
     super.onSaveInstanceState(outState);
     outState.putInt(NAV_ITEM_ID, mNavItemId);
@@ -123,41 +145,35 @@ public class MainActivity
 
   @Override
   public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
-    // update the main content by replacing fragments
+    // update the main content by replacing keys
+    mNavItemId = item.getItemId();
+    setTitle(item.getTitle());
+    FontUtils.apply(mToolbar, FontUtils.DEFAULT);
 
-    final int itemId = item.getItemId();
-    final Fragment fragment;
-
-    if (itemId == R.id.menu_item_about) {
+    if (mNavItemId == R.id.menu_item_about) {
       startActivity(new Intent(this, AboutActivity.class));
       overridePendingTransition(R.anim.bottom_in, R.anim.stay);
       return false;
     }
 
-    if (itemId == R.id.menu_item_home) {
-      fragment = new HomeFragment();
+    final ModuleKey key;
+    if (mNavItemId == R.id.menu_item_home) {
+      key = HomeFragment.Key.create();
 
     } else {
-      final String[] endpoints = mMenuStructure.getApiMethods(item.getItemId(), getResources());
+      final List<String> endpoints = mMenuStructure.getApiMethods(item.getItemId(), getResources());
 
-      if (endpoints.length == 1) {
-        ApiMethodsFragment.openModule(this, endpoints[0]);
+      if (endpoints.size() == 1) {
+        ApiMethodsFragment.openModule(this, endpoints.get(0));
         return false;
       }
 
-      fragment = ApiMethodsFragment.newInstance(endpoints);
+      key = ApiMethodsKey.create(endpoints);
     }
 
-    getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.container, fragment, FRAGMENT_TAG)
-        .commitAllowingStateLoss();
+    flow().replaceTop(key, REPLACE);
 
     mDrawerLayout.closeDrawer(GravityCompat.START);
-
-    mNavItemId = itemId;
-    setTitle(item.getTitle());
-    FontUtils.apply(mToolbar, FontUtils.DEFAULT);
 
     return true;
   }
@@ -173,14 +189,12 @@ public class MainActivity
 
   static final class ModuleCategories extends HashMap<String, List<String>> {
 
-    public String[] getApiMethods(
+    public List<String> getApiMethods(
         final @IdRes int menuItemId,
         final Resources res) {
       final String idName = res.getResourceEntryName(menuItemId);
       final String category = idName.substring("menu_item_".length());
-      final List<String> endpoints = containsKey(category) ? get(category) : new ArrayList<>();
-
-      return endpoints.toArray(new String[endpoints.size()]);
+      return containsKey(category) ? get(category) : new ArrayList<>();
     }
 
   }

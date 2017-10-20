@@ -2,6 +2,7 @@ package com.deange.uwaterlooapi.sample.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -17,6 +18,16 @@ public final class ViewUtils {
 
   private ViewUtils() {
     throw new AssertionError();
+  }
+
+  public static Activity unwrap(Context context) {
+    while (context instanceof ContextWrapper) {
+      if (context instanceof Activity) {
+        return (Activity) context;
+      }
+      context = ((ContextWrapper) context).getBaseContext();
+    }
+    return null;
   }
 
   public static void showKeyboard(final Activity activity) {

@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 
+import java.util.List;
+
 public class ApiMethodsAdapter extends ArrayAdapter<String>
     implements View.OnClickListener {
 
@@ -19,15 +22,16 @@ public class ApiMethodsAdapter extends ArrayAdapter<String>
 
   public ApiMethodsAdapter(
       final Context context,
-      final String[] objects,
+      final List<String> objects,
       final ModuleListItemListener listener) {
     super(context, 0, objects);
     mInflater = LayoutInflater.from(context);
     mListener = listener;
   }
 
+  @NonNull
   @Override
-  public View getView(final int position, final View convertView, final ViewGroup parent) {
+  public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
     final String endpoint = getItem(position);
     final ModuleInfo info = ModuleMap.getFragmentInfo(endpoint);
 
