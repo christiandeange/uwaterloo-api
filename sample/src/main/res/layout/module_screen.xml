@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ViewStub
+            android:id="@+id/container_stub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    <RelativeLayout
+            android:id="@+id/no_network_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?colorPrimary"
+            android:visibility="invisible">
+
+        <TextView
+                style="@style/TextAppearance.UWaterloo.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawablePadding="16dp"
+                android:drawableTop="@drawable/ic_wifi_off"
+                android:gravity="center"
+                android:padding="32dp"
+                android:text="@string/error_no_network_detailed" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?colorPrimary"
+            android:visibility="invisible">
+
+        <com.deange.uwaterlooapi.sample.ui.view.UwProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

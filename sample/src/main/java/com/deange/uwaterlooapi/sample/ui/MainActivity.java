@@ -22,7 +22,7 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.controller.GsonController;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsKey;
-import com.deange.uwaterlooapi.sample.ui.modules.baseflow.ModuleKey;
+import com.deange.uwaterlooapi.sample.ui.modules.baseflow.Key;
 import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 
@@ -156,7 +156,7 @@ public class MainActivity
       return false;
     }
 
-    final ModuleKey key;
+    final Key key;
     if (mNavItemId == R.id.menu_item_home) {
       key = HomeFragment.Key.create();
 

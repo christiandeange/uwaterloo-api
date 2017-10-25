@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +21,7 @@ import com.deange.uwaterlooapi.sample.Authorities;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.baseflow.KeyPersister;
 import com.deange.uwaterlooapi.sample.ui.modules.baseflow.ModuleChanger;
+import com.deange.uwaterlooapi.sample.ui.modules.baseflow.Screen;
 
 import butterknife.ButterKnife;
 import flow.Dispatcher;
@@ -76,8 +79,8 @@ public abstract class BaseActivity
     mHasFlow = defaultKey != null;
     if (mHasFlow) {
       // This field is required for flow to be properly set up
-      final Dispatcher dispatcher =
-          KeyDispatcher.configure(this, new ModuleChanger(this::getContentRoot)).build();
+      final ModuleChanger changer = new ModuleChanger(this::getContentRoot);
+      final Dispatcher dispatcher = KeyDispatcher.configure(this, changer).build();
 
       newBase = Flow.configure(newBase, this)
                     .dispatcher(dispatcher)
@@ -87,6 +90,24 @@ public abstract class BaseActivity
     }
 
     super.attachBaseContext(newBase);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(final Menu menu) {
+    if (mHasFlow) {
+      final Screen screen = flow().getHistory().top();
+      return screen.onCreateOptionsMenu(menu, getMenuInflater());
+    }
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(final MenuItem item) {
+    if (mHasFlow) {
+      final Screen screen = flow().getHistory().top();
+      return screen.onOptionsItemSelected(item);
+    }
+    return super.onOptionsItemSelected(item);
   }
 
   protected ViewGroup getContentRoot() {
@@ -106,7 +127,7 @@ public abstract class BaseActivity
     }
   }
 
-  protected final Flow flow() {
+  public final Flow flow() {
     return Flow.get(this);
   }
 

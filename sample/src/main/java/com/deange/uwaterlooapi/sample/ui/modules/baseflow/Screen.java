@@ -3,7 +3,11 @@ package com.deange.uwaterlooapi.sample.ui.modules.baseflow;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.deange.uwaterlooapi.sample.Analytics;
@@ -13,7 +17,7 @@ import butterknife.Unbinder;
 
 import static com.deange.uwaterlooapi.sample.utils.ViewUtils.unwrap;
 
-public abstract class Screen<T extends ModuleKey> {
+public abstract class Screen<T extends Key> {
 
   private Activity mActivity;
   private View mView;
@@ -72,8 +76,25 @@ public abstract class Screen<T extends ModuleKey> {
 
   protected abstract void onViewAttached(final View view);
 
+  public void onRestore(final Bundle bundle) {
+    // Override this method to get access to the previously-saved state
+  }
+
+  public boolean onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    // Override this method to provide menu items
+    return false;
+  }
+
+  public boolean onOptionsItemSelected(final MenuItem item) {
+    // Override this method to respond to menu item interactions
+    return false;
+  }
+
+  public void onSave(final Bundle state) {
+    // Override this method to save things from your screen
+  }
+
   protected void onViewDetached() {
     // Clean up any remaining resources
   }
-
 }

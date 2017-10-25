@@ -20,7 +20,6 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
-import com.deange.uwaterlooapi.sample.ui.modules.baseflow.ModuleKey;
 import com.deange.uwaterlooapi.sample.ui.modules.baseflow.Screen;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CourseFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CoursesFragment;
@@ -159,7 +158,7 @@ public class HomeFragment
   }
 
   @AutoValue
-  public static abstract class Key extends ModuleKey {
+  public static abstract class Key extends com.deange.uwaterlooapi.sample.ui.modules.baseflow.Key {
     public static Key create() {
       return new AutoValue_HomeFragment_Key();
     }

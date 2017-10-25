@@ -4,7 +4,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.ui.modules.baseflow.ModuleKey;
+import com.deange.uwaterlooapi.sample.ui.modules.baseflow.Key;
 import com.deange.uwaterlooapi.sample.ui.modules.baseflow.Screen;
 import com.deange.uwaterlooapi.sample.ui.modules.baseflow.ScreenProvider;
 import com.google.auto.value.AutoValue;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @AutoValue
 public abstract class ApiMethodsKey
-    extends ModuleKey
+    extends Key
     implements
     Parcelable,
     ScreenProvider {
