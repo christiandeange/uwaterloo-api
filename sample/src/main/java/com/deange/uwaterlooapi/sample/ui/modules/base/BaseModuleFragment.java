@@ -32,14 +32,18 @@ import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleListResponse;
 import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.controller.NetworkController;
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
-import com.deange.uwaterlooapi.sample.utils.NetworkController;
 import com.deange.uwaterlooapi.sample.utils.Px;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
 
 public abstract class BaseModuleFragment<T extends Parcelable, V extends AbstractModel>
     extends Fragment
@@ -54,6 +58,8 @@ public abstract class BaseModuleFragment<T extends Parcelable, V extends Abstrac
   private static final String KEY_MODEL = "model";
   private static final String KEY_RESPONSE = "response";
   private static final String KEY_LAST_UPDATED = "last_updated";
+
+  private final Injections mInjections = new Injections();
 
   private long mLastUpdate = 0;
   private ViewGroup mLoadingLayout;
@@ -91,6 +97,7 @@ public abstract class BaseModuleFragment<T extends Parcelable, V extends Abstrac
   @Override
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    component(this).inject(mInjections);
 
     final String contentType = getContentType();
     if (contentType != null) {
@@ -355,7 +362,7 @@ public abstract class BaseModuleFragment<T extends Parcelable, V extends Abstrac
   }
 
   private void resolveNetworkLayoutVisibility() {
-    final boolean connected = NetworkController.getInstance().isConnected();
+    final boolean connected = mInjections.mNetworkController.isConnected();
 
     final Animator animator = getVisibilityAnimator(mNetworkLayout, !connected);
     if (!connected && mNetworkLayout.getVisibility() == View.INVISIBLE) {
@@ -429,13 +436,17 @@ public abstract class BaseModuleFragment<T extends Parcelable, V extends Abstrac
     mHandler.postDelayed(runnable, delay);
   }
 
+  protected final Px px() {
+    return mInjections.mPx;
+  }
+
   public String getToolbarTitle() {
     return null;
   }
 
   public float getToolbarElevationPx() {
     // Overriden by subclasses
-    return Px.fromDpF(8);
+    return px().fromDpF(8);
   }
 
   public Call<T> onLoadData(final UWaterlooApi api) {
@@ -465,7 +476,7 @@ public abstract class BaseModuleFragment<T extends Parcelable, V extends Abstrac
       // Performed on a background thread, so network calls are performed here
 
       try {
-        if (NetworkController.getInstance().isConnected()) {
+        if (mInjections.mNetworkController.isConnected()) {
           final Call<T> call = onLoadData(apis[0]);
           if (call != null) {
             return Calls.unwrap(call);
@@ -493,5 +504,10 @@ public abstract class BaseModuleFragment<T extends Parcelable, V extends Abstrac
       deliverResponse(data);
     }
 
+  }
+
+  public static final class Injections {
+    @Inject Px mPx;
+    @Inject NetworkController mNetworkController;
   }
 }

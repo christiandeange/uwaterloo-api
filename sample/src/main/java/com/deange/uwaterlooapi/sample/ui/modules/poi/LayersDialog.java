@@ -16,6 +16,8 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
+
 public class LayersDialog {
 
   public static final int FLAG_ATM = 0x01;
@@ -37,6 +39,7 @@ public class LayersDialog {
       final Context context,
       final int flags,
       final OnLayersSelectedListener listener) {
+    final Px px = component(context).px();
     final View view = LayoutInflater.from(context).inflate(R.layout.dialog_poi_layers, null);
     final LayersViews holder = new LayersViews();
 
@@ -56,7 +59,7 @@ public class LayersDialog {
         .create();
 
     dialog.getWindow().getDecorView(); // Force decor view to be installed
-    dialog.getWindow().setLayout((int) (Px.width() * 0.75f), ViewGroup.LayoutParams.WRAP_CONTENT);
+    dialog.getWindow().setLayout((int) (px.screenW() * 0.75f), ViewGroup.LayoutParams.WRAP_CONTENT);
 
     dialog.show();
   }

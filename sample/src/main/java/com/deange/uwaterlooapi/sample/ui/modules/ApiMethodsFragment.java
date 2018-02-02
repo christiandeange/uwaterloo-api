@@ -3,6 +3,7 @@ package com.deange.uwaterlooapi.sample.ui.modules;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 
 import com.deange.uwaterlooapi.annotations.ModuleInfo;
@@ -10,11 +11,17 @@ import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.utils.Px;
 
+import javax.inject.Inject;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
+
 public class ApiMethodsFragment extends ListFragment
     implements
     ModuleListItemListener {
 
   private static final String ARG_METHODS = "methods";
+
+  @Inject Px mPx;
 
   public static ApiMethodsFragment newInstance(final String[] endpoints) {
     final ApiMethodsFragment fragment = new ApiMethodsFragment();
@@ -36,10 +43,16 @@ public class ApiMethodsFragment extends ListFragment
   }
 
   @Override
+  public void onCreate(@Nullable final Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    component(this).inject(this);
+  }
+
+  @Override
   public void onActivityCreated(final Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    final int padding = Px.fromDp(4);
+    final int padding = mPx.fromDp(4);
     getListView().setPadding(0, padding, 0, padding);
     getListView().setDivider(null);
     getListView().setDividerHeight(0);

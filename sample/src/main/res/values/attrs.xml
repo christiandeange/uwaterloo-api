@@ -41,9 +41,10 @@
 
     <attr name="cardViewStyle" format="reference" />
 
-
     <item name="toolbar" type="id" />
     <item name="view_location_hours_day" type="id" />
     <item name="view_location_hours_hours" type="id" />
+
+    <item name="screen_switcher_tag" type="id" />
 
 </resources>

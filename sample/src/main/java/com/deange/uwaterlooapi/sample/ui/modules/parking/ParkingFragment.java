@@ -21,7 +21,6 @@ import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.MapUtils;
-import com.deange.uwaterlooapi.sample.utils.Px;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -92,7 +91,7 @@ public class ParkingFragment
       }
     }
     final LatLngBounds bounds = builder.build();
-    final int padding = Px.fromDp(16);
+    final int padding = px().fromDp(16);
 
     map.setIndoorEnabled(false);
     map.setMapType(GoogleMap.MAP_TYPE_HYBRID);

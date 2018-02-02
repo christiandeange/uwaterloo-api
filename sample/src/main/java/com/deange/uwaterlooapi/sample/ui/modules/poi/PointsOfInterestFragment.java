@@ -32,7 +32,6 @@ import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.LocationUtils;
 import com.deange.uwaterlooapi.sample.utils.MapUtils;
-import com.deange.uwaterlooapi.sample.utils.Px;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -359,7 +358,7 @@ public class PointsOfInterestFragment
                                             .include(new LatLng(43.465495, -80.537446))
                                             .build();
 
-    final int padding = Px.fromDp(16);
+    final int padding = px().fromDp(16);
 
     map.setIndoorEnabled(false);
     map.setMapType(GoogleMap.MAP_TYPE_HYBRID);

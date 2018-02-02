@@ -17,6 +17,8 @@ import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
+
 public class ModuleListItemView
     extends FrameLayout {
 
@@ -61,6 +63,7 @@ public class ModuleListItemView
 
     inflate(getContext(), R.layout.simple_module_item, this);
     ButterKnife.bind(this);
+    final Px px = component(this).px();
 
     ViewUtils.setText(mTitleView, mTitle);
     ViewUtils.setText(mDescriptionView, mDescription);
@@ -69,7 +72,7 @@ public class ModuleListItemView
     if (ALTERNATE_ITEMS) {
       final ViewGroup imageViewParent = (ViewGroup) mIconView.getParent();
       final MarginLayoutParams lp = (MarginLayoutParams) mIconView.getLayoutParams();
-      final int margin = Px.fromDp(16);
+      final int margin = px.fromDp(16);
 
       post(() -> {
         final int position = ((ViewGroup) getParent()).indexOfChild(ModuleListItemView.this);

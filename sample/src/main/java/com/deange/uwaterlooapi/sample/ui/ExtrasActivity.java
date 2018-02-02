@@ -15,16 +15,22 @@ import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.Px;
 
+import javax.inject.Inject;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
+
 public class ExtrasActivity
     extends BaseActivity {
 
   private static final int STREAM = AudioManager.STREAM_MUSIC;
 
+  @Inject Px mPx;
+
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private final Runnable mRumbleRunnable = new Runnable() {
     @Override
     public void run() {
-      final float t = Px.fromDp(mImageView.isPressed() ? 20f : 5f);
+      final float t = mPx.fromDp(mImageView.isPressed() ? 20f : 5f);
       mImageView.setTranslationX((float) (Math.random() * t));
       mImageView.setTranslationY((float) (Math.random() * t));
 
@@ -44,6 +50,7 @@ public class ExtrasActivity
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    component(this).inject(this);
 
     Analytics.view("Extras View");
 

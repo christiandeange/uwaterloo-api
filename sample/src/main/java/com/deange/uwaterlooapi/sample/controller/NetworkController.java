@@ -1,4 +1,4 @@
-package com.deange.uwaterlooapi.sample.utils;
+package com.deange.uwaterlooapi.sample.controller;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,43 +8,25 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 public class NetworkController {
 
-  private static NetworkController sInstance;
-  private static final Handler sHandler = new Handler(Looper.getMainLooper());
-
-  private final Context mContext;
   private final ConnectivityManager mManager;
+  private final Handler mHandler = new Handler(Looper.getMainLooper());
   private final Set<WeakReference<OnNetworkChangedListener>> mListeners = new HashSet<>();
 
   private NetworkInfo mCurrentNetwork;
 
-  public static void init(final Context context) {
-    if (sInstance != null) {
-      throw new IllegalStateException("NetworkController already instantiated!");
-    }
-    sInstance = new NetworkController(context);
-  }
-
-  @NonNull
-  public static NetworkController getInstance() {
-    if (sInstance == null) {
-      throw new IllegalStateException("NetworkController not instantiated!");
-    }
-    return sInstance;
-  }
-
-  private NetworkController(final Context context) {
-    mContext = context.getApplicationContext();
-    mManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-    mContext.registerReceiver(new NetworkReceiver(),
+  @Inject NetworkController(final Context context) {
+    mManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    context.registerReceiver(new NetworkReceiver(),
                               new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
     // Don't call updateNetworkConnectivity() just yet
@@ -81,7 +63,7 @@ public class NetworkController {
   }
 
   private void broadcastConnectivityChanged(final boolean changed) {
-    sHandler.post(() -> {
+    mHandler.post(() -> {
       final Iterator<WeakReference<OnNetworkChangedListener>> iterator = mListeners.iterator();
       while (iterator.hasNext()) {
         final WeakReference<OnNetworkChangedListener> listenerRef = iterator.next();

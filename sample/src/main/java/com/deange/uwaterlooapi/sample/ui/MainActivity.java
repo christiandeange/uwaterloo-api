@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.controller.GsonController;
 import com.deange.uwaterlooapi.sample.ui.modules.ApiMethodsFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.home.HomeFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
@@ -29,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
 
 
 public class MainActivity
@@ -82,7 +83,7 @@ public class MainActivity
 
     final InputStream inputStream = getResources().openRawResource(R.raw.menu_structure);
     final InputStreamReader reader = new InputStreamReader(inputStream);
-    mMenuStructure = GsonController.getInstance().fromJson(reader, ModuleCategories.class);
+    mMenuStructure = component(this).gson().fromJson(reader, ModuleCategories.class);
 
     onNavigationItemSelected(mNavigationView.getMenu().findItem(mNavItemId));
 

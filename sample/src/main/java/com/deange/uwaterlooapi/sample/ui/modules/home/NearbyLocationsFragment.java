@@ -21,11 +21,11 @@ import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.controller.NetworkController;
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.foodservices.LocationsFragment;
 import com.deange.uwaterlooapi.sample.utils.MapUtils;
-import com.deange.uwaterlooapi.sample.utils.NetworkController;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -39,11 +39,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
 
 public class NearbyLocationsFragment
     extends Fragment
@@ -66,6 +70,8 @@ public class NearbyLocationsFragment
   @BindView(R.id.nearby_locations_enable_permission) View mLocationPermission;
   @BindView(R.id.nearby_locations_list) ListView mLocationsList;
   @BindView(R.id.nearby_locations_error) TextView mErrorView;
+
+  @Inject NetworkController mNetworkController;
 
   private GoogleApiClient mApiClient;
   private NearbyLocationsAdapter mAdapter;
@@ -107,6 +113,7 @@ public class NearbyLocationsFragment
   @Override
   public void onCreate(@Nullable final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    component(this).inject(this);
 
     if (savedInstanceState != null) {
       mAllLocations = savedInstanceState.getParcelableArrayList(KEY_ALL_LOCATIONS);
@@ -129,7 +136,7 @@ public class NearbyLocationsFragment
     mAdapter = new NearbyLocationsAdapter(getContext(), new ArrayList<>(), null);
     mLocationsList.setAdapter(mAdapter);
 
-    showError(R.string.error_no_network, !NetworkController.getInstance().isConnected());
+    showError(R.string.error_no_network, !mNetworkController.isConnected());
 
     return view;
   }
@@ -138,7 +145,7 @@ public class NearbyLocationsFragment
   public void onResume() {
     super.onResume();
 
-    NetworkController.getInstance().registerListener(this);
+    mNetworkController.registerListener(this);
 
     if (mApiClient.isConnected()) {
       startLocationUpdates();
@@ -149,7 +156,7 @@ public class NearbyLocationsFragment
   public void onPause() {
     super.onPause();
 
-    NetworkController.getInstance().unregisterListener(this);
+    mNetworkController.unregisterListener(this);
     stopLocationUpdates();
   }
 
@@ -165,7 +172,7 @@ public class NearbyLocationsFragment
 
   @Override
   public void onDestroyView() {
-    NetworkController.getInstance().unregisterListener(this);
+    mNetworkController.unregisterListener(this);
 
     super.onDestroyView();
   }

@@ -2,36 +2,39 @@ package com.deange.uwaterlooapi.sample.utils;
 
 import android.content.Context;
 
+import javax.inject.Inject;
+
 public final class Px {
 
-  private static Context sContext;
+  private Context mContext;
 
-  public static void init(final Context context) {
-    sContext = context.getApplicationContext();
+  @Inject
+  Px(final Context context) {
+    mContext = context;
   }
 
-  public static int fromDp(final float dp) {
+  public int fromDp(final float dp) {
     return (int) fromDpF(dp);
   }
 
-  public static float fromDpF(final float dp) {
-    return (sContext.getResources().getDisplayMetrics().density * dp);
+  public float fromDpF(final float dp) {
+    return (mContext.getResources().getDisplayMetrics().density * dp);
   }
 
-  public static int fromSp(final float sp) {
+  public int fromSp(final float sp) {
     return (int) fromSpF(sp);
   }
 
-  public static float fromSpF(final float sp) {
-    return (sContext.getResources().getDisplayMetrics().scaledDensity * sp);
+  public float fromSpF(final float sp) {
+    return (mContext.getResources().getDisplayMetrics().scaledDensity * sp);
   }
 
-  public static int width() {
-    return sContext.getResources().getDisplayMetrics().widthPixels;
+  public int screenW() {
+    return mContext.getResources().getDisplayMetrics().widthPixels;
   }
 
-  public static int height() {
-    return sContext.getResources().getDisplayMetrics().heightPixels;
+  public int screenH() {
+    return mContext.getResources().getDisplayMetrics().heightPixels;
   }
 
 }

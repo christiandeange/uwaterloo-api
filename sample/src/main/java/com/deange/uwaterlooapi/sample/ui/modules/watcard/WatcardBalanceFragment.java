@@ -1,6 +1,7 @@
 package com.deange.uwaterlooapi.sample.ui.modules.watcard;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,9 +23,13 @@ import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.AbstractModuleFragment;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
 
 @ModuleFragment(
     path = "/watcard/balance",
@@ -36,7 +41,15 @@ public class WatcardBalanceFragment
   @BindView(R.id.watcard_balance_total) TextView mTotalView;
   @BindView(R.id.watcard_balance_list) ListView mBalancesListView;
 
+  @Inject WatcardManager mWatcardManager;
+
   private Watcard mWatcard;
+
+  @Override
+  public void onCreate(final Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    component(this).inject(this);
+  }
 
   @Override
   protected View getContentView(final LayoutInflater inflater, final ViewGroup parent) {
@@ -97,7 +110,7 @@ public class WatcardBalanceFragment
 
   private void saveWatcard(final String studentNumber, final String pin) {
     final WatcardCredentials credentials = WatcardCredentials.create(studentNumber, pin);
-    WatcardManager.getInstance().saveCredentials(credentials);
+    mWatcardManager.saveCredentials(credentials);
     getApi().setWatcardCredentials(credentials);
 
     doRefresh();

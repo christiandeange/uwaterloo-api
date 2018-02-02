@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.sample.controller;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.security.KeyPairGeneratorSpec;
-import android.support.annotation.NonNull;
 import android.util.Base64;
 
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
@@ -16,32 +15,17 @@ import java.security.KeyStore;
 import java.util.Calendar;
 
 import javax.crypto.Cipher;
+import javax.inject.Inject;
 import javax.security.auth.x500.X500Principal;
 
 public class EncryptionController {
 
-  private static EncryptionController sInstance;
-
   private final Context mContext;
   private final KeyStore mKeystore;
 
-  public static void init(final Context context) {
-    if (sInstance != null) {
-      throw new IllegalStateException("EncryptionController already instantiated!");
-    }
-    sInstance = new EncryptionController(context);
-  }
-
-  @NonNull
-  public static EncryptionController getInstance() {
-    if (sInstance == null) {
-      throw new IllegalStateException("EncryptionController not instantiated!");
-    }
-    return sInstance;
-  }
-
-  private EncryptionController(final Context context) {
-    mContext = context.getApplicationContext();
+  @Inject
+  EncryptionController(final Context context) {
+    mContext = context;
 
     try {
       mKeystore = KeyStore.getInstance("AndroidKeyStore");

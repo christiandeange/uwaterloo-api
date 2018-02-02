@@ -17,6 +17,8 @@ import com.deange.uwaterlooapi.sample.utils.Px;
 
 import org.joda.time.LocalDate;
 
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
+
 public class DateSelectorView
     extends FrameLayout
     implements
@@ -44,11 +46,12 @@ public class DateSelectorView
 
   private void init() {
     inflate(getContext(), R.layout.date_picker_view, this);
+    final Px px = component(this).px();
 
     final TypedValue value = new TypedValue();
     getContext().getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
     setBackgroundColor(value.data);
-    setElevation(Px.fromDpF(8));
+    setElevation(px.fromDpF(8));
 
     mPickerButton = (TextView) findViewById(R.id.date_picker_view);
     mPickerButton.setOnClickListener(this);

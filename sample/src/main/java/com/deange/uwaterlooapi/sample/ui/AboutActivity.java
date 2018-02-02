@@ -12,8 +12,12 @@ import com.deange.uwaterlooapi.sample.ui.view.ElevationOffsetListener;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.Px;
 
+import javax.inject.Inject;
+
 import butterknife.BindString;
 import butterknife.BindView;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
 
 public class AboutActivity
     extends BaseActivity {
@@ -24,13 +28,16 @@ public class AboutActivity
 
   @BindString(R.string.menu_about) String mAboutString;
 
+  @Inject Px mPx;
+
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    component(this).inject(this);
 
     setContentView(R.layout.activity_about);
 
-    mAppBarLayout.addOnOffsetChangedListener(new ElevationOffsetListener(Px.fromDpF(8)));
+    mAppBarLayout.addOnOffsetChangedListener(new ElevationOffsetListener(mPx.fromDpF(8)));
 
     final Typeface typeface = FontUtils.getFont(FontUtils.BOOK);
     mCollapsingLayout.setCollapsedTitleTypeface(typeface);

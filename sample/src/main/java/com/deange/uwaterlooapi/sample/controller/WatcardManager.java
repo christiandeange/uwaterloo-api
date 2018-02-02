@@ -2,46 +2,39 @@ package com.deange.uwaterlooapi.sample.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
+import android.os.Parcelable;
 
 import com.deange.uwaterlooapi.model.watcard.WatcardCredentials;
 import com.deange.uwaterlooapi.sample.Authorities;
+import com.google.gson.Gson;
+
+import javax.inject.Inject;
 
 public class WatcardManager {
 
   private static final String PREF_FILE = Authorities.prefsFile("watcard");
   private static final String KEY_WATCARD = Authorities.key("watcard");
-  private static WatcardManager sInstance;
 
   private final SharedPreferences mPrefs;
+  private final EncryptionController mEncryption;
+  private final Gson mGson;
 
-  public static void init(final Context context) {
-    if (sInstance != null) {
-      throw new IllegalStateException("WatcardManager already instantiated!");
-    }
-    sInstance = new WatcardManager(context);
-  }
-
-  @NonNull
-  public static WatcardManager getInstance() {
-    if (sInstance == null) {
-      throw new IllegalStateException("WatcardManager not instantiated!");
-    }
-    return sInstance;
-  }
-
-  private WatcardManager(final Context context) {
+  @Inject
+  WatcardManager(
+      final Context context,
+      final EncryptionController encryption,
+      final Gson gson) {
     mPrefs = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+    mEncryption = encryption;
+    mGson = gson;
   }
 
   public void saveCredentials(final WatcardCredentials credentials) {
-    final String json = GsonController.getInstance().toJson(credentials);
-    putString(KEY_WATCARD, json);
+    putParcelable(KEY_WATCARD, credentials);
   }
 
   public WatcardCredentials getCredentials() {
-    final String json = getString(KEY_WATCARD);
-    return GsonController.getInstance().fromJson(json, WatcardCredentials.class);
+    return getParcelable(KEY_WATCARD, WatcardCredentials.class);
   }
 
   public boolean hasWatcardCredentials() {
@@ -55,13 +48,21 @@ public class WatcardManager {
   // Private implementation details
 
   private void putString(final String key, final String value) {
-    final String encoded = EncryptionController.getInstance().encryptString(key, value);
+    final String encoded = mEncryption.encryptString(key, value);
     mPrefs.edit().putString(key, encoded).apply();
   }
 
   private String getString(final String key) {
     final String value = mPrefs.getString(key, null);
-    return EncryptionController.getInstance().decryptString(key, value);
+    return mEncryption.decryptString(key, value);
+  }
+
+  private void putParcelable(final String key, final Parcelable value) {
+    putString(key, mGson.toJson(value));
+  }
+
+  private <T extends Parcelable> T getParcelable(final String key, Class<T> clazz) {
+    return mGson.fromJson(getString(key), clazz);
   }
 
   private void clear(final String key) {

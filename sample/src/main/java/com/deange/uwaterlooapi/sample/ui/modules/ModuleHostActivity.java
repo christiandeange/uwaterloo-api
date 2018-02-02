@@ -20,6 +20,10 @@ import com.deange.uwaterlooapi.sample.ui.BaseActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 
+import javax.inject.Inject;
+
+import static com.deange.uwaterlooapi.sample.dagger.Components.component;
+
 
 public class ModuleHostActivity
     extends BaseActivity
@@ -29,9 +33,10 @@ public class ModuleHostActivity
   private static final String TAG = "module_fragment";
   private static final String ARG_FRAGMENT_CLASS = "fragment_class";
 
+  @Inject WatcardManager mWatcardManager;
+
   private UWaterlooApi mApi;
   private BaseModuleFragment mChildFragment;
-  private Toolbar mToolbar;
 
   public static <T extends BaseModuleFragment> Intent getStartIntent(
       final Context context,
@@ -68,14 +73,14 @@ public class ModuleHostActivity
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    component(this).inject(this);
 
     setContentView(R.layout.activity_module_host_simple);
 
     mApi = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
-    mApi.setWatcardCredentials(WatcardManager.getInstance().getCredentials());
+    mApi.setWatcardCredentials(mWatcardManager.getCredentials());
 
-    mToolbar = getToolbar();
-    setSupportActionBar(mToolbar);
+    setSupportActionBar(getToolbar());
     getSupportFragmentManager().addOnBackStackChangedListener(this);
 
     mChildFragment = findContentFragment();
