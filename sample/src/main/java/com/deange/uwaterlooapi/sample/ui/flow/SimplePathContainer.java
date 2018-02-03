@@ -3,8 +3,8 @@ package com.deange.uwaterlooapi.sample.ui.flow;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.squareup.coordinators.Coordinators;
 import flow.Flow;
-import flow.path.Path;
 import flow.path.PathContainer;
 import flow.path.PathContext;
 import flow.path.PathContextFactory;
@@ -34,11 +34,11 @@ public class SimplePathContainer extends PathContainer {
       oldPath = PathContext.root(containerView.getContext());
     }
 
-    Path to = traversalState.toPath();
+    KeyPath to = (KeyPath) traversalState.toPath();
     PathContext context = PathContext.create(oldPath, to, contextFactory);
     View newView = LayoutInflater.from(context)
         .cloneInContext(context)
-        .inflate(getLayout(to), containerView, false);
+        .inflate(to.layoutId(), containerView, false);
 
     if (traversalState.fromPath() != null) {
       View fromView = containerView.getChildAt(0);
@@ -48,15 +48,9 @@ public class SimplePathContainer extends PathContainer {
 
     traversalState.restoreViewState(newView);
     containerView.addView(newView);
+    Coordinators.bind(newView, to);
+
     oldPath.destroyNotIn(context, contextFactory);
     callback.onTraversalCompleted();
-  }
-
-  protected int getLayout(Path path) {
-    if (!(path instanceof HasLayout)) {
-      throw new IllegalArgumentException(
-          String.format("%s does not implement HasLayout", path.getClass().getName()));
-    }
-    return ((HasLayout) path).layoutId();
   }
 }

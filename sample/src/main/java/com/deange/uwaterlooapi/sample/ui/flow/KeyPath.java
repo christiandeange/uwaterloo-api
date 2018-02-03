@@ -2,12 +2,11 @@ package com.deange.uwaterlooapi.sample.ui.flow;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.squareup.coordinators.Coordinator;
+import com.squareup.coordinators.CoordinatorProvider;
 import flow.path.Path;
 
-public abstract class KeyPath extends Path implements HasLayout, Parcelable {
-
-  public abstract Coordinator coordinator();
+public abstract class KeyPath extends Path
+    implements CoordinatorProvider, HasLayout, Parcelable {
 
   @Override
   public int describeContents() {
