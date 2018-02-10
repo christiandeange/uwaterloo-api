@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+
+android libraryAndroidConfig
+
+dependencies {
+  api project(':uwaterlooapi-core')
+
+  api "com.squareup.retrofit2:adapter-rxjava:$retrofit"
+  api 'io.reactivex:rxjava:1.3.5'
+}
