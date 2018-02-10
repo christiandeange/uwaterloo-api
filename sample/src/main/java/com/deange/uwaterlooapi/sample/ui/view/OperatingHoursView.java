@@ -6,12 +6,10 @@ import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
-
 import java.util.Calendar;
 import java.util.Map;
 

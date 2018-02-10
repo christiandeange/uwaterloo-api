@@ -6,13 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-
 import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.SimpleListResponse;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
-
 import java.util.Collections;
 
 public abstract class BaseListModuleFragment<T extends SimpleListResponse<V>, V extends AbstractModel>

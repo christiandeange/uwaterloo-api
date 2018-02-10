@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -31,12 +33,7 @@ import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 
 @ModuleFragment(path = "/events/*/*")
@@ -90,7 +87,7 @@ public class EventFragment
   public Call<Responses.EventDetails> onLoadData(final UWaterlooApi api) {
     final Event event = getModel();
 
-    return api.Events.getEvent(event.getSite(), event.getId());
+    return api.events().getEvent(event.getSite(), event.getId());
   }
 
   @Override

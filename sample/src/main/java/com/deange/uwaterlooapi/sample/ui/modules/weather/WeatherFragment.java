@@ -28,7 +28,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
+import butterknife.BindDrawable;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -50,7 +53,6 @@ import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.MathUtils;
 import com.squareup.picasso.Picasso;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,11 +62,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
-
-import butterknife.BindDrawable;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -178,7 +175,7 @@ public class WeatherFragment
 
   @Override
   public Call<Responses.Weather> onLoadData(final UWaterlooApi api) {
-    return api.Weather.getWeather();
+    return api.weather().getWeather();
   }
 
   @Override

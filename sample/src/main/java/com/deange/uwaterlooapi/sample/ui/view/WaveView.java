@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
-
 import com.deange.uwaterlooapi.sample.ui.Colors;
 
 public class WaveView extends View {

@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.sample.controller;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-
 import com.deange.uwaterlooapi.model.watcard.WatcardCredentials;
 import com.deange.uwaterlooapi.sample.Authorities;
 

@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.Px;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ModuleListItemView
     extends FrameLayout {

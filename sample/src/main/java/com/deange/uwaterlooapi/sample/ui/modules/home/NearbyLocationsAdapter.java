@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.foodservices.LocationFragment;
 import com.deange.uwaterlooapi.sample.utils.MathUtils;
-
 import java.util.List;
 import java.util.Locale;
 

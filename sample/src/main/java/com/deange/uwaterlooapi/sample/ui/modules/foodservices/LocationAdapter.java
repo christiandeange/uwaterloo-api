@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.model.foodservices.OperatingHours;
 import com.deange.uwaterlooapi.model.foodservices.SpecialOperatingHours;
@@ -16,17 +15,15 @@ import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ModuleIndexedAdapter;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-
+import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
-import java.util.Calendar;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class LocationAdapter
     extends ModuleIndexedAdapter<String> {

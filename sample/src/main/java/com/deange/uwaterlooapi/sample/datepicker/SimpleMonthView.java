@@ -35,9 +35,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-
 import com.deange.uwaterlooapi.sample.R;
-
 import java.security.InvalidParameterException;
 import java.util.Calendar;
 import java.util.Formatter;

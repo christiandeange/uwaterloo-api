@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.parking;
 import com.deange.uwaterlooapi.sample.ui.Colors;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,10 +1,8 @@
 package com.deange.uwaterlooapi.sample;
 
 import android.content.Context;
-
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

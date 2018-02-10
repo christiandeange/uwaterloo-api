@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 
 import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.Metadata;
-
 import java.util.List;
 
 public abstract class AbstractModuleFragment<T extends AbstractModel>

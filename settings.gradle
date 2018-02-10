@@ -1,1 +1,5 @@
-include ':sample', ':uwaterlooapi-library', ':uwaterlooapi-annotations', ':uwaterlooapi-processor'
+include ':sample',
+        ':uwaterlooapi-core',
+        ':uwaterlooapi-okhttp',
+        ':uwaterlooapi-annotations',
+        ':uwaterlooapi-processor'

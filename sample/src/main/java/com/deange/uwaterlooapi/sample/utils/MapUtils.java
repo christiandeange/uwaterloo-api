@@ -2,9 +2,7 @@ package com.deange.uwaterlooapi.sample.utils;
 
 import android.Manifest;
 import android.app.Activity;
-
 import com.google.android.gms.maps.GoogleMap;
-
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
 

@@ -20,7 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.foodservices.Location;
@@ -38,14 +39,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 
 public class LocationFragment

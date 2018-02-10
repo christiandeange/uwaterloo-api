@@ -13,10 +13,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.deange.uwaterlooapi.sample.R;
-
 import butterknife.ButterKnife;
+import com.deange.uwaterlooapi.sample.R;
 import pl.tajchert.nammu.Nammu;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

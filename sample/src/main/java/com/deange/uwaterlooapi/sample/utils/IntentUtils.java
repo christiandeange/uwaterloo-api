@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
-
 import com.deange.uwaterlooapi.sample.R;
 
 public final class IntentUtils {

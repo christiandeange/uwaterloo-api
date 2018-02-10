@@ -6,14 +6,12 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
+import butterknife.BindString;
+import butterknife.BindView;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.view.ElevationOffsetListener;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 import com.deange.uwaterlooapi.sample.utils.Px;
-
-import butterknife.BindString;
-import butterknife.BindView;
 
 public class AboutActivity
     extends BaseActivity {

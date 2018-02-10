@@ -9,7 +9,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
-
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.FontUtils;
 

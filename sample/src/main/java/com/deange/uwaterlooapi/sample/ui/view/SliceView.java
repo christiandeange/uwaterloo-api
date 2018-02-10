@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.RelativeLayout;
-
 import com.deange.uwaterlooapi.sample.R;
 
 public class SliceView extends RelativeLayout {

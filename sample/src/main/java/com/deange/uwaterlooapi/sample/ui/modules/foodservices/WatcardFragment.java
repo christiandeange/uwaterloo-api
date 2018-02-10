@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Responses;
@@ -15,11 +14,9 @@ import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import retrofit2.Call;
 
 //@ModuleFragment(
@@ -48,7 +45,7 @@ public class WatcardFragment
 
   @Override
   public Call<Responses.Watcards> onLoadData(final UWaterlooApi api) {
-    return api.FoodServices.getWatcardVendors();
+    return api.foodServices().getWatcardVendors();
   }
 
   @Override

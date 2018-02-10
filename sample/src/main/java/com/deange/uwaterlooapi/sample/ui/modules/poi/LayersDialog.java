@@ -7,14 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-
-import com.deange.uwaterlooapi.sample.R;
-import com.deange.uwaterlooapi.sample.utils.Px;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import com.deange.uwaterlooapi.sample.R;
+import com.deange.uwaterlooapi.sample.utils.Px;
 
 public class LayersDialog {
 

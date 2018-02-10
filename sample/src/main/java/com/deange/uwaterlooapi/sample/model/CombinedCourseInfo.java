@@ -2,14 +2,12 @@ package com.deange.uwaterlooapi.sample.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
 import com.deange.uwaterlooapi.model.courses.ExamInfo;
 import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
-
 import java.util.ArrayList;
 import java.util.List;
 

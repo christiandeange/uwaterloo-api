@@ -2,12 +2,10 @@ package com.deange.uwaterlooapi.sample.ui.modules.courses.views;
 
 import android.content.Context;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.deange.uwaterlooapi.model.courses.CourseInfo;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
-
-import butterknife.BindView;
 
 public class CourseInfoView extends BaseCourseView {
 

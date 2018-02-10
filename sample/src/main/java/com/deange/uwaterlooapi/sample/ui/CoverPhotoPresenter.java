@@ -1,15 +1,12 @@
 package com.deange.uwaterlooapi.sample.ui;
 
 import android.util.Log;
-
 import com.deange.uwaterlooapi.sample.BuildConfig;
 import com.deange.uwaterlooapi.sample.model.Photo;
 import com.deange.uwaterlooapi.sample.net.Contract;
 import com.deange.uwaterlooapi.sample.net.FlickrApi;
-
 import java.util.Random;
 import java.util.concurrent.Semaphore;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

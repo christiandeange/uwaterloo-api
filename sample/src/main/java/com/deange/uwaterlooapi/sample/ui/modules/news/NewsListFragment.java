@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -18,11 +17,9 @@ import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -53,7 +50,7 @@ public class NewsListFragment
 
   @Override
   public Call<Responses.News> onLoadData(final UWaterlooApi api) {
-    return api.News.getNews();
+    return api.news().getNews();
   }
 
   @Override

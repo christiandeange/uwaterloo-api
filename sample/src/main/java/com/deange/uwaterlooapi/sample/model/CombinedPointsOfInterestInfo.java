@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.deange.uwaterlooapi.model.BaseModel;
 import com.deange.uwaterlooapi.model.poi.ATM;
 import com.deange.uwaterlooapi.model.poi.Defibrillator;
@@ -11,7 +10,6 @@ import com.deange.uwaterlooapi.model.poi.Helpline;
 import com.deange.uwaterlooapi.model.poi.Library;
 import com.deange.uwaterlooapi.model.poi.Photosphere;
 import com.deange.uwaterlooapi.sample.ui.modules.poi.PointsOfInterestIterator;
-
 import java.util.List;
 
 public class CombinedPointsOfInterestInfo

@@ -10,11 +10,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.datepicker.DatePickerDialog;
 import com.deange.uwaterlooapi.sample.utils.Px;
-
 import org.joda.time.LocalDate;
 
 public class DateSelectorView

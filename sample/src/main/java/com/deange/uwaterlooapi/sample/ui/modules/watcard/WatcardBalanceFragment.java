@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.watcard.Watcard;
@@ -21,9 +22,6 @@ import com.deange.uwaterlooapi.sample.controller.WatcardManager;
 import com.deange.uwaterlooapi.sample.ui.ModuleAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.AbstractModuleFragment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -105,7 +103,7 @@ public class WatcardBalanceFragment
 
   @Override
   public Call<Watcard> onLoadData(final UWaterlooApi api) {
-    return api.Watcard.balances();
+    return api.watcards().balances();
   }
 
   @Override

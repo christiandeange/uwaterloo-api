@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;

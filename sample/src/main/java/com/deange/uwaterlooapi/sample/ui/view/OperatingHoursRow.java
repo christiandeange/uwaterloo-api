@@ -5,11 +5,9 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.deange.uwaterlooapi.sample.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.deange.uwaterlooapi.sample.R;
 
 
 public class OperatingHoursRow

@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -27,12 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolygonOptions;
-
 import java.util.List;
-
-import butterknife.BindColor;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -63,7 +60,7 @@ public class ParkingFragment
 
   @Override
   public Call<Responses.Parking> onLoadData(final UWaterlooApi api) {
-    return api.Parking.getParkingInfo();
+    return api.parking().getParkingInfo();
   }
 
   @Override

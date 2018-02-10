@@ -12,7 +12,8 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.AbstractModel;
@@ -26,13 +27,9 @@ import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -106,7 +103,7 @@ public class CoursesFragment
       return null;
 
     } else {
-      return api.Courses.getCourseInfo(course);
+      return api.courses().getCourseInfo(course);
     }
   }
 

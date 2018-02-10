@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.common;
 
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
-
 import java.util.ArrayList;
 import java.util.List;
 

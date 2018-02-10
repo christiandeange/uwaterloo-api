@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.model.foodservices.MenuInfo;
 import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.sample.R;

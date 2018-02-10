@@ -3,10 +3,8 @@ package com.deange.uwaterlooapi.sample.ui.modules.courses.views;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.widget.FrameLayout;
-
-import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
-
 import butterknife.ButterKnife;
+import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 
 public abstract class BaseCourseView extends FrameLayout {
   public BaseCourseView(final Context context) {

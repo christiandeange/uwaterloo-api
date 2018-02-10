@@ -1,11 +1,11 @@
 package com.deange.uwaterlooapi.sample.ui.modules.buildings;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.buildings.Building;
@@ -17,9 +17,6 @@ import com.deange.uwaterlooapi.sample.ui.modules.base.BaseMapFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 @ModuleFragment(path = "/buildings/*")
 public class BuildingFragment

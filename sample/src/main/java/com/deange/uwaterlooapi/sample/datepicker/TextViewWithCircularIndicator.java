@@ -24,7 +24,6 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.widget.CheckedTextView;
-
 import com.deange.uwaterlooapi.sample.R;
 
 /**

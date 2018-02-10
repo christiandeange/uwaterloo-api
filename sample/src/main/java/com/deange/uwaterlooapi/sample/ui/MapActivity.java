@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-
 import com.deange.uwaterlooapi.model.buildings.Building;
 import com.deange.uwaterlooapi.model.buildings.BuildingSection;
 import com.deange.uwaterlooapi.sample.R;
@@ -17,7 +16,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 

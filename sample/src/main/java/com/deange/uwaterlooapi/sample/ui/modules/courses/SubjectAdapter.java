@@ -4,10 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
-
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.ContainsFilter;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

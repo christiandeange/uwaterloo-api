@@ -2,9 +2,7 @@ package com.deange.uwaterlooapi.sample.net;
 
 import android.os.Handler;
 import android.os.Looper;
-
 import java.io.IOException;
-
 import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;

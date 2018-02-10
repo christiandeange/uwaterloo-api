@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.model;
 
 import android.text.TextUtils;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Author {

@@ -1,10 +1,8 @@
 package com.deange.uwaterlooapi.sample.ui.modules;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-
 import com.deange.uwaterlooapi.annotations.ModuleInfo;
 import com.deange.uwaterlooapi.annotations.ModuleMap;
 import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;

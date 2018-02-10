@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.model.common.Responses;
 import com.deange.uwaterlooapi.model.foodservices.Location;
@@ -31,17 +33,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import pl.tajchert.nammu.Nammu;
 import pl.tajchert.nammu.PermissionCallback;
 
@@ -194,7 +191,10 @@ public class NearbyLocationsFragment
 
   @NonNull
   private List<Location> getClosest(final int takeCount) {
-    if (mAllLocations == null || mAllLocations.isEmpty() || takeCount <= 0 || mCurrentLocation == null) {
+    if (mAllLocations == null
+        || mAllLocations.isEmpty()
+        || takeCount <= 0
+        || mCurrentLocation == null) {
       return new ArrayList<>();
     }
 
@@ -217,12 +217,11 @@ public class NearbyLocationsFragment
       final float distance1;
       if (distances.containsKey(lhs)) {
         distance1 = distances.get(lhs);
-
       } else {
         // Calculate distance from first location to user's location
         final float[] location1 = lhs.getLocation();
         android.location.Location.distanceBetween(latitude, longitude, location1[0], location1[1],
-                                                  results);
+            results);
         distance1 = results[0];
         distances.put(lhs, distance1);
       }
@@ -230,12 +229,11 @@ public class NearbyLocationsFragment
       final float distance2;
       if (distances.containsKey(rhs)) {
         distance2 = distances.get(rhs);
-
       } else {
         // Calculate distance from second location to user's location
         final float[] location2 = rhs.getLocation();
         android.location.Location.distanceBetween(latitude, longitude, location2[0], location2[1],
-                                                  results);
+            results);
         distance2 = results[0];
         distances.put(rhs, distance2);
       }
@@ -253,7 +251,7 @@ public class NearbyLocationsFragment
       mHandler.post(mLocationsRunnable);
       if (mApiClient.isConnected()) {
         LocationServices.FusedLocationApi.requestLocationUpdates(mApiClient, LOCATION_REQUEST,
-                                                                 this);
+            this);
       }
     }
   }
@@ -285,14 +283,13 @@ public class NearbyLocationsFragment
     mAdapter.updateCurrentLocation(mCurrentLocation);
 
     showError(R.string.nearby_locations_none,
-              (mAllLocations != null && closestLocations.isEmpty()));
+        (mAllLocations != null && closestLocations.isEmpty()));
   }
 
   private void showError(@StringRes final int resId, final boolean show) {
     if (show) {
       mErrorView.setText(resId);
       mErrorView.animate().alpha(1f).setDuration(ERROR_ANIMATION_DURATION).start();
-
     } else {
       // Another error may have changed this field's text
       if (TextUtils.equals(mErrorView.getText(), getString(resId))) {
@@ -361,11 +358,10 @@ public class NearbyLocationsFragment
     protected Boolean doInBackground(final Void... params) {
       try {
         final UWaterlooApi api = new UWaterlooApi(BuildConfig.UWATERLOO_API_KEY);
-        mResponse = Calls.unwrap(api.FoodServices.getLocations());
+        mResponse = Calls.unwrap(api.foodServices().getLocations());
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mApiClient);
 
         return true;
-
       } catch (final Exception e) {
         return false;
       }
@@ -384,5 +380,4 @@ public class NearbyLocationsFragment
       }
     }
   }
-
 }

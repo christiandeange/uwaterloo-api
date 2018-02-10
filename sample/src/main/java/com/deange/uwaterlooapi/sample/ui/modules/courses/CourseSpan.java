@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.style.ClickableSpan;
 import android.view.View;
-
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 
 public class CourseSpan

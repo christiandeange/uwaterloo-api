@@ -7,7 +7,6 @@ import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.sample.R;
 
 public class FaqSection extends FrameLayout {

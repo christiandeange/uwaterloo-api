@@ -3,9 +3,7 @@ package com.deange.uwaterlooapi.sample.ui;
 import android.content.Context;
 import android.util.SparseIntArray;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.sample.R;
-
 import org.joda.time.LocalTime;
 
 public final class HeaderTitlePresenter {

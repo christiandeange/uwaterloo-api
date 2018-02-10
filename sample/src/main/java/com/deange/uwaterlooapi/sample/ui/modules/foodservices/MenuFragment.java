@@ -6,7 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Responses;
@@ -14,11 +15,7 @@ import com.deange.uwaterlooapi.model.foodservices.Outlet;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
-
 import org.joda.time.LocalDate;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MenuFragment
     extends BaseModuleFragment<Responses.Outlets, Outlet> {

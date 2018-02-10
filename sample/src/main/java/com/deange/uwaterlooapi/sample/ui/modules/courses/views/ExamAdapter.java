@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.model.courses.ExamSection;
 import com.deange.uwaterlooapi.model.foodservices.Location;
 import com.deange.uwaterlooapi.sample.R;
@@ -16,15 +17,11 @@ import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
 import com.deange.uwaterlooapi.utils.DateUtils;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ExamAdapter
     extends ArrayAdapter<ExamSection>

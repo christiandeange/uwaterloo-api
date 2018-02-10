@@ -9,21 +9,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.model.courses.CourseSchedule;
 import com.deange.uwaterlooapi.model.courses.Reserve;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CourseSpan;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ScheduleAdapter
     extends ArrayAdapter<CourseSchedule> {

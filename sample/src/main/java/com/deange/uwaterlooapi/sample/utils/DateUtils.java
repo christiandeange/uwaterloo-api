@@ -2,17 +2,14 @@ package com.deange.uwaterlooapi.sample.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
-
 import com.deange.uwaterlooapi.sample.R;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.Instant;
 import org.joda.time.Minutes;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class DateUtils {
 

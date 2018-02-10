@@ -4,7 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -15,11 +16,7 @@ import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
-
 import org.joda.time.LocalDate;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -58,7 +55,7 @@ public class MenusFragment
     final int year = date.getYear();
     final int week = date.getWeekOfWeekyear();
 
-    return api.FoodServices.getWeeklyMenu(year, week);
+    return api.foodServices().getWeeklyMenu(year, week);
   }
 
   @Override

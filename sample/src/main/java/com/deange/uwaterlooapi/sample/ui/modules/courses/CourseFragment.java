@@ -14,7 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.model.Metadata;
 import com.deange.uwaterlooapi.model.common.Responses;
@@ -25,13 +26,9 @@ import com.deange.uwaterlooapi.sample.model.responses.CombinedCourseInfoResponse
 import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseModuleFragment;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 
 public class CourseFragment
@@ -107,7 +104,7 @@ public class CourseFragment
     // General course info
     fetchCourseInfo(semaphore, () -> {
       final Responses.CoursesInfo infoResponse = Calls.unwrap(
-          api.Courses.getCourseInfo(subject, code));
+          api.courses().getCourseInfo(subject, code));
       info.setMetadata(infoResponse.getMetadata());
       info.setCourseInfo(infoResponse.getData());
     });
@@ -115,17 +112,17 @@ public class CourseFragment
     // Prerequisite info
     fetchCourseInfo(semaphore,
                     () -> info.setPrerequisites(
-                        Calls.unwrap(api.Courses.getPrerequisites(subject, code)).getData()));
+                        Calls.unwrap(api.courses().getPrerequisites(subject, code)).getData()));
 
     // Course scheduling info
     fetchCourseInfo(semaphore,
                     () -> info.setSchedules(
-                        Calls.unwrap(api.Courses.getCourseSchedule(subject, code)).getData()));
+                        Calls.unwrap(api.courses().getCourseSchedule(subject, code)).getData()));
 
     // Exam schedule info
     fetchCourseInfo(semaphore,
                     () -> info.setExams(
-                        Calls.unwrap(api.Courses.getExamSchedule(subject, code)).getData()));
+                        Calls.unwrap(api.courses().getExamSchedule(subject, code)).getData()));
 
     try {
       // Wait until all data is loaded

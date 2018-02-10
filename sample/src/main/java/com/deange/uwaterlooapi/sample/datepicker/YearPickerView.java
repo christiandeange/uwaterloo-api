@@ -28,9 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.sample.R;
-
 import java.util.ArrayList;
 import java.util.List;
 

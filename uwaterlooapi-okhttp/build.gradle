@@ -1,0 +1,7 @@
+apply plugin: 'com.android.library'
+
+android libraryAndroidConfig
+
+dependencies {
+  api project(':uwaterlooapi-core')
+}

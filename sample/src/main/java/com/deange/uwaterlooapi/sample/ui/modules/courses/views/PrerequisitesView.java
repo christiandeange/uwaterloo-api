@@ -6,13 +6,12 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.deange.uwaterlooapi.model.courses.PrerequisiteInfo;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.model.CombinedCourseInfo;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.CourseSpan;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,8 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-
-import butterknife.BindView;
 
 public class PrerequisitesView extends BaseCourseView {
 

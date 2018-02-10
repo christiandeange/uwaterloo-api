@@ -12,7 +12,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -42,15 +43,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -126,11 +123,11 @@ public class PointsOfInterestFragment
 
     // ATMs
     fetchPointOfInterestInfo(semaphore, () -> info.setATMs(
-        Calls.unwrap(api.PointsOfInterest.getATMs()).getData()));
+        Calls.unwrap(api.pointsOfInterest().getATMs()).getData()));
 
     // Greyhound stops
     fetchPointOfInterestInfo(semaphore, () -> info.setGreyhounds(
-        Calls.unwrap(api.PointsOfInterest.getGreyhoundStops()).getData()));
+        Calls.unwrap(api.pointsOfInterest().getGreyhoundStops()).getData()));
 
     // Photospheres
     fetchPointOfInterestInfo(semaphore, () -> {
@@ -141,15 +138,15 @@ public class PointsOfInterestFragment
 
     // Helplines
     fetchPointOfInterestInfo(semaphore, () -> info.setHelplines(
-        Calls.unwrap(api.PointsOfInterest.getHelplines()).getData()));
+        Calls.unwrap(api.pointsOfInterest().getHelplines()).getData()));
 
     // Libraries
     fetchPointOfInterestInfo(semaphore, () -> info.setLibraries(
-        Calls.unwrap(api.PointsOfInterest.getLibraries()).getData()));
+        Calls.unwrap(api.pointsOfInterest().getLibraries()).getData()));
 
     // Defibrillators
     fetchPointOfInterestInfo(semaphore, () -> info.setDefibrillators(
-        Calls.unwrap(api.PointsOfInterest.getDefibrillators()).getData()));
+        Calls.unwrap(api.pointsOfInterest().getDefibrillators()).getData()));
 
     try {
       // Wait until all data is loaded

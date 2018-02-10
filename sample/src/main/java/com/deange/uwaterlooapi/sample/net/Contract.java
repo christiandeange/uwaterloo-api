@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.sample.net;
 import com.deange.uwaterlooapi.sample.model.PhotoDetails;
 import com.deange.uwaterlooapi.sample.model.PhotoSize;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 

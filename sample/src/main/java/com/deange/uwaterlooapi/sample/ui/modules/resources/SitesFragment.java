@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -18,13 +17,11 @@ import com.deange.uwaterlooapi.sample.ui.ModuleListItemListener;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -57,7 +54,7 @@ public class SitesFragment
 
   @Override
   public Call<Responses.Sites> onLoadData(final UWaterlooApi api) {
-    return api.Resources.getSites();
+    return api.resources().getSites();
   }
 
   @Override

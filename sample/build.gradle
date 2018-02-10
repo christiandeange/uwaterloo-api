@@ -54,7 +54,7 @@ android {
     buildToolsVersion buildTools
 
     defaultConfig {
-        minSdkVersion minSdk
+        minSdkVersion 21
         targetSdkVersion targetSdk
         versionName appVersionName()
         versionCode appVersionCode()
@@ -111,8 +111,7 @@ android {
 dependencies {
     annotationProcessor project(':uwaterlooapi-processor')
     implementation project(':uwaterlooapi-annotations')
-
-    implementation project(':uwaterlooapi-library')
+    implementation project(':uwaterlooapi-okhttp')
 
     implementation 'com.android.support:multidex:1.0.1'
     implementation "com.android.support:design:$supportLibrary"

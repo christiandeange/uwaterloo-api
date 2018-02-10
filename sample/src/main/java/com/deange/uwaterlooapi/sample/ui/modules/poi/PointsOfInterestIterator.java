@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.ui.modules.poi;
 
 import com.deange.uwaterlooapi.model.poi.BasicPointOfInterest;
-
 import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.List;

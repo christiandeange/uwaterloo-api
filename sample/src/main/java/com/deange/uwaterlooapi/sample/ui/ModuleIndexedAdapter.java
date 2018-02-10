@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui;
 
 import android.content.Context;
 import android.widget.SectionIndexer;
-
 import java.util.Arrays;
 
 public abstract class ModuleIndexedAdapter<T>

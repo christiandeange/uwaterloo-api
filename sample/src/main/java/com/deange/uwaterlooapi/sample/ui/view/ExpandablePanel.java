@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.RelativeLayout;
-
 import com.deange.uwaterlooapi.sample.R;
 
 public class ExpandablePanel extends RelativeLayout {

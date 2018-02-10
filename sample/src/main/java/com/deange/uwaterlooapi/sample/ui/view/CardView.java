@@ -2,7 +2,6 @@ package com.deange.uwaterlooapi.sample.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.utils.Px;
 

@@ -3,7 +3,6 @@ package com.deange.uwaterlooapi.sample.ui.modules.base;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.View;
-
 import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
 import com.google.android.gms.maps.GoogleMap;

@@ -8,20 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.model.foodservices.Meal;
 import com.deange.uwaterlooapi.model.foodservices.Menu;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.view.WrapContentListView;
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-
-import org.joda.time.LocalDate;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import org.joda.time.LocalDate;
 
 public class MenuDayAdapter
     extends PagerAdapter {

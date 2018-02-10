@@ -44,10 +44,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.ExtrasActivity;
-
 import java.util.ArrayList;
 
 @SuppressWarnings({"PointlessBooleanExpression", "ConstantConditions"})

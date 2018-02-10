@@ -5,16 +5,13 @@ import android.content.Context;
 import android.security.KeyPairGeneratorSpec;
 import android.support.annotation.NonNull;
 import android.util.Base64;
-
 import com.deange.uwaterlooapi.sample.utils.PlatformUtils;
-
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.util.Calendar;
-
 import javax.crypto.Cipher;
 import javax.security.auth.x500.X500Principal;
 

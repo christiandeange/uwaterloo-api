@@ -1,7 +1,6 @@
 package com.deange.uwaterlooapi.sample.utils;
 
 import android.text.TextUtils;
-
 import java.util.Collection;
 
 public class Joiner {

@@ -28,7 +28,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;

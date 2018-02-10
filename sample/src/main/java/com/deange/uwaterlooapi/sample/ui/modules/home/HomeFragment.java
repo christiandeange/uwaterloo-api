@@ -19,7 +19,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.common.UpperCaseTextWatcher;
@@ -30,11 +33,6 @@ import com.deange.uwaterlooapi.sample.ui.modules.courses.CoursesFragment;
 import com.deange.uwaterlooapi.sample.ui.modules.courses.SubjectAdapter;
 import com.deange.uwaterlooapi.sample.ui.modules.weather.WeatherFragment;
 import com.deange.uwaterlooapi.sample.utils.SimpleTextWatcher;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnEditorAction;
 
 public class HomeFragment
     extends Fragment

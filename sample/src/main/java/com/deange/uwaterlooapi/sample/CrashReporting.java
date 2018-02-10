@@ -2,9 +2,7 @@ package com.deange.uwaterlooapi.sample;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.crashlytics.android.Crashlytics;
-
 import io.fabric.sdk.android.Fabric;
 
 public final class CrashReporting {

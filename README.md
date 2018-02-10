@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.cdeange:uwaterloo-api:1.0.0'
+    compile 'com.github.cdeange:uwaterloo-okhttp:2.0.0'
 }
 ```
 
@@ -35,19 +35,19 @@ If you haven't registered an API key yet, you'll need to do that first. Visit th
 UWaterlooApi api = new UWaterlooApi("YOUR_API_KEY");
 ```
 
-Each API is accessible via one of the members of a `UWaterlooApi`.
- - [FoodServices][]
- - [Courses][]
- - [Events][]
- - [News][]
- - [Weather][]
- - [Terms][]
- - [Resources][]
- - [Buildings][]
- - [Parking][]
- - [PointsOfInterest][]
- - [Watcard][WatcardApi]
- - [LegacyWeather][]
+Each API is accessible via one of the public methods of a `UWaterlooApi`.
+ - [foodServices()][FoodServices]
+ - [courses()][Courses]
+ - [events()][Events]
+ - [news()][News]
+ - [weather()][Weather]
+ - [terms()][Terms]
+ - [resources()][Resources]
+ - [buildings()][Buildings]
+ - [parking()][Parking]
+ - [pointsOfInterest()][PointsOfInterest]
+ - [watcard()][WatcardApi]
+ - [legacyWeather()][LegacyWeather]
 
 Each API method will return a Retrofit `Call` object. Calls may be executed synchronously with `call.execute()`, or asynchronously with `call.enqueue()`. For more information on how to interact with Calls, refer to the Retrofit reference [here](https://square.github.io/retrofit/2.x/retrofit/retrofit2/Call.html).
 
@@ -216,53 +216,53 @@ THE SOFTWARE.
 ```
 
 
-[FoodServices]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/FoodServicesApi.java
-[Courses]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/CoursesApi.java
-[Events]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/EventsApi.java
-[News]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/NewsApi.java
-[Weather]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/WeatherApi.java
-[Terms]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/TermsApi.java
-[Resources]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/ResourcesApi.java
-[Buildings]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/BuildingsApi.java
-[Parking]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/ParkingApi.java
-[PointsOfInterest]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/PointsOfInterestApi.java
-[WatcardApi]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/WatcardApi.java
-[LegacyWeather]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/api/LegacyWeatherApi.java
+[FoodServices]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/FoodServicesApi.java
+[Courses]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/CoursesApi.java
+[Events]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/EventsApi.java
+[News]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/NewsApi.java
+[Weather]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/WeatherApi.java
+[Terms]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/TermsApi.java
+[Resources]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/ResourcesApi.java
+[Buildings]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/BuildingsApi.java
+[Parking]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/ParkingApi.java
+[PointsOfInterest]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/PointsOfInterestApi.java
+[WatcardApi]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/WatcardApi.java
+[LegacyWeather]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-okhttp/src/main/java/com/deange/uwaterlooapi/api/LegacyWeatherApi.java
 
-[MenuInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/MenuInfo.java
-[Note]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/Note.java
-[Diet]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/Diet.java
-[Outlet]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/Outlet.java
-[Location]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/Location.java
-[WatcardVendor]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/WatcardVendor.java
-[Announcement]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/Announcement.java
-[Product]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/foodservices/Product.java
-[Course]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/courses/Course.java
-[CourseInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/courses/CourseInfo.java
-[CourseSchedule]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/courses/CourseSchedule.java
-[PrerequisiteInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/courses/PrerequisiteInfo.java
-[ExamInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/courses/ExamInfo.java
-[Event]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/events/Event.java
-[EventInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/events/EventInfo.java
-[NewsDetails]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/news/NewsDetails.java
-[NewsArticle]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/news/NewsArticle.java
-[WeatherReading]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/weather/WeatherReading.java
-[LegacyWeatherReading]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/weather/LegacyWeatherReading.java
-[TermInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/terms/TermInfo.java
-[InfoSession]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/terms/InfoSession.java
-[Site]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/Site.java
-[Tutor]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/Tutor.java
-[Printer]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/Printer.java
-[GooseNest]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/GooseNest.java
-[Sunshiner]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/resources/Sunshiner.java
-[Building]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/buildings/Building.java
-[ClassroomCourses]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/buildings/ClassroomCourses.java
-[ParkingLot]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/parking/ParkingLot.java
-[ATM]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/ATM.java
-[GreyhoundStop]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/GreyhoundStop.java
-[Photosphere]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/Photosphere.java
-[Helpline]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/Helpline.java
-[Library]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/Library.java
-[Defibrillator]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/poi/Defibrillator.java
-[Watcard]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/watcard/Watcard.java
-[Transactions]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-library/src/main/java/com/deange/uwaterlooapi/model/watcard/Transactions.java
+[MenuInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/MenuInfo.java
+[Note]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/Note.java
+[Diet]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/Diet.java
+[Outlet]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/Outlet.java
+[Location]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/Location.java
+[WatcardVendor]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/WatcardVendor.java
+[Announcement]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/Announcement.java
+[Product]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/foodservices/Product.java
+[Course]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/courses/Course.java
+[CourseInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/courses/CourseInfo.java
+[CourseSchedule]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/courses/CourseSchedule.java
+[PrerequisiteInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/courses/PrerequisiteInfo.java
+[ExamInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/courses/ExamInfo.java
+[Event]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/events/Event.java
+[EventInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/events/EventInfo.java
+[NewsDetails]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/news/NewsDetails.java
+[NewsArticle]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/news/NewsArticle.java
+[WeatherReading]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/weather/WeatherReading.java
+[LegacyWeatherReading]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/weather/LegacyWeatherReading.java
+[TermInfo]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/terms/TermInfo.java
+[InfoSession]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/terms/InfoSession.java
+[Site]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/resources/Site.java
+[Tutor]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/resources/Tutor.java
+[Printer]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/resources/Printer.java
+[GooseNest]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/resources/GooseNest.java
+[Sunshiner]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/resources/Sunshiner.java
+[Building]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/buildings/Building.java
+[ClassroomCourses]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/buildings/ClassroomCourses.java
+[ParkingLot]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/parking/ParkingLot.java
+[ATM]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/poi/ATM.java
+[GreyhoundStop]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/poi/GreyhoundStop.java
+[Photosphere]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/poi/Photosphere.java
+[Helpline]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/poi/Helpline.java
+[Library]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/poi/Library.java
+[Defibrillator]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/poi/Defibrillator.java
+[Watcard]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/watcard/Watcard.java
+[Transactions]: https://github.com/cdeange/uwaterloo-api/blob/master/uwaterlooapi-core/src/main/java/com/deange/uwaterlooapi/model/watcard/Transactions.java

@@ -6,7 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -18,14 +19,9 @@ import com.deange.uwaterlooapi.sample.ui.modules.ModuleType;
 import com.deange.uwaterlooapi.sample.ui.modules.base.BaseListModuleFragment;
 import com.deange.uwaterlooapi.sample.ui.view.DateSelectorView;
 import com.deange.uwaterlooapi.sample.utils.DateUtils;
-
-import org.joda.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import org.joda.time.LocalDate;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -73,7 +69,7 @@ public class AnnouncementsFragment
     final int year = date.getYear();
     final int week = date.getWeekOfWeekyear();
 
-    return api.FoodServices.getAnnouncements(year, week);
+    return api.foodServices().getAnnouncements(year, week);
   }
 
   @Override

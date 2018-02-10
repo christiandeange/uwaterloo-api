@@ -39,9 +39,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.sample.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;

@@ -1,6 +1,5 @@
 package com.deange.uwaterlooapi.sample.ui.modules.resources;
 
-
 import android.animation.LayoutTransition;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,7 +8,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -28,11 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 
 @ModuleFragment(
@@ -65,7 +61,7 @@ public class GooseWatchFragment
 
   @Override
   public Call<Responses.GooseWatch> onLoadData(final UWaterlooApi api) {
-    return api.Resources.getGeeseNests();
+    return api.resources().getGeeseNests();
   }
 
   @Override

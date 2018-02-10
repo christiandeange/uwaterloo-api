@@ -24,7 +24,6 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Toast;
-
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.model.AbstractModel;
 import com.deange.uwaterlooapi.model.BaseResponse;
@@ -36,9 +35,7 @@ import com.deange.uwaterlooapi.sample.net.Calls;
 import com.deange.uwaterlooapi.sample.ui.modules.ModuleHostActivity;
 import com.deange.uwaterlooapi.sample.utils.NetworkController;
 import com.deange.uwaterlooapi.sample.utils.Px;
-
 import java.util.List;
-
 import retrofit2.Call;
 
 public abstract class BaseModuleFragment<T extends Parcelable, V extends AbstractModel>

@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.deange.uwaterlooapi.UWaterlooApi;
 import com.deange.uwaterlooapi.annotations.ModuleFragment;
 import com.deange.uwaterlooapi.model.Metadata;
@@ -24,10 +26,6 @@ import com.deange.uwaterlooapi.sample.utils.DateUtils;
 import com.deange.uwaterlooapi.sample.utils.IntentUtils;
 import com.deange.uwaterlooapi.sample.utils.Joiner;
 import com.deange.uwaterlooapi.sample.utils.ViewUtils;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 
 @ModuleFragment(path = "/news/*/*")
@@ -81,7 +79,7 @@ public class NewsFragment
   public Call<Responses.NewsEntity> onLoadData(final UWaterlooApi api) {
     final NewsDetails news = getModel();
 
-    return api.News.getNews(news.getSite(), news.getId());
+    return api.news().getNews(news.getSite(), news.getId());
   }
 
   @Override

@@ -20,7 +20,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import com.deange.uwaterlooapi.sample.Analytics;
 import com.deange.uwaterlooapi.sample.R;
 import com.deange.uwaterlooapi.sample.ui.view.GooseView;
