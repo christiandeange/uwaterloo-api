@@ -2,5 +2,6 @@ include ':sample',
         ':uwaterlooapi-core',
         ':uwaterlooapi-okhttp',
         ':uwaterlooapi-rxjava1',
+        ':uwaterlooapi-rxjava2',
         ':uwaterlooapi-annotations',
         ':uwaterlooapi-processor'
