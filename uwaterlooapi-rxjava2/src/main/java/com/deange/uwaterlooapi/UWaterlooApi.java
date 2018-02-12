@@ -13,10 +13,14 @@ import com.deange.uwaterlooapi.api.TermsApi;
 import com.deange.uwaterlooapi.api.WatcardApi;
 import com.deange.uwaterlooapi.api.WeatherApi;
 import com.deange.uwaterlooapi.model.watcard.WatcardCredentials;
+import okhttp3.OkHttpClient;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import static com.deange.uwaterlooapi.utils.Endpoints.LEGACY_WEATHER;
 import static com.deange.uwaterlooapi.utils.Endpoints.UWATERLOO;
 import static com.deange.uwaterlooapi.utils.Endpoints.WATCARDS;
+import static io.reactivex.schedulers.Schedulers.io;
+import static java.util.Collections.singletonList;
 
 public final class UWaterlooApi {
 
@@ -34,13 +38,14 @@ public final class UWaterlooApi {
   private final LegacyWeatherApi legacyWeather;
   private final WatcardApi watcards;
 
-  private final String mApiKey;
+  private final String key;
   private WatcardCredentials mWatcardCredentials;
 
   public UWaterlooApi(final String apiKey) {
-    mApiKey = apiKey;
+    key = apiKey;
+    builder = new ApiBuilder(
+        client(), singletonList(RxJava2CallAdapterFactory.createWithScheduler(io())));
 
-    builder = new ApiBuilder(this);
     foodServices = jsonApi(FoodServicesApi.class);
     courses = jsonApi(CoursesApi.class);
     events = jsonApi(EventsApi.class);
@@ -56,7 +61,7 @@ public final class UWaterlooApi {
   }
 
   public String getApiKey() {
-    return mApiKey;
+    return key;
   }
 
   public WatcardCredentials getWatcardCredentials() {
@@ -125,5 +130,13 @@ public final class UWaterlooApi {
 
   private <T> T customApi(String url, Class<T> clazz) {
     return builder.buildCustom(url, clazz);
+  }
+
+  private OkHttpClient client() {
+    return new OkHttpClient.Builder()
+        .cookieJar(new MemoryCookieJar())
+        .addInterceptor(new UWaterlooApiInterceptor(this))
+        .addInterceptor(new WatcardInterceptor(this))
+        .build();
   }
 }
